@@ -1,5 +1,5 @@
 {
-  "name": "@codeponder/web",
+  "name": "@medium/web",
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon server/index.ts",
@@ -9,8 +9,8 @@
     "generate": "gql-gen"
   },
   "dependencies": {
-    "@codeponder/common": "1.0.0",
-    "@codeponder/ui": "1.0.0",
+    "@medium/common": "1.0.0",
+    "@medium/ui": "1.0.0",
     "apollo-boost": "0.1.23",
     "formik": "1.4.1",
     "isomorphic-unfetch": "3.0.0",

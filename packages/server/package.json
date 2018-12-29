@@ -1,5 +1,5 @@
 {
-  "name": "@codeponder/server",
+  "name": "@medium/server",
   "version": "0.0.1",
   "private": true,
   "description": "Awesome project developed with TypeORM.",

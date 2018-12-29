@@ -1,5 +1,5 @@
 {
-  "name": "@codeponder/ui",
+  "name": "@medium/ui",
   "version": "1.0.0",
   "private": true,
   "main": "dist/src/index.js",

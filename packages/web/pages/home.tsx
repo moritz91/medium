@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "@codeponder/ui";
+import { Button } from "@medium/ui";
 
 export default class Home extends React.Component {
   render() {
