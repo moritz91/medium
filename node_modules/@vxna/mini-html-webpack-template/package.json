@@ -1,0 +1,45 @@
+{
+  "name": "@vxna/mini-html-webpack-template",
+  "version": "0.1.7",
+  "description": "Minimum viable template for mini-html-webpack-plugin",
+  "author": "@vxna",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vxna/mini-html-webpack-template.git"
+  },
+  "keywords": [
+    "webpack", 
+    "mini-html-webpack-plugin"
+  ],
+  "engines": {
+    "node": ">= 6.9.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "format": "prettier --write **/*.{js,md}",
+    "precommit": "npm run test && npm run format"
+  },
+  "dependencies": {
+    "common-tags": "^1.7.2"
+  },
+  "devDependencies": {
+    "@webpack-contrib/test-utils": "^0.1.2",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "mini-html-webpack-plugin": "^0.2.3",
+    "prettier": "^1.11.1",
+    "webpack": "^4.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
+}
