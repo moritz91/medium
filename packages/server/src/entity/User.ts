@@ -4,16 +4,22 @@ import { ObjectType, Field } from "type-graphql";
 @Entity()
 @ObjectType()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid") id: string;
+  @Field()
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Field()
+  @Column({ type: "text", unique: true, nullable: true })
+  username?: string;
+
   @Column({ type: "text", unique: true })
-  username: string;
+  githubId: string;
 
   @Field()
-  @Column({ type: "text", unique: true })
-  email: string;
+  @Column({ type: "text" })
+  pictureUrl: string;
 
-  @Column()
-  password: string;
+  @Field()
+  @Column({ type: "text", nullable: true })
+  bio: string;
 }
