@@ -29,7 +29,8 @@ const startServer = async () => {
   const server = new ApolloServer({
     schema: await buildSchema({
       resolvers: [UserResolver]
-    })
+    }),
+    context: ({ req }: any) => ({ req })
   });
 
   app.set("trust proxy", 1);
@@ -39,9 +40,22 @@ const startServer = async () => {
       credentials: true,
       origin: process.env.NODE_ENV = "production"
         ? "http://www.xy.com"
-        : "http://http://localhost:3001"
+        : "http://localhost:3000"
     })
   );
+
+  app.use((req, _, next) => {
+    const authorization = req.headers.authorization;
+
+    if (authorization) {
+      try {
+        const qid = authorization.split(" ")[1];
+        req.headers.cookie = `qid=${qid}`;
+      } catch (_) {}
+    }
+
+    return next();
+  });
 
   app.use(
     session({
@@ -78,23 +92,29 @@ const startServer = async () => {
           }).save();
         }
 
-        cb(null, { user, accessToken, refreshToken });
+        cb(null, {
+          user,
+          accessToken,
+          refreshToken
+        });
       }
     )
   );
 
   app.use(passport.initialize());
 
-  app.get("/auth/github", passport.authenticate("github"));
+  app.get("/auth/github", passport.authenticate("github", { session: false }));
 
   app.get(
     "/oauth/github",
     passport.authenticate("github", { session: false }),
-    function(req: any, res) {
-      req.session.userId = req.user.id;
-      req.session.accessToken = req.user.accessToken;
-      req.session.refreshToken = req.user.refreshToken;
-      res.redirect("http://localhost:3000");
+    (req: any, res) => {
+      if (req.user.user.id) {
+        req.session.userId = req.user.user.id;
+        req.session.accessToken = req.user.accessToken;
+        req.session.refreshToken = req.user.refreshToken;
+      }
+      res.redirect("http://localhost:3000/");
     }
   );
 

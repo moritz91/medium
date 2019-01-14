@@ -12,6 +12,8 @@
     "@medium/common": "1.0.0",
     "@medium/ui": "1.0.0",
     "apollo-boost": "0.1.23",
+    "apollo-link-context": "^1.0.12",
+    "cookie": "^0.3.1",
     "formik": "1.4.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "7.0.2",
@@ -22,6 +24,7 @@
     "styled-components": "4.1.3"
   },
   "devDependencies": {
+    "@types/cookie": "^0.3.2",
     "@types/next": "7.0.6",
     "@types/react": "16.7.18",
     "@types/react-dom": "16.0.11",
@@ -31,8 +34,8 @@
     "graphql-code-generator": "0.15.2",
     "graphql-codegen-typescript-client": "0.15.2",
     "graphql-codegen-typescript-common": "0.15.2",
-    "nodemon": "1.18.9",
     "graphql-codegen-typescript-react-apollo": "0.15.2",
+    "nodemon": "1.18.9",
     "ts-node": "7.0.1",
     "typescript": "3.2.2",
     "url-loader": "1.1.2"
