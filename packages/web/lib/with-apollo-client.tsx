@@ -7,8 +7,6 @@ import Head from "next/head";
 import initApollo from "./init-apollo";
 import { isBrowser } from "./isBrowser";
 import { NormalizedCacheObject, ApolloClient } from "apollo-boost";
-import { MeQuery } from "./schema-types";
-import { meQuery } from "../graphql/user/query/me";
 
 function parseCookies(req?: any, options = {}) {
   return cookie.parse(
@@ -36,13 +34,6 @@ export default (App: any) => {
           getToken: () => parseCookies(req).qid
         }
       );
-
-      const {
-        data: { me }
-      } = await apollo.query<MeQuery>({
-        query: meQuery
-      });
-      console.log(me);
 
       ctx.ctx.apolloClient = apollo;
 

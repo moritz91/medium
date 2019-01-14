@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 
 export default class Index extends React.PureComponent {
   static async getInitialProps({ apolloClient }: NextContextWithApollo) {
-    await apolloClient.query({
+    const response: any = await apolloClient.query({
       query: gql`
         {
           me {
@@ -16,9 +16,12 @@ export default class Index extends React.PureComponent {
         }
       `
     });
+
+    return response.data.me ? response.data.me : {};
   }
 
   render() {
-    return <div>{JSON.stringify(this.props, null, 2)}</div>;
+    const { pictureUrl } = this.props as any;
+    return <img src={pictureUrl} />;
   }
 }
