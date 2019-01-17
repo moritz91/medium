@@ -15,6 +15,7 @@ import * as cors from "cors";
 import { createTypeormConn } from "./createTypeormConn";
 import { UserResolver } from "./modules/user/UserResolver";
 import { User } from "./entity/User";
+import { LogoutResolver } from "./modules/user/Logout";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -28,9 +29,9 @@ const startServer = async () => {
 
   const server = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver]
+      resolvers: [UserResolver, LogoutResolver]
     }),
-    context: ({ req }: any) => ({ req })
+    context: ({ req, res }: any) => ({ req, res })
   });
 
   app.set("trust proxy", 1);

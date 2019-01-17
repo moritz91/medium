@@ -1,11 +1,13 @@
-import { Resolver, Query, Ctx } from "type-graphql";
+import { Resolver, Query, Ctx, UseMiddleware } from "type-graphql";
 import { User } from "../../entity/User";
 import { MyContext } from "src/types/Context";
+import { isAuth } from "../middleware/isAuth";
 
 @Resolver(User)
 export class UserResolver {
   constructor() {}
 
+  @UseMiddleware(isAuth)
   @Query(() => User, { nullable: true })
   async me(
     @Ctx()
