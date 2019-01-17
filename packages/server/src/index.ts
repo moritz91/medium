@@ -16,6 +16,7 @@ import { createTypeormConn } from "./createTypeormConn";
 import { UserResolver } from "./modules/user/UserResolver";
 import { User } from "./entity/User";
 import { LogoutResolver } from "./modules/user/Logout";
+import { userLoader } from "./loaders/UserLoader";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -31,7 +32,7 @@ const startServer = async () => {
     schema: await buildSchema({
       resolvers: [UserResolver, LogoutResolver]
     }),
-    context: ({ req, res }: any) => ({ req, res })
+    context: ({ req, res }: any) => ({ req, res, userLoader: userLoader() })
   });
 
   app.set("trust proxy", 1);
