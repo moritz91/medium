@@ -16,6 +16,10 @@ export class Posting extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Field()
+  @Column("uuid")
+  creatorId: string;
+
   @Field(() => User)
   @ManyToOne(() => User, user => user.postings)
   creator: Promise<User>;

@@ -3,6 +3,8 @@ import { findOrCreateResolver } from "../shared/find-or-create-resolver";
 import { CreatePostingResponse } from "./CreateResponse";
 import { CreatePostingInput } from "./CreateInput";
 import { Posting } from "../../entity/Posting";
+import { loadCreatorResolver } from "../shared/load-creator-resolver";
+import { getByIdResolver } from "../shared/get-by-id-resolver";
 
 const suffix = "Posting";
 
@@ -13,6 +15,10 @@ export const findOrCreatePosting = findOrCreateResolver(
   CreatePostingResponse,
   ["commitId", "repo", "repoOwner"] as any
 );
+
+export const loadCreatorForPosting = loadCreatorResolver(Posting);
+
+export const getCodeReviewPostById = getByIdResolver(suffix, Posting, Posting);
 
 @Resolver()
 export class PostingResolver {
