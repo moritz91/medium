@@ -1,4 +1,10 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
@@ -10,9 +16,9 @@ export class Posting extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Field({ description: "The author of the posting" })
-  @Column({ type: "text" })
-  author: User;
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.postings)
+  creator: Promise<User>;
 
   @Field({ description: "The title of the posting" })
   @Column({ type: "text" })

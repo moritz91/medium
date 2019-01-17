@@ -1,8 +1,8 @@
 import { Resolver, Query } from "type-graphql";
-import { Posting } from "src/entity/Posting";
-import { CreatePostingInput } from "src/modules/posting/CreateInput";
 import { findOrCreateResolver } from "../shared/find-or-create-resolver";
 import { CreatePostingResponse } from "./CreateResponse";
+import { CreatePostingInput } from "./CreateInput";
+import { Posting } from "../../entity/Posting";
 
 const suffix = "Posting";
 

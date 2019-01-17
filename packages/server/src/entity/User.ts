@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+import { Posting } from "./Posting";
 
 @Entity()
 @ObjectType()
@@ -22,4 +29,7 @@ export class User extends BaseEntity {
   @Field({ nullable: true })
   @Column({ type: "text", nullable: true })
   bio: string;
+
+  @OneToMany(() => Posting, post => post.creator)
+  postings: Promise<Posting[]>;
 }

@@ -1,5 +1,5 @@
-import { Posting } from "src/entity/Posting";
 import { InputType, Field } from "type-graphql";
+import { Posting } from "../../entity/Posting";
 
 @InputType({ description: "New posting data" })
 export class CreatePostingInput implements Partial<Posting> {
