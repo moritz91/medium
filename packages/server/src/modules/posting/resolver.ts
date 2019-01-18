@@ -17,8 +17,7 @@ export const findOrCreatePosting = findOrCreateResolver(
 );
 
 export const loadCreatorForPosting = loadCreatorResolver(Posting);
-
-export const getCodeReviewPostById = getByIdResolver(suffix, Posting, Posting);
+export const getPostingById = getByIdResolver(suffix, Posting, Posting);
 
 @Resolver()
 export class PostingResolver {

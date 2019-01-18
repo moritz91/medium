@@ -9,7 +9,7 @@ storiesOf("Button", module)
   .add("with some emoji", () => (
     <Button onClick={action("clicked")}>
       <span role="img" aria-label="so cool">
-        hey
+        hey you
       </span>
     </Button>
   ));
