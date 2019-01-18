@@ -32,7 +32,7 @@ export class Posting extends BaseEntity {
   @Column({ type: "text" })
   body: string;
 
-  @Field(() => [Rate])
+  @Field(() => [Rate], { nullable: true })
   @Column({ type: "int", nullable: true })
   ratings: Rate[];
 }
