@@ -52,6 +52,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: git checkout prod
+      - run: git checkout master
       - run: git merge staging
-      - run: git push origin prod
+      - run: git push origin master
