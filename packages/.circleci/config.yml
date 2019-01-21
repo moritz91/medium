@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/tmp
     docker:
-      - image: circle/node10.15.0
+      - image: circleci/node10.15.0
     steps:
       - checkout
       - run: yarn install
