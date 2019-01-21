@@ -1,5 +1,3 @@
-# medium
-
 ## Packages
 
 - server
