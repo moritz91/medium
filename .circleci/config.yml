@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/tmp
     docker:
-      - image: circleci/node9
+      - image: circleci/node:10-browsers
     steps:
       - checkout
       - run: yarn install
