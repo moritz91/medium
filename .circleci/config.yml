@@ -1,14 +1,3 @@
-# version: 2
-# jobs:
-#   build:
-#     working_directory: ~/tmp
-#     docker:
-#       - image: circleci/node:10-browsers
-#     steps:
-#       - checkout
-#       - run: yarn install
-#       - run: yarn test
-
 # Javascript Node CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
@@ -55,3 +44,20 @@ jobs:
       - run: git checkout master
       - run: git merge staging
       - run: git push origin master
+
+workflows:
+  version: 2
+  # The build and deploy workflow
+  build_and_deploy:
+    jobs:
+      - build
+      # The deploy job will only run on the filtered branches and
+      # require the build job to be successful before it starts
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - staging
+                - master
