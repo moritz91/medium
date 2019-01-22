@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout
       - run: git checkout master
-      - run: git merge origin/staging
+      - run: git merge staging
       - run: git push origin master
 
 workflows:
