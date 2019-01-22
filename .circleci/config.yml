@@ -36,6 +36,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run: git fetch
       - run: git config --global user.email "moritz.giller@hotmail.com"
       - run: git config --global user.name "Moritz Giller"
       - run: git checkout master
