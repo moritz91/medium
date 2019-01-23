@@ -38,7 +38,7 @@ jobs:
       - checkout
       - run: git config --global user.email "moritz.giller@hotmail.com"
       - run: git config --global user.name "Moritz Giller"
-      - run: git checkout -b master
+      - run: git checkout master
       - run: git merge origin/staging
       - run: git push origin master
 
