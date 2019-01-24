@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const getPostingByIdQuery = gql`
-  query GetPostingById {
+  query GetPostingById($id: String!) {
     getPostingById(id: $id) {
       title
       body
