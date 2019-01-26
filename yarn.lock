@@ -2481,10 +2481,6 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/graphql@14.0.5":
-  version "14.0.5"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.0.5.tgz#e696292fd2d77dc168b5b791710f83463aa39abd"
-
 "@types/graphql@^14.0.2":
   version "14.0.3"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.0.3.tgz#389e2e5b83ecdb376d9f98fae2094297bc112c1c"
@@ -3538,6 +3534,10 @@ are-we-there-yet@~1.1.2:
   dependencies:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
+
+arg@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
 
 argon2@0.20.0:
   version "0.20.0"
@@ -7759,7 +7759,13 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.1"
     object-path "^0.11.4"
 
-graphql@14.0.2, graphql@14.1.1, graphql@^14.0.2:
+graphql@14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.1.1.tgz#d5d77df4b19ef41538d7215d1e7a28834619fac0"
+  dependencies:
+    iterall "^1.2.2"
+
+graphql@^14.0.2:
   version "14.0.2"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
   dependencies:
@@ -14677,6 +14683,17 @@ ts-node@7.0.1:
     make-error "^1.1.1"
     minimist "^1.2.0"
     mkdirp "^0.5.1"
+    source-map-support "^0.5.6"
+    yn "^2.0.0"
+
+ts-node@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-8.0.1.tgz#cad98e8d50f0474f0d763ca8dc4c1bf8b7554ae2"
+  dependencies:
+    arg "^4.1.0"
+    arrify "^1.0.0"
+    diff "^3.1.0"
+    make-error "^1.1.1"
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
