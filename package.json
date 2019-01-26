@@ -13,6 +13,6 @@
     "lerna": "3.10.7"
   },
   "resolutions": {
-    "graphql": "14.0.2"
+    "graphql": "14.1.1"
   }
 }
