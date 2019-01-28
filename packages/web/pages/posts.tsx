@@ -24,7 +24,7 @@ export default class Posts extends React.Component<State> {
                 {data && data.findPosting && (
                   <>
                     {data.findPosting.posts.map(post => (
-                      <div key={post.id}>{post}</div>
+                      <div key={post.id}>{post.title} // {post.body}</div>
                     ))}
                   </>
                 )}
