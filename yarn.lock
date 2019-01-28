@@ -3539,9 +3539,9 @@ arg@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/arg/-/arg-4.1.0.tgz#583c518199419e0037abb74062c37f8519e575f0"
 
-argon2@0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.20.0.tgz#5c7012b3c75067db6f46def5618cf4b3b56cc73f"
+argon2@0.20.1:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.20.1.tgz#f58d2a0aeaf88bbe5762df02c3455e6f4f1bbbf3"
   dependencies:
     "@phc/format" "^0.5.0"
     bindings "^1.3.0"
@@ -12409,9 +12409,9 @@ react-addons-create-fragment@^15.5.3:
     loose-envify "^1.3.1"
     object-assign "^4.1.0"
 
-react-apollo@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.4.0.tgz#22f68c429120d3c332adaef0d02c60771055d9ea"
+react-apollo@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.4.1.tgz#89db63ebacf01c1603553bb476f089492aaeab2c"
   dependencies:
     fbjs "^1.0.0"
     hoist-non-react-statics "^3.0.0"
