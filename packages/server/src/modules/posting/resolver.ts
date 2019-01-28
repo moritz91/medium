@@ -1,10 +1,14 @@
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Query, Arg } from "type-graphql";
 import { findOrCreateResolver } from "../shared/find-or-create-resolver";
 import { CreatePostingResponse } from "./CreateResponse";
 import { CreatePostingInput } from "./CreateInput";
 import { Posting } from "../../entity/Posting";
 import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import { getByIdResolver } from "../shared/get-by-id-resolver";
+import { getConnection } from "typeorm";
+import { ApolloError } from "apollo-server-core";
+import { FindPostingInput } from "./findInput";
+import { FindPostingResponse } from "./findResponse";
 
 const suffix = "Posting";
 
@@ -21,10 +25,27 @@ export const getPostingById = getByIdResolver(suffix, Posting, Posting);
 
 @Resolver()
 export class PostingResolver {
-  private postingsCollection: Posting[] = [];
+  @Query(() => FindPostingResponse)
+  async findPosting(@Arg("input")
+  {
+    offset,
+    limit
+  }: FindPostingInput): Promise<FindPostingResponse> {
+    if (limit > 6) {
+      throw new ApolloError("max limit of 6");
+    }
 
-  @Query(() => [Posting])
-  async postings() {
-    return await this.postingsCollection;
+    const posts = await getConnection()
+      .getRepository(Posting)
+      .createQueryBuilder("posting")
+      .skip(offset)
+      .take(limit + 1)
+      // .orderBy('"createdAt"', "DESC")
+      .getMany();
+
+    return {
+      hasMore: posts.length === limit + 1,
+      posts: posts.slice(0, limit)
+    };
   }
 }

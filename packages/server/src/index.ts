@@ -32,7 +32,8 @@ const startServer = async () => {
       resolvers: [__dirname + "/modules/**/resolver.*"],
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
-      }
+      },
+      validate: false
     }),
     context: ({ req, res }: any) => ({ req, res, userLoader: userLoader() })
   });

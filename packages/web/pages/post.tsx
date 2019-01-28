@@ -6,11 +6,14 @@ import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
+import { UserInfoFragment } from "../components/apollo-components";
+import { userInfoFragment } from "../graphql/user/fragments/UserInfo";
 
 interface Props {
   id: string;
-  creator: string;
+  creator: UserInfoFragment;
   title: string;
+  body: string;
 }
 
 export default class Post extends React.PureComponent<Props> {
@@ -30,15 +33,16 @@ export default class Post extends React.PureComponent<Props> {
     return {
       id,
       creator: getPostingById!.creator,
-      title: getPostingById!.title
+      title: getPostingById!.title,
+      body: getPostingById!.body
     };
   }
 
   render() {
-    const { title, creator, id } = this.props;
+    const { title, creator, body, id } = this.props;
     const context: ContextProps = {
       title,
-      creator,
+      creator: userInfoFragment,
       postId: id
     };
     return (
@@ -46,7 +50,8 @@ export default class Post extends React.PureComponent<Props> {
       <Layout title={`Posting: ${title}`}>
         <BigCard>
           <Heading m="0rem" fontFamily="rubik" fontSize={6}>
-            {/* {creator}/{title} */}
+            {creator.username} / {title}
+            <div>{body}</div>
           </Heading>
           <PostContext.Provider value={context} />
         </BigCard>
