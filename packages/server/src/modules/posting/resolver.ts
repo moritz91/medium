@@ -9,6 +9,7 @@ import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
 import { FindPostingInput } from "./findInput";
 import { FindPostingResponse } from "./findResponse";
+import { createResolver } from "../shared/create-resolver";
 
 const suffix = "Posting";
 
@@ -18,6 +19,13 @@ export const findOrCreatePosting = findOrCreateResolver(
   Posting,
   CreatePostingResponse,
   ["commitId", "repo", "repoOwner"] as any
+);
+
+export const createPosting = createResolver(
+  suffix,
+  CreatePostingInput,
+  Posting,
+  CreatePostingResponse
 );
 
 export const loadCreatorForPosting = loadCreatorResolver(Posting);

@@ -1,6 +1,9 @@
 import * as React from "react";
 import Layout from "../components/Layout";
 import { GetPostingsComponent } from "../components/apollo-components";
+import { BigCard, Wrapper } from "@medium/ui";
+import { Heading, Text, Image } from "rebass";
+import Link from "next/link";
 
 interface State {
   limit: number;
@@ -16,19 +19,32 @@ export default class Posts extends React.Component<State> {
   render() {
     return (
       // @ts-ignore
-      <Layout title={`Posting List`}>
+      <Layout title={`Postings`}>
         <GetPostingsComponent variables={{ input: { ...this.state } }}>
           {({ data }) => {
             return (
-              <div>
+              <Wrapper>
                 {data && data.findPosting && (
                   <>
                     {data.findPosting.posts.map(post => (
-                      <div key={post.id}>{post.title} // {post.body}</div>
+                      <BigCard key={post.id}>
+                        <Link as={`post/${post.id}`} href={`post/${post.id}`}>
+                          <Heading mb="1rem" fontFamily="rubik" fontSize={3}>
+                            {post.title}
+                          </Heading>
+                        </Link>
+                        <Text className={"Body"} fontSize={2} mb="1rem">
+                          {post.body}
+                        </Text>
+                        <Image src={post.creator.pictureUrl} borderRadius={3} />
+                        <Text fontSize={2} fontWeight="600">
+                          {post.creator.username}
+                        </Text>
+                      </BigCard>
                     ))}
                   </>
                 )}
-              </div>
+              </Wrapper>
             );
           }}
         </GetPostingsComponent>

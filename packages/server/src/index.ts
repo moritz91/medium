@@ -44,7 +44,7 @@ const startServer = async () => {
     cors({
       credentials: true,
       origin: process.env.NODE_ENV = "production"
-        ? "http://www.xy.com"
+        ? "http://localhost:3000" // http://www.xy.com
         : "http://localhost:3000"
     })
   );

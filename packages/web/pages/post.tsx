@@ -1,6 +1,6 @@
 import * as React from "react";
-import { BigCard } from "@medium/ui";
-import { Heading } from "rebass";
+import { BigCard, Wrapper } from "@medium/ui";
+import { Heading, Text, Image } from "rebass";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
@@ -48,13 +48,21 @@ export default class Post extends React.PureComponent<Props> {
     return (
       // @ts-ignore
       <Layout title={`Posting: ${title}`}>
-        <BigCard>
-          <Heading m="0rem" fontFamily="rubik" fontSize={6}>
-            {creator.username} / {title}
-            <div>{body}</div>
-          </Heading>
-          <PostContext.Provider value={context} />
-        </BigCard>
+        <Wrapper>
+          <BigCard>
+            <Heading mb="1rem" fontFamily="rubik" fontSize={3}>
+              {title}
+            </Heading>
+            <Text className={"Body"} fontSize={2} mb="1rem">
+              {body}
+            </Text>
+            <Image src={creator.pictureUrl} borderRadius={3} />
+            <Text fontSize={2} fontWeight="600">
+              {creator.username}
+            </Text>
+            <PostContext.Provider value={context} />
+          </BigCard>
+        </Wrapper>
       </Layout>
     );
   }
