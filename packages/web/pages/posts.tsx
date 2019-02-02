@@ -37,9 +37,7 @@ export default class Posts extends React.Component<State> {
                           {post.body}
                         </Text>
                         <Image src={post.creator.pictureUrl} borderRadius={3} />
-                        <Text fontSize={2} fontWeight="600">
-                          {post.creator.username}
-                        </Text>
+                        <Text fontSize={2}>{post.creator.username}</Text>
                       </BigCard>
                     ))}
                   </>
