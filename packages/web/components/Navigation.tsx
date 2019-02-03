@@ -3,7 +3,6 @@ import Link from "next/link";
 import { MyButton } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import gql from "graphql-tag";
-import { responsePathAsArray } from "graphql";
 
 export class Navigation extends React.PureComponent {
   static async getInitialProps({ apolloClient }: NextContextWithApollo) {

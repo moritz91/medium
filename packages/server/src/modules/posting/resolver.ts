@@ -14,16 +14,16 @@ import { DeletePostingInput } from "./DeleteInput";
 
 const suffix = "Posting";
 
-export const createPosting = createResolver(
+export const deletePosting = deleteResolver(
   suffix,
-  CreatePostingInput,
+  DeletePostingInput,
   Posting,
   PostingResponse
 );
 
-export const deletePosting = deleteResolver(
+export const createPosting = createResolver(
   suffix,
-  DeletePostingInput,
+  CreatePostingInput,
   Posting,
   PostingResponse
 );

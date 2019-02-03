@@ -56,7 +56,12 @@ export default class Post extends React.PureComponent<Props> {
             <Text className={"Body"} fontSize={2} mb="1rem">
               {body}
             </Text>
-            <Image src={creator.pictureUrl} borderRadius={3} />
+            <Image
+              src={creator.pictureUrl}
+              borderRadius={3}
+              height="20px"
+              width="20px"
+            />
             <Text fontSize={2}>{creator.username}</Text>
             <PostContext.Provider value={context} />
           </BigCard>
