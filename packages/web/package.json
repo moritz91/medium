@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/cookie": "0.3.2",
     "@types/lodash": "4.14.120",
-    "@types/next": "7.0.8",
+    "@types/next": "7.0.9",
     "@types/react": "16.8.1",
     "@types/react-dom": "16.0.11",
     "@zeit/next-css": "1.0.1",
