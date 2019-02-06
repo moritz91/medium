@@ -118,7 +118,6 @@ const theme: ITheme = {
     },
     form: {
       border: "1px solid rgba(27, 31, 35, 0.2)",
-      borderRadius: "0.25em",
       color: "rgb(36, 41, 46)",
       fontSize: "1em",
       marginRight: "1em",

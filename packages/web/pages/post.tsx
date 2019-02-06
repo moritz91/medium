@@ -50,10 +50,10 @@ export default class Post extends React.PureComponent<Props> {
       <Layout title={`Posting: ${title}`}>
         <Wrapper>
           <BigCard>
-            <Heading mb="1rem" fontFamily="rubik" fontSize={3}>
+            <Heading mb="1rem" fontSize={6}>
               {title}
             </Heading>
-            <Text className={"Body"} fontSize={2} mb="1rem">
+            <Text className={"Body"} fontSize={6} mb="1rem">
               {body}
             </Text>
             <Image
@@ -62,7 +62,7 @@ export default class Post extends React.PureComponent<Props> {
               height="20px"
               width="20px"
             />
-            <Text fontSize={2}>{creator.username}</Text>
+            <Text fontSize={4}>{creator.username}</Text>
             <PostContext.Provider value={context} />
           </BigCard>
         </Wrapper>

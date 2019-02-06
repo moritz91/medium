@@ -23,6 +23,6 @@
     "skipLibCheck": true,
     "composite": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../web/lib/redirect.ts"],
   "exclude": ["node_modules", "build", "scripts"]
 }

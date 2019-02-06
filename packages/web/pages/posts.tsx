@@ -29,11 +29,11 @@ export default class Posts extends React.Component<State> {
                     {data.findPosting.posts.map(post => (
                       <BigCard key={post.id}>
                         <Link as={`post/${post.id}`} href={`post/${post.id}`}>
-                          <Heading mb="1rem" fontFamily="rubik" fontSize={3}>
+                          <Heading mb="1rem" fontSize={6}>
                             {post.title}
                           </Heading>
                         </Link>
-                        <Text className={"Body"} fontSize={2} mb="1rem">
+                        <Text className={"Body"} fontSize={6} mb="1rem">
                           {post.body}
                         </Text>
                         <Image
@@ -42,7 +42,7 @@ export default class Posts extends React.Component<State> {
                           height="20px"
                           width="20px"
                         />
-                        <Text fontSize={2}>{post.creator.username}</Text>
+                        <Text fontSize={4}>{post.creator.username}</Text>
                       </BigCard>
                     ))}
                   </>

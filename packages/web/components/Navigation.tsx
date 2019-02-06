@@ -28,15 +28,15 @@ export class Navigation extends React.PureComponent {
     return (
       <div>
         <a href="http://localhost:4000/auth/github">
-          <MyButton variant="primary">login with github</MyButton>
+          <MyButton variant="github">login with github</MyButton>
         </a>
         <Link as={"/posts"} href={"/posts"}>
-          <MyButton variant="primary">
+          <MyButton variant="form">
             <a>Posts</a>
           </MyButton>
         </Link>
         <Link as={"/create-post"} href={"/create-post"}>
-          <MyButton variant="primary">
+          <MyButton variant="form">
             <a>Create post</a>
           </MyButton>
         </Link>

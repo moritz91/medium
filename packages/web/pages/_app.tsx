@@ -1,3 +1,4 @@
+import { GlobalStyle, theme, ThemeProvider } from "@medium/ui";
 import App, { Container } from "next/app";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
@@ -10,10 +11,13 @@ class MyApp extends App {
     const { Component, pageProps, apolloClient } = this.props as any;
     return (
       <Container>
-        <ApolloProvider client={apolloClient}>
-          <Navigation />
-          <Component {...pageProps} />
-        </ApolloProvider>
+        <GlobalStyle />
+        <ThemeProvider theme={theme}>
+          <ApolloProvider client={apolloClient}>
+            <Navigation />
+            <Component {...pageProps} />
+          </ApolloProvider>
+        </ThemeProvider>
       </Container>
     );
   }

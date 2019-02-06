@@ -16,7 +16,10 @@ export { css, createGlobalStyle, keyframes, ThemeProvider, styled };
 export default styled;
 export const GlobalStyle = createGlobalStyle`
 body {
-  background-color: #F9FBFD;
+  background-color: #242b38;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color: rgb(233, 236, 241)
 }
 * {
   outline: none;
