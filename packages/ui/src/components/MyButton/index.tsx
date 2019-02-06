@@ -14,6 +14,7 @@ const StyledButton = styled.button`
   text-transform: uppercase;
   font-weight: 500;
   cursor: pointer;
+  outline: none;
   ${buttonStyle}
 `;
 

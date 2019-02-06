@@ -35,6 +35,11 @@ export class Navigation extends React.PureComponent {
             <a>Posts</a>
           </MyButton>
         </Link>
+        <Link as={"/create-post"} href={"/create-post"}>
+          <MyButton variant="primary">
+            <a>Create post</a>
+          </MyButton>
+        </Link>
         <img src={pictureUrl} />
       </div>
     );
