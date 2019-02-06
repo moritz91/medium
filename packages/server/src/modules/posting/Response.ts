@@ -12,3 +12,12 @@ export class DeletePostingResponse {
   @Field()
   ok: boolean;
 }
+
+@ObjectType()
+export class FindPostingResponse {
+  @Field()
+  hasMore: boolean;
+
+  @Field(() => [Posting])
+  posts: Posting[];
+}
