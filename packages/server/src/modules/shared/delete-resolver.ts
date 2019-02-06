@@ -1,14 +1,4 @@
-import {
-  Resolver,
-  Authorized,
-  Arg,
-  Mutation,
-  Ctx,
-  FieldResolver,
-  Root
-} from "type-graphql";
-import { MyContext } from "../../types/Context";
-import { User } from "../../entity/User";
+import { Resolver, Authorized, Arg, Mutation } from "type-graphql";
 
 export function deleteResolver<ArgType extends Object, T extends Object>(
   suffix: string,
@@ -20,26 +10,17 @@ export function deleteResolver<ArgType extends Object, T extends Object>(
   @Resolver(entity)
   abstract class BaseResolver {
     @Authorized()
-    @Mutation(() => graphqlReturnType, { name: `create${suffix}` })
-    async create(
-      @Arg(argAndReturnKeyName, () => argType) input: ArgType,
-      @Ctx()
-      ctx: MyContext
-    ) {
-      const value = await (entity as any)
-        .delete({
-          ...(input as any),
-          creatorId: ctx.req.session!.userId
-        })
-        .save();
-      return {
-        [argAndReturnKeyName]: value
-      };
-    }
+    @Mutation(() => graphqlReturnType, { name: `delete${suffix}` })
+    async create(@Arg(argAndReturnKeyName, () => argType) input: ArgType) {
+      const value = await entity.findOne({ input });
 
-    @FieldResolver(() => User)
-    creator(@Root() root: any, @Ctx() ctx: MyContext) {
-      return ctx.userLoader.load(root.creatorId);
+      if (value) {
+        await entity.remove(value);
+        return { ok: true };
+      }
+      return {
+        ok: false
+      };
     }
   }
 

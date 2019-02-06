@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg } from "type-graphql";
-import { PostingResponse } from "./Response";
+import { DeletePostingResponse, CreatePostingResponse } from "./Response";
 import { CreatePostingInput } from "./CreateInput";
 import { Posting } from "../../entity/Posting";
 import { loadCreatorResolver } from "../shared/load-creator-resolver";
@@ -18,14 +18,14 @@ export const deletePosting = deleteResolver(
   suffix,
   DeletePostingInput,
   Posting,
-  PostingResponse
+  DeletePostingResponse
 );
 
 export const createPosting = createResolver(
   suffix,
   CreatePostingInput,
   Posting,
-  PostingResponse
+  CreatePostingResponse
 );
 
 export const loadCreatorForPosting = loadCreatorResolver(Posting);
