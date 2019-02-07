@@ -5,4 +5,4 @@ export const routes = nextRoutes() as Routes;
 export const Router = routes.Router;
 export const Link = routes.Link;
 
-routes.add("post", "/post/:id/:path*");
+routes.add("post", "/p/:id/:path*");

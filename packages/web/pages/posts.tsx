@@ -28,7 +28,7 @@ export default class Posts extends React.Component<State> {
                   <>
                     {data.findPosting.posts.map(post => (
                       <BigCard key={post.id}>
-                        <Link as={`post/${post.id}`} href={`post/${post.id}`}>
+                        <Link as={`p/${post.id}`} href={`p/${post.id}`}>
                           <Heading mb="1rem" fontSize={6}>
                             {post.title}
                           </Heading>
