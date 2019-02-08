@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MyButton } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import gql from "graphql-tag";
+import { CreatePostingModal } from "../modules/shared/CreatePostingModal";
 
 export class Navigation extends React.PureComponent {
   static async getInitialProps({ apolloClient }: NextContextWithApollo) {
@@ -35,12 +36,7 @@ export class Navigation extends React.PureComponent {
             <a>Posts</a>
           </MyButton>
         </Link>
-        <Link as={"/create-post"} href={"/create-post"}>
-          <MyButton variant="form">
-            <a>Create post</a>
-          </MyButton>
-        </Link>
-        <img src={pictureUrl} />
+        <CreatePostingModal />
       </div>
     );
   }

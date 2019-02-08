@@ -5,6 +5,10 @@ export interface FindPostingInput {
 
   limit: number;
 }
+/** Old posting data */
+export interface DeletePostingInput {
+  id: string;
+}
 /** New posting data */
 export interface CreatePostingInput {
   title: string;
@@ -18,6 +22,54 @@ export type DateTime = any;
 // ====================================================
 // Documents
 // ====================================================
+
+export type CreatePostingVariables = {
+  posting: CreatePostingInput;
+};
+
+export type CreatePostingMutation = {
+  __typename?: "Mutation";
+
+  createPosting: CreatePostingCreatePosting;
+};
+
+export type CreatePostingCreatePosting = {
+  __typename?: "CreatePostingResponse";
+
+  posting: CreatePostingPosting;
+};
+
+export type CreatePostingPosting = {
+  __typename?: "Posting";
+
+  id: string;
+
+  title: string;
+
+  body: string;
+
+  ratings: Maybe<CreatePostingRatings[]>;
+
+  creator: CreatePostingCreator;
+};
+
+export type CreatePostingRatings = {
+  __typename?: "Rate";
+
+  date: DateTime;
+
+  value: number;
+};
+
+export type CreatePostingCreator = {
+  __typename?: "User";
+
+  id: string;
+
+  username: Maybe<string>;
+
+  pictureUrl: string;
+};
 
 export type GetPostingByIdVariables = {
   id: string;
@@ -49,15 +101,7 @@ export type GetPostingByIdRatings = {
   value: number;
 };
 
-export type GetPostingByIdCreator = {
-  __typename?: "User";
-
-  id: string;
-
-  username: Maybe<string>;
-
-  pictureUrl: string;
-};
+export type GetPostingByIdCreator = UserInfoFragment;
 
 export type GetPostingsVariables = {
   input: FindPostingInput;
@@ -150,6 +194,65 @@ export const PostingInfoFragmentDoc = gql`
 // Components
 // ====================================================
 
+export const CreatePostingDocument = gql`
+  mutation createPosting($posting: CreatePostingInput!) {
+    createPosting(posting: $posting) {
+      posting {
+        id
+        title
+        body
+        ratings {
+          date
+          value
+        }
+        creator {
+          id
+          username
+          pictureUrl
+        }
+      }
+    }
+  }
+`;
+export class CreatePostingComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<CreatePostingMutation, CreatePostingVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<CreatePostingMutation, CreatePostingVariables>
+        mutation={CreatePostingDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreatePostingProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreatePostingMutation, CreatePostingVariables>
+> &
+  TChildProps;
+export type CreatePostingMutationFn = ReactApollo.MutationFn<
+  CreatePostingMutation,
+  CreatePostingVariables
+>;
+export function CreatePostingHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreatePostingMutation,
+        CreatePostingVariables,
+        CreatePostingProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreatePostingMutation,
+    CreatePostingVariables,
+    CreatePostingProps<TChildProps>
+  >(CreatePostingDocument, operationOptions);
+}
 export const GetPostingByIdDocument = gql`
   query GetPostingById($id: String!) {
     getPostingById(id: $id) {
@@ -160,12 +263,12 @@ export const GetPostingByIdDocument = gql`
         value
       }
       creator {
-        id
-        username
-        pictureUrl
+        ...UserInfo
       }
     }
   }
+
+  ${UserInfoFragmentDoc}
 `;
 export class GetPostingByIdComponent extends React.Component<
   Partial<ReactApollo.QueryProps<GetPostingByIdQuery, GetPostingByIdVariables>>

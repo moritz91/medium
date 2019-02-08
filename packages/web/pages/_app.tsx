@@ -5,6 +5,11 @@ import { ApolloProvider } from "react-apollo";
 
 import withApolloClient from "../lib/with-apollo-client";
 import { Navigation } from "../components/Navigation";
+import ReactModal from "react-modal";
+
+if (typeof window !== "undefined") {
+  ReactModal.setAppElement("body");
+}
 
 class MyApp extends App {
   render() {
