@@ -16,7 +16,7 @@
     "cookie": "0.3.1",
     "formik": "1.5.0",
     "isomorphic-unfetch": "3.0.0",
-    "next": "7.0.2",
+    "next": "7.0.3",
     "next-routes": "1.4.2",
     "react": "16.8.0-alpha.1",
     "react-apollo": "2.4.0",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/cookie": "0.3.2",
-    "@types/next": "7.0.6",
+    "@types/next": "7.0.9",
     "@types/react": "16.7.20",
     "@types/react-dom": "16.0.11",
     "@zeit/next-css": "1.0.1",
