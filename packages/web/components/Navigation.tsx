@@ -24,8 +24,6 @@ export class Navigation extends React.PureComponent {
   }
 
   render() {
-    const { pictureUrl } = this.props as any;
-
     return (
       <div>
         <a href="http://localhost:4000/auth/github">

@@ -22,8 +22,9 @@ const customStyles = {
 
 export const CreatePostingModal = () => {
   const [open, changeOpen] = React.useState(false);
-  const [item, changeItem] = React.useState(null);
+  // const [item] = React.useState(null);
   const [title, changeTitle] = useInputValue("");
+  const [body, changeBody] = useInputValue("");
 
   return (
     <CreatePostingComponent
@@ -55,7 +56,7 @@ export const CreatePostingModal = () => {
               }}
             >
               <Heading color="#07385A" fontSize={6}>
-                Create Posting
+                NEW POSTING
               </Heading>
               <Icon
                 size={24}
@@ -66,12 +67,44 @@ export const CreatePostingModal = () => {
                 }}
                 onClick={() => changeOpen(false)}
               />
-              <Input
-                style={{ marginBottom: "2rem" }}
-                placeholder="Descriptive title"
-                value={title}
-                onChange={changeTitle}
-              />
+            </div>
+            <Input
+              style={{ marginBottom: "2rem" }}
+              placeholder="Title"
+              value={title}
+              onChange={changeTitle}
+            />
+            <Input
+              style={{ marginBottom: "2rem" }}
+              placeholder="Content"
+              value={body}
+              onChange={changeBody}
+            />
+            <div style={{ display: "flex" }}>
+              <MyButton
+                variant="form"
+                style={{
+                  marginLeft: "auto",
+                  marginTop: "2rem",
+                  marginRight: 0
+                }}
+                onClick={async () => {
+                  const response = await mutate({
+                    variables: {
+                      posting: {
+                        title,
+                        body
+                      }
+                    }
+                  });
+                  console.log(response);
+                  if (response && response.data) {
+                    changeOpen(false);
+                  }
+                }}
+              >
+                Publish
+              </MyButton>
             </div>
           </Modal>
           <MyButton variant="form" onClick={() => changeOpen(true)}>
