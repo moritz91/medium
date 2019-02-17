@@ -88,6 +88,8 @@ export type GetPostingByIdGetPostingById = {
 
   body: string;
 
+  createdAt: DateTime;
+
   ratings: Maybe<GetPostingByIdRatings[]>;
 
   creator: GetPostingByIdCreator;
@@ -142,6 +144,8 @@ export type PostingInfoFragment = {
 
   body: string;
 
+  createdAt: DateTime;
+
   creator: PostingInfoCreator;
 };
 
@@ -182,6 +186,7 @@ export const PostingInfoFragmentDoc = gql`
     id
     title
     body
+    createdAt
     creator {
       ...UserInfo
     }
@@ -258,6 +263,7 @@ export const GetPostingByIdDocument = gql`
     getPostingById(id: $id) {
       title
       body
+      createdAt
       ratings {
         date
         value

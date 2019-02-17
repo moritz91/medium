@@ -6,6 +6,7 @@ export const getPostingByIdQuery = gql`
     getPostingById(id: $id) {
       title
       body
+      createdAt
       ratings {
         date
         value

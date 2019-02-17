@@ -5,18 +5,13 @@ import { icons } from "../Icon/icons";
 
 const Container = styled.div`
   padding: 0.8rem 1.5rem;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06);
   background-color: #fff;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
 `;
 
 const MyInput = styled.input`
   padding-left: .1rem;
   border: none;
   font-size: 1.6rem
-  color: #b7c1c6;
   font-family: roboto;
   width: 100%;
 `;

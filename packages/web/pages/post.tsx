@@ -14,6 +14,7 @@ interface Props {
   creator: UserInfoFragment;
   title: string;
   body: string;
+  createdAt: string;
 }
 
 export default class Post extends React.PureComponent<Props> {
@@ -34,12 +35,13 @@ export default class Post extends React.PureComponent<Props> {
       id,
       creator: getPostingById!.creator,
       title: getPostingById!.title,
-      body: getPostingById!.body
+      body: getPostingById!.body,
+      createdAt: getPostingById!.createdAt
     };
   }
 
   render() {
-    const { title, creator, body, id } = this.props;
+    const { title, creator, body, id, createdAt } = this.props;
     const context: ContextProps = {
       title,
       creator: userInfoFragment,
@@ -62,7 +64,9 @@ export default class Post extends React.PureComponent<Props> {
               height="20px"
               width="20px"
             />
-            <Text fontSize={4}>{creator.username}</Text>
+            <Text fontSize={4}>
+              {creator.username} | posted at {createdAt}
+            </Text>
             <PostContext.Provider value={context} />
           </BigCard>
         </Wrapper>

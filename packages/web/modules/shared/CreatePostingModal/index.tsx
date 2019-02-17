@@ -3,7 +3,6 @@ import { useInputValue } from "../../../utils/useInputValue";
 import { CreatePostingComponent } from "../../../components/apollo-components";
 import { getPostingsQuery } from "../../../graphql/post/query/getPostings";
 import Modal from "react-modal";
-import { Heading } from "rebass";
 import { Icon, Input, MyButton } from "@medium/ui";
 
 const customStyles = {
@@ -14,9 +13,11 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: 450,
-    height: 500,
-    backgroundColor: "#f9fbfd"
+    width: 850,
+    height: 400
+  },
+  overlay: {
+    backgroundColor: "none"
   }
 };
 
@@ -55,15 +56,13 @@ export const CreatePostingModal = () => {
                 alignItems: "center"
               }}
             >
-              <Heading color="#07385A" fontSize={6}>
-                NEW POSTING
-              </Heading>
               <Icon
                 size={24}
                 name="x"
                 fill="#0d0d0d"
                 style={{
-                  cursor: "pointer"
+                  cursor: "pointer",
+                  marginLeft: "97%"
                 }}
                 onClick={() => changeOpen(false)}
               />
@@ -75,7 +74,7 @@ export const CreatePostingModal = () => {
               onChange={changeTitle}
             />
             <Input
-              style={{ marginBottom: "2rem" }}
+              style={{ minHeight: 100 }}
               placeholder="Content"
               value={body}
               onChange={changeBody}

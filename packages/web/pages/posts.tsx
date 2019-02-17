@@ -42,7 +42,9 @@ export default class Posts extends React.Component<State> {
                           height="20px"
                           width="20px"
                         />
-                        <Text fontSize={4}>{post.creator.username}</Text>
+                        <Text fontSize={4}>
+                          {post.creator.username} | posted at {post.createdAt}
+                        </Text>
                       </BigCard>
                     ))}
                   </>

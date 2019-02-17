@@ -6,6 +6,7 @@ export const PostingInfoFragment = gql`
     id
     title
     body
+    createdAt
     creator {
       ...UserInfo
     }
