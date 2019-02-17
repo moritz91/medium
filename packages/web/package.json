@@ -14,7 +14,7 @@
     "apollo-boost": "0.1.27",
     "apollo-link-context": "1.0.12",
     "cookie": "0.3.1",
-    "formik": "1.5.0",
+    "formik": "1.5.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "8.0.1",
     "next-routes": "1.4.2",
