@@ -9,7 +9,7 @@ interface Props {
   onClick?: () => void;
 }
 
-export const Icon: React.SFC<Props> = ({
+export const Icon: React.FC<Props> = ({
   name,
   size = 16,
   fill,

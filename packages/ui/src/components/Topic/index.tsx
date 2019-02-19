@@ -3,6 +3,6 @@ import { MyButton } from "../MyButton";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Topic: React.FunctionComponent<Props> = props => (
+export const Topic: React.FC<Props> = props => (
   <MyButton variant="topic" {...props} />
 );

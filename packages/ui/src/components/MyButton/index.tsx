@@ -18,6 +18,4 @@ const StyledButton = styled.button`
   ${buttonStyle}
 `;
 
-export const MyButton: React.FunctionComponent<Props> = props => (
-  <StyledButton {...props} />
-);
+export const MyButton: React.FC<Props> = props => <StyledButton {...props} />;
