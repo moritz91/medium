@@ -1,6 +1,5 @@
 import * as React from "react";
-import { BigCard, Wrapper } from "@medium/ui";
-import { Heading, Text, Image } from "rebass";
+import { Wrapper, PostRow } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
@@ -8,6 +7,7 @@ import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
 import { UserInfoFragment } from "../components/apollo-components";
 import { userInfoFragment } from "../graphql/user/fragments/UserInfo";
+import { Link } from "../server/routes";
 
 interface Props {
   id: string;
@@ -51,24 +51,17 @@ export default class Post extends React.PureComponent<Props> {
       // @ts-ignore
       <Layout title={`Posting: ${title}`}>
         <Wrapper>
-          <BigCard>
-            <Heading mb="1rem" fontSize={6}>
-              {title}
-            </Heading>
-            <Text className={"Body"} fontSize={6} mb="1rem">
-              {body}
-            </Text>
-            <Image
-              src={creator.pictureUrl}
-              borderRadius={3}
-              height="20px"
-              width="20px"
-            />
-            <Text fontSize={4}>
-              {creator.username} | posted at {createdAt}
-            </Text>
-            <PostContext.Provider value={context} />
-          </BigCard>
+          <PostRow
+            key={id}
+            id={id}
+            createdAt={createdAt}
+            creator={creator}
+            title={title}
+            body={body}
+            Link={Link}
+            getLinkProps={() => {}}
+          />
+          <PostContext.Provider value={context} />
         </Wrapper>
       </Layout>
     );

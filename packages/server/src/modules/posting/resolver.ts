@@ -53,7 +53,7 @@ export class PostingResolver {
       .createQueryBuilder("posting")
       .skip(offset)
       .take(limit + 1)
-      // .orderBy('"createdAt"', "DESC")
+      .orderBy('"createdAt"', "DESC")
       .getMany();
 
     return {

@@ -1,28 +1,30 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
-import { Box, Flex, Text } from "rebass";
+import { Flex, Text, Heading } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
 
 interface Props {
   id: string;
   title: string;
+  body: string;
   createdAt: string;
   creator: any;
   Link: any;
   getLinkProps: () => any;
 }
 
-export const PostRowContainer = styled("div")`
-  border-width: 0 0 0.1rem 0;
-  border-style: solid;
-  padding: 1.2rem;
-  border-color: #e6eaef;
+export const PostRowContainer = styled.div`
+  padding: 1rem;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
+    0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
+  margin: 1.6rem 0px;
 `;
 
 export const PostRow: React.FC<Props> = ({
   title,
   creator: { username, pictureUrl },
+  body,
   getLinkProps,
   Link,
   createdAt
@@ -35,7 +37,7 @@ export const PostRow: React.FC<Props> = ({
   return (
     <PostRowContainer>
       <Flex justifyContent="center">
-        <Avatar size={34} src={pictureUrl} alt="avatar" />
+        <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
         <div
           style={{
             paddingLeft: ".8rem",
@@ -45,26 +47,18 @@ export const PostRow: React.FC<Props> = ({
           }}
         >
           <Link {...linkProps}>
-            <a>
-              <Text fontSize={5} fontFamily="rubik">
-                {title}
-              </Text>
-            </a>
+            <Heading ml="0rem" mb="1rem" fontSize={6}>
+              {title}
+            </Heading>
           </Link>
+          <Text mb="1rem" fontSize={4}>
+            {body}
+          </Text>
           <Link {...linkProps}>
-            <a>
-              <Text
-                lineHeight="1rem"
-                fontFamily="rubik"
-                fontSize={3}
-                color="neutrals.2"
-                mb="1.2rem"
-              >
-                {username} • {dtString}
-              </Text>
-            </a>
+            <Text fontSize={4} mb="1rem">
+              {username} • {dtString}
+            </Text>
           </Link>
-          <Box mt=".4rem" />
         </div>
       </Flex>
     </PostRowContainer>
