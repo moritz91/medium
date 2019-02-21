@@ -37,7 +37,7 @@
     "graphql-codegen-typescript-react-apollo": "0.17.0",
     "nodemon": "1.18.10",
     "ts-node": "7.0.1",
-    "typescript": "3.3.3",
+    "typescript": "3.3.3333",
     "url-loader": "1.1.2"
   },
   "license": "ISC"
