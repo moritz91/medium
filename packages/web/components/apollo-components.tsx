@@ -1,6 +1,6 @@
 export type Maybe<T> = T | null;
 
-export interface FindPostingInput {
+export interface FindPostingsInput {
   offset: number;
 
   limit: number;
@@ -106,16 +106,16 @@ export type GetPostingByIdRatings = {
 export type GetPostingByIdCreator = UserInfoFragment;
 
 export type GetPostingsVariables = {
-  input: FindPostingInput;
+  input: FindPostingsInput;
 };
 
 export type GetPostingsQuery = {
   __typename?: "Query";
 
-  findPosting: GetPostingsFindPosting;
+  findPostings: GetPostingsFindPostings;
 };
 
-export type GetPostingsFindPosting = {
+export type GetPostingsFindPostings = {
   __typename?: "FindPostingResponse";
 
   posts: GetPostingsPosts[];
@@ -310,8 +310,8 @@ export function GetPostingByIdHOC<TProps, TChildProps = any>(
   >(GetPostingByIdDocument, operationOptions);
 }
 export const GetPostingsDocument = gql`
-  query getPostings($input: FindPostingInput!) {
-    findPosting(input: $input) {
+  query getPostings($input: FindPostingsInput!) {
+    findPostings(input: $input) {
       posts {
         ...PostingInfo
       }

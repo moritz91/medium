@@ -6,3 +6,4 @@ export const Router = routes.Router;
 export const Link = routes.Link;
 
 routes.add("post", "/p/:id/:path*");
+routes.add("profile", "/@:username/:path*");

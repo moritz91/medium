@@ -14,8 +14,10 @@ import { deleteResolver } from "../shared/delete-resolver";
 import {
   DeletePostingInput,
   CreatePostingInput,
-  FindPostingInput
+  FindPostingsInput
+  // FindUserPostingsInput
 } from "./Input";
+// import { findResolver } from "../shared/find-resolver";
 
 const suffix = "Posting";
 
@@ -33,17 +35,24 @@ export const createPosting = createResolver(
   CreatePostingResponse
 );
 
+// export const findUserPostings = findResolver(
+//   suffix,
+//   FindUserPostingsInput,
+//   Posting,
+//   CreatePostingResponse
+// );
+
 export const loadCreatorForPosting = loadCreatorResolver(Posting);
 export const getPostingById = getByIdResolver(suffix, Posting, Posting);
 
 @Resolver()
 export class PostingResolver {
   @Query(() => FindPostingResponse)
-  async findPosting(@Arg("input")
+  async findPostings(@Arg("input")
   {
     offset,
     limit
-  }: FindPostingInput): Promise<FindPostingResponse> {
+  }: FindPostingsInput): Promise<FindPostingResponse> {
     if (limit > 6) {
       throw new ApolloError("max limit of 6");
     }

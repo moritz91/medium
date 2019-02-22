@@ -1,5 +1,6 @@
 import { InputType, Field, Int } from "type-graphql";
 import { Posting } from "../../entity/Posting";
+import { User } from "../../entity/User";
 
 @InputType({ description: "New posting data" })
 export class CreatePostingInput implements Partial<Posting> {
@@ -17,10 +18,16 @@ export class DeletePostingInput implements Partial<Posting> {
 }
 
 @InputType()
-export class FindPostingInput {
+export class FindPostingsInput {
   @Field(() => Int)
   offset: number;
 
   @Field(() => Int)
   limit: number;
+}
+
+@InputType()
+export class FindUserPostingsInput {
+  @Field(() => User)
+  creator: Promise<User>;
 }

@@ -25,9 +25,9 @@ export default class Posts extends React.Component<State> {
           {({ data }) => {
             return (
               <Wrapper>
-                {data && data.findPosting && (
+                {data && data.findPostings && (
                   <>
-                    {data.findPosting.posts.map(post => (
+                    {data.findPostings.posts.map(post => (
                       <PostRow
                         key={post.id}
                         id={post.id}
@@ -43,25 +43,6 @@ export default class Posts extends React.Component<State> {
                           }
                         })}
                       />
-                      // <BigCard key={post.id}>
-                      //   <Link as={`p/${post.id}`} href={`p/${post.id}`}>
-                      //     <Heading mb="1rem" fontSize={6}>
-                      //       {post.title}
-                      //     </Heading>
-                      //   </Link>
-                      //   <Text className={"Body"} fontSize={6} mb="1rem">
-                      //     {post.body}
-                      //   </Text>
-                      //   <Image
-                      //     src={post.creator.pictureUrl}
-                      //     borderRadius={3}
-                      //     height="20px"
-                      //     width="20px"
-                      //   />
-                      //   <Text fontSize={4}>
-                      //     {post.creator.username} | posted at {post.createdAt}
-                      //   </Text>
-                      // </BigCard>
                     ))}
                   </>
                 )}

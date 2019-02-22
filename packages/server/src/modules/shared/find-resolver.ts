@@ -10,14 +10,15 @@ export function findResolver<ArgType extends Object, T extends Object>(
   @Resolver(entity)
   class BaseResolver {
     @Authorized()
-    @Query(() => graphqlReturnType, { name: `find${suffix}` })
-    async find(@Arg(argAndReturnKeyName, () => argType)
-    {
-      offset,
-      limit,
-      ...input
-    }: any) {
-      let where: any = {};
+    @Query(() => graphqlReturnType, { name: `findUser${suffix}` })
+    async find(
+      @Arg(argAndReturnKeyName, () => argType) creator: ArgType,
+      { offset, limit, ...input }: any
+    ) {
+      let where: any = {
+        creator: creator
+      };
+
       Object.entries(input).forEach(([k, v]) => {
         // maybe need to check if v in undefined and not set it
         where[k] = v;

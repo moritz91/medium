@@ -17,7 +17,7 @@ interface Props {
   createdAt: string;
 }
 
-export default class Post extends React.PureComponent<Props> {
+export default class Profile extends React.PureComponent<Props> {
   static async getInitialProps({
     query: { id },
     apolloClient
