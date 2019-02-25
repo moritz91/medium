@@ -4,7 +4,9 @@ require("dotenv-safe").config({
 });
 import { ApolloServer } from "apollo-server-express";
 import * as express from "express";
-import { buildSchema } from "type-graphql";
+import { buildSchema, useContainer } from "type-graphql";
+import { Container } from "typedi";
+import * as typeorm from "typeorm";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import { redis } from "./redis";
@@ -20,6 +22,9 @@ process.env.GITHUB_CLIENT_ID;
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
+
+useContainer(Container);
+typeorm.useContainer(Container);
 
 const startServer = async () => {
   await createTypeormConn();
