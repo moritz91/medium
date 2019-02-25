@@ -13,6 +13,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "",
+    borderRadius: "0px",
     width: 850,
     height: 400
   },

@@ -1,4 +1,11 @@
-import { Resolver, Query, Ctx, UseMiddleware, Mutation } from "type-graphql";
+import {
+  Resolver,
+  Query,
+  Ctx,
+  UseMiddleware,
+  Mutation,
+  Arg
+} from "type-graphql";
 import { User } from "../../entity/User";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext } from "../../types/Context";
@@ -15,6 +22,12 @@ export class UserResolver {
   ) {
     const { userId } = ctx.req.session!;
     return userId ? User.findOne(userId) : null;
+  }
+
+  @UseMiddleware(isAuth)
+  @Query(() => User, { nullable: true })
+  async findUser(@Arg("username") username: string) {
+    return User.findOne({ username });
   }
 
   @Mutation(() => Boolean)

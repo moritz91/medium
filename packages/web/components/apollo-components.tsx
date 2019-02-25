@@ -5,6 +5,12 @@ export interface FindPostingsInput {
 
   limit: number;
 }
+
+export interface FindUserPostingsInput {
+  creatorId: string;
+
+  cursor?: Maybe<string>;
+}
 /** Old posting data */
 export interface DeletePostingInput {
   id: string;
@@ -34,7 +40,7 @@ export type CreatePostingMutation = {
 };
 
 export type CreatePostingCreatePosting = {
-  __typename?: "CreatePostingResponse";
+  __typename?: "PostingResponse";
 
   posting: CreatePostingPosting;
 };
@@ -124,6 +130,26 @@ export type GetPostingsFindPostings = {
 };
 
 export type GetPostingsPosts = PostingInfoFragment;
+
+export type GetUserPostingsVariables = {
+  input: FindUserPostingsInput;
+};
+
+export type GetUserPostingsQuery = {
+  __typename?: "Query";
+
+  findUserPostings: GetUserPostingsFindUserPostings;
+};
+
+export type GetUserPostingsFindUserPostings = {
+  __typename?: "FindPostingResponse";
+
+  posts: GetUserPostingsPosts[];
+
+  hasMore: boolean;
+};
+
+export type GetUserPostingsPosts = PostingInfoFragment;
 
 export type MeVariables = {};
 
@@ -353,6 +379,53 @@ export function GetPostingsHOC<TProps, TChildProps = any>(
     GetPostingsVariables,
     GetPostingsProps<TChildProps>
   >(GetPostingsDocument, operationOptions);
+}
+export const GetUserPostingsDocument = gql`
+  query GetUserPostings($input: FindUserPostingsInput!) {
+    findUserPostings(input: $input) {
+      posts {
+        ...PostingInfo
+      }
+      hasMore
+    }
+  }
+
+  ${PostingInfoFragmentDoc}
+`;
+export class GetUserPostingsComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetUserPostingsQuery, GetUserPostingsVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetUserPostingsQuery, GetUserPostingsVariables>
+        query={GetUserPostingsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetUserPostingsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetUserPostingsQuery, GetUserPostingsVariables>
+> &
+  TChildProps;
+export function GetUserPostingsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetUserPostingsQuery,
+        GetUserPostingsVariables,
+        GetUserPostingsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetUserPostingsQuery,
+    GetUserPostingsVariables,
+    GetUserPostingsProps<TChildProps>
+  >(GetUserPostingsDocument, operationOptions);
 }
 export const MeDocument = gql`
   query Me {

@@ -1,10 +1,17 @@
-import { Resolver, Query, Arg, Authorized, Ctx, Mutation } from "type-graphql";
+import {
+  Resolver,
+  Query,
+  Arg,
+  Authorized,
+  Ctx,
+  FieldResolver,
+  Root
+} from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Posting } from "../../entity/Posting";
 import { PostingRepository } from "../../repositories/PostRepo";
 import { MyContext } from "../../types/Context";
 import { loadCreatorResolver } from "../shared/load-creator-resolver";
-import { getByIdResolver } from "../shared/get-by-id-resolver";
 import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
 import { createResolver } from "../shared/create-resolver";
@@ -20,6 +27,7 @@ import {
   PostingResponse,
   FindPostingResponse
 } from "./Response";
+import { User } from "../../entity/User";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
@@ -39,10 +47,14 @@ export const createPosting = createResolver(
 );
 
 export const loadCreatorForPosting = loadCreatorResolver(Posting);
-export const getPostingById = getByIdResolver(suffix, Posting, Posting);
 
 @Resolver(Posting)
 export class PostingResolver {
+  @FieldResolver(() => User)
+  creator(@Root() root: any, @Ctx() ctx: MyContext) {
+    return ctx.userLoader.load(root.creatorId);
+  }
+
   @Query(() => FindPostingResponse)
   async findPostings(@Arg("input")
   {
@@ -72,20 +84,27 @@ export class PostingResolver {
     private readonly postRepo: PostingRepository
   ) {}
 
-  @Mutation(() => PostingResponse, { name: `findOrCreatePostings` })
-  @Authorized()
-  async findOrCreatePost(
-    @Arg("posting") input: CreatePostingInput,
-    @Ctx() { req }: MyContext
-  ): Promise<PostingResponse> {
-    let value = await this.postRepo.save({
-      ...input,
-      creatorId: req.session!.userId
-    });
+  // @Mutation(() => PostingResponse, { name: `createPostingRepo` })
+  // @Authorized()
+  // async createPosting(
+  //   @Arg("posting") input: CreatePostingInput,
+  //   @Ctx() { req }: MyContext
+  // ): Promise<PostingResponse> {
+  //   let value = await this.postRepo.save({
+  //     ...input,
+  //     creatorId: req.session!.userId
+  //   });
 
-    return {
-      posting: value
-    };
+  //   return {
+  //     posting: value
+  //   };
+  // }
+
+  @Query(() => Posting, {
+    nullable: true
+  })
+  async getPostingById(@Arg("id") id: string) {
+    return this.postRepo.findOne(id);
   }
 
   @Query(() => FindPostingResponse)
