@@ -60,7 +60,7 @@ export const PostRow: React.FC<Props> = ({
               {title}
             </Heading>
           </Link>
-          <Text mb="1rem" fontSize={4}>
+          <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
           <Link route={"profile"} params={{ username }}>

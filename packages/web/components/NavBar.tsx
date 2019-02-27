@@ -15,7 +15,7 @@ export const NavBar = () => {
     <Container my="1.5rem" justifyContent="space-between">
       <Flex alignItems="center">
         <NextLink passHref href="/posts">
-          <Link fontSize={5} color="primary.1">
+          <Link fontSize={5} color="primary.6">
             Stories
           </Link>
         </NextLink>

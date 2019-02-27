@@ -108,7 +108,7 @@ export const CreatePostingModal = () => {
             </div>
           </Modal>
           <MyButton variant="primary" onClick={() => changeOpen(true)}>
-            NEW POSTING
+            NEW STORY
           </MyButton>
         </>
       )}
