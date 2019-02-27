@@ -1,25 +1,10 @@
-import * as React from "react";
 import styled from "../../theme/styled-components";
 
-interface Props {
-  Link: any;
-  getLinkProps?: () => any;
-  route?: any;
-  params?: any;
-}
-
-const LinkWrapper = styled.a`
+export const StyledLink = styled("a")`
+  padding: 4px 10px 4px 15px;
   cursor: pointer;
+  &:hover {
+    color: #fff;
+    background-color: #3290d4;
+  }
 `;
-
-export const StyledLink: React.FC<Props> = ({
-  Link,
-  getLinkProps,
-  route,
-  params,
-  children
-}) => (
-  <Link {...getLinkProps} {...route} {...params} passHref>
-    <LinkWrapper>{children}</LinkWrapper>
-  </Link>
-);

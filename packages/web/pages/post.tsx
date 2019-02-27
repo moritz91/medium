@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Wrapper, PostRow } from "@medium/ui";
+import { PostRow } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
@@ -50,24 +50,22 @@ export default class Post extends React.PureComponent<Props> {
     return (
       // @ts-ignore
       <Layout title={`Posting: ${title}`}>
-        <Wrapper>
-          <PostRow
-            key={id}
-            id={id}
-            createdAt={createdAt}
-            creator={creator}
-            title={title}
-            body={body}
-            Link={Link}
-            getLinkProps={() => ({
-              route: "post",
-              params: {
-                id: id
-              }
-            })}
-          />
-          <PostContext.Provider value={context} />
-        </Wrapper>
+        <PostRow
+          key={id}
+          id={id}
+          createdAt={createdAt}
+          creator={creator}
+          title={title}
+          body={body}
+          Link={Link}
+          getLinkProps={() => ({
+            route: "post",
+            params: {
+              id: id
+            }
+          })}
+        />
+        <PostContext.Provider value={context} />
       </Layout>
     );
   }

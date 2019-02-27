@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Wrapper, PostRow } from "@medium/ui";
+import { PostRow } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import Layout from "../components/Layout";
@@ -39,10 +39,10 @@ export default class Profile extends React.PureComponent<Props> {
 
   render() {
     const { postings } = this.props;
-    return postings.map(p => (
-      // @ts-ignore
-      <Layout key={p.id} title={`Posting: ${p.title}`}>
-        <Wrapper>
+    return (
+      <Layout title={`Postings`}>
+        {postings.map(p => (
+          // @ts-ignore
           <PostRow
             key={p.id}
             id={p.id}
@@ -58,8 +58,8 @@ export default class Profile extends React.PureComponent<Props> {
               }
             })}
           />
-        </Wrapper>
+        ))}
       </Layout>
-    ));
+    );
   }
 }

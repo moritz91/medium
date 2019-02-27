@@ -1,7 +1,7 @@
 import * as React from "react";
 import Layout from "../components/Layout";
 import { GetPostingsComponent } from "../components/apollo-components";
-import { Wrapper, PostRow } from "@medium/ui";
+import { PostRow } from "@medium/ui";
 import { Link } from "../server/routes";
 // import { Heading, Text, Image } from "rebass";
 // import Link from "next/link";
@@ -24,7 +24,7 @@ export default class Posts extends React.Component<State> {
         <GetPostingsComponent variables={{ input: { ...this.state } }}>
           {({ data }) => {
             return (
-              <Wrapper>
+              <>
                 {data && data.findPostings && (
                   <>
                     {data.findPostings.posts.map(post => (
@@ -46,7 +46,7 @@ export default class Posts extends React.Component<State> {
                     ))}
                   </>
                 )}
-              </Wrapper>
+              </>
             );
           }}
         </GetPostingsComponent>

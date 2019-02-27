@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add react-apollo-hooks @types/react-apollo-hooks
+  /usr/local/bin/node /usr/local/bin/yarn add -D @types/react@16.7.22 @types/lodash@^4.14.121 plugin-transform-react-jsx@^7.3.0
 
 PATH: 
   ~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-apollo-hooks: Not found
+  Error: https://registry.yarnpkg.com/plugin-transform-react-jsx: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:64150:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:137416:22)
       at Request.emit (events.js:182:13)
@@ -46,12 +46,14 @@ npm manifest:
       "cookie": "0.3.1",
       "formik": "1.4.2",
       "isomorphic-unfetch": "3.0.0",
-      "lodash": "4.17.11",
+      "lodash": "^4.17.11",
+      "lodash.get": "^4.4.2",
       "next": "7.0.2",
       "next-routes": "1.4.2",
-      "react": "16.8.0-alpha.1",
+      "react": "^16.8.1",
       "react-apollo": "2.4.0",
-      "react-dom": "16.8.0-alpha.1",
+      "react-apollo-hooks": "^0.3.1",
+      "react-dom": "^16.8.1",
       "react-modal": "^3.8.1",
       "styled-components": "4.1.3"
     },
@@ -2576,6 +2578,16 @@ Lockfile:
   "@types/is-glob@4.0.0":
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/@types/is-glob/-/is-glob-4.0.0.tgz#fb8a2bff539025d4dcd6d5efe7689e03341b876d"
+  
+  "@types/lodash.get@^4.4.5":
+    version "4.4.5"
+    resolved "https://registry.yarnpkg.com/@types/lodash.get/-/lodash.get-4.4.5.tgz#a835251b005cf87582deb68ba0f147df51321bc3"
+    dependencies:
+      "@types/lodash" "*"
+  
+  "@types/lodash@*":
+    version "4.14.121"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.121.tgz#9327e20d49b95fc2bf983fc2f045b2c6effc80b9"
   
   "@types/lodash@4.14.120":
     version "4.14.120"
@@ -5906,6 +5918,10 @@ Lockfile:
   date-fns@^1.27.2:
     version "1.29.0"
     resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+  
+  date-fns@^1.30.1:
+    version "1.30.1"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   
   date-now@^0.1.4:
     version "0.1.4"
@@ -9971,7 +9987,7 @@ Lockfile:
     version "4.5.0"
     resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   
-  lodash@4.17.11, "lodash@>=3.5 <5", lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1:
+  "lodash@>=3.5 <5", lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1:
     version "4.17.11"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   
@@ -12497,6 +12513,12 @@ Lockfile:
       loose-envify "^1.3.1"
       object-assign "^4.1.0"
   
+  react-apollo-hooks@^0.3.1:
+    version "0.3.1"
+    resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.3.1.tgz#6049d5883b809d28ba24277e584a099d49697c7b"
+    dependencies:
+      lodash "^4.17.11"
+  
   react-apollo@2.4.0:
     version "2.4.0"
     resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.4.0.tgz#22f68c429120d3c332adaef0d02c60771055d9ea"
@@ -12617,15 +12639,6 @@ Lockfile:
       node-dir "^0.1.10"
       recast "^0.16.0"
   
-  react-dom@16.8.0-alpha.1:
-    version "16.8.0-alpha.1"
-    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.0-alpha.1.tgz#dab73b8354ba2e498e3127d18e29d4546cea889e"
-    dependencies:
-      loose-envify "^1.1.0"
-      object-assign "^4.1.1"
-      prop-types "^15.6.2"
-      scheduler "^0.13.0-alpha.1"
-  
   react-dom@^16.7.0:
     version "16.7.0"
     resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.7.0.tgz#a17b2a7ca89ee7390bc1ed5eb81783c7461748b8"
@@ -12634,6 +12647,15 @@ Lockfile:
       object-assign "^4.1.1"
       prop-types "^15.6.2"
       scheduler "^0.12.0"
+  
+  react-dom@^16.8.1:
+    version "16.8.3"
+    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.3.tgz#ae236029e66210783ac81999d3015dfc475b9c32"
+    dependencies:
+      loose-envify "^1.1.0"
+      object-assign "^4.1.1"
+      prop-types "^15.6.2"
+      scheduler "^0.13.3"
   
   react-error-overlay@4.0.0:
     version "4.0.0"
@@ -12871,15 +12893,6 @@ Lockfile:
       shallowequal "^1.1.0"
       velocity-react "^1.4.1"
   
-  react@16.8.0-alpha.1:
-    version "16.8.0-alpha.1"
-    resolved "https://registry.yarnpkg.com/react/-/react-16.8.0-alpha.1.tgz#c2b32689f3b466d3ce85a634dd9035f789d2cd97"
-    dependencies:
-      loose-envify "^1.1.0"
-      object-assign "^4.1.1"
-      prop-types "^15.6.2"
-      scheduler "^0.13.0-alpha.1"
-  
   react@^16.7.0:
     version "16.7.0"
     resolved "https://registry.yarnpkg.com/react/-/react-16.7.0.tgz#b674ec396b0a5715873b350446f7ea0802ab6381"
@@ -12888,6 +12901,15 @@ Lockfile:
       object-assign "^4.1.1"
       prop-types "^15.6.2"
       scheduler "^0.12.0"
+  
+  react@^16.8.1:
+    version "16.8.3"
+    resolved "https://registry.yarnpkg.com/react/-/react-16.8.3.tgz#c6f988a2ce895375de216edcfaedd6b9a76451d9"
+    dependencies:
+      loose-envify "^1.1.0"
+      object-assign "^4.1.1"
+      prop-types "^15.6.2"
+      scheduler "^0.13.3"
   
   read-cmd-shim@^1.0.1:
     version "1.0.1"
@@ -13570,9 +13592,9 @@ Lockfile:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
   
-  scheduler@^0.13.0-alpha.1:
-    version "0.13.0-alpha.1"
-    resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.0-alpha.1.tgz#753977fb4fb35d8cdd559868a11e46b640955556"
+  scheduler@^0.13.3:
+    version "0.13.3"
+    resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.3.tgz#bed3c5850f62ea9c716a4d781f9daeb9b2a58896"
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
@@ -14840,6 +14862,14 @@ Lockfile:
   typedarray@^0.0.6:
     version "0.0.6"
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+  
+  typedi@^0.8.0:
+    version "0.8.0"
+    resolved "https://registry.yarnpkg.com/typedi/-/typedi-0.8.0.tgz#d8e203bd1d41a96e2b0a5c6295147d74b2b2d03e"
+  
+  typeorm-typedi-extensions@^0.2.3:
+    version "0.2.3"
+    resolved "https://registry.yarnpkg.com/typeorm-typedi-extensions/-/typeorm-typedi-extensions-0.2.3.tgz#94fca2656206d771bf6d2242f5aab570511188e8"
   
   typeorm@0.2.12:
     version "0.2.12"
