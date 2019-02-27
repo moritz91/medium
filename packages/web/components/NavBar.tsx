@@ -4,6 +4,7 @@ import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
 import { MeComponent } from "../components/apollo-components";
+import { CreatePostingModal } from "../modules/shared/CreatePostingModal";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
@@ -13,7 +14,7 @@ export const NavBar = () => {
   return (
     <Container my="1.5rem" justifyContent="space-between">
       <Flex alignItems="center">
-        <NextLink passHref href="/">
+        <NextLink passHref href="/posts">
           <Link fontSize={5} color="primary.1">
             Stories
           </Link>
@@ -31,11 +32,7 @@ export const NavBar = () => {
           if (isLoggedIn) {
             return (
               <Flex alignItems="center">
-                <NextLink href="/submit">
-                  <a>
-                    <MyButton variant="primary">NEW STORY</MyButton>
-                  </a>
-                </NextLink>
+                <CreatePostingModal />
                 {/* <Menu
                   options={["logout"]}
                   renderOption={({ Anchor }) => (

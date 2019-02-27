@@ -98,7 +98,6 @@ export const CreatePostingModal = () => {
                       }
                     }
                   });
-                  console.log(response);
                   if (response && response.data) {
                     changeOpen(false);
                   }
@@ -108,7 +107,7 @@ export const CreatePostingModal = () => {
               </MyButton>
             </div>
           </Modal>
-          <MyButton variant="form" onClick={() => changeOpen(true)}>
+          <MyButton variant="primary" onClick={() => changeOpen(true)}>
             NEW POSTING
           </MyButton>
         </>
