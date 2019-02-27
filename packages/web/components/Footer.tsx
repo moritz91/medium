@@ -6,9 +6,9 @@ export class Footer extends React.PureComponent {
     return (
       <FooterWrapper>
         <Section>
-          <Pane />
-          <Pane />
-          <Pane />
+          <Pane>Test</Pane>
+          <Pane>Test</Pane>
+          <Pane>Test</Pane>
         </Section>
       </FooterWrapper>
     );
