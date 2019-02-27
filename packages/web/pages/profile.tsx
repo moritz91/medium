@@ -1,54 +1,65 @@
 import * as React from "react";
-import Layout from "../components/Layout";
-import { GetUserPostingsComponent } from "../components/apollo-components";
 import { Wrapper, PostRow } from "@medium/ui";
-import { Link } from "../server/routes";
-// import { Heading, Text, Image } from "rebass";
-// import Link from "next/link";
 
-interface State {
-  creatorId: string;
+import { NextContextWithApollo } from "../types/NextContextWithApollo";
+import Layout from "../components/Layout";
+import { Link } from "../server/routes";
+import { findUserQuery } from "../graphql/user/query/user";
+import { PostingInfoFragment } from "../components/apollo-components";
+
+interface Props {
+  postings: [PostingInfoFragment];
+  username: string;
+  createdAt: string;
 }
 
-export default class Profile extends React.Component<State> {
-  state: State = {
-    creatorId: "b2bf799e-ef67-4cf2-ba47-def05b68a7db"
-  };
+export default class Profile extends React.PureComponent<Props> {
+  static async getInitialProps({
+    query: { username },
+    apolloClient
+  }: NextContextWithApollo) {
+    const response: any = await apolloClient.query({
+      query: findUserQuery,
+      variables: {
+        username
+      }
+    });
+
+    const { findUser } = response.data;
+
+    return {
+      username,
+      postings: findUser!.postings,
+      title: findUser!.postings.title,
+      body: findUser!.postings.body,
+      creator: findUser!.postings.creator,
+      createdAt: findUser!.createdAt
+    };
+  }
 
   render() {
-    return (
+    const { postings } = this.props;
+    return postings.map(p => (
       // @ts-ignore
-      <Layout title={`Postings`}>
-        <GetUserPostingsComponent variables={{ input: { ...this.state } }}>
-          {({ data }) => {
-            return (
-              <Wrapper>
-                {data && data.findUserPostings && (
-                  <>
-                    {data.findUserPostings.posts.map(post => (
-                      <PostRow
-                        key={post.id}
-                        id={post.id}
-                        createdAt={post.createdAt}
-                        creator={post.creator}
-                        title={post.title}
-                        body={post.body}
-                        Link={Link}
-                        getLinkProps={() => ({
-                          route: "post",
-                          params: {
-                            id: post.id
-                          }
-                        })}
-                      />
-                    ))}
-                  </>
-                )}
-              </Wrapper>
-            );
-          }}
-        </GetUserPostingsComponent>
+      <Layout key={p.id} title={`Posting: ${p.title}`}>
+        <Wrapper>
+          <PostRow
+            key={p.id}
+            id={p.id}
+            createdAt={p.createdAt}
+            creator={p.creator}
+            title={p.title}
+            body={p.body}
+            Link={Link}
+            getLinkProps={() => ({
+              route: "post",
+              params: {
+                id: p.id
+              }
+            })}
+          />
+        </Wrapper>
       </Layout>
-    );
+    ));
   }
 }

@@ -37,7 +37,9 @@ export const PostRow: React.FC<Props> = ({
   return (
     <PostRowContainer>
       <Flex justifyContent="center">
-        <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
+        <Link route={"profile"} params={{ username }}>
+          <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
+        </Link>
         <div
           style={{
             paddingLeft: ".8rem",
@@ -54,7 +56,7 @@ export const PostRow: React.FC<Props> = ({
           <Text mb="1rem" fontSize={4}>
             {body}
           </Text>
-          <Link {...linkProps}>
+          <Link route={"profile"} params={{ username }}>
             <Text fontSize={4} mb="1rem">
               {username} • {dtString}
             </Text>

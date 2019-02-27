@@ -161,6 +161,38 @@ export type MeQuery = {
 
 export type MeMe = UserInfoFragment;
 
+export type FindUserVariables = {
+  username: string;
+};
+
+export type FindUserQuery = {
+  __typename?: "Query";
+
+  findUser: Maybe<FindUserFindUser>;
+};
+
+export type FindUserFindUser = {
+  __typename?: "User";
+
+  postings: FindUserPostings[];
+} & UserInfoFragment;
+
+export type FindUserPostings = {
+  __typename?: "Posting";
+
+  id: string;
+
+  title: string;
+
+  body: string;
+
+  createdAt: DateTime;
+
+  creator: FindUserCreator;
+};
+
+export type FindUserCreator = UserInfoFragment;
+
 export type PostingInfoFragment = {
   __typename?: "Posting";
 
@@ -381,7 +413,7 @@ export function GetPostingsHOC<TProps, TChildProps = any>(
   >(GetPostingsDocument, operationOptions);
 }
 export const GetUserPostingsDocument = gql`
-  query GetUserPostings($input: FindUserPostingsInput!) {
+  query getUserPostings($input: FindUserPostingsInput!) {
     findUserPostings(input: $input) {
       posts {
         ...PostingInfo
@@ -468,4 +500,55 @@ export function MeHOC<TProps, TChildProps = any>(
     MeVariables,
     MeProps<TChildProps>
   >(MeDocument, operationOptions);
+}
+export const FindUserDocument = gql`
+  query FindUser($username: String!) {
+    findUser(username: $username) {
+      ...UserInfo
+      postings {
+        id
+        title
+        body
+        createdAt
+        creator {
+          ...UserInfo
+        }
+      }
+    }
+  }
+
+  ${UserInfoFragmentDoc}
+`;
+export class FindUserComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindUserQuery, FindUserVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindUserQuery, FindUserVariables>
+        query={FindUserDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindUserProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUserQuery, FindUserVariables>
+> &
+  TChildProps;
+export function FindUserHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindUserQuery,
+        FindUserVariables,
+        FindUserProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindUserQuery,
+    FindUserVariables,
+    FindUserProps<TChildProps>
+  >(FindUserDocument, operationOptions);
 }
