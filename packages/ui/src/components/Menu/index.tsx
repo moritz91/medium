@@ -10,12 +10,10 @@ interface Props {
 }
 
 const MenuLink = styled("a")`
-  padding: 4px 10px 4px 15px;
   font-size: 16px;
   cursor: pointer;
   &:hover {
-    color: #fff;
-    background-color: #3290d4;
+    color: #3290d4;
   }
 `;
 

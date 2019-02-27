@@ -3,7 +3,13 @@ import * as React from "react";
 import { Flex, Text, Heading } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
-import { Link as LinkRebass } from "rebass";
+
+const LinkRebass = styled("a")`
+  cursor: pointer;
+  &:hover {
+    color: #3290d4;
+  }
+`;
 
 interface Props {
   id: string;
@@ -39,9 +45,7 @@ export const PostRow: React.FC<Props> = ({
     <PostRowContainer>
       <Flex justifyContent="center">
         <Link route={"profile"} params={{ username }}>
-          <LinkRebass color="primary.1">
-            <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
-          </LinkRebass>
+          <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
         </Link>
         <div
           style={{
@@ -60,7 +64,7 @@ export const PostRow: React.FC<Props> = ({
             {body}
           </Text>
           <Link route={"profile"} params={{ username }}>
-            <LinkRebass fontSize={4} color="primary.1">
+            <LinkRebass>
               {username} • {dtString}
             </LinkRebass>
           </Link>
