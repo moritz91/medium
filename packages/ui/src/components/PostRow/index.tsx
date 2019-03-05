@@ -6,8 +6,9 @@ import { Avatar } from "../Avatar";
 
 const LinkRebass = styled("a")`
   cursor: pointer;
+  color: rgb(233, 236, 241);
   &:hover {
-    color: #3290d4;
+    color: #fff;
   }
 `;
 
@@ -56,9 +57,11 @@ export const PostRow: React.FC<Props> = ({
           }}
         >
           <Link {...linkProps}>
-            <Heading ml="0rem" mb="1rem" fontSize={6}>
-              {title}
-            </Heading>
+            <a>
+              <Heading ml="0rem" mb="1rem" fontSize={6}>
+                {title}
+              </Heading>
+            </a>
           </Link>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}

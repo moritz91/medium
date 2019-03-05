@@ -49,7 +49,7 @@ export default class Post extends React.PureComponent<Props> {
     };
     return (
       // @ts-ignore
-      <Layout title={`Posting: ${title}`}>
+      <Layout title={`${title}`}>
         <PostRow
           key={id}
           id={id}

@@ -38,9 +38,9 @@ export default class Profile extends React.PureComponent<Props> {
   }
 
   render() {
-    const { postings } = this.props;
+    const { postings, username } = this.props;
     return (
-      <Layout title={`Postings`}>
+      <Layout title={`${username}`}>
         {postings.map(p => (
           // @ts-ignore
           <PostRow

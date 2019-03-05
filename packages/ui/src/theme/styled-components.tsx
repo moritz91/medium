@@ -16,11 +16,12 @@ export { css, createGlobalStyle, keyframes, ThemeProvider, styled };
 export default styled;
 export const GlobalStyle = createGlobalStyle`
 body {
-  font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
   background-color: #242b38;
+  color: rgb(233, 236, 241);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  color: rgb(233, 236, 241)
+  font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  overflow-y: scroll;
 }
 * {
   outline: none;
@@ -33,5 +34,10 @@ html {
 }
 a {
   text-decoration: none;
+  cursor: pointer;
+  color: rgb(233, 236, 241);
+  &:hover {
+    color: #fff;
+  }
 }
 `;

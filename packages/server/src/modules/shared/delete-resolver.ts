@@ -11,7 +11,7 @@ export function deleteResolver<ArgType extends Object, T extends Object>(
   abstract class BaseResolver {
     @Authorized()
     @Mutation(() => graphqlReturnType, { name: `delete${suffix}` })
-    async create(@Arg(argAndReturnKeyName, () => argType) input: ArgType) {
+    async delete(@Arg(argAndReturnKeyName, () => argType) input: ArgType) {
       const value = await entity.findOne({ input });
 
       if (value) {
