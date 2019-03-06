@@ -10,7 +10,6 @@ import { PostingInfoFragment } from "../components/apollo-components";
 interface Props {
   postings: [PostingInfoFragment];
   username: string;
-  createdAt: string;
 }
 
 export default class Profile extends React.PureComponent<Props> {
@@ -29,11 +28,7 @@ export default class Profile extends React.PureComponent<Props> {
 
     return {
       username,
-      postings: findUser!.postings,
-      title: findUser!.postings.title,
-      body: findUser!.postings.body,
-      creator: findUser!.postings.creator,
-      createdAt: findUser!.createdAt
+      postings: findUser!.postings
     };
   }
 
