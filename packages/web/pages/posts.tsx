@@ -3,8 +3,6 @@ import Layout from "../components/Layout";
 import { GetPostingsComponent } from "../components/apollo-components";
 import { PostRow } from "@medium/ui";
 import { Link } from "../server/routes";
-// import { Heading, Text, Image } from "rebass";
-// import Link from "next/link";
 
 interface State {
   limit: number;
