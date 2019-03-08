@@ -30,6 +30,7 @@ export class User extends BaseEntity {
   @Column({ type: "text", nullable: true })
   bio: string;
 
+  @Field(() => [Posting])
   @OneToMany(() => Posting, post => post.creator)
   postings: Promise<Posting[]>;
 }

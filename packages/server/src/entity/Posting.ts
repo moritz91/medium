@@ -3,7 +3,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne
+  ManyToOne,
+  CreateDateColumn
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Rate } from "./Rate";
@@ -35,4 +36,8 @@ export class Posting extends BaseEntity {
   @Field(() => [Rate], { nullable: true })
   @Column({ type: "int", nullable: true })
   ratings: Rate[];
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: Date;
 }

@@ -4,7 +4,9 @@ require("dotenv-safe").config({
 });
 import { ApolloServer } from "apollo-server-express";
 import * as express from "express";
-import { buildSchema } from "type-graphql";
+import { buildSchema, useContainer } from "type-graphql";
+import { Container } from "typedi";
+import * as typeorm from "typeorm";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import { redis } from "./redis";
@@ -21,6 +23,9 @@ process.env.GITHUB_CLIENT_ID;
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
 
+useContainer(Container);
+typeorm.useContainer(Container);
+
 const startServer = async () => {
   await createTypeormConn();
 
@@ -32,7 +37,8 @@ const startServer = async () => {
       resolvers: [__dirname + "/modules/**/resolver.*"],
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
-      }
+      },
+      validate: false
     }),
     context: ({ req, res }: any) => ({ req, res, userLoader: userLoader() })
   });
@@ -43,7 +49,7 @@ const startServer = async () => {
     cors({
       credentials: true,
       origin: process.env.NODE_ENV = "production"
-        ? "http://www.xy.com"
+        ? "http://localhost:3000" // http://www.xy.com
         : "http://localhost:3000"
     })
   );
@@ -118,7 +124,7 @@ const startServer = async () => {
         req.session.accessToken = req.user.accessToken;
         req.session.refreshToken = req.user.refreshToken;
       }
-      res.redirect("http://localhost:3000/");
+      res.redirect("http://localhost:3000/posts");
     }
   );
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "src/entity/User";
+import { User } from "../entity/User";
 import * as DataLoader from "dataloader";
 
 export interface MyContext {
