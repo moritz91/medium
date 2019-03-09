@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  CreateDateColumn
+  CreateDateColumn,
+  OneToMany
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
+import { Comment } from "./Comment";
 
 @Entity()
 @ObjectType()
@@ -20,6 +22,10 @@ export class Posting extends BaseEntity {
   @Field()
   @Column("uuid")
   creatorId: string;
+
+  @Field(() => [Comment])
+  @OneToMany(() => Comment, qr => qr.posting)
+  comments: Promise<Comment[]>;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.postings)

@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Posting } from "./Posting";
+import { Comment } from "./Comment";
 
 @Entity()
 @ObjectType()
@@ -33,4 +34,7 @@ export class User extends BaseEntity {
   @Field(() => [Posting])
   @OneToMany(() => Posting, post => post.creator)
   postings: Promise<Posting[]>;
+
+  @OneToMany(() => Comment, pr => pr.creatorConnection)
+  comments: Promise<Comment[]>;
 }
