@@ -1,13 +1,19 @@
 import * as React from "react";
-import { PostRow } from "@medium/ui";
+import { PostRow, Comment } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
-import { UserInfoFragment } from "../components/apollo-components";
-import { userInfoFragment } from "../graphql/user/fragments/UserInfo";
+import {
+  UserInfoFragment,
+  GetCommentsByIdComponent
+} from "../components/apollo-components";
+import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
+import { CreateCommentModal } from "../modules/shared/CreateCommentModal";
+import styled from "styled-components";
+import { Flex, Text } from "rebass";
 
 interface Props {
   id: string;
@@ -16,6 +22,10 @@ interface Props {
   body: string;
   createdAt: string;
 }
+
+const Container = styled(Flex)`
+  flex: 0 0 auto;
+`;
 
 export default class Post extends React.PureComponent<Props> {
   static async getInitialProps({
@@ -66,6 +76,37 @@ export default class Post extends React.PureComponent<Props> {
           })}
         />
         <PostContext.Provider value={context} />
+        <Container my="1.5rem" justifyContent="space-between">
+          <Flex alignItems="center">
+            <Text fontSize={5} color="primary.6">
+              Responses
+            </Text>
+          </Flex>
+        </Container>
+        <CreateCommentModal />
+        <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
+          {({ data }) => {
+            return (
+              <>
+                {data && data.findCommentsById && (
+                  <>
+                    {data.findCommentsById.comments.map(comment => (
+                      <Comment
+                        key={comment.id}
+                        id={comment.id}
+                        createdAt={comment.createdAt}
+                        creator={comment.creator}
+                        body={comment.text}
+                        Link={Link}
+                        getLinkProps={() => ({})}
+                      />
+                    ))}
+                  </>
+                )}
+              </>
+            );
+          }}
+        </GetCommentsByIdComponent>
       </Layout>
     );
   }

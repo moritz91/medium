@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { userInfoFragment } from "../../user/fragments/UserInfo";
+import { UserInfoFragment } from "../../user/fragments/UserInfo";
 
 export const getPostingByIdQuery = gql`
   query GetPostingById($id: String!) {
@@ -22,5 +22,5 @@ export const getPostingByIdQuery = gql`
       }
     }
   }
-  ${userInfoFragment}
+  ${UserInfoFragment}
 `;

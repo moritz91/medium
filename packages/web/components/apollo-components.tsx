@@ -1,5 +1,11 @@
 export type Maybe<T> = T | null;
 
+export interface FindCommentsInput {
+  postingId: string;
+
+  cursor?: Maybe<string>;
+}
+
 export interface FindPostingsInput {
   offset: number;
 
@@ -10,6 +16,12 @@ export interface FindUserPostingsInput {
   creatorId: string;
 
   cursor?: Maybe<string>;
+}
+
+export interface CreateCommentInput {
+  text: string;
+
+  postingId: string;
 }
 /** Old posting data */
 export interface DeletePostingInput {
@@ -28,6 +40,66 @@ export type DateTime = any;
 // ====================================================
 // Documents
 // ====================================================
+
+export type CreateCommentVariables = {
+  comment: CreateCommentInput;
+};
+
+export type CreateCommentMutation = {
+  __typename?: "Mutation";
+
+  createComment: CreateCommentCreateComment;
+};
+
+export type CreateCommentCreateComment = {
+  __typename?: "CommentResponse";
+
+  comment: CreateCommentComment;
+};
+
+export type CreateCommentComment = {
+  __typename?: "Comment";
+
+  text: string;
+
+  creator: CreateCommentCreator;
+};
+
+export type CreateCommentCreator = UserInfoFragment;
+
+export type GetCommentsByIdVariables = {
+  input: FindCommentsInput;
+};
+
+export type GetCommentsByIdQuery = {
+  __typename?: "Query";
+
+  findCommentsById: GetCommentsByIdFindCommentsById;
+};
+
+export type GetCommentsByIdFindCommentsById = {
+  __typename?: "FindCommentResponse";
+
+  comments: GetCommentsByIdComments[];
+
+  hasMore: boolean;
+};
+
+export type GetCommentsByIdComments = {
+  __typename?: "Comment";
+
+  id: string;
+
+  text: string;
+
+  createdAt: DateTime;
+
+  creatorId: string;
+
+  creator: GetCommentsByIdCreator;
+};
+
+export type GetCommentsByIdCreator = UserInfoFragment;
 
 export type CreatePostingVariables = {
   posting: CreatePostingInput;
@@ -96,10 +168,22 @@ export type GetPostingByIdGetPostingById = {
 
   createdAt: DateTime;
 
+  comments: GetPostingByIdComments[];
+
   ratings: Maybe<GetPostingByIdRatings[]>;
+
+  creator: GetPostingById_Creator;
+};
+
+export type GetPostingByIdComments = {
+  __typename?: "Comment";
+
+  text: string;
 
   creator: GetPostingByIdCreator;
 };
+
+export type GetPostingByIdCreator = UserInfoFragment;
 
 export type GetPostingByIdRatings = {
   __typename?: "Rate";
@@ -109,7 +193,7 @@ export type GetPostingByIdRatings = {
   value: number;
 };
 
-export type GetPostingByIdCreator = UserInfoFragment;
+export type GetPostingById_Creator = UserInfoFragment;
 
 export type GetPostingsVariables = {
   input: FindPostingsInput;
@@ -193,6 +277,22 @@ export type FindUserPostings = {
 
 export type FindUserCreator = UserInfoFragment;
 
+export type CommentInfoFragment = {
+  __typename?: "Comment";
+
+  id: string;
+
+  text: string;
+
+  createdAt: DateTime;
+
+  creatorId: string;
+
+  creator: CommentInfoCreator;
+};
+
+export type CommentInfoCreator = UserInfoFragment;
+
 export type PostingInfoFragment = {
   __typename?: "Posting";
 
@@ -239,6 +339,20 @@ export const UserInfoFragmentDoc = gql`
   }
 `;
 
+export const CommentInfoFragmentDoc = gql`
+  fragment CommentInfo on Comment {
+    id
+    text
+    createdAt
+    creatorId
+    creator {
+      ...UserInfo
+    }
+  }
+
+  ${UserInfoFragmentDoc}
+`;
+
 export const PostingInfoFragmentDoc = gql`
   fragment PostingInfo on Posting {
     id
@@ -257,6 +371,112 @@ export const PostingInfoFragmentDoc = gql`
 // Components
 // ====================================================
 
+export const CreateCommentDocument = gql`
+  mutation createComment($comment: CreateCommentInput!) {
+    createComment(comment: $comment) {
+      comment {
+        text
+        creator {
+          ...UserInfo
+        }
+      }
+    }
+  }
+
+  ${UserInfoFragmentDoc}
+`;
+export class CreateCommentComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<CreateCommentMutation, CreateCommentVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<CreateCommentMutation, CreateCommentVariables>
+        mutation={CreateCommentDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreateCommentProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreateCommentMutation, CreateCommentVariables>
+> &
+  TChildProps;
+export type CreateCommentMutationFn = ReactApollo.MutationFn<
+  CreateCommentMutation,
+  CreateCommentVariables
+>;
+export function CreateCommentHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreateCommentMutation,
+        CreateCommentVariables,
+        CreateCommentProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreateCommentMutation,
+    CreateCommentVariables,
+    CreateCommentProps<TChildProps>
+  >(CreateCommentDocument, operationOptions);
+}
+export const GetCommentsByIdDocument = gql`
+  query getCommentsById($input: FindCommentsInput!) {
+    findCommentsById(input: $input) {
+      comments {
+        id
+        text
+        createdAt
+        creatorId
+        creator {
+          ...UserInfo
+        }
+      }
+      hasMore
+    }
+  }
+
+  ${UserInfoFragmentDoc}
+`;
+export class GetCommentsByIdComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetCommentsByIdQuery, GetCommentsByIdVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetCommentsByIdQuery, GetCommentsByIdVariables>
+        query={GetCommentsByIdDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetCommentsByIdProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetCommentsByIdQuery, GetCommentsByIdVariables>
+> &
+  TChildProps;
+export function GetCommentsByIdHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetCommentsByIdQuery,
+        GetCommentsByIdVariables,
+        GetCommentsByIdProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetCommentsByIdQuery,
+    GetCommentsByIdVariables,
+    GetCommentsByIdProps<TChildProps>
+  >(GetCommentsByIdDocument, operationOptions);
+}
 export const CreatePostingDocument = gql`
   mutation createPosting($posting: CreatePostingInput!) {
     createPosting(posting: $posting) {
@@ -322,6 +542,12 @@ export const GetPostingByIdDocument = gql`
       title
       body
       createdAt
+      comments {
+        text
+        creator {
+          ...UserInfo
+        }
+      }
       ratings {
         date
         value

@@ -10,6 +10,7 @@ export * from "./components/Footer";
 export * from "./components/Pane";
 export * from "./components/Section";
 export * from "./components/PostRow";
+export * from "./components/Comment";
 export * from "./components/Link";
 export * from "./theme/styled-components";
 export { default as theme } from "./theme";

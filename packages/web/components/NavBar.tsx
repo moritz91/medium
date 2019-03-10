@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MyButton, styled } from "@medium/ui";
+import { MyButton, styled, Avatar, Icon } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
@@ -41,11 +41,11 @@ export const NavBar = () => {
                     </NextLink>
                   )}
                 >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar size={32} src={data!.me!.pictureUrl} alt="avatar" />
-                    <Icon fill="#333" name="downArrow" />
-                  </div>
-                </Menu> */}
+              </Menu> */}
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Avatar size={32} src={data!.me!.pictureUrl} alt="avatar" />
+                  <Icon fill="#333" name="downArrow" />
+                </div>
               </Flex>
             );
           }

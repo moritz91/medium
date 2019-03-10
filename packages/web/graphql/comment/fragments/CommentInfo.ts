@@ -1,12 +1,12 @@
 import gql from "graphql-tag";
 import { UserInfoFragment } from "../../user/fragments/UserInfo";
 
-export const PostingInfoFragment = gql`
-  fragment PostingInfo on Posting {
+export const CommentInfoFragment = gql`
+  fragment CommentInfo on Comment {
     id
-    title
-    body
+    text
     createdAt
+    creatorId
     creator {
       ...UserInfo
     }

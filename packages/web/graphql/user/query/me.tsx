@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { userInfoFragment } from "../fragments/UserInfo";
+import { UserInfoFragment } from "../fragments/UserInfo";
 
 export const meQuery = gql`
   query Me {
@@ -7,5 +7,5 @@ export const meQuery = gql`
       ...UserInfo
     }
   }
-  ${userInfoFragment}
+  ${UserInfoFragment}
 `;
