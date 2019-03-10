@@ -7,6 +7,12 @@ export const getPostingByIdQuery = gql`
       title
       body
       createdAt
+      comments {
+        text
+        creator {
+          ...UserInfo
+        }
+      }
       ratings {
         date
         value

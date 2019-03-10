@@ -9,3 +9,12 @@ export class CreateCommentInput implements Partial<Comment> {
   @Field()
   postingId: string;
 }
+
+@InputType()
+export class FindCommentsInput {
+  @Field()
+  postingId: string;
+
+  @Field(() => String, { nullable: true })
+  cursor?: string;
+}

@@ -6,3 +6,12 @@ export class CommentResponse {
   @Field()
   comment: Comment;
 }
+
+@ObjectType()
+export class FindCommentResponse {
+  @Field()
+  hasMore: boolean;
+
+  @Field(() => [Comment])
+  comments: Comment[];
+}
