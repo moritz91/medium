@@ -23,7 +23,7 @@ const customStyles = {
   }
 };
 
-export const CreateCommentModal = () => {
+export const CreateCommentModal = (postingId: any) => {
   const [open, changeOpen] = React.useState(false);
   // const [item] = React.useState(null);
   const [text, changeText] = useInputValue("");
@@ -86,7 +86,7 @@ export const CreateCommentModal = () => {
                   const response = await mutate({
                     variables: {
                       comment: {
-                        postingId: "e9564cfd-d621-4fcf-b8b2-aac8a4e30f8f",
+                        postingId,
                         text
                       }
                     }

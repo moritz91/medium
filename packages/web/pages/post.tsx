@@ -7,13 +7,15 @@ import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
 import {
   UserInfoFragment,
-  GetCommentsByIdComponent
+  GetCommentsByIdComponent,
+  MeComponent
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { CreateCommentModal } from "../modules/shared/CreateCommentModal";
 import styled from "styled-components";
 import { Flex, Text } from "rebass";
+import { get } from "lodash";
 
 interface Props {
   id: string;
@@ -82,8 +84,22 @@ export default class Post extends React.PureComponent<Props> {
               Responses
             </Text>
           </Flex>
+          <MeComponent>
+            {({ data, loading }) => {
+              if (loading) {
+                return null;
+              }
+
+              let isLoggedIn = !!get(data, "me", false);
+
+              if (isLoggedIn) {
+                return <CreateCommentModal postingId={id} />;
+              }
+
+              return <div />;
+            }}
+          </MeComponent>
         </Container>
-        <CreateCommentModal />
         <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
           {({ data }) => {
             return (
