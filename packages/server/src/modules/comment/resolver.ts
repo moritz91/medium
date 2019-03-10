@@ -13,7 +13,7 @@ import { MyContext } from "../../types/Context";
 import { isAuth } from "../middleware/isAuth";
 import { CreateCommentInput, FindCommentsInput } from "./Input";
 import { CommentResponse, FindCommentResponse } from "./response";
-import { CommentRepository } from "src/repositories/CommentRepo";
+import { CommentRepository } from "../../repositories/CommentRepo";
 
 const COMMENT_LIMIT = 10;
 
@@ -42,7 +42,7 @@ export class CommentResolver {
 
   @Query(() => FindCommentResponse)
   @Authorized()
-  async findUserPostings(@Arg("input")
+  async findCommentsById(@Arg("input")
   {
     cursor,
     postingId
