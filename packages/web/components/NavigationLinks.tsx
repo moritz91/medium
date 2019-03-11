@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import rem from "../utils/rem";
 import { navbarHeight } from "../utils/sizes";
-import NavSeparator from "./NavSeparator";
 import Link from "./Link";
 
 const Wrapper = styled.nav`
@@ -11,6 +10,16 @@ const Wrapper = styled.nav`
   align-items: center;
   flex: 0 0 auto;
   margin-right: ${rem(30)};
+`;
+
+const NavSeparator = styled.span`
+  flex: 0 0 auto;
+  width: ${rem(5)};
+  height: ${rem(5)};
+  margin: 0 ${rem(15)};
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
 `;
 
 const NavLink = styled(Link).attrs({
