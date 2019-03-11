@@ -8,6 +8,7 @@ import { CreatePostingModal } from "../modules/shared/CreatePostingModal";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
+  margin-top: 6.5rem;
 `;
 
 export const NavBar = () => {
