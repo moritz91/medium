@@ -1,14 +1,12 @@
 import React, { PureComponent } from "react";
 import styled, { css } from "styled-components";
 import rem from "../utils/rem";
-import { violetRed } from "../utils/colors";
+import { blue } from "../utils/colors";
 import { navbarHeight } from "../utils/sizes";
 import { headerFont } from "../utils/fonts";
 import { mobile } from "../utils/media";
-import { Link } from "../server/routes";
 import NavLinks from "./NavLinks";
 import Social from "./Social";
-import Logo from "./Logo";
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -20,11 +18,12 @@ const Wrapper = styled.nav`
   font-family: ${headerFont};
   font-size: ${rem(15)};
   font-weight: 500;
-  background: ${(props: any) =>
-    props.transparent ? "transparent" : violetRed};
+  background: ${(props: any) => (props.transparent ? "transparent" : blue)};
   transition: background 300ms ease-out;
   color: white;
   padding: 0;
+  -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
 `;
 
 const StartWrapper = styled.div`
@@ -44,6 +43,8 @@ const StyledSocial = styled(Social)``;
 
 const NormalNavbar = styled.div`
   display: flex;
+  margin: auto;
+  max-width: 97rem;
   align-items: center;
   padding: 0 ${rem(20)};
   justify-content: space-between;
@@ -54,24 +55,12 @@ const NormalNavbar = styled.div`
   }
 `;
 
-const LogoLink = styled(Link).attrs({
-  unstyled: true,
-  href: "/"
-})`
-  display: inline-block;
-  vertical-align: center;
-  margin-right: ${rem(35)};
-`;
-
-class Navbar extends PureComponent<any> {
+class Navbar extends PureComponent {
   render() {
     return (
       <Wrapper>
         <NormalNavbar>
           <StartWrapper>
-            <LogoLink>
-              <Logo />
-            </LogoLink>
             <NavLinks />
           </StartWrapper>
           <EndWrapper>

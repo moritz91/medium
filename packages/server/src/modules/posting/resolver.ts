@@ -5,7 +5,8 @@ import {
   Authorized,
   Ctx,
   FieldResolver,
-  Root
+  Root,
+  Mutation
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Posting } from "../../entity/Posting";
@@ -15,9 +16,7 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
 import { createResolver } from "../shared/create-resolver";
-import { deleteResolver } from "../shared/delete-resolver";
 import {
-  DeletePostingInput,
   CreatePostingInput,
   FindPostingsInput,
   FindUserPostingsInput
@@ -31,13 +30,6 @@ import { User } from "../../entity/User";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
-
-export const deletePosting = deleteResolver(
-  suffix,
-  DeletePostingInput,
-  Posting,
-  DeletePostingResponse
-);
 
 export const createPosting = createResolver(
   suffix,
@@ -84,27 +76,40 @@ export class PostingResolver {
     private readonly postRepo: PostingRepository
   ) {}
 
-  // @Mutation(() => PostingResponse, { name: `createPostingRepo` })
-  // @Authorized()
-  // async createPosting(
-  //   @Arg("posting") input: CreatePostingInput,
-  //   @Ctx() { req }: MyContext
-  // ): Promise<PostingResponse> {
-  //   let value = await this.postRepo.save({
-  //     ...input,
-  //     creatorId: req.session!.userId
-  //   });
+  @Mutation(() => PostingResponse, { name: `createPostingRepo` })
+  @Authorized()
+  async createPosting(
+    @Arg("posting") input: CreatePostingInput,
+    @Ctx() { req }: MyContext
+  ): Promise<PostingResponse> {
+    let value: Posting = await this.postRepo.save({
+      ...input,
+      creatorId: req.session!.userId
+    });
 
-  //   return {
-  //     posting: value
-  //   };
-  // }
+    return {
+      posting: value
+    };
+  }
 
   @Query(() => Posting, {
     nullable: true
   })
   async getPostingById(@Arg("id") id: string) {
     return this.postRepo.findOne(id);
+  }
+
+  @Mutation(() => DeletePostingResponse, {
+    nullable: true
+  })
+  @Authorized()
+  async deletePostingById(@Arg("id") id: string) {
+    const value = this.postRepo.findOne(id);
+    if (value) {
+      this.postRepo.delete(id);
+      return { ok: true };
+    }
+    return { ok: false };
   }
 
   @Query(() => FindPostingResponse)

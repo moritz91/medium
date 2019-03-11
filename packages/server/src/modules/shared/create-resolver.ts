@@ -32,6 +32,7 @@ export function createResolver<ArgType extends Object, T extends Object>(
           creatorId: ctx.req.session!.userId
         })
         .save();
+      console.log(value);
       return {
         [argAndReturnKeyName]: value
       };

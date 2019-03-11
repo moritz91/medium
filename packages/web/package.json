@@ -16,7 +16,6 @@
     "apollo-link-context": "1.0.12",
     "cookie": "0.3.1",
     "formik": "1.4.2",
-    "invariant": "^2.2.4",
     "isomorphic-unfetch": "3.0.0",
     "lodash": "^4.17.11",
     "lodash.get": "^4.4.2",
