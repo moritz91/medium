@@ -5,7 +5,7 @@ import { blue } from "../utils/colors";
 import { navbarHeight } from "../utils/sizes";
 import { headerFont } from "../utils/fonts";
 import { mobile } from "../utils/media";
-import NavLinks from "./NavLinks";
+import NavLinks from "./NavigationLinks";
 import Social from "./Social";
 
 const Wrapper = styled.nav`

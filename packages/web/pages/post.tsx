@@ -114,7 +114,6 @@ export default class Post extends React.PureComponent<Props> {
                         creator={comment.creator}
                         body={comment.text}
                         Link={Link}
-                        getLinkProps={() => ({})}
                       />
                     ))}
                   </>

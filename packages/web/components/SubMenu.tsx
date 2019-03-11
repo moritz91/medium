@@ -3,7 +3,7 @@ import { MyButton, styled, Avatar, Icon } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
-import { MeComponent } from "../components/apollo-components";
+import { MeComponent } from "./apollo-components";
 import { CreatePostingModal } from "../modules/shared/CreatePostingModal";
 
 const Container = styled(Flex)`
@@ -11,7 +11,7 @@ const Container = styled(Flex)`
   margin-top: 6.5rem;
 `;
 
-export const NavBar = () => {
+export const SubMenu = () => {
   return (
     <Container my="1.5rem" justifyContent="space-between">
       <Flex alignItems="center">
