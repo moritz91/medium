@@ -11,6 +11,12 @@ export class CreateCommentInput implements Partial<Comment> {
 }
 
 @InputType()
+export class DeleteCommentInput implements Partial<Comment> {
+  @Field()
+  id: string;
+}
+
+@InputType()
 export class FindCommentsInput {
   @Field()
   postingId: string;

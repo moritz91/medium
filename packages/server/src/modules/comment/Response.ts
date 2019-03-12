@@ -8,6 +8,12 @@ export class CommentResponse {
 }
 
 @ObjectType()
+export class DeleteCommentResponse {
+  @Field()
+  ok: boolean;
+}
+
+@ObjectType()
 export class FindCommentResponse {
   @Field()
   hasMore: boolean;

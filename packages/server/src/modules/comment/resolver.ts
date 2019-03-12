@@ -12,7 +12,11 @@ import { Comment } from "../../entity/Comment";
 import { MyContext } from "../../types/Context";
 import { isAuth } from "../middleware/isAuth";
 import { CreateCommentInput, FindCommentsInput } from "./Input";
-import { CommentResponse, FindCommentResponse } from "./response";
+import {
+  CommentResponse,
+  FindCommentResponse,
+  DeleteCommentResponse
+} from "./response";
 import { CommentRepository } from "../../repositories/CommentRepo";
 
 const COMMENT_LIMIT = 10;
@@ -38,6 +42,19 @@ export class CommentResolver {
     return {
       comment
     };
+  }
+
+  @Mutation(() => DeleteCommentResponse, {
+    nullable: true
+  })
+  @Authorized()
+  async deletePostingById(@Arg("id") id: string) {
+    const value = this.commentRepo.findOne(id);
+    if (value) {
+      this.commentRepo.delete(id);
+      return { ok: true };
+    }
+    return { ok: false };
   }
 
   @Query(() => FindCommentResponse)
