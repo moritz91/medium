@@ -43,8 +43,8 @@ const Svg = styled.svg`
 `;
 
 const StyledIcon = styled.div`
-  width: ${(p: any) => rem(Number(p.width))};
-  height: ${(p: any) => rem(Number(p.height))};
+  width: 18px;
+  height: 18px;
 `;
 
 // const Twitter = () => (
@@ -76,10 +76,10 @@ const Social = (props: any) => (
       <Twitter />
     </SocialLink> */}
     <SocialLink href="https://github.com/styled-components">
-      <StyledIcon as={Github} height="18" />
+      <StyledIcon as={Github} />
     </SocialLink>
     <SocialLink href="https://medium.com/styled-components">
-      <StyledIcon as={MediumM} height="18" />
+      <StyledIcon as={MediumM} />
     </SocialLink>
   </Wrapper>
 );

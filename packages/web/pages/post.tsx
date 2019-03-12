@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PostRow, Comment } from "@medium/ui";
+import { PostRow, Comment, PostRowContainer, Avatar } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { PostContext, ContextProps } from "../components/PostContext";
@@ -12,7 +12,7 @@ import {
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
-import { CreateCommentModal } from "../modules/shared/CreateCommentModal";
+// import { CreateCommentModal } from "../modules/shared/CreateCommentModal";
 import styled from "styled-components";
 import { Flex, Text } from "rebass";
 import { get } from "lodash";
@@ -84,6 +84,9 @@ export default class Post extends React.PureComponent<Props> {
               Responses
             </Text>
           </Flex>
+        </Container>
+
+        <PostRowContainer>
           <MeComponent>
             {({ data, loading }) => {
               if (loading) {
@@ -92,14 +95,45 @@ export default class Post extends React.PureComponent<Props> {
 
               let isLoggedIn = !!get(data, "me", false);
 
-              if (isLoggedIn) {
-                return <CreateCommentModal postingId={id} />;
+              if (data && data.me && isLoggedIn) {
+                const { pictureUrl, username } = data!.me!;
+
+                return (
+                  <div>
+                    {/* <CreateCommentModal postingId={id} /> */}
+                    <Flex>
+                      <Link route={"profile"} params={{ username }}>
+                        <Avatar
+                          borderRadius={3}
+                          size={34}
+                          src={pictureUrl}
+                          alt="avatar"
+                        />
+                      </Link>
+                      <div
+                        style={{
+                          padding: 10,
+                          width: "100%",
+                          overflow: "hidden",
+                          minHeight: 100,
+                          backgroundColor: "#242b38",
+                          border: "none",
+                          color: "white",
+                          fontSize: "1.4rem",
+                          lineHeight: "1.58"
+                        }}
+                        placeholder="Write a response..."
+                        contentEditable
+                      />
+                    </Flex>
+                  </div>
+                );
               }
 
               return <div />;
             }}
           </MeComponent>
-        </Container>
+        </PostRowContainer>
         <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
           {({ data }) => {
             return (
