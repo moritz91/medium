@@ -23,10 +23,6 @@ export interface CreateCommentInput {
 
   postingId: string;
 }
-/** Old posting data */
-export interface DeletePostingInput {
-  id: string;
-}
 /** New posting data */
 export interface CreatePostingInput {
   title: string;

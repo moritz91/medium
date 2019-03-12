@@ -1,9 +1,9 @@
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 
-export const deletePostingMutation = gql`
-  mutation deletePosting($id: DeletePostingInput!) {
-    deletePostingById(id: $id) {
-      ok
-    }
-  }
-`;
+// export const deletePostingMutation = gql`
+//   mutation deletePosting($id: DeletePostingInput!) {
+//     deletePostingById(id: $id) {
+//       ok
+//     }
+//   }
+// `;

@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { UserInfoFragment } from "../../user/fragments/UserInfo";
 
 export const getCommentsByIdQuery = gql`
   query getCommentsById($input: FindCommentsInput!) {
@@ -15,4 +16,5 @@ export const getCommentsByIdQuery = gql`
       hasMore
     }
   }
+  ${UserInfoFragment}
 `;
