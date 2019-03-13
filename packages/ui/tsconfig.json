@@ -24,5 +24,6 @@
     "composite": true
   },
   "include": ["src/**/*", "../web/lib/redirect.ts"],
-  "exclude": ["node_modules", "build", "scripts"]
+  "exclude": ["node_modules", "build", "scripts"],
+  "references": [{ "path": "../web" }]
 }

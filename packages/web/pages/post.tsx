@@ -7,7 +7,8 @@ import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
 import {
   UserInfoFragment,
-  GetCommentsByIdComponent
+  GetCommentsByIdComponent,
+  DeleteCommentComponent
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
@@ -15,6 +16,7 @@ import { Link } from "../server/routes";
 import styled from "styled-components";
 import { Flex, Text } from "rebass";
 import { CreateComment } from "../modules/shared/CreateComment";
+import { deleteCommentMutation } from "../graphql/comment/mutation/deleteComment";
 
 interface Props {
   id: string;
@@ -99,6 +101,23 @@ export default class Post extends React.PureComponent<Props> {
                         creator={comment.creator}
                         body={comment.text}
                         Link={Link}
+                        deleteComment={id => {
+                          console.log("Deleting comment with id: " + id);
+                          return (
+                            <DeleteCommentComponent
+                              mutation={deleteCommentMutation}
+                            >
+                              {mutate => async () => {
+                                const response: any = await mutate({
+                                  variables: {
+                                    id
+                                  }
+                                });
+                                console.log(response);
+                              }}
+                            </DeleteCommentComponent>
+                          );
+                        }}
                       />
                     ))}
                   </>

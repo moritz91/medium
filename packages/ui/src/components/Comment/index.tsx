@@ -1,16 +1,9 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
-import { Flex, Text } from "rebass";
+import { Flex, Text, Box } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
-
-const LinkRebass = styled("a")`
-  cursor: pointer;
-  color: rgb(233, 236, 241);
-  &:hover {
-    color: #fff;
-  }
-`;
+import { Icon } from "../Icon";
 
 interface Props {
   id: string;
@@ -18,6 +11,7 @@ interface Props {
   createdAt: string;
   creator: any;
   Link: any;
+  deleteComment: (id: any) => any;
 }
 
 export const CommmentContainer = styled.div`
@@ -28,10 +22,12 @@ export const CommmentContainer = styled.div`
 `;
 
 export const Comment: React.FC<Props> = ({
+  id,
   creator: { username, pictureUrl },
   body,
   Link,
-  createdAt
+  createdAt,
+  deleteComment
 }) => {
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
@@ -51,14 +47,33 @@ export const Comment: React.FC<Props> = ({
             marginRight: "auto"
           }}
         >
+          <Flex justifyContent="space-between">
+            <Flex alignItems="baseline">
+              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+                <Link route={"profile"} params={{ username }}>
+                  <a>
+                    <Text fontWeight="bold" fontSize={4}>
+                      {username}
+                    </Text>
+                  </a>
+                </Link>
+              </Box>
+              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+                <Text>{dtString}</Text>
+              </Box>
+            </Flex>
+            <Flex>
+              <Icon
+                name="x"
+                fill="#fff"
+                style={{ cursor: "pointer" }}
+                onClick={() => deleteComment(id)}
+              />
+            </Flex>
+          </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
-          <Link route={"profile"} params={{ username }}>
-            <LinkRebass>
-              {username} • {dtString}
-            </LinkRebass>
-          </Link>
         </div>
       </Flex>
     </CommmentContainer>

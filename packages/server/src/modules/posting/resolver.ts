@@ -103,7 +103,9 @@ export class PostingResolver {
     nullable: true
   })
   @Authorized()
-  async deletePostingById(@Arg("id") id: string) {
+  async deletePostingById(
+    @Arg("id") id: string
+  ): Promise<DeletePostingResponse> {
     const value = this.postRepo.findOne(id);
     if (value) {
       this.postRepo.delete(id);

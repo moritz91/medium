@@ -48,7 +48,9 @@ export class CommentResolver {
     nullable: true
   })
   @Authorized()
-  async deletePostingById(@Arg("id") id: string) {
+  async deleteCommentById(
+    @Arg("id") id: string
+  ): Promise<DeleteCommentResponse> {
     const value = this.commentRepo.findOne(id);
     if (value) {
       this.commentRepo.delete(id);

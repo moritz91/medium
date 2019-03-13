@@ -40,4 +40,8 @@ a {
     color: #fff;
   }
 }
+::selection {
+  color: rgb(255, 255, 255);
+  background: #6DC1FD;
+}
 `;
