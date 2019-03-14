@@ -4,8 +4,8 @@ import {
   DeleteCommentComponent
 } from "../../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
-import { Icon } from "@medium/ui";
 import { get } from "lodash";
+import { Box } from "rebass";
 
 interface Props {
   commentId: string;
@@ -40,10 +40,8 @@ export const DeleteComment = (props: Props) => {
 
               if (data && data.me && isLoggedIn) {
                 return (
-                  <Icon
+                  <div
                     key={commentId}
-                    name="x"
-                    fill="#fff"
                     style={{ cursor: "pointer" }}
                     onClick={async () => {
                       await mutate({
@@ -52,7 +50,9 @@ export const DeleteComment = (props: Props) => {
                         }
                       });
                     }}
-                  />
+                  >
+                    delete
+                  </div>
                 );
               }
 

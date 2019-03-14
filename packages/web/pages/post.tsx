@@ -92,7 +92,7 @@ export default class Post extends React.PureComponent<Props> {
                 {data && data.findCommentsById && (
                   <>
                     {data.findCommentsById.comments.map(comment => (
-                      <Flex key={comment.id}>
+                      <Box key={comment.id}>
                         <Comment
                           id={comment.id}
                           createdAt={comment.createdAt}
@@ -100,13 +100,13 @@ export default class Post extends React.PureComponent<Props> {
                           body={comment.text}
                           Link={Link}
                         />
-                        <Box mx={3} mt={4}>
+                        <Box mx={3} mt={1}>
                           <DeleteComment
                             commentId={comment.id}
                             postingId={id}
                           />
                         </Box>
-                      </Flex>
+                      </Box>
                     ))}
                   </>
                 )}
