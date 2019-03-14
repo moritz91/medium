@@ -3,7 +3,6 @@ import * as React from "react";
 import { Flex, Text, Box } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
-import { Icon } from "../Icon";
 
 interface Props {
   id: string;
@@ -11,10 +10,10 @@ interface Props {
   createdAt: string;
   creator: any;
   Link: any;
-  deleteComment: (id: any) => any;
 }
 
 export const CommmentContainer = styled.div`
+  width: 100%;
   padding: 1rem;
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
     0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
@@ -26,8 +25,7 @@ export const Comment: React.FC<Props> = ({
   creator: { username, pictureUrl },
   body,
   Link,
-  createdAt,
-  deleteComment
+  createdAt
 }) => {
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
@@ -42,34 +40,22 @@ export const Comment: React.FC<Props> = ({
         <div
           style={{
             paddingLeft: ".8rem",
-            justifyContent: "center",
-            flexDirection: "column",
             marginRight: "auto"
           }}
         >
-          <Flex justifyContent="space-between">
-            <Flex alignItems="baseline">
-              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-                <Link route={"profile"} params={{ username }}>
-                  <a>
-                    <Text fontWeight="bold" fontSize={4}>
-                      {username}
-                    </Text>
-                  </a>
-                </Link>
-              </Box>
-              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-                <Text>{dtString}</Text>
-              </Box>
-            </Flex>
-            <Flex>
-              <Icon
-                name="x"
-                fill="#fff"
-                style={{ cursor: "pointer" }}
-                onClick={() => deleteComment(id)}
-              />
-            </Flex>
+          <Flex alignItems="baseline">
+            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+              <Link route={"profile"} params={{ username }}>
+                <a>
+                  <Text fontWeight="bold" fontSize={4}>
+                    {username}
+                  </Text>
+                </a>
+              </Link>
+            </Box>
+            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+              <Text>{dtString}</Text>
+            </Box>
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}

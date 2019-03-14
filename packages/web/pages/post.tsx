@@ -7,16 +7,14 @@ import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
 import {
   UserInfoFragment,
-  GetCommentsByIdComponent,
-  DeleteCommentComponent
+  GetCommentsByIdComponent
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
-// import { CreateCommentModal } from "../modules/shared/CreateCommentModal";
 import styled from "styled-components";
-import { Flex, Text } from "rebass";
-import { CreateComment } from "../modules/shared/CreateComment";
-import { deleteCommentMutation } from "../graphql/comment/mutation/deleteComment";
+import { Flex, Text, Box } from "rebass";
+import { CreateComment } from "../modules/shared/Comment/CreateComment";
+import { DeleteComment } from "../modules/shared/Comment/DeleteComment";
 
 interface Props {
   id: string;
@@ -94,31 +92,21 @@ export default class Post extends React.PureComponent<Props> {
                 {data && data.findCommentsById && (
                   <>
                     {data.findCommentsById.comments.map(comment => (
-                      <Comment
-                        key={comment.id}
-                        id={comment.id}
-                        createdAt={comment.createdAt}
-                        creator={comment.creator}
-                        body={comment.text}
-                        Link={Link}
-                        deleteComment={id => {
-                          console.log("Deleting comment with id: " + id);
-                          return (
-                            <DeleteCommentComponent
-                              mutation={deleteCommentMutation}
-                            >
-                              {mutate => async () => {
-                                const response: any = await mutate({
-                                  variables: {
-                                    id
-                                  }
-                                });
-                                console.log(response);
-                              }}
-                            </DeleteCommentComponent>
-                          );
-                        }}
-                      />
+                      <Flex key={comment.id}>
+                        <Comment
+                          id={comment.id}
+                          createdAt={comment.createdAt}
+                          creator={comment.creator}
+                          body={comment.text}
+                          Link={Link}
+                        />
+                        <Box mx={3} mt={4}>
+                          <DeleteComment
+                            commentId={comment.id}
+                            postingId={id}
+                          />
+                        </Box>
+                      </Flex>
                     ))}
                   </>
                 )}
