@@ -1,19 +1,19 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   MeComponent,
   DeleteCommentComponent
 } from "../../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
 import { get } from "lodash";
-import { Box } from "rebass";
+import { PostContext } from "./PostContext";
 
 interface Props {
   commentId: string;
-  postingId: string;
 }
 
 export const DeleteComment = (props: Props) => {
-  const { commentId, postingId } = props;
+  const { commentId } = props;
+  const { postingId } = useContext(PostContext);
 
   return (
     <DeleteCommentComponent
@@ -56,7 +56,7 @@ export const DeleteComment = (props: Props) => {
                 );
               }
 
-              return <div key={commentId} />;
+              return null;
             }}
           </MeComponent>
         </>

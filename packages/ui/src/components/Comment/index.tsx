@@ -5,7 +5,6 @@ import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
 
 interface Props {
-  id: string;
   body: string;
   createdAt: string;
   creator: any;
@@ -17,11 +16,10 @@ export const CommmentContainer = styled.div`
   padding: 1rem;
   box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
     0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
-  margin: 1.6rem 0px;
+  margin: 1.6rem 0px 1rem 0px;
 `;
 
 export const Comment: React.FC<Props> = ({
-  id,
   creator: { username, pictureUrl },
   body,
   Link,

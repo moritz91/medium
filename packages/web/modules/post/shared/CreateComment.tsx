@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { useInputValue } from "../../../utils/useInputValue";
 import {
   CreateCommentComponent,
@@ -9,11 +9,12 @@ import { MyButton, Avatar, PostRowContainer } from "@medium/ui";
 import { Flex } from "rebass";
 import { Link } from "../../../server/routes";
 import { get } from "lodash";
+import { PostContext } from "./PostContext";
 
-export const CreateComment = (postingId: any) => {
+export const CreateComment = () => {
   // const [item] = React.useState(null);
   const [text, changeText] = useInputValue("");
-  const { postingId: id } = postingId;
+  const { postingId } = useContext(PostContext);
   return (
     <CreateCommentComponent
       refetchQueries={[
@@ -21,7 +22,7 @@ export const CreateComment = (postingId: any) => {
           query: getCommentsByIdQuery,
           variables: {
             input: {
-              postingId: id
+              postingId
             }
           }
         }
@@ -81,7 +82,7 @@ export const CreateComment = (postingId: any) => {
                           await mutate({
                             variables: {
                               comment: {
-                                postingId: id,
+                                postingId,
                                 text
                               }
                             }
@@ -94,7 +95,7 @@ export const CreateComment = (postingId: any) => {
                   );
                 }
 
-                return <div />;
+                return null;
               }}
             </MeComponent>
           </PostRowContainer>
