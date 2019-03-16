@@ -15,6 +15,7 @@ import { Flex, Text, Box } from "rebass";
 import { CreateComment } from "../modules/post/shared/CreateComment";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
+import { DeletePosting } from "../modules/post/DeletePosting";
 // import { PopoverImage } from "../modules/user/shared/Popover";
 
 interface Props {
@@ -63,29 +64,32 @@ export default class Post extends React.PureComponent<Props> {
     return (
       // @ts-ignore
       <Layout title={`${title}`}>
-        <PostRow
-          key={id}
-          id={id}
-          createdAt={createdAt}
-          creator={creator}
-          title={title}
-          body={body}
-          Link={Link}
-          getLinkProps={() => ({
-            route: "post",
-            params: {
-              id: id
-            }
-          })}
-        />
-        <Container my="1.5rem" justifyContent="space-between">
-          <Flex alignItems="center">
-            <Text fontSize={5} color="primary.6">
-              Responses
-            </Text>
-          </Flex>
-        </Container>
         <PostContext.Provider value={context}>
+          <PostRow
+            key={id}
+            id={id}
+            createdAt={createdAt}
+            creator={creator}
+            title={title}
+            body={body}
+            Link={Link}
+            getLinkProps={() => ({
+              route: "post",
+              params: {
+                id: id
+              }
+            })}
+          />
+          <Box mx={3} mt={1}>
+            <DeletePosting />
+          </Box>
+          <Container my="1.5rem" justifyContent="space-between">
+            <Flex alignItems="center">
+              <Text fontSize={5} color="primary.6">
+                Responses
+              </Text>
+            </Flex>
+          </Container>
           <CreateComment />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
             {({ data }) => {

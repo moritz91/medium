@@ -12,6 +12,5 @@ export * from "./components/Section";
 export * from "./components/PostRow";
 export * from "./components/Comment";
 export * from "./components/Link";
-export * from "./components/Textarea";
 export * from "./theme/styled-components";
 export { default as theme } from "./theme";

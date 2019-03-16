@@ -10,6 +10,48 @@ import { Flex } from "rebass";
 import { Link } from "../../../server/routes";
 import { get } from "lodash";
 import { PostContext } from "./PostContext";
+import Textarea from "react-textarea-autosize";
+import styled from "styled-components";
+
+const Transition = {
+  hover: {
+    on: "all 0.2s ease-in",
+    off: "all 0.3s ease-out"
+  },
+  reaction: {
+    on: "all 0.15s ease-in",
+    off: "all 0.1s ease-out"
+  },
+  dropdown: {
+    off: "all 0.35s ease-out"
+  }
+};
+
+const StyledTextarea = styled(Textarea)`
+  padding-left: 0.8rem;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  width: 100%;
+  overflow: hidden;
+  background-color: #242b38;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  color: rgb(233, 236, 241);
+  resize: none;
+  &::placeholder {
+    color: rgb(233, 236, 241);
+  }
+  &::-webkit-input-placeholder {
+    color: rgb(233, 236, 241);
+  }
+  &:-moz-placeholder {
+    color: rgb(233, 236, 241);
+  }
+  &:-ms-input-placeholder {
+    color: rgb(233, 236, 241);
+  }
+`;
 
 export const CreateComment = () => {
   // const [item] = React.useState(null);
@@ -53,19 +95,7 @@ export const CreateComment = () => {
                             alt="avatar"
                           />
                         </Link>
-                        <textarea
-                          style={{
-                            padding: 10,
-                            width: "100%",
-                            overflow: "hidden",
-                            minHeight: 100,
-                            backgroundColor: "#242b38",
-                            border: "none",
-                            color: "white",
-                            fontSize: "1.4rem",
-                            lineHeight: "1.58",
-                            resize: "none"
-                          }}
+                        <StyledTextarea
                           placeholder="Write a response..."
                           value={text}
                           onChange={changeText}
@@ -73,10 +103,12 @@ export const CreateComment = () => {
                       </Flex>
                       <MyButton
                         variant="primary"
+                        type="submit"
                         style={{
                           marginLeft: "auto",
                           marginTop: "2rem",
-                          marginRight: 0
+                          marginRight: 0,
+                          display: "flex"
                         }}
                         onClick={async () => {
                           await mutate({
