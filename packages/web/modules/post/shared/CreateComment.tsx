@@ -17,6 +17,7 @@ const StyledTextarea = styled(Textarea)`
   padding-left: 0.8rem;
   margin-right: auto;
   margin-bottom: 1rem;
+  margin-top: 10px;
   width: 100%;
   overflow: hidden;
   background-color: #242b38;
@@ -91,7 +92,6 @@ export const CreateComment = () => {
                         type="submit"
                         style={{
                           marginLeft: "auto",
-                          marginTop: "2rem",
                           marginRight: 0,
                           display: "flex"
                         }}
