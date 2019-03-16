@@ -13,20 +13,6 @@ import { PostContext } from "./PostContext";
 import Textarea from "react-textarea-autosize";
 import styled from "styled-components";
 
-const Transition = {
-  hover: {
-    on: "all 0.2s ease-in",
-    off: "all 0.3s ease-out"
-  },
-  reaction: {
-    on: "all 0.15s ease-in",
-    off: "all 0.1s ease-out"
-  },
-  dropdown: {
-    off: "all 0.35s ease-out"
-  }
-};
-
 const StyledTextarea = styled(Textarea)`
   padding-left: 0.8rem;
   margin-right: auto;
@@ -54,7 +40,6 @@ const StyledTextarea = styled(Textarea)`
 `;
 
 export const CreateComment = () => {
-  // const [item] = React.useState(null);
   const [text, changeText] = useInputValue("");
   const { postingId } = useContext(PostContext);
   return (
