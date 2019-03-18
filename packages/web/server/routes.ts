@@ -7,3 +7,4 @@ export const Link = routes.Link;
 
 routes.add("post", "/p/:id/:path*");
 routes.add("profile", "/@:username/:path*");
+routes.add("create-post", "/create/:path*");

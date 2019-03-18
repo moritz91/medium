@@ -4,6 +4,7 @@ import { CreatePostingComponent } from "../../../components/apollo-components";
 import { getPostingsQuery } from "../../../graphql/post/query/getPostings";
 import Modal from "react-modal";
 import { Icon, Input, MyButton } from "@medium/ui";
+import redirect from "../../../lib/redirect";
 
 const customStyles = {
   content: {
@@ -99,7 +100,10 @@ export const CreatePostingModal = () => {
                     }
                   });
                   if (response && response.data) {
-                    changeOpen(false);
+                    redirect(
+                      {},
+                      `/p/${response.data.createPosting.posting.id}`
+                    );
                   }
                 }}
               >

@@ -8,6 +8,12 @@ const Container = styled.div`
   background-color: #fff;
 `;
 
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 const MyInput = styled.input`
   padding-left: .1rem;
   border: none;
@@ -16,20 +22,38 @@ const MyInput = styled.input`
   width: 100%;
 `;
 
-interface Props extends React.HTMLProps<HTMLInputElement> {
+interface Props {
+  big?: boolean;
+  errorText?: string;
   icon?: keyof typeof icons;
+  onChange?: (event: React.FormEvent<HTMLInputElement>) => void | undefined;
+  onBlur?: (event: React.FormEvent<HTMLInputElement>) => void | undefined;
+  placeholder?: string;
+  style?: React.CSSProperties | undefined;
+  value?: string;
 }
 
 export class Input extends React.PureComponent<Props> {
-  render() {
-    const { icon, style, ...props } = this.props;
+  render(): JSX.Element {
+    const { icon, style, errorText, big, ...props } = this.props;
     return (
-      <Container style={style}>
-        {icon && (
-          <Icon name={icon} fill="#b7c1c6" style={{ marginRight: ".8rem" }} />
+      <div style={style}>
+        <Container>
+          <Row>
+            {icon && (
+              <Icon
+                name={icon}
+                fill="#b7c1c6"
+                style={{ marginRight: ".8rem" }}
+              />
+            )}
+            <MyInput style={{ fontSize: big ? "2rem" : "1.6rem" }} {...props} />
+          </Row>
+        </Container>
+        {errorText && (
+          <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
         )}
-        <MyInput {...props as any} />
-      </Container>
+      </div>
     );
   }
 }
