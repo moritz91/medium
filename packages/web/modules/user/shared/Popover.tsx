@@ -1,40 +1,49 @@
 import React, { useRef } from "react";
-// import styled from "styled-components";
-import { Text } from "rebass";
+import { Box, Text } from "rebass";
 import { useHover } from "../../../components/hooks/use-hover";
+import styled from "styled-components";
 
-// const PopoverContainer = styled(Box)`
-//   display: none;
-//   outline: none;
-//   top: 1318.59px;
-//   left: 340.5px;
-//   z-index: 100;
-//   box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15);
-//   background-color: #fff;
-//   border: 1px solid #d1d5da;
-//   border-radius: 3px;
-// `;
+const PopoverContainer = styled(Box)`
+  padding: 20px;
+  margin: auto;
+  outline: none;
+  top: 50%;
+  box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15);
+  background-color: #fff;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+`;
 
 interface PopoverImageProps {
   enableHover?: boolean;
+  Component?: any;
 }
 
 export const PopoverImage = (props: PopoverImageProps) => {
-  const { enableHover } = props;
+  const { enableHover, Component } = props;
 
   const ref = useRef(null);
 
   useHover(enableHover ? ref : null, isHovered => {
     cacheRef.current.isHovered = isHovered;
-    console.log("hovering: " + isHovered);
+
+    if (cacheRef.current.isHovered) {
+      <PopoverContainer />;
+    }
   });
 
   const cacheRef = useRef({ isHovered: false });
 
+  if (Component)
+    return (
+      <>
+        <Component ref={ref} {...props} />
+      </>
+    );
   return (
     <>
-      <Text ref={ref} p={2}>
-        Text
+      <Text p={2} ref={ref}>
+        Hallo!
       </Text>
     </>
   );

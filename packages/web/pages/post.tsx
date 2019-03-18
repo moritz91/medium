@@ -16,7 +16,6 @@ import { CreateComment } from "../modules/post/shared/CreateComment";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
-// import { PopoverImage } from "../modules/user/shared/Popover";
 
 interface Props {
   id: string;
@@ -116,7 +115,6 @@ export default class Post extends React.PureComponent<Props> {
               );
             }}
           </GetCommentsByIdComponent>
-          {/* <PopoverImage /> */}
         </PostContext.Provider>
       </Layout>
     );
