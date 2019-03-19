@@ -1,17 +1,17 @@
 import * as React from "react";
-import { MyButton, styled, Avatar, Icon } from "@medium/ui";
+import { MyButton, styled, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
 import { MeComponent } from "./apollo-components";
-import { CreatePostingModal } from "../modules/shared/CreatePostingModal";
+import { Router } from "../server/routes";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
   margin-top: 6.5rem;
 `;
 
-export const SubMenu = () => {
+export const SubMenu = (): JSX.Element => {
   return (
     <Container my="1.5rem" justifyContent="space-between">
       <Flex alignItems="center">
@@ -33,8 +33,13 @@ export const SubMenu = () => {
           if (isLoggedIn) {
             return (
               <Flex alignItems="center">
-                <CreatePostingModal />
-                {/* <Menu
+                <MyButton
+                  variant="primary"
+                  onClick={() => Router.push("/create")}
+                >
+                  NEW STORY
+                </MyButton>
+                <Menu
                   options={["logout"]}
                   renderOption={({ Anchor }) => (
                     <NextLink key="logout" href="/logout">
@@ -42,11 +47,15 @@ export const SubMenu = () => {
                     </NextLink>
                   )}
                 >
-              </Menu> */}
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <Avatar size={32} src={data!.me!.pictureUrl} alt="avatar" />
-                  <Icon fill="#333" name="downArrow" />
-                </div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Avatar
+                      size={32}
+                      src={data && data.me ? data.me.pictureUrl : undefined}
+                      alt="avatar"
+                    />
+                    <Icon fill="#333" name="downArrow" />
+                  </div>
+                </Menu>
               </Flex>
             );
           }

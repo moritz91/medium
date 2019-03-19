@@ -17,7 +17,11 @@ const MenuLink = styled("a")`
   }
 `;
 
-export const Menu: React.FC<Props> = ({ children, options, renderOption }) => {
+export const Menu: React.FC<Props> = ({
+  children,
+  options,
+  renderOption
+}): JSX.Element => {
   const [open, changeOpen] = useState(false);
 
   return (

@@ -43,9 +43,6 @@ export const CreatePosting = (): JSX.Element => {
               return (
                 <div style={{ display: "flex", width: "100%" }}>
                   <form onSubmit={handleSubmit} style={{ flex: 1 }}>
-                    <h1 style={{ marginBottom: "1rem", marginTop: "1rem" }}>
-                      Title
-                    </h1>
                     <Field
                       errors={errors.title}
                       name="title"
@@ -53,9 +50,6 @@ export const CreatePosting = (): JSX.Element => {
                       placeholder="Title"
                       icon="github"
                     />
-                    <h1 style={{ marginBottom: "1rem", marginTop: "1rem" }}>
-                      Text
-                    </h1>
                     <Field
                       errors={errors.body}
                       name="body"
@@ -64,7 +58,11 @@ export const CreatePosting = (): JSX.Element => {
                     />
                     <MyButton
                       variant="primary"
-                      style={{ marginTop: "2rem", marginLeft: 0 }}
+                      style={{
+                        marginTop: "1rem",
+                        marginLeft: "auto",
+                        display: "flex"
+                      }}
                       type="submit"
                       disabled={isSubmitting}
                     >
