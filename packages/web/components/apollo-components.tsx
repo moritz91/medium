@@ -196,6 +196,8 @@ export type GetPostingByIdGetPostingById = {
 
   createdAt: DateTime;
 
+  numComments: number;
+
   comments: GetPostingByIdComments[];
 
   ratings: Maybe<GetPostingByIdRatings[]>;
@@ -665,6 +667,7 @@ export const GetPostingByIdDocument = gql`
       title
       body
       createdAt
+      numComments
       comments {
         text
         creator {

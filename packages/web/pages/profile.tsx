@@ -45,6 +45,7 @@ export default class Profile extends React.PureComponent<Props> {
             creator={p.creator}
             title={p.title}
             body={p.body}
+            numComments={p.numComments}
             Link={Link}
             getLinkProps={() => ({
               route: "post",

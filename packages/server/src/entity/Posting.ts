@@ -30,6 +30,10 @@ export class Posting extends BaseEntity {
   @Field(() => Int)
   numComments: number;
 
+  @Field({ description: "The topic of the posting" })
+  @Column({ type: "text", nullable: true })
+  topic: string;
+
   @Field(() => User)
   @ManyToOne(() => User, user => user.postings)
   creator: Promise<User>;

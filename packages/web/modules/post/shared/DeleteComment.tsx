@@ -20,17 +20,15 @@ export const DeleteComment = (props: Props) => {
     <DeleteCommentComponent
       refetchQueries={[
         {
-          query: getCommentsByIdQuery,
+          query: getPostingByIdQuery,
           variables: {
-            input: {
-              postingId
-            }
+            id: postingId
           }
         },
         {
-          query: getPostingByIdQuery,
+          query: getCommentsByIdQuery,
           variables: {
-            id: {
+            input: {
               postingId
             }
           }
