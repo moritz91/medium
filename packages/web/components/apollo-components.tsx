@@ -332,6 +332,8 @@ export type PostingInfoFragment = {
 
   createdAt: DateTime;
 
+  numComments: number;
+
   creator: PostingInfoCreator;
 };
 
@@ -387,6 +389,7 @@ export const PostingInfoFragmentDoc = gql`
     title
     body
     createdAt
+    numComments
     creator {
       ...UserInfo
     }

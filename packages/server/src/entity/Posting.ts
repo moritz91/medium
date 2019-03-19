@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   OneToMany
 } from "typeorm";
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
@@ -26,6 +26,9 @@ export class Posting extends BaseEntity {
   @Field(() => [Comment])
   @OneToMany(() => Comment, qr => qr.posting)
   comments: Promise<Comment[]>;
+
+  @Field(() => Int)
+  numComments: number;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.postings)

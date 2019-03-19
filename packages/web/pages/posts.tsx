@@ -33,6 +33,7 @@ export default class Posts extends React.Component<State> {
                         creator={post.creator}
                         title={post.title}
                         body={post.body}
+                        numComments={post.numComments}
                         Link={Link}
                         getLinkProps={() => ({
                           route: "post",

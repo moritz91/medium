@@ -27,6 +27,7 @@ import {
   FindPostingResponse
 } from "./Response";
 import { User } from "../../entity/User";
+import { CommentRepository } from "../../repositories/CommentRepo";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
@@ -42,9 +43,19 @@ export const loadCreatorForPosting = loadCreatorResolver(Posting);
 
 @Resolver(Posting)
 export class PostingResolver {
+  @InjectRepository(PostingRepository)
+  private readonly postRepo: PostingRepository;
+  @InjectRepository(CommentRepository)
+  private readonly commentRepo: CommentRepository;
+
   @FieldResolver(() => User)
   creator(@Root() root: any, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(root.creatorId);
+  }
+
+  @FieldResolver()
+  numComments(@Root() root: Posting): Promise<number> {
+    return this.commentRepo.count({ where: { postingId: root.id } });
   }
 
   @Query(() => FindPostingResponse)
@@ -70,11 +81,6 @@ export class PostingResolver {
       posts: posts.slice(0, limit)
     };
   }
-
-  constructor(
-    @InjectRepository(PostingRepository)
-    private readonly postRepo: PostingRepository
-  ) {}
 
   @Mutation(() => PostingResponse, { name: `createPostingRepo` })
   @Authorized()

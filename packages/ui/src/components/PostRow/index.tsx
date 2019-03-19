@@ -16,6 +16,7 @@ interface Props {
   id: string;
   title: string;
   body: string;
+  numComments: number;
   createdAt: string;
   creator: any;
   Link: any;
@@ -33,6 +34,7 @@ export const PostRow: React.FC<Props> = ({
   title,
   creator: { username, pictureUrl },
   body,
+  numComments,
   getLinkProps,
   Link,
   createdAt
@@ -69,7 +71,10 @@ export const PostRow: React.FC<Props> = ({
           </Text>
           <Link route={"profile"} params={{ username }}>
             <LinkRebass>
-              {username} • {dtString}
+              {username} • {dtString} •{" "}
+              {numComments == 1
+                ? `${numComments}` + " response"
+                : `${numComments}` + " responses"}
             </LinkRebass>
           </Link>
         </div>

@@ -22,6 +22,7 @@ interface Props {
   creator: UserInfoFragment;
   title: string;
   body: string;
+  numComments: number;
   createdAt: string;
 }
 
@@ -48,12 +49,13 @@ export default class Post extends React.PureComponent<Props> {
       creator: getPostingById!.creator,
       title: getPostingById!.title,
       body: getPostingById!.body,
+      numComments: getPostingById!.numComments,
       createdAt: getPostingById!.createdAt
     };
   }
 
   render() {
-    const { title, creator, body, id, createdAt } = this.props;
+    const { title, creator, body, id, createdAt, numComments } = this.props;
     const context: ContextProps = {
       title,
       creator: userInfoFragment,
@@ -71,6 +73,7 @@ export default class Post extends React.PureComponent<Props> {
             creator={creator}
             title={title}
             body={body}
+            numComments={numComments}
             Link={Link}
             getLinkProps={() => ({
               route: "post",
