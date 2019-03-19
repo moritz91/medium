@@ -10,6 +10,7 @@ export const findUserQuery = gql`
         title
         body
         createdAt
+        numComments
         creator {
           ...UserInfo
         }

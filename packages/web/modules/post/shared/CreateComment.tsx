@@ -5,7 +5,6 @@ import {
   MeComponent
 } from "../../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../../graphql/post/query/getPostingById";
 import { MyButton, Avatar, PostRowContainer } from "@medium/ui";
 import { Flex } from "rebass";
 import { Link } from "../../../server/routes";
@@ -44,15 +43,10 @@ const StyledTextarea = styled(Textarea)`
 export const CreateComment = () => {
   const [text, changeText] = useInputValue("");
   const { postingId } = useContext(PostContext);
+
   return (
     <CreateCommentComponent
       refetchQueries={[
-        {
-          query: getPostingByIdQuery,
-          variables: {
-            id: postingId
-          }
-        },
         {
           query: getCommentsByIdQuery,
           variables: {
