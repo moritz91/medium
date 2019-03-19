@@ -38,6 +38,7 @@ export const PostRow: React.FC<Props> = ({
   createdAt
 }) => {
   const linkProps = getLinkProps();
+
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
   });

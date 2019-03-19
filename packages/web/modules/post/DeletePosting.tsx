@@ -7,6 +7,7 @@ import { get } from "lodash";
 import { PostContext } from "./shared/PostContext";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
+import { Icon } from "@medium/ui";
 
 export const DeletePosting = () => {
   const { postingId } = useContext(PostContext);
@@ -49,7 +50,14 @@ export const DeletePosting = () => {
                       Router.replace("/posts");
                     }}
                   >
-                    delete
+                    <Icon name="comment" fill="rgb(183, 193, 198" />
+                    <Icon name="downArrow" fill="rgb(183, 193, 198" />
+                    <Icon name="reply" fill="rgb(183, 193, 198" />
+                    <Icon name="clock" fill="rgb(183, 193, 198" />
+                    <Icon name="search" fill="rgb(183, 193, 198" />
+                    <Icon name="link" fill="rgb(183, 193, 198" />
+                    <Icon name="file" fill="rgb(183, 193, 198" />
+                    <Icon name="folder" fill="rgb(183, 193, 198" />
                   </div>
                 );
               }

@@ -39,23 +39,22 @@ export const SubMenu = (): JSX.Element => {
                 >
                   NEW STORY
                 </MyButton>
-                <Menu
+                {/* <Menu
                   options={["logout"]}
                   renderOption={({ Anchor }) => (
                     <NextLink key="logout" href="/logout">
                       {Anchor}
                     </NextLink>
                   )}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar
-                      size={32}
-                      src={data && data.me ? data.me.pictureUrl : undefined}
-                      alt="avatar"
-                    />
-                    <Icon fill="#333" name="downArrow" />
-                  </div>
-                </Menu>
+                > */}
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Avatar
+                    size={32}
+                    src={data && data.me ? data.me.pictureUrl : undefined}
+                    alt="avatar"
+                  />
+                  <Icon fill="#333" name="downArrow" />
+                </div>
               </Flex>
             );
           }
