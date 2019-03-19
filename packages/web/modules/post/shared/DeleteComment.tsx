@@ -6,6 +6,7 @@ import {
 import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
 import { get } from "lodash";
 import { PostContext } from "./PostContext";
+import { getPostingByIdQuery } from "../../../graphql/post/query/getPostingById";
 
 interface Props {
   commentId: string;
@@ -22,6 +23,14 @@ export const DeleteComment = (props: Props) => {
           query: getCommentsByIdQuery,
           variables: {
             input: {
+              postingId
+            }
+          }
+        },
+        {
+          query: getPostingByIdQuery,
+          variables: {
+            id: {
               postingId
             }
           }
