@@ -1,12 +1,13 @@
 import * as React from "react";
-import { PostRow } from "@medium/ui";
-
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import Layout from "../components/Layout";
-import { Link } from "../server/routes";
 import { findUserQuery } from "../graphql/user/query/user";
 import { PostingInfoFragment } from "../components/apollo-components";
 import { ProfileTabs } from "../components/Tabs";
+import {
+  ContextProps,
+  PostsContext
+} from "../modules/post/shared/PostsContext";
 
 interface Props {
   postings: [PostingInfoFragment];
@@ -35,28 +36,15 @@ export default class Profile extends React.PureComponent<Props> {
 
   render() {
     const { postings, username } = this.props;
+
+    const context: ContextProps = {
+      postings: postings
+    };
     return (
       <Layout title={`${username}`}>
-        <ProfileTabs />
-        {postings.map(p => (
-          // @ts-ignore
-          <PostRow
-            key={p.id}
-            id={p.id}
-            createdAt={p.createdAt}
-            creator={p.creator}
-            title={p.title}
-            body={p.body}
-            numComments={p.numComments}
-            Link={Link}
-            getLinkProps={() => ({
-              route: "post",
-              params: {
-                id: p.id
-              }
-            })}
-          />
-        ))}
+        <PostsContext.Provider value={context}>
+          <ProfileTabs />
+        </PostsContext.Provider>
       </Layout>
     );
   }

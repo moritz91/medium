@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "./tabs/Tabs";
-import styled from "styled-components";
+import { PostRow } from "@medium/ui";
 import { Box } from "rebass";
+import { PostsContext } from "../modules/post/shared/PostsContext";
+import { Link } from "../server/routes";
 
 export function ProfileTabs() {
+  const { postings } = useContext(PostsContext);
+
   return (
     <Tabs initialValue="posts">
       <TabList>
@@ -11,11 +15,24 @@ export function ProfileTabs() {
         <Tab name="responses">Responses</Tab>
       </TabList>
       <TabPanel name="posts">
-        <Box fontSize={4}>
-          React.js is a JavaScript library used for building UI. It is
-          maintained by <strong>Facebook</strong> and a community of individual
-          developers and companies.
-        </Box>
+        {postings.map(p => (
+          <PostRow
+            key={p.id}
+            id={p.id}
+            createdAt={p.createdAt}
+            creator={p.creator}
+            title={p.title}
+            body={p.body}
+            numComments={p.numComments}
+            Link={Link}
+            getLinkProps={() => ({
+              route: "post",
+              params: {
+                id: p.id
+              }
+            })}
+          />
+        ))}
       </TabPanel>
       <TabPanel name="responses">
         <Box fontSize={4}>
