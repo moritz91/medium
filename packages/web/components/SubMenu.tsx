@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MyButton, styled, Avatar, Icon, Menu } from "@medium/ui";
+import { MyButton, styled, Avatar, Icon } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";

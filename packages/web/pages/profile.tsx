@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import { Link } from "../server/routes";
 import { findUserQuery } from "../graphql/user/query/user";
 import { PostingInfoFragment } from "../components/apollo-components";
+import { ProfileTabs } from "../components/Tabs";
 
 interface Props {
   postings: [PostingInfoFragment];
@@ -36,6 +37,7 @@ export default class Profile extends React.PureComponent<Props> {
     const { postings, username } = this.props;
     return (
       <Layout title={`${username}`}>
+        <ProfileTabs />
         {postings.map(p => (
           // @ts-ignore
           <PostRow
