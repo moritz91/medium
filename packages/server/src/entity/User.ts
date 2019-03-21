@@ -35,6 +35,7 @@ export class User extends BaseEntity {
   @OneToMany(() => Posting, post => post.creator)
   postings: Promise<Posting[]>;
 
+  @Field(() => [Comment])
   @OneToMany(() => Comment, pr => pr.creatorConnection)
   comments: Promise<Comment[]>;
 }

@@ -38,6 +38,7 @@ export default class Profile extends React.PureComponent<Props> {
     const { postings, username } = this.props;
 
     const context: ContextProps = {
+      username: username,
       postings: postings
     };
     return (

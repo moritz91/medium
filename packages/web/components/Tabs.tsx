@@ -1,12 +1,26 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "./tabs/Tabs";
 import { PostRow } from "@medium/ui";
-import { Box } from "rebass";
 import { PostsContext } from "../modules/post/shared/PostsContext";
 import { Link } from "../server/routes";
+import { useApolloClient } from "react-apollo-hooks";
+import { findUserCommentsQuery } from "../graphql/user/query/userComments";
+
+async function findUserCommentsQueryFunc(username: string) {
+  const response = await useApolloClient().query({
+    query: findUserCommentsQuery,
+    variables: {
+      username
+    }
+  });
+
+  return response;
+}
 
 export function ProfileTabs() {
-  const { postings } = useContext(PostsContext);
+  const { username, postings } = useContext(PostsContext);
+
+  findUserCommentsQueryFunc(username);
 
   return (
     <Tabs initialValue="posts">
@@ -34,12 +48,7 @@ export function ProfileTabs() {
           />
         ))}
       </TabPanel>
-      <TabPanel name="responses">
-        <Box fontSize={4}>
-          Vue.js is an open-source JavaScript framework for building user
-          interfaces and single-page applications.
-        </Box>
-      </TabPanel>
+      <TabPanel name="responses" />
     </Tabs>
   );
 }

@@ -302,10 +302,38 @@ export type FindUserPostings = {
 
   createdAt: DateTime;
 
+  numComments: number;
+
   creator: FindUserCreator;
 };
 
 export type FindUserCreator = UserInfoFragment;
+
+export type FindUserCommentsVariables = {
+  username: string;
+};
+
+export type FindUserCommentsQuery = {
+  __typename?: "Query";
+
+  findUser: Maybe<FindUserCommentsFindUser>;
+};
+
+export type FindUserCommentsFindUser = {
+  __typename?: "User";
+
+  comments: FindUserCommentsComments[];
+};
+
+export type FindUserCommentsComments = {
+  __typename?: "Comment";
+
+  id: string;
+
+  text: string;
+
+  createdAt: DateTime;
+};
 
 export type CommentInfoFragment = {
   __typename?: "Comment";
@@ -862,6 +890,7 @@ export const FindUserDocument = gql`
         title
         body
         createdAt
+        numComments
         creator {
           ...UserInfo
         }
@@ -903,4 +932,50 @@ export function FindUserHOC<TProps, TChildProps = any>(
     FindUserVariables,
     FindUserProps<TChildProps>
   >(FindUserDocument, operationOptions);
+}
+export const FindUserCommentsDocument = gql`
+  query FindUserComments($username: String!) {
+    findUser(username: $username) {
+      comments {
+        id
+        text
+        createdAt
+      }
+    }
+  }
+`;
+export class FindUserCommentsComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<FindUserCommentsQuery, FindUserCommentsVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindUserCommentsQuery, FindUserCommentsVariables>
+        query={FindUserCommentsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindUserCommentsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUserCommentsQuery, FindUserCommentsVariables>
+> &
+  TChildProps;
+export function FindUserCommentsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindUserCommentsQuery,
+        FindUserCommentsVariables,
+        FindUserCommentsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindUserCommentsQuery,
+    FindUserCommentsVariables,
+    FindUserCommentsProps<TChildProps>
+  >(FindUserCommentsDocument, operationOptions);
 }
