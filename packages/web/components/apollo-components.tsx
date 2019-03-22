@@ -322,6 +322,8 @@ export type FindUserCommentsQuery = {
 export type FindUserCommentsFindUser = {
   __typename?: "User";
 
+  id: string;
+
   comments: FindUserCommentsComments[];
 };
 
@@ -936,6 +938,7 @@ export function FindUserHOC<TProps, TChildProps = any>(
 export const FindUserCommentsDocument = gql`
   query FindUserComments($username: String!) {
     findUser(username: $username) {
+      id
       comments {
         id
         text

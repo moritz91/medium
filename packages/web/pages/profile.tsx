@@ -8,10 +8,12 @@ import {
   ContextProps,
   PostsContext
 } from "../modules/post/shared/PostsContext";
+import { ProfileHero } from "../modules/user/profile/ProfileHero";
 
 interface Props {
   postings: [PostingInfoFragment];
   username: string;
+  pictureUrl: string;
 }
 
 export default class Profile extends React.PureComponent<Props> {
@@ -30,20 +32,23 @@ export default class Profile extends React.PureComponent<Props> {
 
     return {
       username,
+      pictureUrl: findUser!.pictureUrl,
       postings: findUser!.postings
     };
   }
 
   render() {
-    const { postings, username } = this.props;
+    const { postings, pictureUrl, username } = this.props;
 
     const context: ContextProps = {
       username: username,
-      postings: postings
+      postings: postings,
+      pictureUrl: pictureUrl
     };
     return (
       <Layout title={`${username}`}>
         <PostsContext.Provider value={context}>
+          <ProfileHero />
           <ProfileTabs />
         </PostsContext.Provider>
       </Layout>
