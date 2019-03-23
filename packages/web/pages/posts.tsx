@@ -17,7 +17,6 @@ export default class Posts extends React.Component<State> {
 
   render() {
     return (
-      // @ts-ignore
       <Layout title={`Postings`}>
         <GetPostingsComponent variables={{ input: { ...this.state } }}>
           {({ data }) => {

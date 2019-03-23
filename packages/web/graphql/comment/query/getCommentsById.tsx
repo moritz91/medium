@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import { UserInfoFragment } from "../../user/fragments/UserInfo";
 
 export const getCommentsByIdQuery = gql`
-  query getCommentsById($input: FindCommentsInput!) {
+  query getCommentsById($input: FindCommentsByIdInput!) {
     findCommentsById(input: $input) {
       comments {
         id

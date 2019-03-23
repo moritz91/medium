@@ -15,6 +15,14 @@ export const findUserQuery = gql`
           ...UserInfo
         }
       }
+      comments {
+        id
+        text
+        createdAt
+        creator {
+          ...UserInfo
+        }
+      }
     }
   }
   ${UserInfoFragment}

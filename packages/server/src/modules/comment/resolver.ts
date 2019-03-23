@@ -11,7 +11,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Comment } from "../../entity/Comment";
 import { MyContext } from "../../types/Context";
 import { isAuth } from "../middleware/isAuth";
-import { CreateCommentInput, FindCommentsInput } from "./Input";
+import { CreateCommentInput, FindCommentsByIdInput } from "./Input";
 import {
   CommentResponse,
   FindCommentResponse,
@@ -65,7 +65,7 @@ export class CommentResolver {
   {
     cursor,
     postingId
-  }: FindCommentsInput): Promise<FindCommentResponse> {
+  }: FindCommentsByIdInput): Promise<FindCommentResponse> {
     return this.commentRepo.findByPostingId({
       cursor,
       limit: COMMENT_LIMIT,

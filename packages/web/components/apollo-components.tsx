@@ -1,6 +1,6 @@
 export type Maybe<T> = T | null;
 
-export interface FindCommentsInput {
+export interface FindCommentsByIdInput {
   postingId: string;
 
   cursor?: Maybe<string>;
@@ -80,7 +80,7 @@ export type DeleteCommentDeleteCommentById = {
 };
 
 export type GetCommentsByIdVariables = {
-  input: FindCommentsInput;
+  input: FindCommentsByIdInput;
 };
 
 export type GetCommentsByIdQuery = {
@@ -289,6 +289,8 @@ export type FindUserFindUser = {
   __typename?: "User";
 
   postings: FindUserPostings[];
+
+  comments: FindUserComments[];
 } & UserInfoFragment;
 
 export type FindUserPostings = {
@@ -308,6 +310,14 @@ export type FindUserPostings = {
 };
 
 export type FindUserCreator = UserInfoFragment;
+
+export type FindUserComments = {
+  __typename?: "Comment";
+
+  id: string;
+
+  text: string;
+};
 
 export type FindUserCommentsVariables = {
   username: string;
@@ -534,7 +544,7 @@ export function DeleteCommentHOC<TProps, TChildProps = any>(
   >(DeleteCommentDocument, operationOptions);
 }
 export const GetCommentsByIdDocument = gql`
-  query getCommentsById($input: FindCommentsInput!) {
+  query getCommentsById($input: FindCommentsByIdInput!) {
     findCommentsById(input: $input) {
       comments {
         id
@@ -896,6 +906,10 @@ export const FindUserDocument = gql`
         creator {
           ...UserInfo
         }
+      }
+      comments {
+        id
+        text
       }
     }
   }

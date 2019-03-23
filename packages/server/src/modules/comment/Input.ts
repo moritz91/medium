@@ -17,9 +17,18 @@ export class DeleteCommentInput implements Partial<Comment> {
 }
 
 @InputType()
-export class FindCommentsInput {
+export class FindCommentsByIdInput {
   @Field()
   postingId: string;
+
+  @Field(() => String, { nullable: true })
+  cursor?: string;
+}
+
+@InputType()
+export class FindCommentsByUsernameInput {
+  @Field()
+  username: string;
 
   @Field(() => String, { nullable: true })
   cursor?: string;

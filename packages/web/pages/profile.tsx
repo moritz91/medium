@@ -2,7 +2,10 @@ import * as React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import Layout from "../components/Layout";
 import { findUserQuery } from "../graphql/user/query/user";
-import { PostingInfoFragment } from "../components/apollo-components";
+import {
+  PostingInfoFragment,
+  CommentInfoFragment
+} from "../components/apollo-components";
 import { ProfileTabs } from "../components/Tabs";
 import {
   ContextProps,
@@ -12,6 +15,7 @@ import { ProfileHero } from "../modules/user/profile/ProfileHero";
 
 interface Props {
   postings: [PostingInfoFragment];
+  comments: [CommentInfoFragment];
   username: string;
   pictureUrl: string;
 }
@@ -33,16 +37,18 @@ export default class Profile extends React.PureComponent<Props> {
     return {
       username,
       pictureUrl: findUser!.pictureUrl,
-      postings: findUser!.postings
+      postings: findUser!.postings,
+      comments: findUser!.comments
     };
   }
 
   render() {
-    const { postings, pictureUrl, username } = this.props;
+    const { postings, comments, pictureUrl, username } = this.props;
 
     const context: ContextProps = {
       username: username,
       postings: postings,
+      comments: comments,
       pictureUrl: pictureUrl
     };
     return (

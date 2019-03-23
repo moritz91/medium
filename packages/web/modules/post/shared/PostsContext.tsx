@@ -1,8 +1,12 @@
 import { createContext } from "react";
-import { PostingInfoFragment } from "../../../components/apollo-components";
+import {
+  PostingInfoFragment,
+  CommentInfoFragment
+} from "../../../components/apollo-components";
 
 export interface ContextProps {
   postings: [PostingInfoFragment];
+  comments: [CommentInfoFragment];
   username: string;
   pictureUrl: string;
 }
@@ -19,5 +23,14 @@ export const PostsContext = createContext<ContextProps>({
     }
   ],
   username: "",
-  pictureUrl: ""
+  pictureUrl: "",
+  comments: [
+    {
+      id: "",
+      text: "",
+      createdAt: "",
+      creatorId: "",
+      creator: { id: "", username: "", pictureUrl: "", bio: "" }
+    }
+  ]
 });
