@@ -33,7 +33,7 @@
     "reflect-metadata": "0.1.13",
     "type-graphql": "0.16.0",
     "typedi": "0.8.0",
-    "typeorm": "0.2.15",
+    "typeorm": "0.2.16",
     "typeorm-typedi-extensions": "0.2.3"
   },
   "scripts": {
