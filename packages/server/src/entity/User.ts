@@ -3,11 +3,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  OneToMany
+  OneToMany,
+  ManyToMany
 } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Posting } from "./Posting";
 import { Comment } from "./Comment";
+import { Topic } from "./Topic";
 
 @Entity()
 @ObjectType()
@@ -38,4 +40,8 @@ export class User extends BaseEntity {
   @Field(() => [Comment])
   @OneToMany(() => Comment, pr => pr.creatorConnection)
   comments: Promise<Comment[]>;
+
+  @Field(() => [Topic])
+  @ManyToMany(() => Topic, topic => topic.subscribers)
+  subscriptions: Promise<Topic[]>;
 }

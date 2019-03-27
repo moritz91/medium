@@ -30,16 +30,6 @@ const Link = styled.a.attrs(({ active }: any) => ({
   color: ${props => props.active};
 `;
 
-// const TabDivider = styled.div.attrs(({ active }: any) => ({
-//   active
-// }))`
-//   height: 3px;
-//   min-width: 100%;
-//   width: 80px;
-//   transition: 0.2s ease-in;
-//   background-color: ${props => props.active};
-// `;
-
 export interface ContextProps {
   activeTab: string;
   changeTab: any;

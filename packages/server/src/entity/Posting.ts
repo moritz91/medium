@@ -11,6 +11,7 @@ import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
+import { Topic } from "./Topic";
 
 @Entity()
 @ObjectType()
@@ -23,6 +24,10 @@ export class Posting extends BaseEntity {
   @Column("uuid")
   creatorId: string;
 
+  @Field()
+  @Column("uuid", { nullable: true })
+  topicId: string;
+
   @Field(() => [Comment])
   @OneToMany(() => Comment, qr => qr.posting)
   comments: Promise<Comment[]>;
@@ -30,9 +35,8 @@ export class Posting extends BaseEntity {
   @Field(() => Int)
   numComments: number;
 
-  @Field({ description: "The topic of the posting" })
-  @Column({ type: "text", nullable: true })
-  topic: string;
+  @ManyToOne(() => Topic, p => p.postings, { onDelete: "CASCADE" })
+  topic: Promise<Topic>;
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.postings)
