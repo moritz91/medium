@@ -21,3 +21,12 @@ export class FindPostingResponse {
   @Field(() => [Posting])
   posts: Posting[];
 }
+
+@ObjectType()
+export class FindPostingsByTopicResponse {
+  @Field()
+  hasMore: boolean;
+
+  @Field(() => [Posting])
+  posts: Posting[];
+}

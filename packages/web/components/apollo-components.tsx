@@ -12,10 +12,22 @@ export interface FindPostingsInput {
   limit: number;
 }
 
+export interface FindTopicPostingsInput {
+  topicId: string;
+
+  cursor?: Maybe<string>;
+}
+
 export interface FindUserPostingsInput {
   creatorId: string;
 
   cursor?: Maybe<string>;
+}
+
+export interface FindTopicsInput {
+  offset: number;
+
+  limit: number;
 }
 
 export interface CreateCommentInput {
@@ -28,6 +40,12 @@ export interface CreatePostingInput {
   title: string;
 
   body?: Maybe<string>;
+
+  topicId: string;
+}
+/** New topic data */
+export interface CreateTopicInput {
+  name: string;
 }
 
 /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
@@ -245,6 +263,26 @@ export type GetPostingsFindPostings = {
 
 export type GetPostingsPosts = PostingInfoFragment;
 
+export type GetPostingsByTopicVariables = {
+  input: FindTopicPostingsInput;
+};
+
+export type GetPostingsByTopicQuery = {
+  __typename?: "Query";
+
+  getPostingsByTopic: GetPostingsByTopicGetPostingsByTopic;
+};
+
+export type GetPostingsByTopicGetPostingsByTopic = {
+  __typename?: "FindPostingsByTopicResponse";
+
+  posts: GetPostingsByTopicPosts[];
+
+  hasMore: boolean;
+};
+
+export type GetPostingsByTopicPosts = PostingInfoFragment;
+
 export type GetUserPostingsVariables = {
   input: FindUserPostingsInput;
 };
@@ -264,6 +302,28 @@ export type GetUserPostingsFindUserPostings = {
 };
 
 export type GetUserPostingsPosts = PostingInfoFragment;
+
+export type GetTopicByNameVariables = {
+  name: string;
+};
+
+export type GetTopicByNameQuery = {
+  __typename?: "Query";
+
+  getTopicByName: Maybe<GetTopicByNameGetTopicByName>;
+};
+
+export type GetTopicByNameGetTopicByName = {
+  __typename?: "Topic";
+
+  id: string;
+
+  name: string;
+
+  numPostings: number;
+
+  description: Maybe<string>;
+};
 
 export type MeVariables = {};
 
@@ -317,7 +377,13 @@ export type FindUserComments = {
   id: string;
 
   text: string;
+
+  createdAt: DateTime;
+
+  creator: FindUser_Creator;
 };
+
+export type FindUser_Creator = UserInfoFragment;
 
 export type FindUserCommentsVariables = {
   username: string;
@@ -804,6 +870,53 @@ export function GetPostingsHOC<TProps, TChildProps = any>(
     GetPostingsProps<TChildProps>
   >(GetPostingsDocument, operationOptions);
 }
+export const GetPostingsByTopicDocument = gql`
+  query GetPostingsByTopic($input: FindTopicPostingsInput!) {
+    getPostingsByTopic(input: $input) {
+      posts {
+        ...PostingInfo
+      }
+      hasMore
+    }
+  }
+
+  ${PostingInfoFragmentDoc}
+`;
+export class GetPostingsByTopicComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetPostingsByTopicQuery, GetPostingsByTopicVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetPostingsByTopicQuery, GetPostingsByTopicVariables>
+        query={GetPostingsByTopicDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetPostingsByTopicProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetPostingsByTopicQuery, GetPostingsByTopicVariables>
+> &
+  TChildProps;
+export function GetPostingsByTopicHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetPostingsByTopicQuery,
+        GetPostingsByTopicVariables,
+        GetPostingsByTopicProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetPostingsByTopicQuery,
+    GetPostingsByTopicVariables,
+    GetPostingsByTopicProps<TChildProps>
+  >(GetPostingsByTopicDocument, operationOptions);
+}
 export const GetUserPostingsDocument = gql`
   query getUserPostings($input: FindUserPostingsInput!) {
     findUserPostings(input: $input) {
@@ -850,6 +963,49 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
     GetUserPostingsVariables,
     GetUserPostingsProps<TChildProps>
   >(GetUserPostingsDocument, operationOptions);
+}
+export const GetTopicByNameDocument = gql`
+  query GetTopicByName($name: String!) {
+    getTopicByName(name: $name) {
+      id
+      name
+      numPostings
+      description
+    }
+  }
+`;
+export class GetTopicByNameComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetTopicByNameQuery, GetTopicByNameVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTopicByNameQuery, GetTopicByNameVariables>
+        query={GetTopicByNameDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTopicByNameProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTopicByNameQuery, GetTopicByNameVariables>
+> &
+  TChildProps;
+export function GetTopicByNameHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTopicByNameQuery,
+        GetTopicByNameVariables,
+        GetTopicByNameProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTopicByNameQuery,
+    GetTopicByNameVariables,
+    GetTopicByNameProps<TChildProps>
+  >(GetTopicByNameDocument, operationOptions);
 }
 export const MeDocument = gql`
   query Me {
@@ -910,6 +1066,10 @@ export const FindUserDocument = gql`
       comments {
         id
         text
+        createdAt
+        creator {
+          ...UserInfo
+        }
       }
     }
   }

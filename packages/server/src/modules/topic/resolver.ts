@@ -101,6 +101,13 @@ export class TopicResolver {
     return this.topicRepo.findOne(id);
   }
 
+  @Query(() => Topic, {
+    nullable: true
+  })
+  async getTopicByName(@Arg("name") name: string) {
+    return this.topicRepo.findOne({ where: { name } });
+  }
+
   @Mutation(() => DeleteTopicResponse, {
     nullable: true
   })

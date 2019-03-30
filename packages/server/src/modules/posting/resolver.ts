@@ -19,12 +19,14 @@ import { createResolver } from "../shared/create-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindUserPostingsInput
+  FindUserPostingsInput,
+  FindTopicPostingsInput
 } from "./Input";
 import {
   DeletePostingResponse,
   PostingResponse,
-  FindPostingResponse
+  FindPostingResponse,
+  FindPostingsByTopicResponse
 } from "./Response";
 import { User } from "../../entity/User";
 import { CommentRepository } from "../../repositories/CommentRepo";
@@ -103,6 +105,20 @@ export class PostingResolver {
   })
   async getPostingById(@Arg("id") id: string) {
     return this.postRepo.findOne(id);
+  }
+
+  @Query(() => FindPostingsByTopicResponse)
+  @Authorized()
+  async getPostingsByTopic(@Arg("input")
+  {
+    cursor,
+    topicId
+  }: FindTopicPostingsInput): Promise<FindPostingsByTopicResponse> {
+    return this.postRepo.findByTopicId({
+      cursor,
+      limit: POST_LIMIT,
+      topicId
+    });
   }
 
   @Mutation(() => DeletePostingResponse, {

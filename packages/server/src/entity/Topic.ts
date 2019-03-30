@@ -21,6 +21,10 @@ export class Topic extends BaseEntity {
   @Column({ type: "text", unique: true })
   name: string;
 
+  @Field({ nullable: true })
+  @Column({ type: "text", nullable: true })
+  description: string;
+
   @Field(() => Int)
   numPostings: number;
 
