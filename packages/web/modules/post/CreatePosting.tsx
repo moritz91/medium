@@ -13,8 +13,8 @@ export const CreatePosting = (): JSX.Element => {
       <CreatePostingComponent>
         {mutate => (
           <Formik
-            initialValues={{ title: "", body: "" }}
-            onSubmit={async ({ title, body }, { setErrors }) => {
+            initialValues={{ title: "", body: "", topicId: "" }}
+            onSubmit={async ({ title, body, topicId }, { setErrors }) => {
               if (!title) {
                 return setErrors({ title: "required" });
               }
@@ -22,7 +22,8 @@ export const CreatePosting = (): JSX.Element => {
                 variables: {
                   posting: {
                     title,
-                    body
+                    body,
+                    topicId
                   }
                 }
               });

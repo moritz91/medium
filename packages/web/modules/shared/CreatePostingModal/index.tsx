@@ -29,6 +29,7 @@ export const CreatePostingModal = () => {
   // const [item] = React.useState(null);
   const [title, changeTitle] = useInputValue("");
   const [body, changeBody] = useInputValue("");
+  const [topicId, changeTopicId] = useInputValue("");
 
   return (
     <CreatePostingComponent
@@ -95,7 +96,8 @@ export const CreatePostingModal = () => {
                     variables: {
                       posting: {
                         title,
-                        body
+                        body,
+                        topicId
                       }
                     }
                   });
