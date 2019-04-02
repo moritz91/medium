@@ -13,7 +13,7 @@ interface Props {
 
 const MenuLink = styled("a")`
   font-size: 14px;
-  padding: 5px;
+  padding: 10px;
   cursor: pointer;
   &:hover {
     color: #3290d4;
@@ -47,21 +47,21 @@ export const Menu: React.FC<Props> = ({
             flexDirection: "column"
           }}
         >
-          <MenuLink key={"12039213"}>View membership</MenuLink>
+          <MenuLink key={"12039211"}>View membership</MenuLink>
           <DropDownDivider />
-          <MenuLink key={"12039213"}>Stories</MenuLink>
+          <MenuLink key={"12039212"}>Stories</MenuLink>
           <MenuLink key={"12039213"}>Series</MenuLink>
-          <MenuLink key={"12039213"}>Stats</MenuLink>
+          <MenuLink key={"12039214"}>Stats</MenuLink>
           <DropDownDivider />
-          <MenuLink key={"12039213"}>Medium Partner Program</MenuLink>
-          <MenuLink key={"12039213"}>Medium Partner Program</MenuLink>
+          <MenuLink key={"12039215"}>Medium Partner Program</MenuLink>
+          <MenuLink key={"12039216"}>Medium Partner Program</MenuLink>
           <DropDownDivider />
-          <MenuLink key={"12039213"}>Reading List</MenuLink>
-          <MenuLink key={"12039213"}>Publications</MenuLink>
+          <MenuLink key={"12039217"}>Reading List</MenuLink>
+          <MenuLink key={"12039218"}>Publications</MenuLink>
           <DropDownDivider />
-          <MenuLink key={"12039213"}>Profile</MenuLink>
-          <MenuLink key={"12039213"}>Settings</MenuLink>
-          <MenuLink key={"12039213"}>Help</MenuLink>
+          <MenuLink key={"12039219"}>Profile</MenuLink>
+          <MenuLink key={"12039220"}>Settings</MenuLink>
+          <MenuLink key={"12039221"}>Help</MenuLink>
           {options.map(o => {
             const Anchor = <MenuLink key={o}>{o}</MenuLink>;
 
