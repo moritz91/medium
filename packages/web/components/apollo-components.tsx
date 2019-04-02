@@ -325,6 +325,14 @@ export type GetTopicByNameGetTopicByName = {
   description: Maybe<string>;
 };
 
+export type LogoutVariables = {};
+
+export type LogoutMutation = {
+  __typename?: "Mutation";
+
+  logout: boolean;
+};
+
 export type MeVariables = {};
 
 export type MeQuery = {
@@ -1006,6 +1014,48 @@ export function GetTopicByNameHOC<TProps, TChildProps = any>(
     GetTopicByNameVariables,
     GetTopicByNameProps<TChildProps>
   >(GetTopicByNameDocument, operationOptions);
+}
+export const LogoutDocument = gql`
+  mutation Logout {
+    logout
+  }
+`;
+export class LogoutComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<LogoutMutation, LogoutVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<LogoutMutation, LogoutVariables>
+        mutation={LogoutDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type LogoutProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<LogoutMutation, LogoutVariables>
+> &
+  TChildProps;
+export type LogoutMutationFn = ReactApollo.MutationFn<
+  LogoutMutation,
+  LogoutVariables
+>;
+export function LogoutHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        LogoutMutation,
+        LogoutVariables,
+        LogoutProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    LogoutMutation,
+    LogoutVariables,
+    LogoutProps<TChildProps>
+  >(LogoutDocument, operationOptions);
 }
 export const MeDocument = gql`
   query Me {

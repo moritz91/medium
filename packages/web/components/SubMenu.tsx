@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MyButton, styled, Avatar, Icon } from "@medium/ui";
+import { MyButton, styled, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
@@ -39,22 +39,23 @@ export const SubMenu = (): JSX.Element => {
                 >
                   NEW STORY
                 </MyButton>
-                {/* <Menu
-                  options={["logout"]}
+                <Menu
+                  options={["Sign Out"]}
                   renderOption={({ Anchor }) => (
                     <NextLink key="logout" href="/logout">
                       {Anchor}
                     </NextLink>
                   )}
-                > */}
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <Avatar
-                    size={32}
-                    src={data && data.me ? data.me.pictureUrl : undefined}
-                    alt="avatar"
-                  />
-                  <Icon fill="#333" name="downArrow" />
-                </div>
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Avatar
+                      size={32}
+                      src={data && data.me ? data.me.pictureUrl : undefined}
+                      alt="avatar"
+                    />
+                    <Icon fill="#333" name="downArrow" />
+                  </div>
+                </Menu>
               </Flex>
             );
           }
