@@ -1,6 +1,7 @@
 import * as React from "react";
 import Select from "react-select";
 import styled from "styled-components";
+import { FieldProps } from "formik";
 
 const Container = styled.div`
   padding: 0.8rem 1.5rem;
@@ -13,33 +14,47 @@ const Row = styled.div`
   align-items: center;
 `;
 
-interface Props {
-  errorText?: string;
-  placeholder?: string;
-  style?: React.CSSProperties;
-  value?: string;
-}
-
 const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
   { value: "vanilla", label: "Vanilla" }
 ];
 
-export class MySelect extends React.PureComponent<Props> {
-  render(): JSX.Element {
-    const { style, errorText, placeholder } = this.props;
-    return (
-      <div style={style}>
-        <Container>
-          <Row>
-            <Select options={options} placeholder={placeholder} />
-          </Row>
-        </Container>
-        {errorText && (
-          <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
-        )}
-      </div>
-    );
+export const MySelect: React.SFC<
+  FieldProps<any> & {
+    prefix: React.ReactNode;
+    label?: string;
+    style?: any;
+    error?: string;
+    errorText?: string;
   }
-}
+> = ({
+  field: { onChange, onBlur: _, ...field },
+  form: { touched, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  label,
+  style,
+  error,
+  errorText,
+  ...props
+}) => {
+  return (
+    <div style={style}>
+      <Container>
+        <Row>
+          <Select
+            {...field}
+            {...props}
+            options={options}
+            multi={true}
+            isClearable
+            isSearchable
+            onChange={(newValue: any) => setFieldValue(field.name, newValue)}
+          />
+        </Row>
+      </Container>
+      {!!error && errorText && touched && (
+        <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
+      )}
+    </div>
+  );
+};

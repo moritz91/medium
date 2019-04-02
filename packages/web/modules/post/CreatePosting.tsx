@@ -5,7 +5,7 @@ import { CreatePostingComponent } from "../../components/apollo-components";
 import { Formik, Field } from "formik";
 import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
-import { MyButton } from "@medium/ui";
+import { MyButton, MySelect } from "@medium/ui";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -13,7 +13,11 @@ export const CreatePosting = (): JSX.Element => {
       <CreatePostingComponent>
         {mutate => (
           <Formik
-            initialValues={{ title: "", body: "", topicId: "" }}
+            initialValues={{
+              title: "",
+              body: "",
+              topicId: "491cc7bb-5567-4d04-a42e-290b53db8366"
+            }}
             onSubmit={async ({ title, body, topicId }, { setErrors }) => {
               if (!title) {
                 return setErrors({ title: "required" });
@@ -40,7 +44,7 @@ export const CreatePosting = (): JSX.Element => {
             validateOnBlur={false}
             validateOnChange={false}
           >
-            {({ handleSubmit, isSubmitting, errors }) => {
+            {({ errors, handleSubmit, isSubmitting }) => {
               return (
                 <div style={{ display: "flex", width: "100%" }}>
                   <form onSubmit={handleSubmit} style={{ flex: 1 }}>
@@ -56,6 +60,11 @@ export const CreatePosting = (): JSX.Element => {
                       name="body"
                       component={InputField}
                       placeholder="Body"
+                    />
+                    <Field
+                      name="topic"
+                      placeholder="Topic"
+                      component={MySelect}
                     />
                     <MyButton
                       variant="primary"
