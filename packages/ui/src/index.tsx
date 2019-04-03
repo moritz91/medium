@@ -12,6 +12,8 @@ export * from "./components/Pane";
 export * from "./components/Section";
 export * from "./components/PostRow";
 export * from "./components/TopicTile";
+export * from "./components/BlueInput";
+export * from "./components/CodeCard";
 export * from "./components/Comment";
 export * from "./components/DropDownDivider";
 export * from "./components/Link";
