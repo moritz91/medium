@@ -5,6 +5,9 @@ import { Topic } from "../../entity/Topic";
 export class CreateTopicInput implements Partial<Topic> {
   @Field()
   name: string;
+
+  @Field({ nullable: true })
+  pictureUrl?: string;
 }
 
 @InputType({ description: "Old topic data" })

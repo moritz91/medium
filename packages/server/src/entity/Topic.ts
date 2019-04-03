@@ -22,6 +22,10 @@ export class Topic extends BaseEntity {
   name: string;
 
   @Field({ nullable: true })
+  @Column({ type: "text", unique: true, nullable: true })
+  pictureUrl: string;
+
+  @Field({ nullable: true })
   @Column({ type: "text", nullable: true })
   description: string;
 

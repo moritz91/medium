@@ -325,6 +325,34 @@ export type GetTopicByNameGetTopicByName = {
   description: Maybe<string>;
 };
 
+export type GetTopicsVariables = {
+  input: FindTopicsInput;
+};
+
+export type GetTopicsQuery = {
+  __typename?: "Query";
+
+  findTopics: GetTopicsFindTopics;
+};
+
+export type GetTopicsFindTopics = {
+  __typename?: "FindTopicResponse";
+
+  topics: GetTopicsTopics[];
+
+  hasMore: boolean;
+};
+
+export type GetTopicsTopics = {
+  __typename?: "Topic";
+
+  id: string;
+
+  name: string;
+
+  pictureUrl: string;
+};
+
 export type LogoutVariables = {};
 
 export type LogoutMutation = {
@@ -1014,6 +1042,51 @@ export function GetTopicByNameHOC<TProps, TChildProps = any>(
     GetTopicByNameVariables,
     GetTopicByNameProps<TChildProps>
   >(GetTopicByNameDocument, operationOptions);
+}
+export const GetTopicsDocument = gql`
+  query GetTopics($input: FindTopicsInput!) {
+    findTopics(input: $input) {
+      topics {
+        id
+        name
+        pictureUrl
+      }
+      hasMore
+    }
+  }
+`;
+export class GetTopicsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetTopicsQuery, GetTopicsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTopicsQuery, GetTopicsVariables>
+        query={GetTopicsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTopicsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTopicsQuery, GetTopicsVariables>
+> &
+  TChildProps;
+export function GetTopicsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTopicsQuery,
+        GetTopicsVariables,
+        GetTopicsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTopicsQuery,
+    GetTopicsVariables,
+    GetTopicsProps<TChildProps>
+  >(GetTopicsDocument, operationOptions);
 }
 export const LogoutDocument = gql`
   mutation Logout {

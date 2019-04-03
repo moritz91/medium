@@ -13,7 +13,7 @@ interface Props {
 
 const MenuLink = styled("a")`
   font-size: 14px;
-  padding: 10px;
+  padding: 7px 25px;
   cursor: pointer;
   &:hover {
     color: #3290d4;
@@ -39,7 +39,7 @@ export const Menu: React.FC<Props> = ({
             zIndex: 1,
             position: "absolute",
             background: "#242b38",
-            width: 200,
+            width: 280,
             marginTop: 4,
             boxShadow:
               "0 0.1rem 0.3rem rgba(0,0,0,0.12), 0 0.1rem 0.2rem rgba(0,0,0,0.24)",
@@ -54,7 +54,6 @@ export const Menu: React.FC<Props> = ({
           <MenuLink key={"12039214"}>Stats</MenuLink>
           <DropDownDivider />
           <MenuLink key={"12039215"}>Medium Partner Program</MenuLink>
-          <MenuLink key={"12039216"}>Medium Partner Program</MenuLink>
           <DropDownDivider />
           <MenuLink key={"12039217"}>Reading List</MenuLink>
           <MenuLink key={"12039218"}>Publications</MenuLink>
