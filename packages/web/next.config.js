@@ -1,24 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withTypescript = require("@zeit/next-typescript");
-const withCss = require("@zeit/next-css");
+const withCSS = require("@zeit/next-css");
+const withImages = require("next-images");
 
-const wcss = withCss({
-  webpack: config => {
-    config.module.rules.push({
-      test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/i,
-      use: {
-        loader: "url-loader",
-        options: {
-          limit: 8192,
-          publicPath: "./",
-          outputPath: "static/css/",
-          name: "[name].[ext]"
-        }
-      }
-    });
-    return config;
-  }
-});
+if (typeof require !== "undefined") {
+  require.extensions[".css"] = () => {};
+}
 
-module.exports = withTypescript({
-  ...wcss
-});
+module.exports = withTypescript(withCSS(withImages()));
