@@ -32,7 +32,13 @@ export default class Topics extends React.PureComponent<Props, State> {
               <>
                 {data && data.findTopics && (
                   <>
-                    <div style={{ flex: "1 1 auto", display: "flex" }}>
+                    <div
+                      style={{
+                        flex: "1 1 auto",
+                        display: "flex",
+                        flexWrap: "wrap"
+                      }}
+                    >
                       {data.findTopics.topics.map(topic => (
                         <TopicTile
                           key={topic.id}

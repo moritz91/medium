@@ -60,8 +60,8 @@ export class TopicResolver {
     offset,
     limit
   }: FindTopicsInput): Promise<FindTopicResponse> {
-    if (limit > 6) {
-      throw new ApolloError("max limit of 6");
+    if (limit > 12) {
+      throw new ApolloError("max limit of 12");
     }
 
     const topics = await getConnection()

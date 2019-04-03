@@ -40,7 +40,6 @@ export const TopicTile: React.FC<Props> = ({
         width: "280px",
         height: "280px",
         marginBottom: "30px",
-        flex: "1 1 auto",
         display: "flex"
       }}
     >
