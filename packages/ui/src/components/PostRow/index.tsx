@@ -3,6 +3,7 @@ import * as React from "react";
 import { Flex, Text, Heading } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
+import { Icon } from "../../components/Icon";
 
 const LinkRebass = styled("a")`
   cursor: pointer;
@@ -48,9 +49,18 @@ export const PostRow: React.FC<Props> = ({
   return (
     <PostRowContainer>
       <Flex justifyContent="center">
-        <Link route={"profile"} params={{ username }}>
-          <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
-        </Link>
+        <span style={{ minWidth: "45px" }}>
+          <Link route={"profile"} params={{ username }}>
+            <a style={{ cursor: "pointer" }}>
+              <Avatar
+                borderRadius={3}
+                size={34}
+                src={pictureUrl}
+                alt="avatar"
+              />
+            </a>
+          </Link>
+        </span>
         <div
           style={{
             paddingLeft: ".8rem",
@@ -59,13 +69,20 @@ export const PostRow: React.FC<Props> = ({
             marginRight: "auto"
           }}
         >
-          <Link {...linkProps}>
-            <a>
-              <Heading ml="0rem" mb="1rem" fontSize={6}>
-                {title}
-              </Heading>
-            </a>
-          </Link>
+          <Flex className="posting-header">
+            <Link {...linkProps}>
+              <a>
+                <Heading ml="0rem" mb="1rem" fontSize={6}>
+                  {title}
+                </Heading>
+              </a>
+            </Link>
+            <div style={{ display: "flex", marginLeft: "auto" }}>
+              <div style={{ cursor: "pointer" }}>
+                <Icon name="showActions" fill="#fff" />
+              </div>
+            </div>
+          </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>

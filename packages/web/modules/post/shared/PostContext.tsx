@@ -1,13 +1,14 @@
 import { createContext } from "react";
+import { UserInfoFragment } from "../../../components/apollo-components";
 
 export interface ContextProps {
   title: string;
-  creator: string;
+  creator: UserInfoFragment;
   postingId: string;
 }
 
 export const PostContext = createContext<ContextProps>({
   title: "",
-  creator: "",
+  creator: { id: "", username: "", pictureUrl: "", bio: "" },
   postingId: ""
 });

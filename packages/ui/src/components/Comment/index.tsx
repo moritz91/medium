@@ -3,6 +3,7 @@ import * as React from "react";
 import { Flex, Text, Box } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
+import { Icon } from "../../components/Icon";
 
 // body: React.ReactElement<HTMLElement> | null;
 interface Props {
@@ -33,9 +34,18 @@ export const Comment: React.FC<Props> = ({
   return (
     <CommmentContainer>
       <Flex justifyContent="center">
-        <Link route={"profile"} params={{ username }}>
-          <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
-        </Link>
+        <span style={{ minWidth: "45px" }}>
+          <Link route={"profile"} params={{ username }}>
+            <a style={{ cursor: "pointer" }}>
+              <Avatar
+                borderRadius={3}
+                size={34}
+                src={pictureUrl}
+                alt="avatar"
+              />
+            </a>
+          </Link>
+        </span>
         <div
           style={{
             paddingLeft: ".8rem",
@@ -55,6 +65,11 @@ export const Comment: React.FC<Props> = ({
             <Box mb={2} mt={0} mr={0} ml={"0rem"}>
               <Text>{dtString}</Text>
             </Box>
+            <div style={{ display: "flex", marginLeft: "auto" }}>
+              <div style={{ cursor: "pointer" }}>
+                <Icon name="showActions" fill="#fff" />
+              </div>
+            </div>
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}

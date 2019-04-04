@@ -119,7 +119,7 @@ export const CommentForm = ({
             view={view}
             className={`${view === "code-view" ? "inner-animate-box" : ""}`}
           >
-            {// show title only for question
+            {// show title only for posting
             !isReply && (
               <FormRow>
                 <Field

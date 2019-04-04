@@ -1,129 +1,139 @@
 import React, { useContext } from "react";
-import { useInputValue } from "../../../utils/useInputValue";
+import { CommentForm, TextEditorResult } from "./CommentForm";
+import { PostContext, ContextProps } from "./PostContext";
 import {
+  CommentInfoFragment,
   CreateCommentComponent,
+  GetCommentsByIdQuery,
+  GetCommentsByIdVariables,
   MeComponent
 } from "../../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
-import { MyButton, Avatar, PostRowContainer } from "@medium/ui";
 import { Flex } from "rebass";
-import { Link } from "../../../server/routes";
+import { Avatar } from "@medium/ui";
 import { get } from "lodash";
-import { PostContext } from "./PostContext";
-import Textarea from "react-textarea-autosize";
-import styled from "styled-components";
-import { CreatePostingReply } from "./CreateCommentTwo";
+import { Link } from "../../../server/routes";
 
-const StyledTextarea = styled(Textarea)`
-  padding-left: 0.8rem;
-  margin-right: auto;
-  margin-bottom: 1rem;
-  margin-top: 10px;
-  width: 100%;
-  overflow: hidden;
-  background-color: #242b38;
-  border: none;
-  font-size: 1.4rem;
-  line-height: 1.58;
-  color: rgb(233, 236, 241);
-  resize: none;
-  &::placeholder {
-    color: rgb(233, 236, 241);
-  }
-  &::-webkit-input-placeholder {
-    color: rgb(233, 236, 241);
-  }
-  &:-moz-placeholder {
-    color: rgb(233, 236, 241);
-  }
-  &:-ms-input-placeholder {
-    color: rgb(233, 236, 241);
-  }
-`;
+interface EditorSubmitProps {
+  submitted: boolean;
+  response?: CommentInfoFragment | void;
+}
 
-export const CreateComment = () => {
-  const [text, changeText] = useInputValue("");
-  const { postingId } = useContext(PostContext);
+interface PostingReplyProps {
+  lineNum?: number;
+  onEditorSubmit: (T: EditorSubmitProps) => void;
+  view: "code-view" | "repo-view";
+}
+
+export const CreatePostingReply = ({
+  onEditorSubmit,
+  ...props
+}: PostingReplyProps): JSX.Element => {
+  const { postingId } = useContext<ContextProps>(PostContext);
 
   return (
-    <div>
-      <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
+    <CreateCommentComponent>
+      {mutate => {
+        const submitForm = async ({
+          cancel,
+          text
+        }: TextEditorResult): Promise<void> => {
+          if (!cancel) {
+            // save result
+            const response = await mutate({
+              variables: {
+                comment: {
+                  postingId,
+                  text
+                }
+              },
+              update: (cache, { data }) => {
+                if (!data) {
+                  return;
+                }
 
-      <CreateCommentComponent
-        refetchQueries={[
-          {
-            query: getCommentsByIdQuery,
-            variables: {
-              input: {
-                postingId
+                const x = cache.readQuery<
+                  GetCommentsByIdQuery,
+                  GetCommentsByIdVariables
+                >({
+                  query: getCommentsByIdQuery,
+                  variables: {
+                    input: { postingId }
+                  }
+                });
+
+                cache.writeQuery<
+                  GetCommentsByIdQuery,
+                  GetCommentsByIdVariables
+                >({
+                  query: getCommentsByIdQuery,
+                  variables: {
+                    input: { postingId }
+                  },
+                  data: {
+                    __typename: "Query",
+                    findCommentsById: {
+                      __typename: "FindCommentResponse",
+                      comments: [
+                        ...x!.findCommentsById.comments,
+                        data.createComment.comment
+                      ],
+                      hasMore: false
+                    }
+                  }
+                });
               }
-            }
+            });
+
+            onEditorSubmit({
+              submitted: true,
+              response:
+                response && response.data && response.data.createComment.comment
+            });
+          } else {
+            onEditorSubmit({ submitted: false });
           }
-        ]}
-      >
-        {mutate => (
-          <>
-            <PostRowContainer>
-              <MeComponent>
-                {({ data, loading }) => {
-                  if (loading) {
-                    return null;
-                  }
+        };
+        return (
+          <MeComponent>
+            {({ data, loading }) => {
+              if (loading) {
+                return null;
+              }
 
-                  let isLoggedIn = !!get(data, "me", false);
+              let isLoggedIn = !!get(data, "me", false);
 
-                  if (data && data.me && isLoggedIn) {
-                    const { pictureUrl, username } = data!.me!;
+              if (data && data.me && isLoggedIn) {
+                const { pictureUrl, username } = data!.me!;
 
-                    return (
-                      <div>
-                        <Flex>
-                          <Link route={"profile"} params={{ username }}>
-                            <Avatar
-                              borderRadius={3}
-                              size={34}
-                              src={pictureUrl}
-                              alt="avatar"
-                            />
-                          </Link>
-                          <StyledTextarea
-                            placeholder="Write a response..."
-                            value={text}
-                            onChange={changeText}
+                return (
+                  <Flex my={15}>
+                    <span style={{ marginRight: 10 }}>
+                      <Link route={"profile"} params={{ username }}>
+                        <a style={{ cursor: "pointer" }}>
+                          <Avatar
+                            borderRadius={3}
+                            size={34}
+                            src={pictureUrl}
+                            alt="avatar"
                           />
-                        </Flex>
-                        <MyButton
-                          variant="primary"
-                          type="submit"
-                          style={{
-                            marginLeft: "auto",
-                            marginRight: 0,
-                            display: "flex"
-                          }}
-                          onClick={async () => {
-                            await mutate({
-                              variables: {
-                                comment: {
-                                  postingId,
-                                  text
-                                }
-                              }
-                            });
-                          }}
-                        >
-                          Publish
-                        </MyButton>
-                      </div>
-                    );
-                  }
+                        </a>
+                      </Link>
+                    </span>
+                    <CommentForm
+                      {...props}
+                      isReply={true}
+                      submitForm={submitForm}
+                    />
+                  </Flex>
+                );
+              }
 
-                  return null;
-                }}
-              </MeComponent>
-            </PostRowContainer>
-          </>
-        )}
-      </CreateCommentComponent>
-    </div>
+              return null;
+            }}
+          </MeComponent>
+        );
+      }}
+    </CreateCommentComponent>
   );
 };

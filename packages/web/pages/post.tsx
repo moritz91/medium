@@ -12,11 +12,11 @@ import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/
 import { Link } from "../server/routes";
 import styled from "styled-components";
 import { Flex, Text, Box } from "rebass";
-import { CreateComment } from "../modules/post/shared/CreateComment";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
+import { CreatePostingReply } from "../modules/post/shared/CreateComment";
 
 interface Props {
   id: string;
@@ -93,7 +93,7 @@ export default class Post extends React.PureComponent<Props> {
               </Text>
             </Flex>
           </Container>
-          <CreateComment />
+          <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
             {({ data }) => {
               return (
