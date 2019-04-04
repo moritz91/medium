@@ -4,8 +4,9 @@ import { Flex, Text, Box } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
 
+// body: React.ReactElement<HTMLElement> | null;
 interface Props {
-  body: string;
+  body: any;
   createdAt: string;
   creator: any;
   Link: any;

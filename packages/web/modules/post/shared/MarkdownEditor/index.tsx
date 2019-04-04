@@ -2,7 +2,7 @@ import { Field } from "formik";
 import React, {
   useCallback,
   useEffect,
-  useLayoutEffect,
+  // useLayoutEffect,
   useRef,
   useState
 } from "react";
@@ -48,14 +48,14 @@ export const MarkdownEditor: React.FC<EditorProps> = React.memo(
       }
     }, []);
 
-    useLayoutEffect(() => {
-      const textarea = writeRef.current;
-      // textarea selectionStart and selectionEnd does not exist on IE8
-      isIE8 = textarea
-        ? typeof textarea.selectionStart !== "number" ||
-          typeof textarea.selectionEnd !== "number"
-        : false;
-    }, []);
+    // useLayoutEffect(() => {
+    //   const textarea = writeRef.current;
+    //   // textarea selectionStart and selectionEnd does not exist on IE8
+    //   isIE8 = textarea
+    //     ? typeof textarea.selectionStart !== "number" ||
+    //       typeof textarea.selectionEnd !== "number"
+    //     : false;
+    // }, []);
 
     // dynamically set textarea height
     useEffect(() => {

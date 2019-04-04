@@ -16,6 +16,7 @@ import { CreateComment } from "../modules/post/shared/CreateComment";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
+import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
 
 interface Props {
   id: string;
@@ -99,19 +100,21 @@ export default class Post extends React.PureComponent<Props> {
                 <>
                   {data && data.findCommentsById && (
                     <>
-                      {data.findCommentsById.comments.map(comment => (
-                        <Box key={comment.id}>
-                          <Comment
-                            createdAt={comment.createdAt}
-                            creator={comment.creator}
-                            body={comment.text}
-                            Link={Link}
-                          />
-                          <Box mx={3} mt={1}>
-                            <DeleteComment commentId={comment.id} />
+                      {data.findCommentsById.comments.map(
+                        ({ createdAt, creator, text }, key: any) => (
+                          <Box key={key}>
+                            <Comment
+                              createdAt={createdAt}
+                              creator={creator}
+                              body={MarkdownRenderer({ text })}
+                              Link={Link}
+                            />
+                            <Box mx={3} mt={1}>
+                              <DeleteComment commentId={id} />
+                            </Box>
                           </Box>
-                        </Box>
-                      ))}
+                        )
+                      )}
                     </>
                   )}
                 </>

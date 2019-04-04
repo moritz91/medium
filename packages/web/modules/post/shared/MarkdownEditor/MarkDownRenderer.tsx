@@ -40,7 +40,7 @@ const setCodeProps = (): ((ast: Node[]) => void) => {
 
 const MarkdownContainer = styled("div")`
   & .ping-link {
-    color: #24292e;
+    color: rgb(255, 255, 255);
     font-weight: 600;
   }
   & .token.line-number {

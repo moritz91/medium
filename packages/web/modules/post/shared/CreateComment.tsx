@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useInputValue } from "../../../utils/useInputValue";
 import {
   CreateCommentComponent,
@@ -45,16 +45,9 @@ export const CreateComment = () => {
   const [text, changeText] = useInputValue("");
   const { postingId } = useContext(PostContext);
 
-  const [showReply, setShowReply] = useState(true);
-
   return (
     <div>
-      {showReply && (
-        <CreatePostingReply
-          onEditorSubmit={() => setShowReply(false)}
-          view={"repo-view"}
-        />
-      )}
+      <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
 
       <CreateCommentComponent
         refetchQueries={[

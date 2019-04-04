@@ -36,8 +36,6 @@ export default class Topic extends React.PureComponent<Props> {
       }
     });
 
-    console.log(response.data);
-
     const { getTopicByName } = response.data;
 
     return {
@@ -63,7 +61,6 @@ export default class Topic extends React.PureComponent<Props> {
         <TopicContext.Provider value={context}>
           <GetPostingsByTopicComponent variables={{ input: { topicId: id } }}>
             {({ data }) => {
-              console.log(data);
               return (
                 <>
                   {data && data.getPostingsByTopic && (
