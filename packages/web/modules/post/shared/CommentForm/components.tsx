@@ -5,7 +5,9 @@ export const FormRow = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  background-color: #ffffff;
+  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
+    0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
+  background-color: #242b38;
   border-top: ${(p: { isReply: boolean; view: string }) =>
     p.isReply ? "none" : "1px solid #d1d5da"};
   border-bottom: ${p =>
@@ -32,7 +34,6 @@ export const FormContainer = styled.form`
     visibility: visible;
   }
   & .editor-outer-box {
-    border: 1px solid rgb(209, 213, 218);
     border-radius: 3px;
     margin: 1rem 0.9rem;
     padding: 0;

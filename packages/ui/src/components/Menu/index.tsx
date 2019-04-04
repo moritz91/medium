@@ -36,7 +36,7 @@ export const Menu: React.FC<Props> = ({
         <div
           style={{
             right: 0,
-            zIndex: 1,
+            zIndex: 11,
             position: "absolute",
             background: "#242b38",
             width: 280,

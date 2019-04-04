@@ -5,6 +5,7 @@ import { PostsContext } from "../modules/post/shared/PostsContext";
 import { Link } from "../server/routes";
 import { Box } from "rebass";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
+import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);
@@ -37,16 +38,16 @@ export function ProfileTabs() {
           ))}
         </TabPanel>
         <TabPanel name="responses">
-          {comments.map(c => (
-            <Box key={c.id}>
+          {comments.map(({ id, createdAt, creator, text }, key: any) => (
+            <Box key={key}>
               <Comment
-                createdAt={c.createdAt}
-                creator={c.creator}
-                body={c.text}
+                createdAt={createdAt}
+                creator={creator}
+                body={MarkdownRenderer({ text })}
                 Link={Link}
               />
               <Box mx={3} mt={1}>
-                <DeleteComment commentId={c.id} />
+                <DeleteComment commentId={id} />
               </Box>
             </Box>
           ))}

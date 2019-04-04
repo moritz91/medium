@@ -101,7 +101,7 @@ export default class Post extends React.PureComponent<Props> {
                   {data && data.findCommentsById && (
                     <>
                       {data.findCommentsById.comments.map(
-                        ({ createdAt, creator, text }, key: any) => (
+                        ({ id, createdAt, creator, text }, key: any) => (
                           <Box key={key}>
                             <Comment
                               createdAt={createdAt}

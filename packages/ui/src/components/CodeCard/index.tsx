@@ -66,7 +66,6 @@ const Pre = styled.pre`
   & .token-btn {
     appearance: none;
     border: none;
-    font-family: "Rubik", sans-serif;
     font-weight: 500;
     text-align: center;
     text-transform: uppercase;

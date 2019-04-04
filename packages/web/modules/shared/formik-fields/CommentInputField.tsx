@@ -12,9 +12,11 @@ interface FormInputProps {
 }
 
 export const FormInput = styled(BlueInput)`
-  background: #f2f2f2;
+  background-color: #242b38;
+  color: rgb(233, 236, 241);
   border: 1px solid transparent;
-  font-size: 1em;
+  font-size: 1.4rem;
+  line-height: 1.5;
   min-height: ${(p: FormInputProps) => p.minHeight};
   padding: 0.6rem 1rem;
   width: ${(p: FormInputProps) => p.width || "100%"};

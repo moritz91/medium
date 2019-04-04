@@ -81,7 +81,11 @@ export const MarkdownEditor: React.FC<EditorProps> = React.memo(
             autoFocus={isReply}
             minHeight="100px"
             name="text"
-            placeholder={isReply ? "Type your Reply" : "Type your Question"}
+            placeholder={
+              isReply
+                ? "Write a response..."
+                : "What do you want to talk about?"
+            }
             onKeyDown={handleKeyCommand}
             as="textarea"
           />
@@ -94,7 +98,7 @@ export const MarkdownEditor: React.FC<EditorProps> = React.memo(
                 (writeRef.current && writeRef.current.style.height) || "100px"
             }}
           >
-            <MarkdownRenderer text={text.trim() || "Nothing to preview"} />
+            <MarkdownRenderer text={text.trim() || "Nothing to preview."} />
           </div>
         )}
       </EditorContainer>
