@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useInputValue } from "../../../utils/useInputValue";
 import {
   CreateCommentComponent,
@@ -12,6 +12,7 @@ import { get } from "lodash";
 import { PostContext } from "./PostContext";
 import Textarea from "react-textarea-autosize";
 import styled from "styled-components";
+import { CreatePostingReply } from "./CreateCommentTwo";
 
 const StyledTextarea = styled(Textarea)`
   padding-left: 0.8rem;
@@ -44,81 +45,92 @@ export const CreateComment = () => {
   const [text, changeText] = useInputValue("");
   const { postingId } = useContext(PostContext);
 
+  const [showReply, setShowReply] = useState(true);
+
   return (
-    <CreateCommentComponent
-      refetchQueries={[
-        {
-          query: getCommentsByIdQuery,
-          variables: {
-            input: {
-              postingId
+    <div>
+      {showReply && (
+        <CreatePostingReply
+          onEditorSubmit={() => setShowReply(false)}
+          view={"repo-view"}
+        />
+      )}
+
+      <CreateCommentComponent
+        refetchQueries={[
+          {
+            query: getCommentsByIdQuery,
+            variables: {
+              input: {
+                postingId
+              }
             }
           }
-        }
-      ]}
-    >
-      {mutate => (
-        <>
-          <PostRowContainer>
-            <MeComponent>
-              {({ data, loading }) => {
-                if (loading) {
-                  return null;
-                }
+        ]}
+      >
+        {mutate => (
+          <>
+            <PostRowContainer>
+              <MeComponent>
+                {({ data, loading }) => {
+                  if (loading) {
+                    return null;
+                  }
 
-                let isLoggedIn = !!get(data, "me", false);
+                  let isLoggedIn = !!get(data, "me", false);
 
-                if (data && data.me && isLoggedIn) {
-                  const { pictureUrl, username } = data!.me!;
+                  if (data && data.me && isLoggedIn) {
+                    const { pictureUrl, username } = data!.me!;
 
-                  return (
-                    <div>
-                      <Flex>
-                        <Link route={"profile"} params={{ username }}>
-                          <Avatar
-                            borderRadius={3}
-                            size={34}
-                            src={pictureUrl}
-                            alt="avatar"
+                    return (
+                      <div>
+                        <Flex>
+                          <Link route={"profile"} params={{ username }}>
+                            <Avatar
+                              borderRadius={3}
+                              size={34}
+                              src={pictureUrl}
+                              alt="avatar"
+                            />
+                          </Link>
+                          <StyledTextarea
+                            placeholder="Write a response..."
+                            value={text}
+                            onChange={changeText}
                           />
-                        </Link>
-                        <StyledTextarea
-                          placeholder="Write a response..."
-                          value={text}
-                          onChange={changeText}
-                        />
-                      </Flex>
-                      <MyButton
-                        variant="primary"
-                        type="submit"
-                        style={{
-                          marginLeft: "auto",
-                          marginRight: 0,
-                          display: "flex"
-                        }}
-                        onClick={async () => {
-                          await mutate({
-                            variables: {
-                              comment: {
-                                postingId,
-                                text
+                        </Flex>
+                        <MyButton
+                          variant="primary"
+                          type="submit"
+                          style={{
+                            marginLeft: "auto",
+                            marginRight: 0,
+                            display: "flex"
+                          }}
+                          onClick={async () => {
+                            await mutate({
+                              variables: {
+                                comment: {
+                                  postingId,
+                                  text
+                                }
                               }
-                            }
-                          });
-                        }}
-                      >
-                        Publish
-                      </MyButton>
-                    </div>
-                  );
-                }
+                            });
+                          }}
+                        >
+                          Publish
+                        </MyButton>
+                      </div>
+                    );
+                  }
 
-                return null;
-              }}
-            </MeComponent>
-          </PostRowContainer>
-        </>
-      )}
-    </CreateCommentComponent>
+                  return null;
+                }}
+              </MeComponent>
+            </PostRowContainer>
+          </>
+        )}
+      </CreateCommentComponent>
+    </div>
   );
 };

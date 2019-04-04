@@ -5,7 +5,7 @@ export interface IconProps {
   name: keyof typeof icons;
   size?: number;
   fill: string;
-  style?: any;
+  style?: { [key: string]: string };
   onClick?: () => void;
 }
 
@@ -15,7 +15,7 @@ export const Icon: React.FC<IconProps> = ({
   fill,
   style,
   onClick
-}) => {
+}): JSX.Element => {
   const { viewBox, d } = icons[name];
   return (
     <svg

@@ -1,4 +1,4 @@
-import { Icon, MyButton } from "@medium/ui";
+import { MyButton } from "@medium/ui";
 import { Field, Formik } from "formik";
 import React, { useCallback, useEffect, useRef } from "react";
 import * as yup from "yup";
@@ -142,7 +142,7 @@ export const CommentForm = ({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Icon size={16} name="markdown" fill="#000" />
+                  {/* <Icon size={16} name="markdown" fill="#000" /> */}
                   Styling with Markdown is supported
                 </a>
                 <div className="btn-box">

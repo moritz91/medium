@@ -46,6 +46,8 @@ export interface CreatePostingInput {
 /** New topic data */
 export interface CreateTopicInput {
   name: string;
+
+  pictureUrl?: Maybe<string>;
 }
 
 /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
@@ -74,7 +76,13 @@ export type CreateCommentCreateComment = {
 export type CreateCommentComment = {
   __typename?: "Comment";
 
+  id: string;
+
   text: string;
+
+  createdAt: DateTime;
+
+  creatorId: string;
 
   creator: CreateCommentCreator;
 };
@@ -350,7 +358,7 @@ export type GetTopicsTopics = {
 
   name: string;
 
-  pictureUrl: string;
+  pictureUrl: Maybe<string>;
 };
 
 export type LogoutVariables = {};
@@ -550,7 +558,10 @@ export const CreateCommentDocument = gql`
   mutation createComment($comment: CreateCommentInput!) {
     createComment(comment: $comment) {
       comment {
+        id
         text
+        createdAt
+        creatorId
         creator {
           ...UserInfo
         }
