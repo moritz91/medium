@@ -87,7 +87,17 @@ const theme: ITheme = {
       fontSize: "1.4rem",
       padding: ".8rem 1rem",
       textTransform: "uppercase",
-      borderRadius: ".4rem"
+      borderRadius: ".4rem",
+      "&.disabled": {
+        cursor: "not-allowed"
+      },
+      "&.primary.disabled": {
+        backgroundColor: "#105b99",
+        backgroundImage: "none",
+        borderColor: "rgba(27, 31, 35, 0.2)",
+        boxShadow: "none",
+        color: "hsla(0, 0%, 100%, 0.75)"
+      }
     },
     topic: {
       backgroundColor: "#E2F3FF",

@@ -149,7 +149,7 @@ export const CommentForm = ({
                   {view === "code-view" && (
                     <MyButton
                       type="button"
-                      variant="form"
+                      variant="primary"
                       className="btn"
                       onClick={onCancel}
                     >
@@ -158,11 +158,11 @@ export const CommentForm = ({
                   )}
                   <MyButton
                     type="submit"
-                    variant="form"
+                    variant="primary"
                     disabled={!isValid}
                     className={`primary ${isValid ? "" : "disabled"}`}
                   >
-                    Save
+                    Publish
                   </MyButton>
                 </div>
               </div>

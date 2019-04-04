@@ -162,10 +162,9 @@ export const EditorContainer = styled.div`
   }
 
   & .write-content textarea {
-    border: 1px solid #d1d5da88;
     min-height: 104px;
     padding: 0.8rem;
-    resize: vertical;
+    resize: none;
   }
 `;
 
