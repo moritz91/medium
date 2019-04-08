@@ -40,7 +40,10 @@ const setCodeProps = (): ((ast: Node[]) => void) => {
 
 const MarkdownContainer = styled("div")`
   & .ping-link {
-    color: rgb(255, 255, 255);
+    background: rgb(16, 91, 153);
+    border-radius: 4px;
+    padding: 0px 4px 1px;
+    color: #6dc1fd;
     font-weight: 600;
   }
   & .token.line-number {
@@ -58,7 +61,7 @@ export const MarkdownRenderer: React.FC<Props> = ({ text }): JSX.Element => (
       remark()
         .use(remarkPing, {
           pingUsername: () => true,
-          userURL: (username: string) => `https://github.com/${username}`
+          userURL: (username: string) => `http://localhost:3000/@${username}`
         })
         .use(setCodeProps)
         .use(remark2react, {

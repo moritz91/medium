@@ -75,8 +75,8 @@ export const CreatePostingReply = ({
                     findCommentsById: {
                       __typename: "FindCommentResponse",
                       comments: [
-                        ...x!.findCommentsById.comments,
-                        data.createComment.comment
+                        data.createComment.comment,
+                        ...x!.findCommentsById.comments
                       ],
                       hasMore: false
                     }

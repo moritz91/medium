@@ -10,12 +10,12 @@ export const CommandButton: React.FC<{
   const baseClass = "toolbar-item tooltipped";
 
   return (
-    <button
+    <div
       className={className ? `${className} ${baseClass}` : baseClass}
       aria-label={label}
       onClick={() => onCommand(name)}
     >
       <Icon size={16} name={name} fill="currentColor" />
-    </button>
+    </div>
   );
 });
