@@ -33,7 +33,7 @@
     "@storybook/addon-info": "4.1.16",
     "@storybook/addon-links": "4.1.16",
     "@storybook/addons": "4.1.16",
-    "@storybook/react": "4.1.16",
+    "@storybook/react": "5.0.7",
     "@types/lodash.get": "4.4.6",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__addon-info": "3.4.2",
