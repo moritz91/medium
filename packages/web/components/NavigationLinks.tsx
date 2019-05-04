@@ -13,16 +13,6 @@ const Wrapper = styled.nav`
   margin-right: ${rem(30)};
 `;
 
-// const NavSeparator = styled.span`
-//   flex: 0 0 auto;
-//   width: ${rem(5)};
-//   height: ${rem(5)};
-//   margin: 0 ${rem(15)};
-//   border-radius: 50%;
-//   background: currentColor;
-//   opacity: 0.35;
-// `;
-
 const NavLink = styled(Link).attrs({
   unstyled: true,
   prefetch: true

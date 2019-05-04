@@ -102,7 +102,7 @@ export default class Post extends React.PureComponent<Props> {
                     <>
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
-                          <Box key={key}>
+                          <div id={id.slice(0, 6)} key={key}>
                             <Comment
                               createdAt={createdAt}
                               creator={creator}
@@ -112,7 +112,7 @@ export default class Post extends React.PureComponent<Props> {
                             <Box mx={3} mt={1}>
                               <DeleteComment commentId={id} />
                             </Box>
-                          </Box>
+                          </div>
                         )
                       )}
                     </>
