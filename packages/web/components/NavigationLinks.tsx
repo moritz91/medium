@@ -49,7 +49,6 @@ const NavLinks = (): JSX.Element => {
                     <NavLink href={`/topic/${topic.name}`}>
                       {topic.name}
                     </NavLink>
-                    {/* <NavSeparator /> */}
                   </React.Fragment>
                 ))}
               </>
