@@ -1,14 +1,30 @@
 import * as React from "react";
-import { MyButton, styled, Avatar, Icon, Menu } from "@medium/ui";
+import { MyButton, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex, Link } from "rebass";
 import { MeComponent } from "./apollo-components";
 import { Router } from "../server/routes";
+import styled from "styled-components";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
   margin-top: 6.5rem;
+`;
+
+const ListOption = styled.li`
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
+  line-height: 1.4;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 300;
+  display: block;
+  border: 0px;
+  list-style: none;
+  padding: 0px;
+  pointer-events: auto;
 `;
 
 export const SubMenu = (): JSX.Element => {
@@ -56,10 +72,10 @@ export const SubMenu = (): JSX.Element => {
                     ["Help", "/help"],
                     ["Sign Out", "/logout"]
                   ]}
-                  renderOption={({ Anchor, option, optionLink }) => (
-                    <NextLink key={option} href={optionLink}>
-                      {Anchor}
-                    </NextLink>
+                  renderOption={({ Anchor, optionLink, key }) => (
+                    <ListOption key={key}>
+                      <NextLink href={optionLink}>{Anchor}</NextLink>
+                    </ListOption>
                   )}
                 >
                   <div style={{ display: "flex", alignItems: "center" }}>
