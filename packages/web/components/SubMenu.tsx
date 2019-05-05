@@ -40,9 +40,24 @@ export const SubMenu = (): JSX.Element => {
                   NEW STORY
                 </MyButton>
                 <Menu
-                  options={["Sign Out"]}
-                  renderOption={({ Anchor }) => (
-                    <NextLink key="logout" href="/logout">
+                  options={[
+                    ["New story", "/create"],
+                    ["Stories", "/stories"],
+                    ["Series", "/series"],
+                    ["Stats", "/stats"],
+                    ["divider", ""],
+                    ["Medium Partner Program", "/creators"],
+                    ["divider", ""],
+                    ["Reading List", "/reading-list"],
+                    ["Publications", "/publications"],
+                    ["divider", ""],
+                    ["Profile", "/profile"],
+                    ["Settings", "/settings"],
+                    ["Help", "/help"],
+                    ["Sign Out", "/logout"]
+                  ]}
+                  renderOption={({ Anchor, option, optionLink }) => (
+                    <NextLink key={option} href={optionLink}>
                       {Anchor}
                     </NextLink>
                   )}

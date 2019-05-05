@@ -10,8 +10,7 @@ import {
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
-import styled from "styled-components";
-import { Flex, Text, Box } from "rebass";
+import { Text, Box } from "rebass";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
@@ -26,10 +25,6 @@ interface Props {
   numComments: number;
   createdAt: string;
 }
-
-const Container = styled(Flex)`
-  flex: 0 0 auto;
-`;
 
 export default class Post extends React.PureComponent<Props> {
   static async getInitialProps({
@@ -86,16 +81,17 @@ export default class Post extends React.PureComponent<Props> {
           <Box mx={3} mt={1}>
             <DeletePosting />
           </Box>
-          <Container my="1.5rem" justifyContent="space-between">
-            <Flex alignItems="center">
-              <Text fontSize={5} color="primary.6">
-                Responses
-              </Text>
-            </Flex>
-          </Container>
+          <Box my="1.5rem">
+            <Text fontSize={5} color="primary.6">
+              Responses
+            </Text>
+          </Box>
           <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
-            {({ data }) => {
+            {({ data, loading }) => {
+              if (loading) {
+                <div>Loading...</div>;
+              }
               return (
                 <>
                   {data && data.findCommentsById && (

@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { DropDownDivider } from "../../components/DropDownDivider";
 
 interface Props {
-  options: string[];
+  options: string[][];
   renderOption: (data: {
     Anchor: React.ReactElement<any>;
     option: string;
+    optionLink: string;
   }) => React.ReactNode;
 }
 
@@ -47,24 +48,16 @@ export const Menu: React.FC<Props> = ({
             flexDirection: "column"
           }}
         >
-          <MenuLink key={"12039211"}>View membership</MenuLink>
-          <DropDownDivider />
-          <MenuLink key={"12039212"}>Stories</MenuLink>
-          <MenuLink key={"12039213"}>Series</MenuLink>
-          <MenuLink key={"12039214"}>Stats</MenuLink>
-          <DropDownDivider />
-          <MenuLink key={"12039215"}>Medium Partner Program</MenuLink>
-          <DropDownDivider />
-          <MenuLink key={"12039217"}>Reading List</MenuLink>
-          <MenuLink key={"12039218"}>Publications</MenuLink>
-          <DropDownDivider />
-          <MenuLink key={"12039219"}>Profile</MenuLink>
-          <MenuLink key={"12039220"}>Settings</MenuLink>
-          <MenuLink key={"12039221"}>Help</MenuLink>
-          {options.map(o => {
-            const Anchor = <MenuLink key={o}>{o}</MenuLink>;
-
-            return renderOption({ Anchor, option: o });
+          {options.map((o, i) => {
+            if (o[0] === "divider") {
+              return <DropDownDivider key={i} />;
+            }
+            const Anchor = <MenuLink key={i}>{o[0]}</MenuLink>;
+            return renderOption({
+              Anchor,
+              option: o[0],
+              optionLink: o[1]
+            });
           })}
         </div>
       ) : null}
