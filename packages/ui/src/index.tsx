@@ -17,5 +17,6 @@ export * from "./components/CodeCard";
 export * from "./components/Comment";
 export * from "./components/DropDownDivider";
 export * from "./components/Link";
+export * from "./components/Flyout";
 export * from "./theme/styled-components";
 export { default as theme } from "./theme";

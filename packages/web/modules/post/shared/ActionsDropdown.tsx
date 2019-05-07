@@ -1,73 +1,66 @@
-import React, { useContext } from "react";
-import {
-  MeComponent,
-  DeleteCommentComponent
-} from "../../../components/apollo-components";
-import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../../graphql/post/query/getPostingById";
-import { get } from "lodash";
-import { PostContext } from "./PostContext";
+import React, { useState } from "react";
+import { Manager, Reference, Popper } from "react-popper";
+import { Icon, Flyout, FlyoutRow, MyButton } from "@medium/ui";
 
-interface Props {
-  commentId: string;
-}
-
-export const DeleteComment = (props: Props) => {
-  const { commentId } = props;
-  const { postingId } = useContext(PostContext);
+export const ActionsDropdown = () => {
+  const [flyoutOpen, setFlyoutOpen] = useState(false);
 
   return (
-    <DeleteCommentComponent
-      refetchQueries={[
-        {
-          query: getPostingByIdQuery,
-          variables: {
-            id: postingId
-          }
-        },
-        {
-          query: getCommentsByIdQuery,
-          variables: {
-            input: {
-              postingId
-            }
-          }
-        }
-      ]}
-    >
-      {mutate => (
-        <>
-          <MeComponent>
-            {({ data, loading }) => {
-              if (loading) {
-                return null;
-              }
-
-              let isLoggedIn = !!get(data, "me", false);
-
-              if (data && data.me && isLoggedIn) {
-                return (
-                  <div
-                    key={commentId}
-                    style={{ cursor: "pointer" }}
-                    onClick={async () => {
-                      await mutate({
-                        variables: {
-                          id: commentId
-                        }
-                      });
-                    }}
-                  >
-                    delete
-                  </div>
-                );
-              }
-
-              return null;
-            }}
-          </MeComponent>
-        </>
+    <Manager>
+      <Reference>
+        {({ ref }) => {
+          return (
+            <span ref={ref}>
+              <Icon
+                name="showActions"
+                fill="#fff"
+                onClick={() => setFlyoutOpen(!flyoutOpen)}
+                data-cy="thread-actions-dropdown-trigger"
+              />
+            </span>
+          );
+        }}
+      </Reference>
+      {flyoutOpen && (
+        <Popper
+          modifiers={{
+            flip: {
+              boundariesElement: "viewport",
+              behavior: ["top", "bottom", "top"]
+            },
+            hide: { enabled: false }
+          }}
+        >
+          {({ ref }) => {
+            return (
+              <div
+                ref={ref}
+                style={{
+                  position: "relative",
+                  right: "170px",
+                  top: "-40px"
+                }}
+              >
+                <Flyout data-cy="thread-actions-dropdown">
+                  <FlyoutRow>
+                    <MyButton
+                      variant="primary"
+                      data-cy={"thread-dropdown-notifications"}
+                    >
+                      <Icon
+                        size={24}
+                        fill="#fff"
+                        name={"activeNotificationBell"}
+                      />
+                      <div>{"Subscribed"}</div>
+                    </MyButton>
+                  </FlyoutRow>
+                </Flyout>
+              </div>
+            );
+          }}
+        </Popper>
       )}
-    </DeleteCommentComponent>
+    </Manager>
   );
 };

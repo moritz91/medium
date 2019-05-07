@@ -15,6 +15,7 @@ import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
 import { CreatePostingReply } from "../modules/post/shared/CreateComment";
+import { ActionsDropdown } from "../modules/post/shared/ActionsDropdown";
 
 interface Props {
   id: string;
@@ -98,6 +99,7 @@ export default class Post extends React.PureComponent<Props> {
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
+                            <ActionsDropdown />
                             <Menu
                               options={[
                                 ["Quote reply", "/reply"],
