@@ -6,6 +6,6 @@ generates:
     config:
       noNamespaces: true
     plugins:
-      - typescript-common:
-      - typescript-client:
-      - typescript-react-apollo:
+      - "typescript-common"
+      - "typescript-client"
+      - "typescript-react-apollo"

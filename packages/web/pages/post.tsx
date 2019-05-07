@@ -1,6 +1,5 @@
 import React from "react";
-import { PostRow, Comment } from "@medium/ui";
-
+import { PostRow, Comment, Menu, Icon } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
@@ -99,6 +98,29 @@ export default class Post extends React.PureComponent<Props> {
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
+                            <Menu
+                              options={[
+                                ["Quote reply", "/reply"],
+                                ["Copy link", "/copy-link"],
+                                ["divider", ""],
+                                ["Edit", "/edit"],
+                                ["Delete", "/delete"]
+                              ]}
+                              renderOption={({ Anchor, optionLink, key }) => (
+                                <div key={key}>
+                                  <Link href={optionLink}>{Anchor}</Link>
+                                </div>
+                              )}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center"
+                                }}
+                              >
+                                <Icon name="showActions" fill="#fff" />
+                              </div>
+                            </Menu>
                             <Comment
                               createdAt={createdAt}
                               creator={creator}
@@ -108,6 +130,44 @@ export default class Post extends React.PureComponent<Props> {
                             <Box mx={3} mt={1}>
                               <DeleteComment commentId={id} />
                             </Box>
+                            {/* {data.findCommentsById.hasMore &&
+                              key ===
+                                data.findCommentsById.comments.length - 10 && (
+                                <Waypoint
+                                  onEnter={() =>
+                                    fetchMore({
+                                      variables: {
+                                        postingId: id,
+                                        cursor:
+                                          data.findCommentsById.comments[
+                                            length - 1
+                                          ]
+                                      },
+                                      updateQuery: (
+                                        prev: any,
+                                        {
+                                          fetchMoreResult
+                                        }: { fetchMoreResult: any }
+                                      ) => {
+                                        if (!fetchMoreResult) return prev;
+                                        return {
+                                          findCommentsById: {
+                                            __typename: "FindCommentResponse",
+                                            comments: [
+                                              ...prev.findCommentsById.comments,
+                                              ...fetchMoreResult
+                                                .findCommentsById.comments
+                                            ],
+                                            hasMore:
+                                              fetchMoreResult.findCommentsById
+                                                .hasMore
+                                          }
+                                        };
+                                      }
+                                    })
+                                  }
+                                />
+                              )} */}
                           </div>
                         )
                       )}
