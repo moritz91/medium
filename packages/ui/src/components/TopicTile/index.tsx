@@ -16,7 +16,7 @@ const LinkRebass = styled("a")`
 interface Props {
   id: string;
   name: string;
-  pictureUrl: string;
+  pictureUrl: any;
   Link: any;
   getLinkProps: () => any;
 }

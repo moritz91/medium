@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 export const FlexRow = styled.div`
@@ -60,8 +60,8 @@ const StyledRow = styled(FlexCol)`
   flex: 1;
 `;
 
-export const Flyout = (props: any) => (
-  <StyledFlyout {...props}>
-    <StyledRow>{props.children}</StyledRow>
+export const Flyout = ({ children }: any): JSX.Element => (
+  <StyledFlyout className={"flyout"}>
+    <StyledRow>{children}</StyledRow>
   </StyledFlyout>
 );

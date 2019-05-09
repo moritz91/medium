@@ -146,7 +146,7 @@ const Pre = styled.pre`
   ${(p: StyleProps) => p.selectedLines}
 `;
 
-export const CodeCard: React.FunctionComponent<Props> = ({
+export const CodeCard: React.FC<Props> = ({
   lang,
   children,
   ...props

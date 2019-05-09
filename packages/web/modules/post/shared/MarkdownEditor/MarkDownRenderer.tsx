@@ -1,5 +1,5 @@
 import { LineNumberStyle, styled } from "@medium/ui";
-import "github-markdown-css/github-markdown.css";
+import "../../../../github-markdown.css";
 import schema from "hast-util-sanitize/lib/github.json";
 import React from "react";
 import remark from "remark";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Icon, Flyout, FlyoutRow, MyButton } from "@medium/ui";
+import { Icon, Flyout, FlyoutRow } from "@medium/ui";
 
 export const ActionsDropdown = () => {
   const [flyoutOpen, setFlyoutOpen] = useState(false);
@@ -12,6 +12,7 @@ export const ActionsDropdown = () => {
           return (
             <span ref={ref}>
               <Icon
+                style={{ cursor: "pointer" }}
                 name="showActions"
                 fill="#fff"
                 onClick={() => setFlyoutOpen(!flyoutOpen)}
@@ -42,18 +43,13 @@ export const ActionsDropdown = () => {
                 }}
               >
                 <Flyout data-cy="thread-actions-dropdown">
-                  <FlyoutRow>
-                    <MyButton
-                      variant="primary"
-                      data-cy={"thread-dropdown-notifications"}
-                    >
-                      <Icon
-                        size={24}
-                        fill="#fff"
-                        name={"activeNotificationBell"}
-                      />
-                      <div>{"Subscribed"}</div>
-                    </MyButton>
+                  <FlyoutRow style={{ cursor: "pointer" }}>
+                    <Icon
+                      size={24}
+                      fill="#fff"
+                      name={"activeNotificationBell"}
+                    />
+                    <div>Notify me</div>
                   </FlyoutRow>
                 </Flyout>
               </div>
