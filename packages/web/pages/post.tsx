@@ -100,29 +100,6 @@ export default class Post extends React.PureComponent<Props> {
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
                             <ActionsDropdown />
-                            <Menu
-                              options={[
-                                ["Quote reply", "/reply"],
-                                ["Copy link", "/copy-link"],
-                                ["divider", ""],
-                                ["Edit", "/edit"],
-                                ["Delete", "/delete"]
-                              ]}
-                              renderOption={({ Anchor, optionLink, key }) => (
-                                <div key={key}>
-                                  <Link href={optionLink}>{Anchor}</Link>
-                                </div>
-                              )}
-                            >
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center"
-                                }}
-                              >
-                                <Icon name="showActions" fill="#fff" />
-                              </div>
-                            </Menu>
                             <Comment
                               createdAt={createdAt}
                               creator={creator}
