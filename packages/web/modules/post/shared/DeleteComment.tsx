@@ -58,7 +58,7 @@ export const DeleteComment = (props: Props) => {
                       });
                     }}
                   >
-                    delete
+                    Delete Comment
                   </div>
                 );
               }

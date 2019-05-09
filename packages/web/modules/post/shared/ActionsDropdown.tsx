@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Manager, Reference, Popper } from "react-popper";
 import { Icon, Flyout, FlyoutRow } from "@medium/ui";
+import { DeleteComment } from "./DeleteComment";
 
-export const ActionsDropdown = () => {
+interface Props {
+  commentId: string;
+}
+
+export const ActionsDropdown: React.FC<Props> = ({ commentId }) => {
   const [flyoutOpen, setFlyoutOpen] = useState(false);
 
   return (
@@ -49,7 +54,7 @@ export const ActionsDropdown = () => {
                       fill="#fff"
                       name={"activeNotificationBell"}
                     />
-                    <div>Notify me</div>
+                    <DeleteComment commentId={commentId} />
                   </FlyoutRow>
                 </Flyout>
               </div>

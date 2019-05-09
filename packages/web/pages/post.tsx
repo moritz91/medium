@@ -1,5 +1,5 @@
 import React from "react";
-import { PostRow, Comment, Menu, Icon } from "@medium/ui";
+import { PostRow, Comment } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
@@ -10,7 +10,6 @@ import {
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { Text, Box } from "rebass";
-import { DeleteComment } from "../modules/post/shared/DeleteComment";
 import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
 import { DeletePosting } from "../modules/post/DeletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
@@ -99,16 +98,13 @@ export default class Post extends React.PureComponent<Props> {
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
-                            <ActionsDropdown />
+                            <ActionsDropdown commentId={id} />
                             <Comment
                               createdAt={createdAt}
                               creator={creator}
                               body={MarkdownRenderer({ text })}
                               Link={Link}
                             />
-                            <Box mx={3} mt={1}>
-                              <DeleteComment commentId={id} />
-                            </Box>
                             {/* {data.findCommentsById.hasMore &&
                               key ===
                                 data.findCommentsById.comments.length - 10 && (
