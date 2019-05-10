@@ -5,7 +5,7 @@ import { CreatePostingComponent } from "../../components/apollo-components";
 import { Formik, Field } from "formik";
 import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
-import { MyButton, MySelect } from "@medium/ui";
+import { MyButton, MySelect, TagSelect } from "@medium/ui";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -16,27 +16,34 @@ export const CreatePosting = (): JSX.Element => {
             initialValues={{
               title: "",
               body: "",
-              topicId: "491cc7bb-5567-4d04-a42e-290b53db8366"
+              topicId: "491cc7bb-5567-4d04-a42e-290b53db8366",
+              topic: "",
+              tags: ""
             }}
-            onSubmit={async ({ title, body, topicId }, { setErrors }) => {
+            onSubmit={async (
+              { title, body, topicId, topic, tags },
+              { setErrors }
+            ) => {
               if (!title) {
                 return setErrors({ title: "required" });
               }
-              const response = await mutate({
-                variables: {
-                  posting: {
-                    title,
-                    body,
-                    topicId
-                  }
-                }
-              });
 
-              if (response && response.data) {
-                Router.pushRoute("post", {
-                  id: response.data.createPosting.posting.id
-                });
-              }
+              console.log(title, body, topicId, topic, tags);
+              // const response = await mutate({
+              //   variables: {
+              //     posting: {
+              //       title,
+              //       body,
+              //       topicId
+              //     }
+              //   }
+              // });
+
+              // if (response && response.data) {
+              //   Router.pushRoute("post", {
+              //     id: response.data.createPosting.posting.id
+              //   });
+              // }
             }}
             validationSchema={yup.object().shape({
               title: yup.string().required("required")
@@ -53,7 +60,6 @@ export const CreatePosting = (): JSX.Element => {
                       name="title"
                       component={InputField}
                       placeholder="Title"
-                      icon="github"
                     />
                     <Field
                       errors={errors.body}
@@ -63,8 +69,13 @@ export const CreatePosting = (): JSX.Element => {
                     />
                     <Field
                       name="topic"
-                      placeholder="Topic"
-                      component={MySelect}
+                      placeholder="Choose a topic..."
+                      component={(props: any) => <MySelect {...props} />}
+                    />
+                    <Field
+                      name="tags"
+                      placeholder="Add a tag..."
+                      component={TagSelect}
                     />
                     <MyButton
                       variant="primary"

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Select from "react-select";
+import { AsyncCreatable } from "react-select";
 import { FieldProps } from "formik";
 
 const options = [
@@ -8,14 +8,24 @@ const options = [
   { value: "vanilla", label: "Vanilla" }
 ];
 
-export const MySelect: React.SFC<
+const filterColors = (inputValue: string) => {
+  return options.filter(i =>
+    i.label.toLowerCase().includes(inputValue.toLowerCase())
+  );
+};
+
+const loadOptions = (inputValue: string, callback: any) => {
+  setTimeout(() => {
+    callback(filterColors(inputValue));
+  }, 1000);
+};
+export const TagSelect: React.FC<
   FieldProps<any> & {
     prefix: React.ReactNode;
     label?: string;
     style?: any;
     error?: string;
     errorText?: string;
-    asyncCreatable?: boolean;
   }
 > = ({
   field: { onChange, onBlur: _, ...field },
@@ -23,19 +33,18 @@ export const MySelect: React.SFC<
   label,
   style,
   error,
-  errorText,
-  ...props
+  errorText
 }) => {
   return (
     <div style={style}>
-      <Select
-        {...field}
-        {...props}
-        options={options}
-        isClearable
-        isSearchable
+      <AsyncCreatable
+        cacheOptions
+        loadOptions={loadOptions}
+        defaultOptions
+        isMulti
         onChange={(newValue: any) => setFieldValue(field.name, newValue)}
         instanceId="unique"
+        isClearable
       />
       {!!error && errorText && touched && (
         <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>

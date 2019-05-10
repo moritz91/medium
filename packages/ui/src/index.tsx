@@ -7,6 +7,7 @@ export * from "./components/MyButton";
 export * from "./components/Icon";
 export * from "./components/Input";
 export * from "./components/MySelect";
+export * from "./components/TagSelect";
 export * from "./components/Footer";
 export * from "./components/Pane";
 export * from "./components/Section";
