@@ -5,13 +5,16 @@ import {
   Column,
   ManyToOne,
   CreateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from "typeorm";
 import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Topic } from "./Topic";
+import { Tag } from "./Tag";
 
 @Entity()
 @ObjectType()
@@ -29,7 +32,7 @@ export class Posting extends BaseEntity {
   topicId: string;
 
   @Field(() => [Comment])
-  @OneToMany(() => Comment, qr => qr.posting)
+  @OneToMany(() => Comment, p => p.posting)
   comments: Promise<Comment[]>;
 
   @Field(() => Int)
@@ -53,6 +56,10 @@ export class Posting extends BaseEntity {
   @Field(() => [Rate], { nullable: true })
   @Column({ type: "int", nullable: true })
   ratings: Rate[];
+
+  @ManyToMany(() => Tag)
+  @JoinTable({ name: "tagsposts" })
+  tags: Tag[];
 
   @Field()
   @CreateDateColumn()

@@ -6,7 +6,8 @@ import {
   Ctx,
   FieldResolver,
   Root,
-  Mutation
+  Mutation,
+  UseMiddleware
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Posting } from "../../entity/Posting";
@@ -25,11 +26,11 @@ import {
 import {
   DeletePostingResponse,
   PostingResponse,
-  FindPostingResponse,
-  FindPostingsByTopicResponse
+  FindPostingResponse
 } from "./Response";
 import { User } from "../../entity/User";
 import { CommentRepository } from "../../repositories/CommentRepo";
+import { isAuth } from "../middleware/isAuth";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
@@ -85,18 +86,18 @@ export class PostingResolver {
   }
 
   @Mutation(() => PostingResponse, { name: `createPostingRepo` })
-  @Authorized()
+  @UseMiddleware(isAuth)
   async createPosting(
     @Arg("posting") input: CreatePostingInput,
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
-    let value: Posting = await this.postRepo.save({
+    const posting = await this.postRepo.save({
       ...input,
       creatorId: req.session!.userId
     });
 
     return {
-      posting: value
+      posting
     };
   }
 
@@ -107,13 +108,13 @@ export class PostingResolver {
     return this.postRepo.findOne(id);
   }
 
-  @Query(() => FindPostingsByTopicResponse)
+  @Query(() => FindPostingResponse)
   @Authorized()
   async getPostingsByTopic(@Arg("input")
   {
     cursor,
     topicId
-  }: FindTopicPostingsInput): Promise<FindPostingsByTopicResponse> {
+  }: FindTopicPostingsInput): Promise<FindPostingResponse> {
     return this.postRepo.findByTopicId({
       cursor,
       limit: POST_LIMIT,

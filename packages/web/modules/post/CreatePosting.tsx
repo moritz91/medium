@@ -5,7 +5,9 @@ import { CreatePostingComponent } from "../../components/apollo-components";
 import { Formik, Field } from "formik";
 import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
-import { MyButton, MySelect, TagSelect } from "@medium/ui";
+import { MyButton, MySelect } from "@medium/ui";
+import { TagInputFieldTwo } from "../shared/formik-fields/TagInputFieldTwo";
+// import { TagInputField } from "../shared/formik-fields/TagInputField";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -72,11 +74,6 @@ export const CreatePosting = (): JSX.Element => {
                       placeholder="Choose a topic..."
                       component={(props: any) => <MySelect {...props} />}
                     />
-                    <Field
-                      name="tags"
-                      placeholder="Add a tag..."
-                      component={TagSelect}
-                    />
                     <MyButton
                       variant="primary"
                       style={{
@@ -90,6 +87,7 @@ export const CreatePosting = (): JSX.Element => {
                       submit
                     </MyButton>
                   </form>
+                  <TagInputFieldTwo />
                 </div>
               );
             }}

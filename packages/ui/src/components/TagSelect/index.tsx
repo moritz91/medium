@@ -17,7 +17,7 @@ const filterColors = (inputValue: string) => {
 const loadOptions = (inputValue: string, callback: any) => {
   setTimeout(() => {
     callback(filterColors(inputValue));
-  }, 1000);
+  }, 0);
 };
 export const TagSelect: React.FC<
   FieldProps<any> & {
@@ -44,7 +44,6 @@ export const TagSelect: React.FC<
         isMulti
         onChange={(newValue: any) => setFieldValue(field.name, newValue)}
         instanceId="unique"
-        isClearable
       />
       {!!error && errorText && touched && (
         <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
