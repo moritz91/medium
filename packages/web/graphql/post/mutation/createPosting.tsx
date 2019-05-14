@@ -7,10 +7,6 @@ export const createPostingMutation = gql`
         id
         title
         body
-        ratings {
-          date
-          value
-        }
         creator {
           id
           username

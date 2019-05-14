@@ -24,6 +24,12 @@ export interface FindUserPostingsInput {
   cursor?: Maybe<string>;
 }
 
+export interface FindTagsInput {
+  offset: number;
+
+  limit: number;
+}
+
 export interface FindTopicsInput {
   offset: number;
 
@@ -42,6 +48,10 @@ export interface CreatePostingInput {
   body?: Maybe<string>;
 
   topicId: string;
+}
+/** New posting data */
+export interface CreateTagInput {
+  name: string;
 }
 /** New topic data */
 export interface CreateTopicInput {
@@ -164,17 +174,7 @@ export type CreatePostingPosting = {
 
   body: string;
 
-  ratings: Maybe<CreatePostingRatings[]>;
-
   creator: CreatePostingCreator;
-};
-
-export type CreatePostingRatings = {
-  __typename?: "Rate";
-
-  date: DateTime;
-
-  value: number;
 };
 
 export type CreatePostingCreator = {
@@ -226,8 +226,6 @@ export type GetPostingByIdGetPostingById = {
 
   comments: GetPostingByIdComments[];
 
-  ratings: Maybe<GetPostingByIdRatings[]>;
-
   creator: GetPostingById_Creator;
 };
 
@@ -240,14 +238,6 @@ export type GetPostingByIdComments = {
 };
 
 export type GetPostingByIdCreator = UserInfoFragment;
-
-export type GetPostingByIdRatings = {
-  __typename?: "Rate";
-
-  date: DateTime;
-
-  value: number;
-};
 
 export type GetPostingById_Creator = UserInfoFragment;
 
@@ -282,7 +272,7 @@ export type GetPostingsByTopicQuery = {
 };
 
 export type GetPostingsByTopicGetPostingsByTopic = {
-  __typename?: "FindPostingsByTopicResponse";
+  __typename?: "FindPostingResponse";
 
   posts: GetPostingsByTopicPosts[];
 
@@ -716,10 +706,6 @@ export const CreatePostingDocument = gql`
         id
         title
         body
-        ratings {
-          date
-          value
-        }
         creator {
           id
           username
@@ -826,10 +812,6 @@ export const GetPostingByIdDocument = gql`
         creator {
           ...UserInfo
         }
-      }
-      ratings {
-        date
-        value
       }
       creator {
         ...UserInfo

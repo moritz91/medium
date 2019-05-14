@@ -6,8 +6,7 @@ import {
   ManyToOne,
   CreateDateColumn,
   OneToMany,
-  ManyToMany,
-  JoinTable
+  ManyToMany
 } from "typeorm";
 import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Rate } from "./Rate";
@@ -58,7 +57,6 @@ export class Posting extends BaseEntity {
   ratings: Rate[];
 
   @ManyToMany(() => Tag)
-  @JoinTable({ name: "tagsposts" })
   tags: Tag[];
 
   @Field()

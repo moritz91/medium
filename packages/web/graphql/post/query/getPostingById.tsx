@@ -14,10 +14,6 @@ export const getPostingByIdQuery = gql`
           ...UserInfo
         }
       }
-      ratings {
-        date
-        value
-      }
       creator {
         ...UserInfo
       }
