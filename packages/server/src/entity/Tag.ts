@@ -1,12 +1,14 @@
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import {
   BaseEntity,
   Entity,
   PrimaryGeneratedColumn,
   Column,
   JoinTable,
-  ManyToMany
+  OneToMany
 } from "typeorm";
+import { PostingTag } from "./PostingTag";
+import { MyContext } from "../types/Context";
 import { Posting } from "./Posting";
 
 @Entity()
@@ -20,7 +22,12 @@ export class Tag extends BaseEntity {
   @Column({ type: "text" })
   name: string;
 
-  @ManyToMany(() => Posting)
-  @JoinTable({ name: "PostTag" })
-  postings: Posting[];
+  @OneToMany(() => PostingTag, tp => tp.tag)
+  @JoinTable({ name: "PostingTag" })
+  postingConnection: Promise<PostingTag[]>;
+
+  @Field(() => [Posting])
+  async postings(@Ctx() { postingsLoader }: MyContext): Promise<Posting[]> {
+    return postingsLoader.load(this.id);
+  }
 }

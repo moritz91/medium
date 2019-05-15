@@ -9,12 +9,13 @@ interface FindByPostingIdOptions {
 @EntityRepository(Tag)
 export class TagRepository extends Repository<Tag> {
   async findByPostingId({ postingId, limit }: FindByPostingIdOptions) {
-    const qb = this.createQueryBuilder("c")
-      .orderBy('"createdAt"', "DESC")
+    const qb = this.createQueryBuilder("t")
+      .leftJoinAndSelect("t.postings", "posting")
+      .orderBy('"name"', "DESC")
       .take(limit + 1);
 
     if (postingId) {
-      qb.where("c.postingId = :postingId", { postingId });
+      qb.where("t.postingId = :postingId", { postingId });
     }
 
     const tags = await qb.getMany();

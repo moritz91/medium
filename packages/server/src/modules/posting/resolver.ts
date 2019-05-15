@@ -1,36 +1,37 @@
+import { ApolloError } from "apollo-server-core";
 import {
-  Resolver,
-  Query,
   Arg,
   Authorized,
   Ctx,
   FieldResolver,
-  Root,
   Mutation,
+  Query,
+  Resolver,
+  Root,
   UseMiddleware
 } from "type-graphql";
+import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Posting } from "../../entity/Posting";
+import { User } from "../../entity/User";
+import { CommentRepository } from "../../repositories/CommentRepo";
 import { PostingRepository } from "../../repositories/PostRepo";
 import { MyContext } from "../../types/Context";
-import { loadCreatorResolver } from "../shared/load-creator-resolver";
-import { getConnection } from "typeorm";
-import { ApolloError } from "apollo-server-core";
+import { isAuth } from "../middleware/isAuth";
 import { createResolver } from "../shared/create-resolver";
+import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindUserPostingsInput,
-  FindTopicPostingsInput
+  FindTopicPostingsInput,
+  FindUserPostingsInput
 } from "./Input";
 import {
   DeletePostingResponse,
-  PostingResponse,
-  FindPostingResponse
+  FindPostingResponse,
+  PostingResponse
 } from "./Response";
-import { User } from "../../entity/User";
-import { CommentRepository } from "../../repositories/CommentRepo";
-import { isAuth } from "../middleware/isAuth";
+import { PostingTag } from "../../entity/PostingTag";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
@@ -61,6 +62,53 @@ export class PostingResolver {
     return this.commentRepo.count({ where: { postingId: root.id } });
   }
 
+  @Mutation(() => PostingResponse, { name: `createPostingRepo` })
+  @UseMiddleware(isAuth)
+  async createPosting(
+    @Arg("posting") input: CreatePostingInput,
+    @Ctx() { req }: MyContext
+  ): Promise<PostingResponse> {
+    const posting = await this.postRepo.save({
+      ...input,
+      creatorId: req.session!.userId
+    });
+
+    return {
+      posting
+    };
+  }
+
+  @Mutation(() => DeletePostingResponse, {
+    nullable: true
+  })
+  @Authorized()
+  async deletePostingById(
+    @Arg("id") id: string
+  ): Promise<DeletePostingResponse> {
+    const value = this.postRepo.findOne(id);
+    if (value) {
+      this.postRepo.delete(id);
+      return { ok: true };
+    }
+    return { ok: false };
+  }
+
+  @Mutation(() => Boolean)
+  async addPostingTag(
+    @Arg("postingId", () => String) postingId: string,
+    @Arg("tagId", () => String) tagId: string
+  ) {
+    await PostingTag.create({ postingId, tagId }).save();
+    return true;
+  }
+
+  @Query(() => Posting, {
+    nullable: true
+  })
+  async getPostingById(@Arg("id") id: string) {
+    return this.postRepo.findOne(id);
+  }
+
   @Query(() => FindPostingResponse)
   async findPostings(@Arg("input")
   {
@@ -85,29 +133,6 @@ export class PostingResolver {
     };
   }
 
-  @Mutation(() => PostingResponse, { name: `createPostingRepo` })
-  @UseMiddleware(isAuth)
-  async createPosting(
-    @Arg("posting") input: CreatePostingInput,
-    @Ctx() { req }: MyContext
-  ): Promise<PostingResponse> {
-    const posting = await this.postRepo.save({
-      ...input,
-      creatorId: req.session!.userId
-    });
-
-    return {
-      posting
-    };
-  }
-
-  @Query(() => Posting, {
-    nullable: true
-  })
-  async getPostingById(@Arg("id") id: string) {
-    return this.postRepo.findOne(id);
-  }
-
   @Query(() => FindPostingResponse)
   @Authorized()
   async getPostingsByTopic(@Arg("input")
@@ -120,21 +145,6 @@ export class PostingResolver {
       limit: POST_LIMIT,
       topicId
     });
-  }
-
-  @Mutation(() => DeletePostingResponse, {
-    nullable: true
-  })
-  @Authorized()
-  async deletePostingById(
-    @Arg("id") id: string
-  ): Promise<DeletePostingResponse> {
-    const value = this.postRepo.findOne(id);
-    if (value) {
-      this.postRepo.delete(id);
-      return { ok: true };
-    }
-    return { ok: false };
   }
 
   @Query(() => FindPostingResponse)

@@ -5,15 +5,14 @@ import {
   Column,
   ManyToOne,
   CreateDateColumn,
-  OneToMany,
-  ManyToMany
+  OneToMany
 } from "typeorm";
 import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Topic } from "./Topic";
-import { Tag } from "./Tag";
+import { PostingTag } from "./PostingTag";
 
 @Entity()
 @ObjectType()
@@ -56,8 +55,8 @@ export class Posting extends BaseEntity {
   @Column({ type: "int", nullable: true })
   ratings: Rate[];
 
-  @ManyToMany(() => Tag)
-  tags: Tag[];
+  @OneToMany(() => PostingTag, tp => tp.posting)
+  tagConnection: Promise<PostingTag[]>;
 
   @Field()
   @CreateDateColumn()
