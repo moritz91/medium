@@ -1,6 +1,6 @@
 import { ApolloError } from "apollo-server-core";
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { getConnection } from "typeorm";
+import { getConnection, Like } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Tag } from "../../entity/Tag";
 import { TagRepository } from "../../repositories/TagRepo";
@@ -67,6 +67,28 @@ export class TagResolver {
   })
   async getTagById(@Arg("id") id: string) {
     return this.tagRepo.findOne(id);
+  }
+
+  @Query(() => Tag, {
+    nullable: true
+  })
+  async getTagByName(@Arg("name") name: string) {
+    return this.tagRepo.findOne({
+      where: {
+        name
+      }
+    });
+  }
+
+  @Query(() => Tag, {
+    nullable: true
+  })
+  async getTagByContainsName(@Arg("name") name: string) {
+    return this.tagRepo.findOne({
+      where: {
+        name: Like(name)
+      }
+    });
   }
 
   @Mutation(() => DeleteTagResponse, {

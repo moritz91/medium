@@ -26,7 +26,7 @@ export class Tag extends BaseEntity {
   @JoinTable({ name: "PostingTag" })
   postingConnection: Promise<PostingTag[]>;
 
-  @Field(() => [Posting])
+  @Field(() => [Posting], { nullable: true })
   async postings(@Ctx() { postingsLoader }: MyContext): Promise<Posting[]> {
     return postingsLoader.load(this.id);
   }

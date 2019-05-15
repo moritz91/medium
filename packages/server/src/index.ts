@@ -17,6 +17,7 @@ import * as cors from "cors";
 import { createTypeormConn } from "./createTypeormConn";
 import { User } from "./entity/User";
 import { userLoader } from "./loaders/UserLoader";
+import { postingsLoader } from "./loaders/postingsLoader";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -40,7 +41,12 @@ const startServer = async () => {
       },
       validate: false
     }),
-    context: ({ req, res }: any) => ({ req, res, userLoader: userLoader() })
+    context: ({ req, res }: any) => ({
+      req,
+      res,
+      userLoader: userLoader(),
+      postingsLoader: postingsLoader()
+    })
   });
 
   app.set("trust proxy", 1);
