@@ -84,7 +84,7 @@ export const SubMenu = (): JSX.Element => {
                       src={data && data.me ? data.me.pictureUrl : undefined}
                       alt="avatar"
                     />
-                    <Icon fill="#333" name="downArrow" />
+                    <Icon fill="rgb(255,255,255)" name="downArrow" />
                   </div>
                 </Menu>
               </Flex>
