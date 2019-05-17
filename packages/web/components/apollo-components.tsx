@@ -301,6 +301,46 @@ export type GetUserPostingsFindUserPostings = {
 
 export type GetUserPostingsPosts = PostingInfoFragment;
 
+export type GetTagByNameVariables = {
+  name: string;
+};
+
+export type GetTagByNameQuery = {
+  __typename?: "Query";
+
+  getTagByName: Maybe<GetTagByNameGetTagByName>;
+};
+
+export type GetTagByNameGetTagByName = {
+  __typename?: "Tag";
+
+  name: string;
+
+  postings: Maybe<GetTagByNamePostings[]>;
+};
+
+export type GetTagByNamePostings = PostingInfoFragment;
+
+export type GetTagsVariables = {
+  input: FindTagsInput;
+};
+
+export type GetTagsQuery = {
+  __typename?: "Query";
+
+  findTags: GetTagsFindTags;
+};
+
+export type GetTagsFindTags = {
+  __typename?: "FindTagResponse";
+
+  tags: GetTagsTags[];
+
+  hasMore: boolean;
+};
+
+export type GetTagsTags = TagInfoFragment;
+
 export type GetTopicByNameVariables = {
   name: string;
 };
@@ -481,6 +521,14 @@ export type PostingInfoFragment = {
 
 export type PostingInfoCreator = UserInfoFragment;
 
+export type TagInfoFragment = {
+  __typename?: "Tag";
+
+  id: string;
+
+  name: string;
+};
+
 export type UserInfoFragment = {
   __typename?: "User";
 
@@ -538,6 +586,13 @@ export const PostingInfoFragmentDoc = gql`
   }
 
   ${UserInfoFragmentDoc}
+`;
+
+export const TagInfoFragmentDoc = gql`
+  fragment TagInfo on Tag {
+    id
+    name
+  }
 `;
 
 // ====================================================
@@ -992,6 +1047,96 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
     GetUserPostingsVariables,
     GetUserPostingsProps<TChildProps>
   >(GetUserPostingsDocument, operationOptions);
+}
+export const GetTagByNameDocument = gql`
+  query GetTagByName($name: String!) {
+    getTagByName(name: $name) {
+      name
+      postings {
+        ...PostingInfo
+      }
+    }
+  }
+
+  ${PostingInfoFragmentDoc}
+`;
+export class GetTagByNameComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetTagByNameQuery, GetTagByNameVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTagByNameQuery, GetTagByNameVariables>
+        query={GetTagByNameDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTagByNameProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTagByNameQuery, GetTagByNameVariables>
+> &
+  TChildProps;
+export function GetTagByNameHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTagByNameQuery,
+        GetTagByNameVariables,
+        GetTagByNameProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTagByNameQuery,
+    GetTagByNameVariables,
+    GetTagByNameProps<TChildProps>
+  >(GetTagByNameDocument, operationOptions);
+}
+export const GetTagsDocument = gql`
+  query GetTags($input: FindTagsInput!) {
+    findTags(input: $input) {
+      tags {
+        ...TagInfo
+      }
+      hasMore
+    }
+  }
+
+  ${TagInfoFragmentDoc}
+`;
+export class GetTagsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetTagsQuery, GetTagsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTagsQuery, GetTagsVariables>
+        query={GetTagsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTagsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTagsQuery, GetTagsVariables>
+> &
+  TChildProps;
+export function GetTagsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTagsQuery,
+        GetTagsVariables,
+        GetTagsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTagsQuery,
+    GetTagsVariables,
+    GetTagsProps<TChildProps>
+  >(GetTagsDocument, operationOptions);
 }
 export const GetTopicByNameDocument = gql`
   query GetTopicByName($name: String!) {

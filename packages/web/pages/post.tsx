@@ -38,7 +38,6 @@ export default class Post extends React.PureComponent<Props> {
     });
 
     const { getPostingById } = response.data;
-
     return {
       id,
       creator: getPostingById!.creator,
