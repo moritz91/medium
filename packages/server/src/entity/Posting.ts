@@ -7,12 +7,14 @@ import {
   CreateDateColumn,
   OneToMany
 } from "typeorm";
-import { ObjectType, Field, ID, Int } from "type-graphql";
+import { ObjectType, Field, ID, Int, Ctx } from "type-graphql";
 import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Topic } from "./Topic";
 import { PostingTag } from "./PostingTag";
+import { MyContext } from "../types/Context";
+import { Tag } from "./Tag";
 
 @Entity()
 @ObjectType()
@@ -54,6 +56,11 @@ export class Posting extends BaseEntity {
   @Field(() => [Rate], { nullable: true })
   @Column({ type: "int", nullable: true })
   ratings: Rate[];
+
+  @Field(() => [Tag], { nullable: true })
+  async tags(@Ctx() { tagLoader }: MyContext): Promise<Tag[]> {
+    return tagLoader.load(this.id);
+  }
 
   @OneToMany(() => PostingTag, tp => tp.posting)
   tagConnection: Promise<PostingTag[]>;

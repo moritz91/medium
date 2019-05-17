@@ -32,6 +32,7 @@ import {
   PostingResponse
 } from "./Response";
 import { PostingTag } from "../../entity/PostingTag";
+import { TagRepository } from "../../repositories/TagRepo";
 
 const suffix = "Posting";
 const POST_LIMIT = 16;
@@ -51,6 +52,8 @@ export class PostingResolver {
   private readonly postRepo: PostingRepository;
   @InjectRepository(CommentRepository)
   private readonly commentRepo: CommentRepository;
+  @InjectRepository(TagRepository)
+  private readonly tagRepo: TagRepository;
 
   @FieldResolver(() => User)
   creator(@Root() root: any, @Ctx() ctx: MyContext) {
@@ -64,14 +67,20 @@ export class PostingResolver {
 
   @Mutation(() => PostingResponse, { name: `createPostingRepo` })
   @UseMiddleware(isAuth)
-  async createPosting(
+  async createPostingRepo(
     @Arg("posting") input: CreatePostingInput,
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
+    const tag = await this.tagRepo.save({
+      name: input.tagName
+    });
+
     const posting = await this.postRepo.save({
       ...input,
       creatorId: req.session!.userId
     });
+
+    await this.addPostingTag(posting.id, tag.id);
 
     return {
       posting

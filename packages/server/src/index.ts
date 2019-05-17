@@ -18,6 +18,7 @@ import { createTypeormConn } from "./createTypeormConn";
 import { User } from "./entity/User";
 import { userLoader } from "./loaders/UserLoader";
 import { postingsLoader } from "./loaders/postingsLoader";
+import { tagLoader } from "./loaders/tagLoader";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -45,7 +46,8 @@ const startServer = async () => {
       req,
       res,
       userLoader: userLoader(),
-      postingsLoader: postingsLoader()
+      postingsLoader: postingsLoader(),
+      tagLoader: tagLoader()
     })
   });
 

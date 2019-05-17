@@ -11,6 +11,9 @@ export class CreatePostingInput implements Partial<Posting> {
 
   @Field()
   topicId: string;
+
+  @Field()
+  tagName: string;
 }
 
 @InputType({ description: "Old posting data" })
