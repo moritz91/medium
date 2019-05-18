@@ -16,11 +16,17 @@ export class PostingTag extends BaseEntity {
   @PrimaryColumn()
   postingId: string;
 
-  @ManyToOne(() => Posting, p => p.tagConnection, { primary: true })
+  @ManyToOne(() => Posting, p => p.tagConnection, {
+    primary: true,
+    onDelete: "CASCADE"
+  })
   @JoinColumn({ name: "postingId" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => Tag, t => t.postingConnection, { primary: true })
+  @ManyToOne(() => Tag, t => t.postingConnection, {
+    primary: true,
+    onDelete: "CASCADE"
+  })
   @JoinColumn({ name: "tagId" })
   tag: Promise<Tag>;
 }
