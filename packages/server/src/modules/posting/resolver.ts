@@ -71,9 +71,22 @@ export class PostingResolver {
     @Arg("posting") input: CreatePostingInput,
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
-    const tag = await this.tagRepo.save({
-      name: input.tagName
+    // const tag = await this.tagRepo.create({
+    //   name: input.tagName
+    // });
+
+    let tag = await this.tagRepo.findOne({
+      where: {
+        name: input.tagName
+      }
     });
+    if (!tag) {
+      tag = await this.tagRepo
+        .create({
+          name: input.tagName
+        })
+        .save();
+    }
 
     const posting = await this.postRepo
       .create({

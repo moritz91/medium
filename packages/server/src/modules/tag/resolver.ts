@@ -1,11 +1,9 @@
 import { ApolloError } from "apollo-server-core";
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Tag } from "../../entity/Tag";
 import { TagRepository } from "../../repositories/TagRepo";
-import { MyContext } from "../../types/Context";
-import { createResolver } from "../shared/create-resolver";
 import { CreateTagInput, FindTagsInput } from "./Input";
 import {
   DeleteTagResponse,
@@ -13,15 +11,6 @@ import {
   TagResponse,
   FindTagsByLettersResponse
 } from "./Response";
-
-const suffix = "Tag";
-
-export const createTag = createResolver(
-  suffix,
-  CreateTagInput,
-  Tag,
-  TagResponse
-);
 
 @Resolver(Tag)
 export class TagResolver {
@@ -34,8 +23,8 @@ export class TagResolver {
     offset,
     limit
   }: FindTagsInput): Promise<FindTagResponse> {
-    if (limit > 6) {
-      throw new ApolloError("max limit of 6");
+    if (limit > 20) {
+      throw new ApolloError("max limit of 20");
     }
 
     const tags = await getConnection()
@@ -51,16 +40,21 @@ export class TagResolver {
     };
   }
 
-  @Mutation(() => TagResponse, { name: `createTagRepo` })
+  @Mutation(() => TagResponse, { name: `findOrCreateTag` })
   @Authorized()
-  async createTag(
-    @Arg("tag") input: CreateTagInput,
-    @Ctx() { req }: MyContext
-  ): Promise<TagResponse> {
-    let value: Tag = await this.tagRepo.save({
-      ...input,
-      creatorId: req.session!.userId
+  async createTag(@Arg("tag") name: CreateTagInput): Promise<TagResponse> {
+    let value = await this.tagRepo.findOne({
+      where: {
+        ...name
+      }
     });
+    if (!value) {
+      value = await this.tagRepo
+        .create({
+          ...name
+        })
+        .save();
+    }
 
     return {
       tag: value
@@ -78,7 +72,7 @@ export class TagResolver {
     nullable: true
   })
   async getTagByName(@Arg("name") name: string) {
-    return this.tagRepo.findOne({
+    this.tagRepo.findOne({
       where: {
         name
       }
@@ -89,7 +83,7 @@ export class TagResolver {
     nullable: true
   })
   async getTagsByLetters(@Arg("letters") letters: string) {
-    return this.tagRepo.nameContains({ letters, limit: 10 });
+    return this.tagRepo.nameContains({ letters, limit: 5 });
   }
 
   @Mutation(() => DeleteTagResponse, {
