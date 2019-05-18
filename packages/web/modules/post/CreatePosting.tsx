@@ -3,7 +3,7 @@ import * as yup from "yup";
 import Layout from "../../components/Layout";
 import { CreatePostingComponent } from "../../components/apollo-components";
 import { Formik, Field } from "formik";
-import { Router } from "../../server/routes";
+// import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
 import { MyButton, MySelect } from "@medium/ui";
 import { TagInputFieldTwo } from "../shared/formik-fields/TagInputFieldTwo";
@@ -55,38 +55,40 @@ export const CreatePosting = (): JSX.Element => {
           >
             {({ errors, handleSubmit, isSubmitting }) => {
               return (
-                <div style={{ display: "flex", width: "100%" }}>
-                  <form onSubmit={handleSubmit} style={{ flex: 1 }}>
-                    <Field
-                      errors={errors.title}
-                      name="title"
-                      component={InputField}
-                      placeholder="Title"
-                    />
-                    <Field
-                      errors={errors.body}
-                      name="body"
-                      component={InputField}
-                      placeholder="Body"
-                    />
-                    <Field
-                      name="topic"
-                      placeholder="Choose a topic..."
-                      component={(props: any) => <MySelect {...props} />}
-                    />
-                    <MyButton
-                      variant="primary"
-                      style={{
-                        marginTop: "1rem",
-                        marginLeft: "auto",
-                        display: "flex"
-                      }}
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
-                      submit
-                    </MyButton>
-                  </form>
+                <div>
+                  <div style={{ display: "flex", width: "100%" }}>
+                    <form onSubmit={handleSubmit} style={{ flex: 1 }}>
+                      <Field
+                        errors={errors.title}
+                        name="title"
+                        component={InputField}
+                        placeholder="Title"
+                      />
+                      <Field
+                        errors={errors.body}
+                        name="body"
+                        component={InputField}
+                        placeholder="Body"
+                      />
+                      <Field
+                        name="topic"
+                        placeholder="Choose a topic..."
+                        component={(props: any) => <MySelect {...props} />}
+                      />
+                      <MyButton
+                        variant="primary"
+                        style={{
+                          marginTop: "1rem",
+                          marginLeft: "auto",
+                          display: "flex"
+                        }}
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        submit
+                      </MyButton>
+                    </form>
+                  </div>
                   <TagInputFieldTwo />
                 </div>
               );

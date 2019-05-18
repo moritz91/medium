@@ -74,6 +74,17 @@ export class TagResolver {
     return this.tagRepo.findOne(id);
   }
 
+  @Query(() => Tag, {
+    nullable: true
+  })
+  async getTagByName(@Arg("name") name: string) {
+    return this.tagRepo.findOne({
+      where: {
+        name
+      }
+    });
+  }
+
   @Query(() => FindTagsByLettersResponse, {
     nullable: true
   })

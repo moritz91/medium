@@ -2,17 +2,13 @@ import * as React from "react";
 import { useReducer, useRef } from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
+import { GetTagsByLettersComponent } from "../../../components/apollo-components";
 
 const Container = styled.div`
-  border-color: rgba(0, 0, 0, 0.15);
-  border: 1px solid;
-  background: #fafafa;
   padding-top: 6px;
   padding-left: 10px;
   line-height: 20px;
-  font-size: 16px;
   text-align: left;
-  display: flex;
 `;
 
 export const TagInputFieldTwo = (): JSX.Element => {
@@ -43,7 +39,7 @@ export const TagInputFieldTwo = (): JSX.Element => {
   };
 
   return (
-    <Downshift onChange={item => alert(item)}>
+    <Downshift id="autocomplete" onChange={() => handleTagInput}>
       {({
         getRootProps,
         getInputProps,
@@ -52,6 +48,7 @@ export const TagInputFieldTwo = (): JSX.Element => {
         inputValue,
         selectedItem,
         highlightedIndex,
+        clearSelection,
         isOpen
       }: any) => (
         <Container {...getRootProps({} as any)}>
@@ -71,18 +68,52 @@ export const TagInputFieldTwo = (): JSX.Element => {
               about
             </label>
             <br />
-            <input {...getInputProps()} ref={inputRef} />
+            <input
+              {...getInputProps({
+                onChange: (e: any) => {
+                  if (e.target.value === "") {
+                    clearSelection();
+                  }
+                }
+              })}
+              ref={inputRef}
+            />
           </form>
           {isOpen ? (
             <div>
-              <ApolloAutocompleteMenuWithData
-                {...{
-                  inputValue,
-                  selectedItem,
-                  highlightedIndex,
-                  getItemProps
+              <GetTagsByLettersComponent variables={{ letters: inputValue }}>
+                {({ data, loading }) => {
+                  if (loading) {
+                    return <div>Loading...</div>;
+                  }
+                  const { getTagsByLetters } = data!;
+                  const matchingTags = getTagsByLetters!.tags.map(
+                    tag => tag.name
+                  );
+
+                  return (
+                    <div>
+                      {matchingTags.map((item: any, idx: any) => (
+                        <div
+                          {...getItemProps({
+                            item,
+                            idx,
+                            key: idx,
+                            style: {
+                              backgroundColor:
+                                highlightedIndex === idx ? "#6DC1FD" : "",
+                              fontWeight:
+                                selectedItem === item ? "bold" : "normal"
+                            }
+                          })}
+                        >
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  );
                 }}
-              />
+              </GetTagsByLettersComponent>
             </div>
           ) : null}
         </Container>
@@ -91,40 +122,44 @@ export const TagInputFieldTwo = (): JSX.Element => {
   );
 };
 
-function ApolloAutocompleteMenuWithData({
+// const AutoCompleteMenu = ({
+//   inputValue,
+//   selectedItem,
+//   highlightedIndex,
+//   getItemProps,
+//   dispatch
+// }: any) => {
+//   return (
+//     <GetTagsByLettersComponent variables={{ letters: inputValue }}>
+//       {({ data, loading }) => {
+//         if (loading) {
+//           return <div>Loading...</div>;
+//         }
+//         const { getTagsByLetters } = data!;
+//         const matchingTags = getTagsByLetters!.tags.map(tag => tag.name);
 
-}: // data: { loading },
-// selectedItem,
-// highlightedIndex,
-// getItemProps
-any) {
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-  const allColors = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" }
-  ];
-
-  return (
-    <div>
-      {allColors.map(
-        (item: any, idx: any) => console.log(item, idx)
-        // <div
-        //   {...getItemProps({
-        //     item,
-        //     idx,
-        //     key: item,
-        //     style: {
-        //       backgroundColor: highlightedIndex === idx ? "gray" : "white",
-        //       fontWeight: selectedItem === item ? "bold" : "normal"
-        //     }
-        //   })}
-        // >
-        //   {item}
-        // </div>
-      )}
-    </div>
-  );
-}
+//         return (
+//           <div>
+//             {matchingTags.map((item: any, idx: any) => (
+//               <div
+//                 onClick={() => dispatch({ type: "add", idx })}
+//                 {...getItemProps({
+//                   item,
+//                   idx,
+//                   key: idx,
+//                   style: {
+//                     backgroundColor:
+//                       highlightedIndex === idx ? "gray" : "white",
+//                     fontWeight: selectedItem === item ? "bold" : "normal"
+//                   }
+//                 })}
+//               >
+//                 {item}
+//               </div>
+//             ))}
+//           </div>
+//         );
+//       }}
+//     </GetTagsByLettersComponent>
+//   );
+// };

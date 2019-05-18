@@ -48,6 +48,8 @@ export interface CreatePostingInput {
   body?: Maybe<string>;
 
   topicId: string;
+
+  tagName: string;
 }
 /** New posting data */
 export interface CreateTagInput {
@@ -300,6 +302,28 @@ export type GetUserPostingsFindUserPostings = {
 };
 
 export type GetUserPostingsPosts = PostingInfoFragment;
+
+export type GetTagsByLettersVariables = {
+  letters: string;
+};
+
+export type GetTagsByLettersQuery = {
+  __typename?: "Query";
+
+  getTagsByLetters: Maybe<GetTagsByLettersGetTagsByLetters>;
+};
+
+export type GetTagsByLettersGetTagsByLetters = {
+  __typename?: "FindTagsByLettersResponse";
+
+  tags: GetTagsByLettersTags[];
+};
+
+export type GetTagsByLettersTags = {
+  __typename?: "Tag";
+
+  name: string;
+};
 
 export type GetTagByNameVariables = {
   name: string;
@@ -1047,6 +1071,50 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
     GetUserPostingsVariables,
     GetUserPostingsProps<TChildProps>
   >(GetUserPostingsDocument, operationOptions);
+}
+export const GetTagsByLettersDocument = gql`
+  query GetTagsByLetters($letters: String!) {
+    getTagsByLetters(letters: $letters) {
+      tags {
+        name
+      }
+    }
+  }
+`;
+export class GetTagsByLettersComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetTagsByLettersQuery, GetTagsByLettersVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTagsByLettersQuery, GetTagsByLettersVariables>
+        query={GetTagsByLettersDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTagsByLettersProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTagsByLettersQuery, GetTagsByLettersVariables>
+> &
+  TChildProps;
+export function GetTagsByLettersHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTagsByLettersQuery,
+        GetTagsByLettersVariables,
+        GetTagsByLettersProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTagsByLettersQuery,
+    GetTagsByLettersVariables,
+    GetTagsByLettersProps<TChildProps>
+  >(GetTagsByLettersDocument, operationOptions);
 }
 export const GetTagByNameDocument = gql`
   query GetTagByName($name: String!) {
