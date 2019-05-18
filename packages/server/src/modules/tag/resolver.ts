@@ -4,11 +4,10 @@ import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Tag } from "../../entity/Tag";
 import { TagRepository } from "../../repositories/TagRepo";
-import { CreateTagInput, FindTagsInput } from "./Input";
+import { FindTagsInput } from "./Input";
 import {
   DeleteTagResponse,
   FindTagResponse,
-  TagResponse,
   FindTagsByLettersResponse
 } from "./Response";
 
@@ -40,26 +39,26 @@ export class TagResolver {
     };
   }
 
-  @Mutation(() => TagResponse, { name: `findOrCreateTag` })
-  @Authorized()
-  async createTag(@Arg("tag") name: CreateTagInput): Promise<TagResponse> {
-    let value = await this.tagRepo.findOne({
-      where: {
-        ...name
-      }
-    });
-    if (!value) {
-      value = await this.tagRepo
-        .create({
-          ...name
-        })
-        .save();
-    }
+  // @Mutation(() => TagResponse, { name: `findOrCreateTag` })
+  // @Authorized()
+  // async createTag(@Arg("tag") name: CreateTagInput): Promise<TagResponse> {
+  //   let value = await this.tagRepo.findOne({
+  //     where: {
+  //       ...name
+  //     }
+  //   });
+  //   if (!value) {
+  //     value = await this.tagRepo
+  //       .create({
+  //         ...name
+  //       })
+  //       .save();
+  //   }
 
-    return {
-      tag: value
-    };
-  }
+  //   return {
+  //     tag: value
+  //   };
+  // }
 
   @Query(() => Tag, {
     nullable: true
