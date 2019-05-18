@@ -71,10 +71,6 @@ export class PostingResolver {
     @Arg("posting") input: CreatePostingInput,
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
-    // const tag = await this.tagRepo.create({
-    //   name: input.tagName
-    // });
-
     let tag = await this.tagRepo.findOne({
       where: {
         name: input.tagName
