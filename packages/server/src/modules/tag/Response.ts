@@ -23,7 +23,7 @@ export class FindTagResponse {
 }
 
 @ObjectType()
-export class FindTagsByTopicResponse {
+export class FindTagsByLettersResponse {
   @Field()
   hasMore: boolean;
 

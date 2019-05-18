@@ -1,13 +1,18 @@
 import { ApolloError } from "apollo-server-core";
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { getConnection, Like } from "typeorm";
+import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Tag } from "../../entity/Tag";
 import { TagRepository } from "../../repositories/TagRepo";
 import { MyContext } from "../../types/Context";
 import { createResolver } from "../shared/create-resolver";
 import { CreateTagInput, FindTagsInput } from "./Input";
-import { DeleteTagResponse, FindTagResponse, TagResponse } from "./Response";
+import {
+  DeleteTagResponse,
+  FindTagResponse,
+  TagResponse,
+  FindTagsByLettersResponse
+} from "./Response";
 
 const suffix = "Tag";
 
@@ -69,26 +74,11 @@ export class TagResolver {
     return this.tagRepo.findOne(id);
   }
 
-  @Query(() => Tag, {
+  @Query(() => FindTagsByLettersResponse, {
     nullable: true
   })
-  async getTagByName(@Arg("name") name: string) {
-    return this.tagRepo.findOne({
-      where: {
-        name
-      }
-    });
-  }
-
-  @Query(() => Tag, {
-    nullable: true
-  })
-  async getTagByContainsName(@Arg("name") name: string) {
-    return this.tagRepo.findOne({
-      where: {
-        name: Like(name)
-      }
-    });
+  async getTagsByLetters(@Arg("letters") letters: string) {
+    return this.tagRepo.nameContains({ letters, limit: 10 });
   }
 
   @Mutation(() => DeleteTagResponse, {

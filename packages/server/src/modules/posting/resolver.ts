@@ -75,10 +75,12 @@ export class PostingResolver {
       name: input.tagName
     });
 
-    const posting = await this.postRepo.save({
-      ...input,
-      creatorId: req.session!.userId
-    });
+    const posting = await this.postRepo
+      .create({
+        ...input,
+        creatorId: req.session!.userId
+      })
+      .save();
 
     await this.addPostingTag(posting.id, tag.id);
 
