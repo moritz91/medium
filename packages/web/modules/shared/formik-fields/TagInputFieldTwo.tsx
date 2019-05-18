@@ -39,7 +39,7 @@ export const TagInputFieldTwo = (): JSX.Element => {
   };
 
   return (
-    <Downshift id="autocomplete" onChange={() => handleTagInput}>
+    <Downshift id="autocomplete">
       {({
         getRootProps,
         getInputProps,
@@ -62,12 +62,12 @@ export const TagInputFieldTwo = (): JSX.Element => {
               </button>
             </div>
           ))}
+          <label {...getLabelProps()}>
+            Add or change tags (up to 5) so readers know what your story is
+            about
+          </label>
+          <br />
           <form onSubmit={handleTagInput}>
-            <label {...getLabelProps()}>
-              Add or change tags (up to 5) so readers know what your story is
-              about
-            </label>
-            <br />
             <input
               {...getInputProps({
                 onChange: (e: any) => {
@@ -79,43 +79,42 @@ export const TagInputFieldTwo = (): JSX.Element => {
               ref={inputRef}
             />
           </form>
-          {isOpen ? (
-            <div>
-              <GetTagsByLettersComponent variables={{ letters: inputValue }}>
-                {({ data, loading }) => {
-                  if (loading) {
-                    return <div>Loading...</div>;
-                  }
-                  const { getTagsByLetters } = data!;
-                  const matchingTags = getTagsByLetters!.tags.map(
-                    tag => tag.name
-                  );
+          {isOpen && (
+            <GetTagsByLettersComponent variables={{ letters: inputValue }}>
+              {({ data, loading }) => {
+                if (loading) {
+                  return <div>Loading...</div>;
+                }
+                const { getTagsByLetters } = data!;
+                const matchingTags = getTagsByLetters!.tags.map(
+                  tag => tag.name
+                );
 
-                  return (
-                    <div>
-                      {matchingTags.map((item: any, idx: any) => (
-                        <div
-                          {...getItemProps({
-                            item,
-                            idx,
-                            key: idx,
-                            style: {
-                              backgroundColor:
-                                highlightedIndex === idx ? "#6DC1FD" : "",
-                              fontWeight:
-                                selectedItem === item ? "bold" : "normal"
-                            }
-                          })}
-                        >
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  );
-                }}
-              </GetTagsByLettersComponent>
-            </div>
-          ) : null}
+                return (
+                  <div>
+                    {matchingTags.map((item: any, idx: any) => (
+                      <div
+                        onClick={() => dispatch({ type: "add", item })}
+                        {...getItemProps({
+                          item,
+                          idx,
+                          key: idx,
+                          style: {
+                            backgroundColor:
+                              highlightedIndex === idx ? "#6DC1FD" : "",
+                            fontWeight:
+                              selectedItem === item ? "bold" : "normal"
+                          }
+                        })}
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                );
+              }}
+            </GetTagsByLettersComponent>
+          )}
         </Container>
       )}
     </Downshift>
