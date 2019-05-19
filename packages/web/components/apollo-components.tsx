@@ -51,10 +51,6 @@ export interface CreatePostingInput {
 
   tagName: string;
 }
-/** New posting data */
-export interface CreateTagInput {
-  name: string;
-}
 /** New topic data */
 export interface CreateTopicInput {
   name: string;
@@ -229,6 +225,8 @@ export type GetPostingByIdGetPostingById = {
   comments: GetPostingByIdComments[];
 
   creator: GetPostingById_Creator;
+
+  tags: Maybe<GetPostingByIdTags[]>;
 };
 
 export type GetPostingByIdComments = {
@@ -242,6 +240,8 @@ export type GetPostingByIdComments = {
 export type GetPostingByIdCreator = UserInfoFragment;
 
 export type GetPostingById_Creator = UserInfoFragment;
+
+export type GetPostingByIdTags = TagInfoFragment;
 
 export type GetPostingsVariables = {
   input: FindPostingsInput;
@@ -895,10 +895,14 @@ export const GetPostingByIdDocument = gql`
       creator {
         ...UserInfo
       }
+      tags {
+        ...TagInfo
+      }
     }
   }
 
   ${UserInfoFragmentDoc}
+  ${TagInfoFragmentDoc}
 `;
 export class GetPostingByIdComponent extends React.Component<
   Partial<ReactApollo.QueryProps<GetPostingByIdQuery, GetPostingByIdVariables>>

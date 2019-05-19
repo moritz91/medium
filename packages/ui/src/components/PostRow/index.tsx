@@ -21,6 +21,7 @@ interface Props {
   createdAt: string;
   creator: any;
   Link: any;
+  tags: any;
   getLinkProps: () => any;
 }
 
@@ -38,7 +39,8 @@ export const PostRow: React.FC<Props> = ({
   numComments,
   getLinkProps,
   Link,
-  createdAt
+  createdAt,
+  tags
 }) => {
   const linkProps = getLinkProps();
 
@@ -82,6 +84,11 @@ export const PostRow: React.FC<Props> = ({
                 <Icon name="showActions" fill="#fff" />
               </div>
             </div>
+            {tags.map((t: any, idx: number) => (
+              <Link key={idx} route={"posts"} params={{ tag: { t } }}>
+                <LinkRebass>{t.name} •</LinkRebass>
+              </Link>
+            ))}
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}

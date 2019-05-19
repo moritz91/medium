@@ -2,7 +2,9 @@ import * as React from "react";
 import { useReducer, useRef } from "react";
 import styled from "styled-components";
 import Downshift from "downshift";
+import { findKey } from "lodash";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
+import { Input } from "@medium/ui";
 
 const Container = styled.div`
   padding-top: 6px;
@@ -16,13 +18,15 @@ export const TagInputFieldTwo = (): JSX.Element => {
   const [tags, dispatch] = useReducer((state: any, action: any) => {
     switch (action.type) {
       case "add":
-        return [
-          ...state,
-          {
-            id: state.length,
-            name: action.name.value
-          }
-        ];
+        if (!findKey(state, { name: action.name.value }))
+          return [
+            ...state,
+            {
+              id: state.length,
+              name: action.name.value
+            }
+          ];
+        return state;
       case "remove":
         return state.filter((_: any, idx: any) => idx != action.idx);
       default:
@@ -62,13 +66,13 @@ export const TagInputFieldTwo = (): JSX.Element => {
               </button>
             </div>
           ))}
-          <label {...getLabelProps()}>
+          <label {...getLabelProps({ style: { width: 100, fontSize: 12 } })}>
             Add or change tags (up to 5) so readers know what your story is
             about
           </label>
           <br />
           <form onSubmit={handleTagInput}>
-            <input
+            <Input
               {...getInputProps({
                 onChange: (e: any) => {
                   if (e.target.value === "") {

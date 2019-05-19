@@ -5,7 +5,8 @@ import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/Layout";
 import {
   UserInfoFragment,
-  GetCommentsByIdComponent
+  GetCommentsByIdComponent,
+  TagInfoFragment
 } from "../components/apollo-components";
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
@@ -23,6 +24,7 @@ interface Props {
   body: string;
   numComments: number;
   createdAt: string;
+  tags: TagInfoFragment;
 }
 
 export default class Post extends React.PureComponent<Props> {
@@ -44,12 +46,21 @@ export default class Post extends React.PureComponent<Props> {
       title: getPostingById!.title,
       body: getPostingById!.body,
       numComments: getPostingById!.numComments,
-      createdAt: getPostingById!.createdAt
+      createdAt: getPostingById!.createdAt,
+      tags: getPostingById!.tags
     };
   }
 
   render() {
-    const { title, creator, body, id, createdAt, numComments } = this.props;
+    const {
+      title,
+      creator,
+      body,
+      id,
+      createdAt,
+      numComments,
+      tags
+    } = this.props;
     const context: ContextProps = {
       title,
       creator: userInfoFragment,
@@ -69,6 +80,7 @@ export default class Post extends React.PureComponent<Props> {
             body={body}
             numComments={numComments}
             Link={Link}
+            tags={tags}
             getLinkProps={() => ({
               route: "post",
               params: {
