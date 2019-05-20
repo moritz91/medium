@@ -19,7 +19,8 @@ export const PostsContext = createContext<ContextProps>({
       body: "",
       createdAt: "",
       numComments: 0,
-      creator: { id: "", username: "", pictureUrl: "", bio: "" }
+      creator: { id: "", username: "", pictureUrl: "", bio: "" },
+      tags: [{ id: "", name: "" }]
     }
   ],
   username: "",

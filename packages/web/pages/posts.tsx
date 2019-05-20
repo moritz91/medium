@@ -66,6 +66,7 @@ export default class Posts extends React.Component<Props> {
                   body={post.body}
                   numComments={post.numComments}
                   Link={Link}
+                  tags={post.tags}
                   getLinkProps={() => ({
                     route: "post",
                     params: {

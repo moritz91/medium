@@ -31,11 +31,12 @@ interface Props {
   placeholder?: string;
   style?: React.CSSProperties | undefined;
   value?: string;
+  ref?: React.RefObject<any>;
 }
 
 export class Input extends React.PureComponent<Props> {
   render(): JSX.Element {
-    const { icon, style, errorText, big, ...props } = this.props;
+    const { icon, style, errorText, big, ref, ...props } = this.props;
     return (
       <div style={style}>
         <Container>
@@ -47,7 +48,11 @@ export class Input extends React.PureComponent<Props> {
                 style={{ marginRight: ".8rem" }}
               />
             )}
-            <MyInput style={{ fontSize: big ? "2rem" : "1.6rem" }} {...props} />
+            <MyInput
+              style={{ fontSize: big ? "2rem" : "1.6rem" }}
+              {...props}
+              {...ref}
+            />
           </Row>
         </Container>
         {errorText && (

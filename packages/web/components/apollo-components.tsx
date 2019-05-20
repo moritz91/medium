@@ -541,9 +541,13 @@ export type PostingInfoFragment = {
   numComments: number;
 
   creator: PostingInfoCreator;
+
+  tags: Maybe<PostingInfoTags[]>;
 };
 
 export type PostingInfoCreator = UserInfoFragment;
+
+export type PostingInfoTags = TagInfoFragment;
 
 export type TagInfoFragment = {
   __typename?: "Tag";
@@ -597,6 +601,13 @@ export const CommentInfoFragmentDoc = gql`
   ${UserInfoFragmentDoc}
 `;
 
+export const TagInfoFragmentDoc = gql`
+  fragment TagInfo on Tag {
+    id
+    name
+  }
+`;
+
 export const PostingInfoFragmentDoc = gql`
   fragment PostingInfo on Posting {
     id
@@ -607,16 +618,13 @@ export const PostingInfoFragmentDoc = gql`
     creator {
       ...UserInfo
     }
+    tags {
+      ...TagInfo
+    }
   }
 
   ${UserInfoFragmentDoc}
-`;
-
-export const TagInfoFragmentDoc = gql`
-  fragment TagInfo on Tag {
-    id
-    name
-  }
+  ${TagInfoFragmentDoc}
 `;
 
 // ====================================================

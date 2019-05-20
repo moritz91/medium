@@ -75,6 +75,7 @@ export default class Topic extends React.PureComponent<Props> {
                           body={post.body}
                           numComments={post.numComments}
                           Link={Link}
+                          tags={post.tags}
                           getLinkProps={() => ({
                             route: "post",
                             params: {

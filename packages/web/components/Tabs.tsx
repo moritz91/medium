@@ -18,7 +18,7 @@ export function ProfileTabs() {
           <Tab name="responses">Responses</Tab>
         </TabList>
         <TabPanel name="posts">
-          {postings.map(p => (
+          {postings.map((p: any) => (
             <PostRow
               key={p.id}
               id={p.id}
@@ -27,6 +27,7 @@ export function ProfileTabs() {
               title={p.title}
               body={p.body}
               numComments={p.numComments}
+              tags={p.tags}
               Link={Link}
               getLinkProps={() => ({
                 route: "post",
@@ -38,7 +39,7 @@ export function ProfileTabs() {
           ))}
         </TabPanel>
         <TabPanel name="responses">
-          {comments.map(({ id, createdAt, creator, text }, key: any) => (
+          {comments.map(({ id, createdAt, creator, text }: any, key: any) => (
             <Box key={key}>
               <Comment
                 createdAt={createdAt}
