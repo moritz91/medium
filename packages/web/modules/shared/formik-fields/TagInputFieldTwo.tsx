@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Downshift from "downshift";
 import { findKey } from "lodash";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
-import { Input } from "@medium/ui";
 
 const Container = styled.div`
   padding-top: 6px;
@@ -72,7 +71,7 @@ export const TagInputFieldTwo = (): JSX.Element => {
           </label>
           <br />
           <form onSubmit={handleTagInput}>
-            <Input
+            <input
               {...getInputProps({
                 onChange: (e: any) => {
                   if (e.target.value === "") {

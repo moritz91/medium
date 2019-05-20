@@ -32,6 +32,10 @@ export const PostRowContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
+export const TagRowContainer = styled.div`
+  margin: 1.6rem 0px;
+`;
+
 export const PostRow: React.FC<Props> = ({
   title,
   creator: { username, pictureUrl },
@@ -84,23 +88,25 @@ export const PostRow: React.FC<Props> = ({
                 <Icon name="showActions" fill="#fff" />
               </div>
             </div>
-            {tags.map((t: any, idx: number) => (
-              <Link key={idx} route={"posts"} params={{ tag: { t } }}>
-                <LinkRebass>{t.name} •</LinkRebass>
-              </Link>
-            ))}
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
-          <Link route={"profile"} params={{ username }}>
-            <LinkRebass>
-              {username} • {dtString} •{" "}
-              {numComments == 1
-                ? `${numComments}` + " response"
-                : `${numComments}` + " responses"}
-            </LinkRebass>
-          </Link>
+          <div style={{ display: "flex" }}>
+            <Link route={"profile"} params={{ username }}>
+              <LinkRebass>
+                {username} • {dtString} •{" "}
+                {numComments == 1
+                  ? `${numComments}` + " response"
+                  : `${numComments}` + " responses"}
+              </LinkRebass>
+            </Link>
+            <div style={{ display: "flex", marginLeft: "auto" }}>
+              {tags.map((t: any, idx: number) => (
+                <div key={idx}>{t.name} </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Flex>
     </PostRowContainer>
