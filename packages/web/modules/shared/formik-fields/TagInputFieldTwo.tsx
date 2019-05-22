@@ -13,16 +13,16 @@ const Container = styled.div`
 `;
 
 export const TagInputFieldTwo = (): JSX.Element => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
   const [tags, dispatch] = useReducer((state: any, action: any) => {
     switch (action.type) {
       case "add":
-        if (!findKey(state, { name: action.name.value }))
+        if (!findKey(state, { name: action.name }))
           return [
             ...state,
             {
               id: state.length,
-              name: action.name.value
+              name: action.name
             }
           ];
         return state;
@@ -37,7 +37,7 @@ export const TagInputFieldTwo = (): JSX.Element => {
     e.preventDefault();
     dispatch({
       type: "add",
-      name: inputRef.current
+      name: inputRef.current.value
     });
   };
 
@@ -51,7 +51,9 @@ export const TagInputFieldTwo = (): JSX.Element => {
         inputValue,
         selectedItem,
         highlightedIndex,
+        highlightedItem,
         clearSelection,
+        itemToString,
         isOpen
       }: any) => (
         <Container {...getRootProps({} as any)}>
@@ -97,11 +99,20 @@ export const TagInputFieldTwo = (): JSX.Element => {
                   <div>
                     {matchingTags.map((item: any, idx: any) => (
                       <div
-                        onClick={() => dispatch({ type: "add", item })}
                         {...getItemProps({
                           item,
                           idx,
                           key: idx,
+                          onClick: (e: any) => {
+                            e.preventDownshiftDefault = true;
+                            dispatch({ type: "add", name: item });
+                          },
+                          onKeyDown: (e: any) => {
+                            if (e.key === "Enter") {
+                              e.nativeEvent.preventDownshiftDefault = true;
+                              console.log(itemToString(highlightedItem));
+                            }
+                          },
                           style: {
                             backgroundColor:
                               highlightedIndex === idx ? "#6DC1FD" : "",

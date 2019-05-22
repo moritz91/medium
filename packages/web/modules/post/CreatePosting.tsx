@@ -6,7 +6,7 @@ import { Formik, Field } from "formik";
 // import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
 import { MyButton, MySelect } from "@medium/ui";
-import { TagInputFieldTwo } from "../shared/formik-fields/TagInputFieldTwo";
+import { TagInputFieldThree } from "../shared/formik-fields/TagInputFieldThree";
 // import { TagInputField } from "../shared/formik-fields/TagInputField";
 
 export const CreatePosting = (): JSX.Element => {
@@ -89,7 +89,7 @@ export const CreatePosting = (): JSX.Element => {
                       </MyButton>
                     </form>
                   </div>
-                  <TagInputFieldTwo />
+                  <TagInputFieldThree />
                 </div>
               );
             }}

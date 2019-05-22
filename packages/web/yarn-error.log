@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add -D @types/styled-tools
+  /usr/local/bin/node /usr/local/bin/yarn add -D @types/downshift-js
 
 PATH: 
-  ~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  ~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.9.2
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fstyled-tools: Not found
+  Error: https://registry.yarnpkg.com/@types%2fdownshift-js: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:64150:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:137416:22)
       at Request.emit (events.js:182:13)
@@ -52,6 +52,7 @@ npm manifest:
       "github-markdown-css": "^3.0.1",
       "hast-to-hyperscript": "^6.0.0",
       "hast-util-sanitize": "^1.3.0",
+      "hotkeys-js": "^3.6.8",
       "isomorphic-unfetch": "3.0.0",
       "lodash": "^4.17.11",
       "lodash.get": "^4.4.2",
@@ -59,6 +60,7 @@ npm manifest:
       "next": "7.0.3",
       "next-routes": "1.4.2",
       "polished": "^3.0.3",
+      "popper.js": "^1.15.0",
       "react": "^16.8.1",
       "react-apollo": "2.4.0",
       "react-apollo-hooks": "^0.4.5",
@@ -75,7 +77,8 @@ npm manifest:
       "styled-components": "4.1.3",
       "styled-icons": "^7.4.2",
       "styled-tools": "^1.7.1",
-      "unist-util-visit": "^1.4.0"
+      "unist-util-visit": "^1.4.0",
+      "use-events": "^1.3.0"
     },
     "devDependencies": {
       "@babel/plugin-transform-react-jsx": "^7.3.0",
@@ -6324,6 +6327,10 @@ Lockfile:
     version "0.1.6"
     resolved "https://registry.yarnpkg.com/deprecated-decorator/-/deprecated-decorator-0.1.6.tgz#00966317b7a12fe92f3cc831f7583af329b86c37"
   
+  dequal@1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/dequal/-/dequal-1.0.0.tgz#41c6065e70de738541c82cdbedea5292277a017e"
+  
   des.js@^1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/des.js/-/des.js-1.0.0.tgz#c074d2e2aa6a8a9a07dbd61f9a15c2cd83ec8ecc"
@@ -8410,6 +8417,10 @@ Lockfile:
   hosted-git-info@^2.1.4, hosted-git-info@^2.6.0:
     version "2.7.1"
     resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
+  
+  hotkeys-js@^3.6.8:
+    version "3.6.8"
+    resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.6.8.tgz#a514038b0d159b0faa11d1b446caa6db0cab214c"
   
   hpack.js@^2.1.6:
     version "2.1.6"
@@ -11964,7 +11975,7 @@ Lockfile:
     dependencies:
       "@babel/runtime" "^7.3.1"
   
-  popper.js@^1.14.4:
+  popper.js@^1.14.4, popper.js@^1.15.0:
     version "1.15.0"
     resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
   
@@ -13955,6 +13966,10 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   
+  resize-observer-polyfill@1.5.1:
+    version "1.5.1"
+    resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  
   resolve-cwd@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/resolve-cwd/-/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -15785,6 +15800,19 @@ Lockfile:
     dependencies:
       punycode "1.3.2"
       querystring "0.2.0"
+  
+  use-deep-compare@0.1.0:
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/use-deep-compare/-/use-deep-compare-0.1.0.tgz#7fd775047ab7126dfc11e8c19f6926b3112c03d0"
+    dependencies:
+      dequal "1.0.0"
+  
+  use-events@^1.3.0:
+    version "1.3.0"
+    resolved "https://registry.yarnpkg.com/use-events/-/use-events-1.3.0.tgz#439664a0217b6713806b163e4f1d84bd5a161501"
+    dependencies:
+      resize-observer-polyfill "1.5.1"
+      use-deep-compare "0.1.0"
   
   use@^3.1.0:
     version "3.1.1"
