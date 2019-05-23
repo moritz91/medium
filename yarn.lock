@@ -3327,10 +3327,10 @@
   version "4.14.121"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.121.tgz#9327e20d49b95fc2bf983fc2f045b2c6effc80b9"
 
-"@types/lodash@4.14.131":
-  version "4.14.131"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.131.tgz#24a5471054de864a467586d5ec007a188f510005"
-  integrity sha512-N5Jrj0vI8nViKxZ0raEp1ku95JrrC6i/eF/s1wgPsW354QSIC7tonlk9spm5IFjcWTOvdCKqGhV+A8nxsj/Mog==
+"@types/lodash@4.14.132":
+  version "4.14.132"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.132.tgz#8ce45ca8745ff2e004fac0de0ab46f61e390ffa0"
+  integrity sha512-RNUU1rrh85NgUJcjOOr96YXr+RHwInGbaQCZmlitqOaCKXffj8bh+Zxwuq5rjDy5OgzFldDVoqk4pyLEDiwxIw==
 
 "@types/long@^4.0.0":
   version "4.0.0"
