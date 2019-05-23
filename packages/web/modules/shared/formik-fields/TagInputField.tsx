@@ -43,7 +43,7 @@ const Menu = styled.ul`
   borderstyle: solid;
 `;
 
-export const TagInputFieldThree = (): JSX.Element => {
+export const TagInputField = (): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
   return (

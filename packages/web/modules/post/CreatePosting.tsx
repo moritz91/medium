@@ -6,8 +6,7 @@ import { Formik, Field } from "formik";
 // import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
 import { MyButton, MySelect } from "@medium/ui";
-import { TagInputFieldThree } from "../shared/formik-fields/TagInputFieldThree";
-// import { TagInputField } from "../shared/formik-fields/TagInputField";
+import { TagInputField } from "../shared/formik-fields/TagInputField";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -18,19 +17,19 @@ export const CreatePosting = (): JSX.Element => {
             initialValues={{
               title: "",
               body: "",
-              topicId: "491cc7bb-5567-4d04-a42e-290b53db8366",
+              topicId: "",
               topic: "",
-              tags: ""
+              tagName: ""
             }}
             onSubmit={async (
-              { title, body, topicId, topic, tags },
+              { title, body, topicId, topic, tagName },
               { setErrors }
             ) => {
               if (!title) {
                 return setErrors({ title: "required" });
               }
 
-              console.log(title, body, topicId, topic, tags);
+              console.log(title, body, topicId, topic, tagName);
               // const response = await mutate({
               //   variables: {
               //     posting: {
@@ -75,6 +74,7 @@ export const CreatePosting = (): JSX.Element => {
                         placeholder="Choose a topic..."
                         component={(props: any) => <MySelect {...props} />}
                       />
+                      <TagInputField />
                       <MyButton
                         variant="primary"
                         style={{
@@ -89,7 +89,6 @@ export const CreatePosting = (): JSX.Element => {
                       </MyButton>
                     </form>
                   </div>
-                  <TagInputFieldThree />
                 </div>
               );
             }}
