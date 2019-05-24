@@ -55,7 +55,9 @@ export const CreatePosting = (): JSX.Element => {
             {({ errors, handleSubmit, isSubmitting }) => {
               return (
                 <div>
-                  <div style={{ display: "flex", width: "100%" }}>
+                  <div
+                    style={{ display: "flex", width: "100%", fontSize: "12px" }}
+                  >
                     <form onSubmit={handleSubmit} style={{ flex: 1 }}>
                       <Field
                         errors={errors.title}

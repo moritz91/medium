@@ -3,22 +3,19 @@ import styled from "styled-components";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
+import { MyButton } from "@medium/ui";
 
 const Input = styled.input`
   width: 100%;
-  font-size: 14px;
+  font-size: 12px;
   word-wrap: break-word;
   line-height: 1em;
   outline: 0;
-  whitespace: normal;
   min-height: 2em;
-  background: #fff;
-  display: inline-block;
   padding: 1em 2em 1em 1em;
   color: rgba(0, 0, 0, 0.87);
-  boxshadow: none;
   border: 1px solid rgba(34, 36, 38, 0.15);
-  borderradius: 0.3rem;
+  border-radius: 0.3rem;
   transition: box-shadow 0.1s ease, width 0.1s ease;
 `;
 
@@ -53,7 +50,7 @@ export const TagInputField = (): JSX.Element => {
         flexDirection: "column",
         marginTop: 50,
         lineHeight: "20px",
-        fontSize: "14px"
+        fontSize: "12px"
       }}
     >
       <MultiDownshift itemToString={itemToString}>
@@ -107,48 +104,43 @@ export const TagInputField = (): JSX.Element => {
                         margin: 2,
                         paddingTop: 2,
                         paddingBottom: 2,
-                        paddingLeft: 8,
-                        paddingRight: 8,
-                        display: "inline-block",
-                        backgroundColor: "#ccc",
+                        paddingLeft: 2,
+                        paddingRight: 2,
                         borderRadius: 2
                       }}
                     >
                       <div
                         style={{
                           display: "grid",
-                          gridGap: 6,
-                          gridAutoFlow: "column",
-                          alignItems: "center"
+                          gridAutoFlow: "column"
                         }}
                       >
-                        <button
+                        <MyButton
+                          variant="primary"
                           style={{
                             fontWeight: 400,
                             fontStyle: "normal",
-                            color: "#000",
-                            fontSize: "15px",
+                            color: "#fff",
+                            fontSize: "12px",
                             letterSpacing: "0",
                             textDecoration: "none",
-                            background: "#fff",
-                            borderRadius: "3px",
-                            border: "1px solid #f0f0f0",
+                            background: "#6DC1FD",
                             padding: "5px 10px"
                           }}
                         >
                           {item}
-                        </button>
-                        <button
+                        </MyButton>
+                        <div
                           {...getRemoveButtonProps({ idx })}
                           style={{
                             cursor: "pointer",
-                            position: "absolute",
+                            position: "relative ",
                             top: 0,
                             right: 0
                           }}
                         >
                           𝘅
-                        </button>
+                        </div>
                       </div>
                     </div>
                   ))}
