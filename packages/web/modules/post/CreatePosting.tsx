@@ -7,6 +7,7 @@ import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
 import { MyButton, MySelect } from "@medium/ui";
 import { TagInputField } from "../shared/formik-fields/TagInputField";
+import { TopicInputField } from "../shared/formik-fields/TopicInput";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -71,12 +72,10 @@ export const CreatePosting = (): JSX.Element => {
                         component={InputField}
                         placeholder="Body"
                       />
-                      <Field
-                        name="topic"
-                        placeholder="Choose a topic..."
-                        component={(props: any) => <MySelect {...props} />}
-                      />
-                      <TagInputField />
+                      <div style={{ display: "flex" }}>
+                        <TopicInputField />
+                        <TagInputField />
+                      </div>
                       <MyButton
                         variant="primary"
                         style={{

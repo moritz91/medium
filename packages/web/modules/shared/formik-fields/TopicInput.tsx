@@ -40,7 +40,7 @@ const Menu = styled.ul`
   borderstyle: solid;
 `;
 
-export const TagInputField = (): JSX.Element => {
+export const TopicInputField = (): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
   return (
@@ -71,8 +71,7 @@ export const TagInputField = (): JSX.Element => {
           <div style={{ width: 500, margin: "auto", position: "relative" }}>
             <p style={{ fontWeight: 400 }}>
               <span style={{ fontWeight: "inherit" }}>
-                Add or change tags (up to 5) so readers know what your story is
-                about
+                Choose a topic for your article
               </span>
             </p>
             <div
@@ -162,7 +161,7 @@ export const TagInputField = (): JSX.Element => {
                         }
                       }
                     },
-                    placeholder: "Add a tag..."
+                    placeholder: "Choose a topic..."
                   })}
                 />
               </div>

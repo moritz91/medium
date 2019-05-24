@@ -9,6 +9,7 @@ import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/Markdown
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);
+  console.log(postings, comments);
 
   return (
     <>
