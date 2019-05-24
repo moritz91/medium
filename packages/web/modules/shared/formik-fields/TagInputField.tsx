@@ -18,28 +18,50 @@ const Input = styled.input`
   border-radius: 0.3rem;
   transition: box-shadow 0.1s ease, width 0.1s ease;
 `;
-
-const Menu = styled.ul`
-  padding: 0;
-  margintop: 0;
+const Popover = styled.div`
+  overflow: hidden;
   position: absolute;
-  backgroundcolor: white;
-  width: 100%;
-  maxheight: 20rem;
-  overflowy: auto;
-  overflowx: hidden;
-  outline: 0;
-  transition: opacity 0.1s ease;
-  borderradius: 0 0 0.28571429rem 0.28571429rem;
-  boxshadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  bordercolor: #96c8da;
-  bordertopwidth: 0;
-  borderrightwidth: 1;
-  borderbottomwidth: 1;
-  borderleftwidth: 1;
-  borderstyle: solid;
+  z-index: 900;
+  font-size: 15px;
+  text-align: center;
+  pointer-events: auto;
+  animation: pop-downwards 0.2s forwards linear;
 `;
 
+const PopoverInner = styled.div`
+  padding: 0;
+  overflow: hidden;
+  min-width: 100px;
+  position: relative;
+  max-width: 280px;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0, 0, 0, 0.35);
+`;
+
+const MatchingTags = styled.ul`
+  padding: 0;
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+`;
+
+const MatchingTagsItem = styled.li`
+  background: ${(props: any) => (props.active ? "#03a87c" : "#fff")};
+  color: ${(props: any) => (props.active ? "#fff" : "#000")};
+  cursor: pointer;
+  padding: 5px 10px;
+  line-height: 2;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+`;
+
+const MatchingTagsItemText = styled.strong`
+  margin-left: 5px;
+  font-weight: 700;
+`;
 export const TagInputField = (): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
@@ -82,7 +104,7 @@ export const TagInputField = (): JSX.Element => {
                 borderBottomRightRadius: isOpen ? 0 : 6,
                 borderBottomLeftRadius: isOpen ? 0 : 6,
                 paddingTop: 10,
-                paddingBottom: 10,
+                paddingBottom: 5,
                 paddingRight: 50,
                 boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)"
               }}
@@ -167,7 +189,7 @@ export const TagInputField = (): JSX.Element => {
                 />
               </div>
             </div>
-            <Menu {...getMenuProps({ isOpen })}>
+            <Popover {...getMenuProps({ isOpen })}>
               {isOpen && (
                 <GetTagsByLettersComponent variables={{ letters: inputValue }}>
                   {({ data, loading }) => {
@@ -180,26 +202,30 @@ export const TagInputField = (): JSX.Element => {
                     );
 
                     return (
-                      <div>
-                        {matchingTags.map((item: any, idx: any) => (
-                          <div
-                            {...getItemProps({
-                              item,
-                              idx,
-                              // active: highlightedIndex === idx,
-                              selected: includes(selectedItems, item)
-                            })}
-                            key={idx}
-                          >
-                            {item}
-                          </div>
-                        ))}
-                      </div>
+                      <PopoverInner>
+                        <MatchingTags>
+                          {matchingTags.map((item: any, idx: any) => (
+                            <MatchingTagsItem
+                              {...getItemProps({
+                                item,
+                                idx,
+                                active: highlightedIndex === idx,
+                                selected: includes(selectedItems, item)
+                              })}
+                              key={idx}
+                            >
+                              <MatchingTagsItemText>
+                                {item}
+                              </MatchingTagsItemText>
+                            </MatchingTagsItem>
+                          ))}
+                        </MatchingTags>
+                      </PopoverInner>
                     );
                   }}
                 </GetTagsByLettersComponent>
               )}
-            </Menu>
+            </Popover>
           </div>
         )}
       </MultiDownshift>

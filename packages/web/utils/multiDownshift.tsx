@@ -22,7 +22,7 @@ export const MultiDownshift = (props: Props): any => {
         return {
           ...changes,
           highlightedIndex: state.highlightedIndex,
-          isOpen: true,
+          isOpen: false,
           inputValue: ""
         };
       case Downshift.stateChangeTypes.changeInput:
