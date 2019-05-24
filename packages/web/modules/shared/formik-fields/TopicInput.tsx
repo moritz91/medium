@@ -106,8 +106,7 @@ export const TopicInputField = (): JSX.Element => {
                 borderBottomLeftRadius: isOpen ? 0 : 6,
                 paddingTop: 10,
                 paddingBottom: 5,
-                paddingRight: 50,
-                boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)"
+                paddingRight: 50
               }}
               onClick={() => {
                 !isOpen && input.current.focus();

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
-import { MyButton } from "@medium/ui";
 
 const Input = styled.input`
   width: 100%;
@@ -43,6 +42,38 @@ const MatchingTags = styled.ul`
   list-style: none;
   list-style-image: none;
   margin: 0;
+`;
+
+const SelectedTagsContainer = styled.div`
+  margin: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 2px;
+
+  &:first-child {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+`;
+
+const SelectedTagsItem = styled.button`
+  background: "#03a87c";
+  color: "#fff";
+  cursor: pointer;
+  padding: 5px 10px;
+  line-height: 2;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-radius: 3px;
+  overflow: hidden;
+`;
+
+const SelectedTagsItemText = styled.strong`
+  font-weight: 700;
 `;
 
 const MatchingTagsItem = styled.li`
@@ -105,8 +136,7 @@ export const TagInputField = (): JSX.Element => {
                 borderBottomLeftRadius: isOpen ? 0 : 6,
                 paddingTop: 10,
                 paddingBottom: 5,
-                paddingRight: 50,
-                boxShadow: "0 2px 3px 0 rgba(34,36,38,.15)"
+                paddingRight: 50
               }}
               onClick={() => {
                 !isOpen && input.current.focus();
@@ -121,51 +151,27 @@ export const TagInputField = (): JSX.Element => {
               >
                 {selectedItems.length > 0 &&
                   selectedItems.map((item: any, idx: number) => (
-                    <div
-                      key={idx}
-                      style={{
-                        margin: 2,
-                        paddingTop: 2,
-                        paddingBottom: 2,
-                        paddingLeft: 2,
-                        paddingRight: 2,
-                        borderRadius: 2
-                      }}
-                    >
+                    <SelectedTagsContainer key={idx}>
                       <div
                         style={{
                           display: "grid",
                           gridAutoFlow: "column"
                         }}
                       >
-                        <MyButton
-                          variant="primary"
-                          style={{
-                            fontWeight: 400,
-                            fontStyle: "normal",
-                            color: "#fff",
-                            fontSize: "12px",
-                            letterSpacing: "0",
-                            textDecoration: "none",
-                            background: "#6DC1FD",
-                            padding: "5px 10px"
-                          }}
-                        >
-                          {item}
-                        </MyButton>
+                        <SelectedTagsItem>
+                          <SelectedTagsItemText>{item}</SelectedTagsItemText>
+                        </SelectedTagsItem>
                         <div
                           {...getRemoveButtonProps({ idx })}
                           style={{
                             cursor: "pointer",
-                            position: "relative ",
-                            top: 0,
-                            right: 0
+                            position: "relative "
                           }}
                         >
                           𝘅
                         </div>
                       </div>
-                    </div>
+                    </SelectedTagsContainer>
                   ))}
                 <Input
                   {...getInputProps({

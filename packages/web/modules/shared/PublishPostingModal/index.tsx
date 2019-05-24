@@ -5,6 +5,8 @@ import { getPostingsQuery } from "../../../graphql/post/query/getPostings";
 import Modal from "react-modal";
 import { Icon, Input, MyButton } from "@medium/ui";
 import redirect from "../../../lib/redirect";
+import { TopicInputField } from "../formik-fields/TopicInput";
+import { TagInputField } from "../formik-fields/TagInputField";
 
 const customStyles = {
   content: {
@@ -16,20 +18,22 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     border: "",
     borderRadius: "0px",
-    width: 850,
-    height: 400
+    width: 1040,
+    height: 400,
+    animation: "fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)"
   },
   overlay: {
     backgroundColor: "none"
   }
 };
 
-export const CreatePostingModal = () => {
+export const PublishPostingModal = () => {
   const [open, changeOpen] = React.useState(false);
   // const [item] = React.useState(null);
   const [title, changeTitle] = useInputValue("");
   const [body, changeBody] = useInputValue("");
   const [topicId] = useInputValue("");
+  const [tagName] = useInputValue("");
 
   return (
     <CreatePostingComponent
@@ -71,7 +75,7 @@ export const CreatePostingModal = () => {
                 onClick={() => changeOpen(false)}
               />
             </div>
-            <Input
+            {/* <Input
               style={{ marginBottom: "2rem" }}
               placeholder="Title"
               value={title}
@@ -82,7 +86,11 @@ export const CreatePostingModal = () => {
               placeholder="Content"
               value={body}
               onChange={changeBody}
-            />
+            /> */}
+            <div style={{ display: "flex" }}>
+              <TopicInputField />
+              <TagInputField />
+            </div>
             <div style={{ display: "flex" }}>
               <MyButton
                 variant="form"
@@ -97,7 +105,8 @@ export const CreatePostingModal = () => {
                       posting: {
                         title,
                         body,
-                        topicId
+                        topicId,
+                        tagName
                       }
                     }
                   });
@@ -114,7 +123,7 @@ export const CreatePostingModal = () => {
             </div>
           </Modal>
           <MyButton variant="primary" onClick={() => changeOpen(true)}>
-            NEW STORY
+            Publish
           </MyButton>
         </>
       )}

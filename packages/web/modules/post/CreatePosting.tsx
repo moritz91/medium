@@ -5,9 +5,10 @@ import { CreatePostingComponent } from "../../components/apollo-components";
 import { Formik, Field } from "formik";
 // import { Router } from "../../server/routes";
 import { InputField } from "../shared/formik-fields/InputField";
-import { MyButton, MySelect } from "@medium/ui";
+import { MyButton } from "@medium/ui";
 import { TagInputField } from "../shared/formik-fields/TagInputField";
 import { TopicInputField } from "../shared/formik-fields/TopicInput";
+import { PublishPostingModal } from "../shared/PublishPostingModal";
 
 export const CreatePosting = (): JSX.Element => {
   return (
@@ -72,11 +73,7 @@ export const CreatePosting = (): JSX.Element => {
                         component={InputField}
                         placeholder="Body"
                       />
-                      <div style={{ display: "flex" }}>
-                        <TopicInputField />
-                        <TagInputField />
-                      </div>
-                      <MyButton
+                      {/* <MyButton
                         variant="primary"
                         style={{
                           marginTop: "1rem",
@@ -87,7 +84,8 @@ export const CreatePosting = (): JSX.Element => {
                         disabled={isSubmitting}
                       >
                         submit
-                      </MyButton>
+                      </MyButton> */}
+                      <PublishPostingModal />
                     </form>
                   </div>
                 </div>
