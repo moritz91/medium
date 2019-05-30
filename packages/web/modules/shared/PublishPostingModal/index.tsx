@@ -1,12 +1,12 @@
+import { Icon, MyButton } from "@medium/ui";
 import * as React from "react";
-import { useInputValue } from "../../../utils/useInputValue";
+import Modal from "react-modal";
 import { CreatePostingComponent } from "../../../components/apollo-components";
 import { getPostingsQuery } from "../../../graphql/post/query/getPostings";
-import Modal from "react-modal";
-import { Icon, Input, MyButton } from "@medium/ui";
 import redirect from "../../../lib/redirect";
-import { TopicInputField } from "../formik-fields/TopicInput";
+import { useInputValue } from "../../../utils/useInputValue";
 import { TagInputField } from "../formik-fields/TagInputField";
+import { TopicInputField } from "../formik-fields/TopicInput";
 
 const customStyles = {
   content: {

@@ -123,7 +123,7 @@ export const TagInputField = (): JSX.Element => {
         }: any) => (
           <div style={{ width: 500, margin: "auto", position: "relative" }}>
             <p style={{ fontWeight: 400 }}>
-              <span style={{ fontWeight: "inherit" }}>
+              <span style={{ fontWeight: "inherit", color: "rgba(0,0,0,.9)" }}>
                 Add or change tags (up to 5) so readers know what your story is
                 about
               </span>
@@ -200,7 +200,7 @@ export const TagInputField = (): JSX.Element => {
                 <GetTagsByLettersComponent variables={{ letters: inputValue }}>
                   {({ data, loading }) => {
                     if (loading) {
-                      return <div>Loading...</div>;
+                      return null;
                     }
                     const { getTagsByLetters } = data!;
                     const matchingTags = getTagsByLetters!.tags.map(
