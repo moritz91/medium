@@ -9,8 +9,8 @@ import React, {
 import { CommentInputField } from "../../../shared/formik-fields/CommentInputField";
 import { commandsHandler, EditCommand, keyBoardCommands } from "./commands";
 import { EditorContainer } from "./components";
-import { MarkdownRenderer } from "./MarkdownRenderer";
-import { Tab, Toolbar } from "./Toolbar";
+import { MarkdownRenderer } from "./markdownRenderer";
+import { Tab, Toolbar } from "./toolbar";
 
 interface EditorProps {
   isReply: boolean;

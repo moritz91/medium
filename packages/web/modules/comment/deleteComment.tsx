@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import {
   MeComponent,
   DeleteCommentComponent
-} from "../../../components/apollo-components";
-import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../../graphql/post/query/getPostingById";
+} from "../../components/apollo-components";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
+import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import { get } from "lodash";
-import { PostContext } from "./PostContext";
+import { PostContext } from "../post/shared/postContext";
 
 interface Props {
   commentId: string;

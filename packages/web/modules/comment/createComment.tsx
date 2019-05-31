@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
-import { CommentForm, TextEditorResult } from "./CommentForm";
-import { PostContext, PostContextProps } from "./PostContext";
+import { CommentForm, TextEditorResult } from "../post/shared/commentForm";
+import { PostContext, PostContextProps } from "../post/shared/postContext";
 import {
   CommentInfoFragment,
   CreateCommentComponent,
   GetCommentsByIdQuery,
   GetCommentsByIdVariables,
   MeComponent
-} from "../../../components/apollo-components";
-import { getCommentsByIdQuery } from "../../../graphql/comment/query/getCommentsById";
+} from "../../components/apollo-components";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { Flex } from "rebass";
 import { Avatar } from "@medium/ui";
 import { get } from "lodash";
-import { Link } from "../../../server/routes";
+import { Link } from "../../server/routes";
 
 interface EditorSubmitProps {
   submitted: boolean;

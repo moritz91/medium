@@ -10,8 +10,8 @@ import { ProfileTabs } from "../components/Tabs";
 import {
   PostsContextProps,
   PostsContext
-} from "../modules/post/shared/PostContext";
-import { ProfileHero } from "../modules/user/profile/ProfileHero";
+} from "../modules/post/shared/postContext";
+import { ProfileHero } from "../modules/user/profile/profileHero";
 
 interface Props {
   postings: [PostingInfoFragment];

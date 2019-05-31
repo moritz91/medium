@@ -4,7 +4,7 @@ import {
   DeletePostingComponent
 } from "../../components/apollo-components";
 import { get } from "lodash";
-import { PostContext } from "./shared/PostContext";
+import { PostContext } from "./shared/postContext";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
 import { Icon } from "@medium/ui";

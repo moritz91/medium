@@ -10,7 +10,7 @@ import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
 import {
   ContextProps,
   TopicContext
-} from "../modules/topic/shared/TopicContext";
+} from "../modules/topic/shared/topicContext";
 import { Link } from "../server/routes";
 
 interface Props {

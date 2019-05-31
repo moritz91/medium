@@ -3,7 +3,7 @@ import { Field, Formik } from "formik";
 import React, { useCallback, useEffect, useRef } from "react";
 import * as yup from "yup";
 import { CommentInputField } from "../../../shared/formik-fields/CommentInputField";
-import { MarkdownEditor } from "../MarkdownEditor";
+import { MarkdownEditor } from "../markdownEditor";
 import { FormContainer, FormRow } from "./components";
 import { scrollToView } from "../../../../utils/domScrollUtils";
 

@@ -3,28 +3,25 @@ import * as yup from "yup";
 import Layout from "../../components/Layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
-import { PublishPostingModal } from "../shared/PublishPostingModal";
-import { CreatePostContext } from "./shared/PostContext";
+import { PublishPostingModal } from "../shared/postingModal";
+import { CreatePostContext } from "./shared/postContext";
+import { useState } from "react";
 
 export const CreatePosting = (): JSX.Element => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   return (
     <Layout title="Create Posting">
       <Formik
         initialValues={{
           title: "",
-          body: "",
-          topicId: "",
-          topic: "",
-          tagName: ""
+          body: ""
         }}
-        onSubmit={async (
-          { title, body, topicId, topic, tagName },
-          { setErrors }
-        ) => {
+        onSubmit={async ({ title, body }, { setErrors }) => {
           if (!title) {
             return setErrors({ title: "required" });
           }
-          console.log(title, body, topicId, topic, tagName);
+          console.log(title, body);
         }}
         validationSchema={yup.object().shape({
           title: yup.string().required("required")
@@ -41,12 +38,14 @@ export const CreatePosting = (): JSX.Element => {
                   name="title"
                   component={InputField}
                   placeholder="Title"
+                  onChange={setTitle}
                 />
                 <Field
                   errors={errors.body}
                   name="body"
                   component={InputField}
                   placeholder="Body"
+                  onChange={setBody}
                 />
               </form>
               <CreatePostContext.Provider value={{ title, body, isSubmitting }}>
