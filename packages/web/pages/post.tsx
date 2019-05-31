@@ -92,7 +92,7 @@ export default class Post extends React.PureComponent<Props> {
             <DeletePosting />
           </Box>
           <Box my="1.5rem">
-            <Text fontSize={5} color="primary.6">
+            <Text fontSize={5} color="primary.1">
               Responses
             </Text>
           </Box>

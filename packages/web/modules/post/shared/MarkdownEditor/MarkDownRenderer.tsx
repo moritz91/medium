@@ -43,7 +43,6 @@ const MarkdownContainer = styled("div")`
     background: rgb(16, 91, 153);
     border-radius: 4px;
     padding: 0px 4px 1px;
-    color: #6dc1fd;
     font-weight: 600;
   }
   & .token.line-number {

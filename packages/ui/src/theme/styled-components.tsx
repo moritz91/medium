@@ -16,8 +16,6 @@ export { css, createGlobalStyle, keyframes, ThemeProvider, styled };
 export default styled;
 export const GlobalStyle = createGlobalStyle`
 body {
-  background-color: #242b38;
-  color: rgb(233, 236, 241);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
@@ -35,13 +33,13 @@ html {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: rgb(233, 236, 241);
+  color: #5C6AC4;
   &:hover {
-    color: #fff;
+    color: #202E78;
   }
 }
 ::selection {
-  color: rgb(255, 255, 255);
-  background: #6DC1FD;
+  color: #fff;
+  background: #5C6AC4;
 }
 `;

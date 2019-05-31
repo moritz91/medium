@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import styled, { css } from "styled-components";
 import rem from "../utils/rem";
-import { blue } from "../utils/colors";
 import { navbarHeight } from "../utils/sizes";
 import { headerFont } from "../utils/fonts";
 import { mobile } from "../utils/media";
@@ -18,7 +17,6 @@ const Wrapper = styled.nav`
   font-family: ${headerFont};
   font-size: ${rem(15)};
   font-weight: 500;
-  background: ${(props: any) => (props.transparent ? "transparent" : blue)};
   transition: background 300ms ease-out;
   color: white;
   padding: 0;

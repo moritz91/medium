@@ -5,7 +5,6 @@ import { icons } from "../Icon/icons";
 
 const Container = styled.div`
   padding: 0.8rem 1.5rem;
-  background-color: #242b38;
 `;
 
 const Row = styled.div`
@@ -18,7 +17,6 @@ const MyInput = styled.input`
   padding-left: 0.1rem;
   border: none;
   width: 100%;
-  background-color: #242b38;
   color: rgb(233, 236, 241);
 `;
 

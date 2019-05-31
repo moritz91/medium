@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "build:server": "lerna run build --scope={@medium/common,@medium/server}",
-    "build:web": "lerna run build --scope={@medium/ui,@medium/common,@medium/web}"
+    "build:web": "lerna run build --scope={@medium/ui,@medium/common,@medium/web}",
+    "cypress:open": "cypress open"
   },
   "workspaces": {
     "packages": [
@@ -10,6 +11,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^3.3.1",
     "lerna": "3.10.7"
   },
   "resolutions": {

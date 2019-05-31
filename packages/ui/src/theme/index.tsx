@@ -57,7 +57,7 @@ const theme: ITheme = {
   ],
   colors: {
     primary: [
-      "#07385A",
+      "#3E4155;",
       "#184F76",
       "#3290D4",
       "#6DC1FD",
@@ -81,7 +81,7 @@ const theme: ITheme = {
   space: [".4rem", ".6rem", ".8rem", "1rem", "1.4rem"],
   buttons: {
     primary: {
-      backgroundColor: "#6DC1FD",
+      backgroundColor: "#5C6AC4",
       color: "#ffffff",
       margin: "0 1rem",
       fontSize: "1.4rem",

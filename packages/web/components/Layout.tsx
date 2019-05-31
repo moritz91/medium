@@ -17,14 +17,14 @@ const Layout: React.SFC<Props> = ({ children, title }) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <Navbar />
-    <Wrapper>
+    <Wrapper data-cy="home-page">
       <SubMenu />
       {children}
     </Wrapper>
     <Footer
       linksLeft={[
         "© 2019 Medium, Inc.",
-        <Link href={"test1"}>Terms</Link>,
+        <Link href={"/tos"}>Terms</Link>,
         <Link href={"test2"}>Privacy</Link>,
         <Link href={"test3"}>Security</Link>,
         <Link href={"test4"}>Status</Link>,

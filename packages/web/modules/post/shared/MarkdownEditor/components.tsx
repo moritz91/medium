@@ -19,13 +19,12 @@ export const CommandContainer = styled.div`
   & .toolbar-item {
     background: none;
     border: 0;
-    color: rgb(233, 236, 241);
     display: block;
     float: left;
     padding: 4px 5px;
 
     :hover {
-      color: #fff;
+      color: #5c6ac4;
     }
   }
 
@@ -137,7 +136,6 @@ export const EditorContainer = styled.div`
 
   & .write-content,
   & .preview-content {
-    background-color: #242b38;
     display: none;
     margin: 0 1rem;
   }
@@ -173,7 +171,6 @@ export const NavTab = styled.button`
   background-color: transparent;
   border: 1px solid transparent;
   border-bottom: 0;
-  color: rgb(233, 236, 241);
   cursor: pointer;
   display: inline-block;
   font-size: 1.4rem;
@@ -184,8 +181,6 @@ export const NavTab = styled.button`
   white-space: nowrap;
 
   &.selected {
-    background-color: #242b38;
     border-radius: 3px 3px 0 0;
-    color: rgb(233, 236, 241);
   }
 `;

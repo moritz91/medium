@@ -5,14 +5,6 @@ import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
 import { Icon } from "../../components/Icon";
 
-const LinkRebass = styled("a")`
-  cursor: pointer;
-  color: rgb(233, 236, 241);
-  &:hover {
-    color: #fff;
-  }
-`;
-
 interface Props {
   id: string;
   title: string;
@@ -27,8 +19,6 @@ interface Props {
 
 export const PostRowContainer = styled.div`
   padding: 1rem;
-  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
-    0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
   margin: 1.6rem 0px;
 `;
 
@@ -78,7 +68,7 @@ export const PostRow: React.FC<Props> = ({
           <Flex className="posting-header">
             <Link {...linkProps}>
               <a>
-                <Heading ml="0rem" mb="1rem" fontSize={6}>
+                <Heading ml="0rem" mb="1rem" fontSize={5} fontWeight="none">
                   {title}
                 </Heading>
               </a>
@@ -92,15 +82,19 @@ export const PostRow: React.FC<Props> = ({
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
-          <div style={{ display: "flex" }}>
-            <Link route={"profile"} params={{ username }}>
-              <LinkRebass>
-                {username} • {dtString} •{" "}
-                {numComments == 1
-                  ? `${numComments}` + " response"
-                  : `${numComments}` + " responses"}
-              </LinkRebass>
-            </Link>
+          <div style={{ display: "flex", fontSize: "12px" }}>
+            <div>
+              <Link route={"profile"} params={{ username }}>
+                <a>{username}</a>
+              </Link>
+              in <a>Topic XY</a>
+            </div>
+            <div>
+              {dtString} •
+              {numComments == 1
+                ? `${numComments}` + " response"
+                : `${numComments}` + " responses"}
+            </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               {tags.map((t: any, idx: number) => (
                 <div key={idx}>{t.name} </div>

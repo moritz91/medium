@@ -63,7 +63,7 @@ function Tab(props: any) {
 
   const tabContext = useContext(TabContext);
 
-  const active = `${tabContext.activeTab === name ? "#fff" : "#999"}`;
+  const active = `${tabContext.activeTab === name ? "#000" : "#999"}`;
 
   return (
     <StyledTab

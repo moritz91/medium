@@ -8,5 +8,7 @@ dist
 .next
 .env
 storybook-static/
+cypress/
 
+cypress.json
 medium-2ed68760b511.json

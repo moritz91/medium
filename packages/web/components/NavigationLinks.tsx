@@ -17,14 +17,10 @@ const NavLink = styled(Link).attrs({
   unstyled: true,
   prefetch: true
 })`
-  flex: 0 0 auto;
   margin: inherit;
-  display: inline-block;
   line-height: ${rem(navbarHeight)};
   transition: opacity 0.2s, transform 0.2s;
-  cursor: pointer;
   letter-spacing: ${rem(0.4)};
-  color: currentColor;
   text-transform: uppercase;
   &:hover,
   &:focus {
