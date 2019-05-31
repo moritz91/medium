@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import rem from "../utils/rem";
 import { navbarHeight } from "../utils/sizes";
-import Link from "./Link";
+import Link from "./link";
 import { GetTopicsComponent } from "./apollo-components";
 
 const Wrapper = styled.nav`

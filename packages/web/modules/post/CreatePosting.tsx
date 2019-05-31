@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as yup from "yup";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
 import { PublishPostingModal } from "../shared/postingModal";

@@ -4,8 +4,8 @@ import rem from "../utils/rem";
 import { navbarHeight } from "../utils/sizes";
 import { headerFont } from "../utils/fonts";
 import { mobile } from "../utils/media";
-import NavLinks from "./NavigationLinks";
-import Social from "./Social";
+import NavLinks from "./navigationLinks";
+import Social from "./social";
 
 const Wrapper = styled.nav`
   position: fixed;

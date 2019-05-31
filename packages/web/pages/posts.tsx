@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingsQuery } from "../graphql/post/query/getPostings";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { PostRow } from "@medium/ui";
 import { Link } from "../server/routes";
 import { getTagByNameQuery } from "../graphql/tag/query/getTagByName";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { Link } from "../server/routes";
 import { GetTopicsComponent } from "../components/apollo-components";
 import { TopicTile } from "@medium/ui";

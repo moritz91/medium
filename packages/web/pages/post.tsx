@@ -2,7 +2,7 @@ import React from "react";
 import { PostRow, Comment } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import {
   UserInfoFragment,
   GetCommentsByIdComponent,

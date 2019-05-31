@@ -1,12 +1,12 @@
 import * as React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { findUserQuery } from "../graphql/user/query/user";
 import {
   PostingInfoFragment,
   CommentInfoFragment
 } from "../components/apollo-components";
-import { ProfileTabs } from "../components/Tabs";
+import { ProfileTabs } from "../modules/profile/profileTabs";
 import {
   PostsContextProps,
   PostsContext

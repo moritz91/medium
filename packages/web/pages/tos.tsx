@@ -1,5 +1,5 @@
 import * as React from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { Heading, Card, Box, Text } from "rebass";
 import styled from "styled-components";
 

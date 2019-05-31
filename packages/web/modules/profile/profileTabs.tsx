@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { TabList, Tabs, Tab, TabPanel } from "./tabs/Tabs";
+import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
 import { PostRow, Comment } from "@medium/ui";
-import { PostsContext } from "../modules/post/shared/postContext";
-import { Link } from "../server/routes";
+import { PostsContext } from "../post/shared/postContext";
+import { Link } from "../../server/routes";
 import { Box } from "rebass";
-import { DeleteComment } from "../modules/comment/deleteComment";
-import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/markdownRenderer";
+import { DeleteComment } from "../comment/deleteComment";
+import { MarkdownRenderer } from "../post/shared/MarkdownEditor/markdownRenderer";
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);

@@ -2,7 +2,7 @@ import React from "react";
 import { PostRow } from "@medium/ui";
 
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import Layout from "../components/Layout";
+import Layout from "../components/layout";
 import { GetPostingsByTopicComponent } from "../components/apollo-components";
 import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
 // import styled from "styled-components";
