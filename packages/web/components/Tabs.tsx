@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "./tabs/Tabs";
 import { PostRow, Comment } from "@medium/ui";
-import { PostsContext } from "../modules/post/shared/PostsContext";
+import { PostsContext } from "../modules/post/shared/PostContext";
 import { Link } from "../server/routes";
 import { Box } from "rebass";
 import { DeleteComment } from "../modules/post/shared/DeleteComment";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Avatar } from "@medium/ui";
-import { PostsContext } from "../../post/shared/PostsContext";
+import { PostsContext } from "../../post/shared/PostContext";
 
 const Header = styled.header`
   display: flex;

@@ -8,9 +8,9 @@ import {
 } from "../components/apollo-components";
 import { ProfileTabs } from "../components/Tabs";
 import {
-  ContextProps,
+  PostsContextProps,
   PostsContext
-} from "../modules/post/shared/PostsContext";
+} from "../modules/post/shared/PostContext";
 import { ProfileHero } from "../modules/user/profile/ProfileHero";
 
 interface Props {
@@ -45,7 +45,7 @@ export default class Profile extends React.PureComponent<Props> {
   render() {
     const { postings, comments, pictureUrl, username } = this.props;
 
-    const context: ContextProps = {
+    const context: PostsContextProps = {
       username: username,
       postings: postings,
       comments: comments,

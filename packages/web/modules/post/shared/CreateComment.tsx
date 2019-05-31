@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CommentForm, TextEditorResult } from "./CommentForm";
-import { PostContext, ContextProps } from "./PostContext";
+import { PostContext, PostContextProps } from "./PostContext";
 import {
   CommentInfoFragment,
   CreateCommentComponent,
@@ -29,7 +29,7 @@ export const CreatePostingReply = ({
   onEditorSubmit,
   ...props
 }: PostingReplyProps): JSX.Element => {
-  const { postingId } = useContext<ContextProps>(PostContext);
+  const { postingId } = useContext<PostContextProps>(PostContext);
 
   return (
     <CreateCommentComponent>

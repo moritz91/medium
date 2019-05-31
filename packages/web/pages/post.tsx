@@ -11,8 +11,11 @@ import {
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { Text, Box } from "rebass";
-import { ContextProps, PostContext } from "../modules/post/shared/PostContext";
-import { DeletePosting } from "../modules/post/DeletePosting";
+import {
+  PostContextProps,
+  PostContext
+} from "../modules/post/shared/PostContext";
+import { DeletePosting } from "../modules/post/deletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/MarkdownEditor/MarkdownRenderer";
 import { CreatePostingReply } from "../modules/post/shared/CreateComment";
 import { ActionsDropdown } from "../modules/post/shared/ActionsDropdown";
@@ -61,7 +64,7 @@ export default class Post extends React.PureComponent<Props> {
       numComments,
       tags
     } = this.props;
-    const context: ContextProps = {
+    const context: PostContextProps = {
       title,
       creator: userInfoFragment,
       postingId: id
