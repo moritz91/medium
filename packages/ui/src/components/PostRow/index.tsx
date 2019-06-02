@@ -4,6 +4,7 @@ import { Flex, Text, Heading } from "rebass";
 import styled from "../../theme/styled-components";
 import { Avatar } from "../Avatar";
 import { Icon } from "../../components/Icon";
+import { MyButton } from "../MyButton";
 
 interface Props {
   id: string;
@@ -97,7 +98,9 @@ export const PostRow: React.FC<Props> = ({
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               {tags.map((t: any, idx: number) => (
-                <div key={idx}>{t.name} </div>
+                <MyButton variant="tag" key={idx}>
+                  {t.name}
+                </MyButton>
               ))}
             </div>
           </div>

@@ -160,6 +160,19 @@ const theme: ITheme = {
         boxShadow: "none",
         color: "hsla(0, 0%, 100%, 0.75)"
       }
+    },
+    borderRadius: "3px",
+    tag: {
+      padding: "5px 10px",
+      borderRadius: "3px",
+      marginRight: "8px",
+      marginBottom: "8px",
+      color: "rgba(0,0,0,.68)",
+      backgroundColor: "rgba(0,0,0,.05)",
+      "&:hover": {
+        color: "rgba(0,0,0,.68)",
+        backgroundColor: "rgba(0,0,0,.1)"
+      }
     }
   }
 };

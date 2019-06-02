@@ -5,17 +5,13 @@ import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
 
 const Input = styled.input`
-  width: 100%;
   font-size: 12px;
   word-wrap: break-word;
   line-height: 1em;
-  outline: 0;
   min-height: 2em;
   padding: 1em 2em 1em 1em;
   color: rgba(0, 0, 0, 0.87);
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 0.3rem;
-  transition: box-shadow 0.1s ease, width 0.1s ease;
+  border: none;
 `;
 const Popover = styled.div`
   overflow: hidden;
@@ -45,9 +41,8 @@ const MatchingTags = styled.ul`
 `;
 
 const SelectedTagsContainer = styled.div`
-  margin: 2px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
   padding-left: 2px;
   padding-right: 2px;
   border-radius: 2px;
@@ -59,8 +54,7 @@ const SelectedTagsContainer = styled.div`
 `;
 
 const SelectedTagsItem = styled.button`
-  background: "#03a87c";
-  color: "#fff";
+  color: #5c6ac4;
   cursor: pointer;
   padding: 5px 10px;
   line-height: 2;
@@ -93,7 +87,7 @@ const MatchingTagsItemText = styled.strong`
   margin-left: 5px;
   font-weight: 700;
 `;
-export const TagInputField = (): JSX.Element => {
+export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
   return (
@@ -145,10 +139,10 @@ export const TagInputField = (): JSX.Element => {
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
                   alignItems: "center"
                 }}
               >
+                {onSelectTags(selectedItems)}
                 {selectedItems.length > 0 &&
                   selectedItems.map((item: any, idx: number) => (
                     <SelectedTagsContainer key={idx}>
@@ -160,16 +154,17 @@ export const TagInputField = (): JSX.Element => {
                       >
                         <SelectedTagsItem>
                           <SelectedTagsItemText>{item}</SelectedTagsItemText>
+                          <span
+                            {...getRemoveButtonProps({ idx })}
+                            style={{
+                              margin: "1px",
+                              paddingLeft: "6px",
+                              color: "rgba(0,0,0,.54)"
+                            }}
+                          >
+                            𝘅
+                          </span>
                         </SelectedTagsItem>
-                        <div
-                          {...getRemoveButtonProps({ idx })}
-                          style={{
-                            cursor: "pointer",
-                            position: "relative "
-                          }}
-                        >
-                          𝘅
-                        </div>
                       </div>
                     </SelectedTagsContainer>
                   ))}
@@ -185,7 +180,10 @@ export const TagInputField = (): JSX.Element => {
                         inputValue &&
                         highlightedIndex == null
                       ) {
-                        if (!includes(selectedItems, inputValue)) {
+                        if (
+                          !includes(selectedItems, inputValue) &&
+                          selectedItems.length < 5
+                        ) {
                           addSelectedItem(inputValue);
                         }
                       }
@@ -195,46 +193,61 @@ export const TagInputField = (): JSX.Element => {
                 />
               </div>
             </div>
-            <Popover {...getMenuProps({ isOpen })}>
-              {isOpen && (
-                <GetTagsByLettersComponent variables={{ letters: inputValue }}>
-                  {({ data, loading }) => {
-                    if (loading) {
-                      return null;
-                    }
-                    const { getTagsByLetters } = data!;
-                    const matchingTags = getTagsByLetters!.tags.map(
-                      tag => tag.name
-                    );
-
-                    return (
-                      <PopoverInner>
-                        <MatchingTags>
-                          {matchingTags.map((item: any, idx: any) => (
-                            <MatchingTagsItem
-                              {...getItemProps({
-                                item,
-                                idx,
-                                active: highlightedIndex === idx,
-                                selected: includes(selectedItems, item)
-                              })}
-                              key={idx}
-                            >
-                              <MatchingTagsItemText>
-                                {item}
-                              </MatchingTagsItemText>
-                            </MatchingTagsItem>
-                          ))}
-                        </MatchingTags>
-                      </PopoverInner>
-                    );
-                  }}
-                </GetTagsByLettersComponent>
-              )}
-            </Popover>
+            {Suggestions(
+              getMenuProps,
+              isOpen,
+              inputValue,
+              getItemProps,
+              highlightedIndex,
+              selectedItems
+            )}
           </div>
         )}
       </MultiDownshift>
     </div>
+  );
+};
+
+export const Suggestions = (
+  getMenuProps: any,
+  isOpen: any,
+  inputValue: any,
+  getItemProps: any,
+  highlightedIndex: any,
+  selectedItems: any
+) => {
+  return (
+    <Popover {...getMenuProps({ isOpen })}>
+      {isOpen && (
+        <GetTagsByLettersComponent variables={{ letters: inputValue }}>
+          {({ data, loading }) => {
+            if (loading) {
+              return null;
+            }
+            const { getTagsByLetters } = data!;
+            const matchingTags = getTagsByLetters!.tags.map(tag => tag.name);
+            return (
+              <PopoverInner>
+                <MatchingTags>
+                  {matchingTags.map((item: any, idx: any) => (
+                    <MatchingTagsItem
+                      {...getItemProps({
+                        item,
+                        idx,
+                        active: highlightedIndex === idx,
+                        selected: includes(selectedItems, item)
+                      })}
+                      key={idx}
+                    >
+                      <MatchingTagsItemText>{item}</MatchingTagsItemText>
+                    </MatchingTagsItem>
+                  ))}
+                </MatchingTags>
+              </PopoverInner>
+            );
+          }}
+        </GetTagsByLettersComponent>
+      )}
+    </Popover>
   );
 };

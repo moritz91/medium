@@ -3,13 +3,14 @@ import * as yup from "yup";
 import Layout from "../../components/layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
-import { PublishPostingModal } from "../shared/postingModal";
+import { PostingModal } from "./postingModal";
 import { CreatePostContext } from "./shared/postContext";
 import { useState } from "react";
 
 export const CreatePosting = (): JSX.Element => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+
   return (
     <Layout title="Create Posting">
       <Formik
@@ -17,11 +18,10 @@ export const CreatePosting = (): JSX.Element => {
           title: "",
           body: ""
         }}
-        onSubmit={async ({ title, body }, { setErrors }) => {
+        onSubmit={async ({ title }, { setErrors }) => {
           if (!title) {
             return setErrors({ title: "required" });
           }
-          console.log(title, body);
         }}
         validationSchema={yup.object().shape({
           title: yup.string().required("required")
@@ -32,24 +32,26 @@ export const CreatePosting = (): JSX.Element => {
         {({ errors, handleSubmit, isSubmitting }) => {
           return (
             <div>
-              <form onSubmit={handleSubmit} style={{ flex: 1 }}>
+              <form onSubmit={handleSubmit}>
                 <Field
                   errors={errors.title}
                   name="title"
                   component={InputField}
                   placeholder="Title"
-                  onChange={setTitle}
+                  onChange={(e: any) => setTitle(e.target.value)}
+                  value={title}
                 />
                 <Field
                   errors={errors.body}
                   name="body"
                   component={InputField}
                   placeholder="Body"
-                  onChange={setBody}
+                  onChange={(e: any) => setBody(e.target.value)}
+                  value={body}
                 />
               </form>
               <CreatePostContext.Provider value={{ title, body, isSubmitting }}>
-                <PublishPostingModal />
+                <PostingModal />
               </CreatePostContext.Provider>
             </div>
           );

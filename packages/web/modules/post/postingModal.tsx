@@ -1,17 +1,18 @@
 import { Icon, MyButton } from "@medium/ui";
 import * as React from "react";
 import Modal from "react-modal";
-import { CreatePostingComponent } from "../../../components/apollo-components";
-import { getPostingsQuery } from "../../../graphql/post/query/getPostings";
-import { useInputValue } from "../../../utils/useInputValue";
-import { TagInputField } from "../formik-fields/TagInputField";
-import { TopicInputField } from "../formik-fields/TopicInput";
+import { CreatePostingComponent } from "../../components/apollo-components";
+import { getPostingsQuery } from "../../graphql/post/query/getPostings";
+import { useInputValue } from "../../utils/useInputValue";
+import { TagInputField } from "../shared/formik-fields/TagInputField";
+import { TopicInputField } from "../shared/formik-fields/TopicInput";
 import {
   CreatePostContextProps,
   CreatePostContext
-} from "../../post/shared/postContext";
-import { useContext } from "react";
-import { Router } from "../../../server/routes";
+} from "./shared/postContext";
+import { useContext, useState } from "react";
+import { Router } from "../../server/routes";
+import { useEffect } from "react";
 
 const customStyles = {
   content: {
@@ -32,10 +33,20 @@ const customStyles = {
   }
 };
 
-export const PublishPostingModal = () => {
-  const [open, changeOpen] = React.useState(false);
+export const PostingModal = () => {
+  const [open, changeOpen] = useState(false);
   const [topicId] = useInputValue("");
   const [tagName] = useInputValue("");
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const handleSelectedTags = (tags: any): void => {
+    return setSelectedTags(tags);
+  };
+
+  useEffect(() => {
+    console.log(title, body, selectedTags, isSubmitting);
+  }, [selectedTags]);
+
   const { title, body, isSubmitting } = useContext<CreatePostContextProps>(
     CreatePostContext
   );
@@ -82,7 +93,7 @@ export const PublishPostingModal = () => {
             </div>
             <div style={{ display: "flex" }}>
               <TopicInputField />
-              <TagInputField />
+              <TagInputField onSelectTags={handleSelectedTags} />
             </div>
             <div style={{ display: "flex" }}>
               <MyButton

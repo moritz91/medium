@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { buttonStyle } from "styled-system";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "topic" | "form" | "github";
+  variant: "primary" | "topic" | "form" | "github" | "tag";
 }
 
 const StyledButton = styled.button`

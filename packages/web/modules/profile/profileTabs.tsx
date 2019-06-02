@@ -5,7 +5,7 @@ import { PostsContext } from "../post/shared/postContext";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
 import { DeleteComment } from "../comment/deleteComment";
-import { MarkdownRenderer } from "../post/shared/MarkdownEditor/markdownRenderer";
+import { MarkdownRenderer } from "../post/shared/markdownEditor/markdownRenderer";
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);

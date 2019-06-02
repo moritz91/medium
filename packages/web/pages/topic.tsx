@@ -5,8 +5,6 @@ import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import Layout from "../components/layout";
 import { GetPostingsByTopicComponent } from "../components/apollo-components";
 import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
-// import styled from "styled-components";
-// import { Flex } from "rebass";
 import {
   ContextProps,
   TopicContext
@@ -19,10 +17,6 @@ interface Props {
   description: string;
   numPostings: string;
 }
-
-// const Container = styled(Flex)`
-//   flex: 0 0 auto;
-// `;
 
 export default class Topic extends React.PureComponent<Props> {
   static async getInitialProps({
