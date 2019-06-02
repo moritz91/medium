@@ -7,6 +7,7 @@ import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsByI
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import { get } from "lodash";
 import { PostContext } from "../post/shared/postContext";
+import { MyButton } from "@medium/ui";
 
 interface Props {
   commentId: string;
@@ -47,9 +48,9 @@ export const DeleteComment = (props: Props) => {
 
               if (data && data.me && isLoggedIn) {
                 return (
-                  <div
+                  <MyButton
+                    variant="action"
                     key={commentId}
-                    style={{ cursor: "pointer" }}
                     onClick={async () => {
                       await mutate({
                         variables: {
@@ -59,7 +60,7 @@ export const DeleteComment = (props: Props) => {
                     }}
                   >
                     Delete Comment
-                  </div>
+                  </MyButton>
                 );
               }
 

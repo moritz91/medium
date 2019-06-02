@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "nodemon server/index.ts",
     "build": "next build",
-    "start": "next start",
+    "start": "nodemon NODE_ENV=production server/index.ts",
     "type-check": "tsc",
     "generate": "gql-gen"
   },

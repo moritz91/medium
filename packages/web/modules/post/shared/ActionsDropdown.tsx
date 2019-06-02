@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Icon, Flyout, FlyoutRow } from "@medium/ui";
+import { Icon, Flyout, FlexRow } from "@medium/ui";
 import { DeleteComment } from "../../comment/deleteComment";
 
 interface Props {
@@ -48,14 +48,14 @@ export const ActionsDropdown: React.FC<Props> = ({ commentId }) => {
                 }}
               >
                 <Flyout data-cy="thread-actions-dropdown">
-                  <FlyoutRow style={{ cursor: "pointer" }}>
+                  <FlexRow>
                     <Icon
                       size={16}
                       fill="#5C6AC4"
                       name={"activeNotificationBell"}
                     />
                     <DeleteComment commentId={commentId} />
-                  </FlyoutRow>
+                  </FlexRow>
                 </Flyout>
               </div>
             );

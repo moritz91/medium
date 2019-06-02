@@ -173,6 +173,12 @@ const theme: ITheme = {
         color: "rgba(0,0,0,.68)",
         backgroundColor: "rgba(0,0,0,.1)"
       }
+    },
+    action: {
+      padding: "5px 10px",
+      "&:hover": {
+        color: "#202E78"
+      }
     }
   }
 };

@@ -90,6 +90,7 @@ const MatchingTagsItemText = styled.strong`
 export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
+
   return (
     <div
       style={{
