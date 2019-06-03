@@ -21,7 +21,7 @@
     "lodash.get": "4.4.2",
     "next": "8.1.0",
     "next-routes": "1.4.2",
-    "react": "16.8.6",
+    "react": "0.0.0-fa1e8df11",
     "react-apollo": "2.4.0",
     "react-apollo-hooks": "0.4.5",
     "react-dom": "16.8.6",
@@ -48,7 +48,7 @@
     "url-loader": "1.1.2"
   },
   "resolutions": {
-    "react": "16.8.6",
+    "react": "0.0.0-fa1e8df11",
     "react-dom": "16.8.6"
   },
   "license": "ISC"
