@@ -77,6 +77,7 @@ export const SubMenu = (): JSX.Element => {
                       <NextLink href={optionLink}>{Anchor}</NextLink>
                     </ListOption>
                   )}
+                  renderUserData={data!.me}
                 >
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <Avatar

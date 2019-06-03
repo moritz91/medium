@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { DropDownDivider } from "../../components/DropDownDivider";
+import { Avatar } from "../Avatar";
+import { Icon } from "../../components/Icon";
 
 interface Props {
   options: string[][];
@@ -11,7 +13,7 @@ interface Props {
     optionLink: string;
     key: number;
   }) => React.ReactNode;
-  renderUserInfo?: (data: {}) => React.ReactNode;
+  renderUserData?: any;
 }
 
 const MenuLink = styled("a")`
@@ -46,11 +48,45 @@ const MenuContainer = styled.div`
   border-radius: 3px;
 `;
 
+const UserDataContainer = styled.div`
+  text-align: left;
+  width: 100%;
+  line-height: 1.4;
+`;
+
+const UserDataFlex = styled.div`
+  font-weight: 300;
+  align-items: center;
+  padding: 20px;
+  padding-bottom: 10px;
+  display: flex;
+`;
+
+const UserDataAvatar = styled.div`
+  flex: 0 0 auto;
+  position: relative;
+`;
+
+const UserDataAvatarHalo = styled.div`
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  top: 1.5px;
+  left: 0.5px;
+  pointer-events: none;
+  position: absolute;
+`;
+
+const UserDataMeta = styled.div`
+  font-size: 14px;
+  flex: 1 1 auto;
+  padding-left: 15px;
+`;
+
 export const Menu: React.FC<Props> = ({
   children,
   options,
   renderOption,
-  renderUserInfo
+  renderUserData
 }): JSX.Element => {
   const [open, changeOpen] = useState(false);
 
@@ -68,7 +104,37 @@ export const Menu: React.FC<Props> = ({
               listStyleImage: "none"
             }}
           >
-            {renderUserInfo ? "" : ""}
+            {renderUserData && (
+              <UserDataContainer>
+                <UserDataFlex>
+                  <UserDataAvatar>
+                    <Avatar
+                      src={renderUserData.pictureUrl}
+                      size={45}
+                      borderRadius={"3rem"}
+                    />
+                    <UserDataAvatarHalo>
+                      <Icon
+                        name="haloTop"
+                        fill="#5C6AC4"
+                        size={50}
+                        style={{ position: "absolute" }}
+                      />
+                      <Icon
+                        name="haloBottom"
+                        fill="#5C6AC4"
+                        size={50}
+                        style={{ position: "absolute" }}
+                      />
+                    </UserDataAvatarHalo>
+                  </UserDataAvatar>
+                  <UserDataMeta>
+                    <div style={{ color: "#5C6AC4" }}>Member</div>
+                    <div>{renderUserData.username}</div>
+                  </UserDataMeta>
+                </UserDataFlex>
+              </UserDataContainer>
+            )}
             {options.map((o, i) => {
               if (o[0] === "divider") {
                 return <DropDownDivider key={i} />;
