@@ -15,6 +15,7 @@ const Layout: React.SFC<Props> = ({ children, title }) => (
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <link rel="icon" href="/static/favicon.ico" />
     </Head>
     <Navbar />
     <Wrapper data-cy="home-page">

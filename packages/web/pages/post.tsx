@@ -95,9 +95,7 @@ export default class Post extends React.PureComponent<Props> {
             <DeletePosting />
           </Box>
           <Box my="1.5rem">
-            <Text fontSize={5} color="primary.1">
-              Responses
-            </Text>
+            <Text fontSize={5}>Responses</Text>
           </Box>
           <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>

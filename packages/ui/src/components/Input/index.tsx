@@ -17,7 +17,6 @@ const MyInput = styled.input`
   padding-left: 0.1rem;
   border: none;
   width: 100%;
-  color: rgb(233, 236, 241);
 `;
 
 interface Props {

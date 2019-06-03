@@ -19,7 +19,7 @@ export const ActionsDropdown: React.FC<Props> = ({ commentId }) => {
               <Icon
                 style={{ cursor: "pointer" }}
                 name="showActions"
-                fill="#fff"
+                fill="#000"
                 onClick={() => setFlyoutOpen(!flyoutOpen)}
                 data-cy="thread-actions-dropdown-trigger"
               />

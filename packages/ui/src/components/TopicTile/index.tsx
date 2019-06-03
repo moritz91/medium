@@ -7,9 +7,8 @@ const LinkRebass = styled("a")`
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
-  color: rgb(233, 236, 241);
   &:hover {
-    color: #fff;
+    color: #202e78;
   }
 `;
 
