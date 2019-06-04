@@ -2,7 +2,7 @@ import * as React from "react";
 import { MyButton, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
-import { Flex, Link } from "rebass";
+import { Flex } from "rebass";
 import { MeComponent } from "./apollo-components";
 import { Router } from "../server/routes";
 import styled from "styled-components";
@@ -30,11 +30,9 @@ const ListOption = styled.li`
 export const SubMenu = (): JSX.Element => {
   return (
     <Container my="1.5rem" justifyContent="space-between">
-      <Flex alignItems="center">
+      <Flex alignItems="center" fontSize={16}>
         <NextLink passHref href="/posts">
-          <Link fontSize={5} color="primary.6">
-            Stories
-          </Link>
+          <a>Stories</a>
         </NextLink>
       </Flex>
 

@@ -1,27 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Icon, Flyout, FlexRow } from "@medium/ui";
+import { Icon, Flyout, FlexRow, Avatar } from "@medium/ui";
+import { useHover } from "use-events";
+import { Link } from "../../../server/routes";
 
 interface Props {
   children: React.ReactNode;
+  username: any;
+  pictureUrl: any;
 }
 
-export const ActionsDropdown: React.FC<Props> = ({ children }) => {
-  const [flyoutOpen, setFlyoutOpen] = useState(false);
+export const AvatarPopover: React.FC<Props> = ({
+  children,
+  username,
+  pictureUrl
+}) => {
+  const [flyoutOpen, bind] = useHover();
 
   return (
     <Manager>
       <Reference>
         {({ ref }) => {
           return (
-            <span ref={ref}>
-              <Icon
-                style={{ cursor: "pointer" }}
-                name="showActions"
-                fill="#000"
-                onClick={() => setFlyoutOpen(!flyoutOpen)}
-                data-cy="thread-actions-dropdown-trigger"
-              />
+            <span ref={ref} style={{ minWidth: "45px" }}>
+              <Link route={"profile"} params={{ username }}>
+                <a style={{ cursor: "pointer" }}>
+                  <Avatar
+                    borderRadius={3}
+                    size={34}
+                    src={pictureUrl}
+                    alt="avatar"
+                    {...bind}
+                  />
+                </a>
+              </Link>
             </span>
           );
         }}
@@ -41,9 +53,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children }) => {
               <div
                 ref={ref}
                 style={{
-                  position: "relative",
-                  right: "170px",
-                  top: "-40px"
+                  position: "relative"
                 }}
               >
                 <Flyout data-cy="thread-actions-dropdown">

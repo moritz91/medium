@@ -1,8 +1,9 @@
 import React from "react";
-import { PostRow, Comment } from "@medium/ui";
+import { PostRow } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/layout";
+import { Comment } from "../components/comment";
 import {
   UserInfoFragment,
   GetCommentsByIdComponent,
@@ -19,6 +20,7 @@ import { DeletePosting } from "../modules/post/deletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
 import { ActionsDropdown } from "../modules/post/shared/actionsDropdown";
+import { DeleteComment } from "../modules/comment/deleteComment";
 
 interface Props {
   id: string;
@@ -110,7 +112,9 @@ export default class Post extends React.PureComponent<Props> {
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
-                            <ActionsDropdown commentId={id} />
+                            <ActionsDropdown>
+                              <DeleteComment commentId={id} />
+                            </ActionsDropdown>
                             <Comment
                               createdAt={createdAt}
                               creator={creator}
