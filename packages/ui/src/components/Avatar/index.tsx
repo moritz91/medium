@@ -7,9 +7,10 @@ interface Props extends ImageProps {
 
 export const Avatar: React.FC<Props> = ({
   size = 16,
+  borderRadius = "1.65rem",
   ...props
 }): JSX.Element => {
   return (
-    <Image height={size} width={size} borderRadius={"1.65rem"} {...props} />
+    <Image height={size} width={size} borderRadius={borderRadius} {...props} />
   );
 };

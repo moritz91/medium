@@ -13,9 +13,8 @@ const StyledFlyout = styled.div`
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   position: absolute;
-  right: -25%;
-  top: 36px;
   z-index: 1000;
+  background-color: #fff;
 `;
 
 const StyledRow = styled.div`

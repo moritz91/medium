@@ -1,8 +1,9 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Box } from "rebass";
-import { styled, Icon } from "@medium/ui";
-import { AvatarPopover } from "../../modules/user/shared/avatarPopover";
+import { styled, Icon, Avatar } from "@medium/ui";
+import { UserPopover } from "../../modules/user/shared/userPopover";
+import { useHover } from "use-events";
 
 // body: React.ReactElement<HTMLElement> | null;
 interface Props {
@@ -27,13 +28,28 @@ export const Comment: React.FC<Props> = ({
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
   });
+  const [flyoutOpen, bind] = useHover();
 
   return (
     <CommmentContainer>
       <Flex justifyContent="center">
-        <AvatarPopover username={username} pictureUrl={pictureUrl}>
-          Hi!
-        </AvatarPopover>
+        <UserPopover
+          flyoutOpen={flyoutOpen}
+          username={username}
+          pictureUrl={pictureUrl}
+        >
+          <Link route={"profile"} params={{ username }}>
+            <a style={{ cursor: "pointer" }}>
+              <Avatar
+                borderRadius={3}
+                size={34}
+                src={pictureUrl}
+                alt="avatar"
+                {...bind}
+              />
+            </a>
+          </Link>
+        </UserPopover>
         <div
           style={{
             paddingLeft: ".8rem",
