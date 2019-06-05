@@ -26,7 +26,7 @@
     "react-apollo-hooks": "0.4.5",
     "react-dom": "16.8.6",
     "react-modal": "3.8.1",
-    "styled-components": "4.2.1"
+    "styled-components": "4.3.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "7.3.0",
