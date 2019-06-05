@@ -37,7 +37,7 @@
     "@types/lodash.get": "4.4.6",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__addon-info": "3.4.2",
-    "@types/storybook__addon-links": "3.3.3",
+    "@types/storybook__addon-links": "3.3.5",
     "@types/storybook__react": "4.0.0",
     "@types/styled-components": "4.1.16",
     "@types/styled-system": "4.2.1",
