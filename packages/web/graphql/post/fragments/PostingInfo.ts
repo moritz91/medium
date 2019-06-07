@@ -5,6 +5,9 @@ import { TagInfoFragment } from "../../tag/fragments/TagInfo";
 export const PostingInfoFragment = gql`
   fragment PostingInfo on Posting {
     id
+    previewTitle
+    previewSubtitle
+    caption
     title
     body
     createdAt

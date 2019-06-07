@@ -5,6 +5,7 @@ export const getTopicByNameQuery = gql`
     getTopicByName(name: $name) {
       id
       name
+      shortCaption
       numPostings
       description
     }

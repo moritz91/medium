@@ -25,6 +25,9 @@ import { DeleteComment } from "../modules/comment/deleteComment";
 interface Props {
   id: string;
   creator: UserInfoFragment;
+  previewTitle: string;
+  previewSubtitle: string;
+  caption: string;
   title: string;
   body: string;
   numComments: number;
@@ -47,6 +50,9 @@ export default class Post extends React.PureComponent<Props> {
     const { getPostingById } = response.data;
     return {
       id,
+      previewTitle: getPostingById!.previewTitle,
+      previewSubtitle: getPostingById!.previewSubtitle,
+      caption: getPostingById!.caption,
       creator: getPostingById!.creator,
       title: getPostingById!.title,
       body: getPostingById!.body,
@@ -58,6 +64,9 @@ export default class Post extends React.PureComponent<Props> {
 
   render() {
     const {
+      previewTitle,
+      previewSubtitle,
+      caption,
       title,
       creator,
       body,
@@ -81,6 +90,9 @@ export default class Post extends React.PureComponent<Props> {
             id={id}
             createdAt={createdAt}
             creator={creator}
+            previewTitle={previewTitle}
+            previewSubtitle={previewSubtitle}
+            caption={caption}
             title={title}
             body={body}
             numComments={numComments}

@@ -62,6 +62,9 @@ export default class Posts extends React.Component<Props> {
                   id={post.id}
                   createdAt={post.createdAt}
                   creator={post.creator}
+                  previewTitle={post.previewTitle}
+                  previewSubtitle={post.previewSubtitle}
+                  caption={post.caption}
                   title={post.title}
                   body={post.body}
                   numComments={post.numComments}

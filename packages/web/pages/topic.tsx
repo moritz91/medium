@@ -1,19 +1,20 @@
-import React from "react";
 import { PostRow } from "@medium/ui";
-
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import Layout from "../components/layout";
+import React from "react";
 import { GetPostingsByTopicComponent } from "../components/apollo-components";
+import Layout from "../components/layout";
+import { MainSection, Sections, SidebarSection } from "../components/section";
 import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
 import {
-  ContextProps,
-  TopicContext
+  TopicContext,
+  TopicContextProps
 } from "../modules/topic/shared/topicContext";
 import { Link } from "../server/routes";
+import { NextContextWithApollo } from "../types/NextContextWithApollo";
 
 interface Props {
   id: string;
   name: string;
+  shortCaption: string;
   description: string;
   numPostings: string;
 }
@@ -35,15 +36,17 @@ export default class Topic extends React.PureComponent<Props> {
     return {
       name,
       id: getTopicByName!.id,
+      shortCaption: getTopicByName!.shortCaption,
       description: getTopicByName!.description,
       numPostings: getTopicByName!.numPostings
     };
   }
 
   render() {
-    const { name, description, id, numPostings } = this.props;
-    const context: ContextProps = {
+    const { name, shortCaption, description, id, numPostings } = this.props;
+    const context: TopicContextProps = {
       name,
+      shortCaption,
       description,
       numPostings,
       topicId: id
@@ -52,39 +55,49 @@ export default class Topic extends React.PureComponent<Props> {
     return (
       // @ts-ignore
       <Layout title={`${name}`}>
-        <TopicContext.Provider value={context}>
-          <GetPostingsByTopicComponent variables={{ input: { topicId: id } }}>
-            {({ data }) => {
-              return (
-                <>
-                  {data && data.getPostingsByTopic && (
+        <Sections>
+          <TopicContext.Provider value={context}>
+            <MainSection>
+              <GetPostingsByTopicComponent
+                variables={{ input: { topicId: id } }}
+              >
+                {({ data }) => {
+                  return (
                     <>
-                      {data.getPostingsByTopic.posts.map(post => (
-                        <PostRow
-                          key={post.id}
-                          id={post.id}
-                          createdAt={post.createdAt}
-                          creator={post.creator}
-                          title={post.title}
-                          body={post.body}
-                          numComments={post.numComments}
-                          Link={Link}
-                          tags={post.tags}
-                          getLinkProps={() => ({
-                            route: "post",
-                            params: {
-                              id: post.id
-                            }
-                          })}
-                        />
-                      ))}
+                      {data && data.getPostingsByTopic && (
+                        <>
+                          {data.getPostingsByTopic.posts.map(post => (
+                            <PostRow
+                              key={post.id}
+                              id={post.id}
+                              createdAt={post.createdAt}
+                              creator={post.creator}
+                              previewTitle={post.previewTitle}
+                              previewSubtitle={post.previewSubtitle}
+                              caption={post.caption}
+                              title={post.title}
+                              body={post.body}
+                              numComments={post.numComments}
+                              Link={Link}
+                              tags={post.tags}
+                              getLinkProps={() => ({
+                                route: "post",
+                                params: {
+                                  id: post.id
+                                }
+                              })}
+                            />
+                          ))}
+                        </>
+                      )}
                     </>
-                  )}
-                </>
-              );
-            }}
-          </GetPostingsByTopicComponent>
-        </TopicContext.Provider>
+                  );
+                }}
+              </GetPostingsByTopicComponent>
+            </MainSection>
+            <SidebarSection />
+          </TopicContext.Provider>
+        </Sections>
       </Layout>
     );
   }

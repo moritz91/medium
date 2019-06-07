@@ -43,6 +43,12 @@ export interface CreateCommentInput {
 }
 /** New posting data */
 export interface CreatePostingInput {
+  previewTitle?: Maybe<string>;
+
+  previewDescription?: Maybe<string>;
+
+  caption?: Maybe<string>;
+
   title: string;
 
   body?: Maybe<string>;
@@ -54,6 +60,8 @@ export interface CreatePostingInput {
 /** New topic data */
 export interface CreateTopicInput {
   name: string;
+
+  shortCaption?: Maybe<string>;
 
   pictureUrl?: Maybe<string>;
 }
@@ -84,16 +92,8 @@ export type CreateCommentCreateComment = {
 export type CreateCommentComment = {
   __typename?: "Comment";
 
-  id: string;
-
-  text: string;
-
-  createdAt: DateTime;
-
-  creatorId: string;
-
   creator: CreateCommentCreator;
-};
+} & CommentInfoFragment;
 
 export type CreateCommentCreator = UserInfoFragment;
 
@@ -382,6 +382,8 @@ export type GetTopicByNameGetTopicByName = {
 
   name: string;
 
+  shortCaption: string;
+
   numPostings: number;
 
   description: Maybe<string>;
@@ -464,7 +466,17 @@ export type FindUserPostings = {
 
   numComments: number;
 
+  tags: Maybe<FindUserTags[]>;
+
   creator: FindUserCreator;
+};
+
+export type FindUserTags = {
+  __typename?: "Tag";
+
+  id: string;
+
+  name: string;
 };
 
 export type FindUserCreator = UserInfoFragment;
@@ -518,11 +530,13 @@ export type CommentInfoFragment = {
 
   text: string;
 
-  createdAt: DateTime;
+  postingId: string;
 
   creatorId: string;
 
   creator: CommentInfoCreator;
+
+  createdAt: DateTime;
 };
 
 export type CommentInfoCreator = UserInfoFragment;
@@ -531,6 +545,12 @@ export type PostingInfoFragment = {
   __typename?: "Posting";
 
   id: string;
+
+  previewTitle: Maybe<string>;
+
+  previewSubtitle: Maybe<string>;
+
+  caption: Maybe<string>;
 
   title: string;
 
@@ -591,11 +611,12 @@ export const CommentInfoFragmentDoc = gql`
   fragment CommentInfo on Comment {
     id
     text
-    createdAt
+    postingId
     creatorId
     creator {
       ...UserInfo
     }
+    createdAt
   }
 
   ${UserInfoFragmentDoc}
@@ -611,6 +632,9 @@ export const TagInfoFragmentDoc = gql`
 export const PostingInfoFragmentDoc = gql`
   fragment PostingInfo on Posting {
     id
+    previewTitle
+    previewSubtitle
+    caption
     title
     body
     createdAt
@@ -635,10 +659,7 @@ export const CreateCommentDocument = gql`
   mutation createComment($comment: CreateCommentInput!) {
     createComment(comment: $comment) {
       comment {
-        id
-        text
-        createdAt
-        creatorId
+        ...CommentInfo
         creator {
           ...UserInfo
         }
@@ -646,6 +667,7 @@ export const CreateCommentDocument = gql`
     }
   }
 
+  ${CommentInfoFragmentDoc}
   ${UserInfoFragmentDoc}
 `;
 export class CreateCommentComponent extends React.Component<
@@ -1223,6 +1245,7 @@ export const GetTopicByNameDocument = gql`
     getTopicByName(name: $name) {
       id
       name
+      shortCaption
       numPostings
       description
     }
@@ -1400,6 +1423,10 @@ export const FindUserDocument = gql`
         body
         createdAt
         numComments
+        tags {
+          id
+          name
+        }
         creator {
           ...UserInfo
         }

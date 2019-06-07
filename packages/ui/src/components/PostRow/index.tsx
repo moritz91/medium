@@ -8,6 +8,9 @@ import { MyButton } from "../MyButton";
 
 interface Props {
   id: string;
+  previewTitle?: string | null;
+  previewSubtitle?: string | null;
+  caption?: string | null;
   title: string;
   body: string;
   numComments: number;
@@ -28,6 +31,9 @@ export const TagRowContainer = styled.div`
 `;
 
 export const PostRow: React.FC<Props> = ({
+  previewTitle,
+  previewSubtitle,
+  caption,
   title,
   creator: { username, pictureUrl },
   body,
@@ -70,7 +76,7 @@ export const PostRow: React.FC<Props> = ({
             <Link {...linkProps}>
               <a>
                 <Heading ml="0rem" mb="1rem" fontSize={5} fontWeight="none">
-                  {title}
+                  {previewTitle ? previewTitle : title}
                 </Heading>
               </a>
             </Link>
@@ -81,7 +87,7 @@ export const PostRow: React.FC<Props> = ({
             </div>
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
-            {body}
+            {previewSubtitle ? previewSubtitle : body}
           </Text>
           <div style={{ display: "flex", fontSize: "12px" }}>
             <div>
