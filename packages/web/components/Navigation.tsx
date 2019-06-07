@@ -20,6 +20,7 @@ const Wrapper = styled.nav`
   transition: background 300ms ease-out;
   color: white;
   padding: 0;
+  background-color: #fff;
   -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
 `;

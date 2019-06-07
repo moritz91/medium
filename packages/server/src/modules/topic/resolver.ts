@@ -15,7 +15,7 @@ import { MyContext } from "../../types/Context";
 import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
-import { createResolver } from "../shared/create-resolver";
+// import { createResolver } from "../shared/create-resolver";
 import { CreateTopicInput, FindTopicsInput } from "./Input";
 import {
   DeleteTopicResponse,
@@ -25,15 +25,15 @@ import {
 import { User } from "../../entity/User";
 import { PostingRepository } from "../../repositories/PostRepo";
 
-const suffix = "Topic";
+// const suffix = "Topic";
 // const TOPIC_LIMIT = 16;
 
-export const createTopic = createResolver(
-  suffix,
-  CreateTopicInput,
-  Topic,
-  TopicResponse
-);
+// export const createTopic = createResolver(
+//   suffix,
+//   CreateTopicInput,
+//   Topic,
+//   TopicResponse
+// );
 
 export const loadCreatorForTopic = loadCreatorResolver(Topic);
 
@@ -78,16 +78,16 @@ export class TopicResolver {
     };
   }
 
-  @Mutation(() => TopicResponse, { name: `createTopicRepo` })
+  @Mutation(() => TopicResponse, { name: `createTopic` })
   @Authorized()
   async createTopic(
-    @Arg("topic") input: CreateTopicInput,
-    @Ctx() { req }: MyContext
+    @Arg("topic") input: CreateTopicInput
   ): Promise<TopicResponse> {
-    let value: Topic = await this.topicRepo.save({
-      ...input,
-      creatorId: req.session!.userId
-    });
+    const value = await this.topicRepo
+      .create({
+        ...input
+      })
+      .save();
 
     return {
       topic: value

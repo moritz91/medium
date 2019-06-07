@@ -45,6 +45,18 @@ export class Posting extends BaseEntity {
   @ManyToOne(() => User, user => user.postings)
   creator: Promise<User>;
 
+  @Field({ description: "The preview title of the posting" })
+  @Column({ type: "text", nullable: true })
+  previewTitle: string;
+
+  @Field({ description: "The preview subtitle of the posting" })
+  @Column({ type: "text", nullable: true })
+  previewSubtitle: string;
+
+  @Field({ description: "The caption of the posting" })
+  @Column({ type: "text", nullable: true })
+  caption: string;
+
   @Field({ description: "The title of the posting" })
   @Column({ type: "text" })
   title: string;

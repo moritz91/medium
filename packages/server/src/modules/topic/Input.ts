@@ -7,6 +7,9 @@ export class CreateTopicInput implements Partial<Topic> {
   name: string;
 
   @Field({ nullable: true })
+  shortCaption?: string;
+
+  @Field({ nullable: true })
   pictureUrl?: string;
 }
 

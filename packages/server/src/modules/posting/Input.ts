@@ -3,6 +3,15 @@ import { Posting } from "../../entity/Posting";
 
 @InputType({ description: "New posting data" })
 export class CreatePostingInput implements Partial<Posting> {
+  @Field({ nullable: true })
+  previewTitle?: string;
+
+  @Field({ nullable: true })
+  previewDescription?: string;
+
+  @Field({ nullable: true })
+  caption?: string;
+
   @Field()
   title: string;
 
