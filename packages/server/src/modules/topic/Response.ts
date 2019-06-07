@@ -8,7 +8,7 @@ export class TopicResponse {
 }
 
 @ObjectType()
-export class DeleteTopicResponse {
+export class SuccessResponse {
   @Field()
   ok: boolean;
 }

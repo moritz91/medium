@@ -16,12 +16,8 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
 // import { createResolver } from "../shared/create-resolver";
-import { CreateTopicInput, FindTopicsInput } from "./Input";
-import {
-  DeleteTopicResponse,
-  TopicResponse,
-  FindTopicResponse
-} from "./Response";
+import { CreateTopicInput, FindTopicsInput, UpdateTopicInput } from "./Input";
+import { TopicResponse, FindTopicResponse, SuccessResponse } from "./Response";
 import { User } from "../../entity/User";
 import { PostingRepository } from "../../repositories/PostRepo";
 
@@ -94,6 +90,24 @@ export class TopicResolver {
     };
   }
 
+  @Mutation(() => SuccessResponse, { name: `updateTopic` })
+  @Authorized()
+  async updateTopic(
+    @Arg("topicId") id: string,
+    @Arg("topic") input: UpdateTopicInput
+  ): Promise<SuccessResponse> {
+    await this.topicRepo.update(
+      { id },
+      {
+        ...input
+      }
+    );
+
+    return {
+      ok: true
+    };
+  }
+
   @Query(() => Topic, {
     nullable: true
   })
@@ -108,11 +122,11 @@ export class TopicResolver {
     return this.topicRepo.findOne({ where: { name } });
   }
 
-  @Mutation(() => DeleteTopicResponse, {
+  @Mutation(() => SuccessResponse, {
     nullable: true
   })
   @Authorized()
-  async deleteTopicById(@Arg("id") id: string): Promise<DeleteTopicResponse> {
+  async deleteTopicById(@Arg("id") id: string): Promise<SuccessResponse> {
     const value = this.topicRepo.findOne(id);
     if (value) {
       this.topicRepo.delete(id);

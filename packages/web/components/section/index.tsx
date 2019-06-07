@@ -42,7 +42,7 @@ export const SidebarSection: React.FC = () => {
           }}
         >
           <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-            <Text fontWeight="bold" fontSize={4}>
+            <Text fontWeight="bold" fontSize={6}>
               {name}
             </Text>
             <Text fontSize={4}>{shortCaption}</Text>

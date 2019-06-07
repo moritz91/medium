@@ -7,7 +7,7 @@ export class CreatePostingInput implements Partial<Posting> {
   previewTitle?: string;
 
   @Field({ nullable: true })
-  previewDescription?: string;
+  previewSubtitle?: string;
 
   @Field({ nullable: true })
   caption?: string;

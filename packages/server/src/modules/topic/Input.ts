@@ -13,6 +13,18 @@ export class CreateTopicInput implements Partial<Topic> {
   pictureUrl?: string;
 }
 
+@InputType({ description: "Update topic data" })
+export class UpdateTopicInput implements Partial<Topic> {
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field({ nullable: true })
+  shortCaption?: string;
+
+  @Field({ nullable: true })
+  pictureUrl?: string;
+}
+
 @InputType({ description: "Old topic data" })
 export class DeleteTopicInput implements Partial<Topic> {
   @Field()
