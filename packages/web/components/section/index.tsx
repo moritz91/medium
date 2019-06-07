@@ -1,6 +1,5 @@
-import { styled } from "@medium/ui";
+import { styled, MyButton } from "@medium/ui";
 import { Flex, Box, Text } from "rebass";
-import { Link } from "../../server/routes";
 import { useContext } from "react";
 import {
   TopicContext,
@@ -32,9 +31,7 @@ export const SidebarContainer = styled.section`
 `;
 
 export const SidebarSection: React.FC = () => {
-  const { name, description, shortCaption } = useContext<TopicContextProps>(
-    TopicContext
-  );
+  const { name, shortCaption } = useContext<TopicContextProps>(TopicContext);
   return (
     <SidebarContainer>
       <Flex justifyContent="center">
@@ -44,22 +41,18 @@ export const SidebarSection: React.FC = () => {
             marginRight: "auto"
           }}
         >
-          <Flex alignItems="baseline">
-            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-              <Link route={"topic"} params={{ name }}>
-                <a>
-                  <Text fontWeight="bold" fontSize={4}>
-                    {name}
-                  </Text>
-                </a>
-              </Link>
-            </Box>
-            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-              <Text>{description}</Text>
-            </Box>
-          </Flex>
+          <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+            <Text fontWeight="bold" fontSize={4}>
+              {name}
+            </Text>
+            <Text fontSize={4}>{shortCaption}</Text>
+          </Box>
+          <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+            <MyButton variant="tag">Follow</MyButton>
+          </Box>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
-            {shortCaption}
+            Follow to get great stories about {name} in your inbox and on your
+            homepage
           </Text>
         </div>
       </Flex>

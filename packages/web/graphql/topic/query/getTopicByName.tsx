@@ -7,7 +7,6 @@ export const getTopicByNameQuery = gql`
       name
       shortCaption
       numPostings
-      description
     }
   }
 `;

@@ -21,17 +21,13 @@ export class Topic extends BaseEntity {
   @Column({ type: "text", unique: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: "text", nullable: true, unique: true })
   shortCaption: string;
 
   @Field({ nullable: true })
   @Column({ type: "text", unique: true, nullable: true })
   pictureUrl: string;
-
-  @Field({ nullable: true })
-  @Column({ type: "text", nullable: true })
-  description: string;
 
   @Field(() => Int)
   numPostings: number;

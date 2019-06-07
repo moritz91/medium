@@ -15,7 +15,6 @@ interface Props {
   id: string;
   name: string;
   shortCaption: string;
-  description: string;
   numPostings: string;
 }
 
@@ -37,17 +36,15 @@ export default class Topic extends React.PureComponent<Props> {
       name,
       id: getTopicByName!.id,
       shortCaption: getTopicByName!.shortCaption,
-      description: getTopicByName!.description,
       numPostings: getTopicByName!.numPostings
     };
   }
 
   render() {
-    const { name, shortCaption, description, id, numPostings } = this.props;
+    const { name, shortCaption, id, numPostings } = this.props;
     const context: TopicContextProps = {
       name,
       shortCaption,
-      description,
       numPostings,
       topicId: id
     };

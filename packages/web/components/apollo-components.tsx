@@ -382,11 +382,9 @@ export type GetTopicByNameGetTopicByName = {
 
   name: string;
 
-  shortCaption: string;
+  shortCaption: Maybe<string>;
 
   numPostings: number;
-
-  description: Maybe<string>;
 };
 
 export type GetTopicsVariables = {
@@ -1247,7 +1245,6 @@ export const GetTopicByNameDocument = gql`
       name
       shortCaption
       numPostings
-      description
     }
   }
 `;
