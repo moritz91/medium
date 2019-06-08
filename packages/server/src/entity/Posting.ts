@@ -55,7 +55,7 @@ export class Posting extends BaseEntity {
 
   @Field({ description: "The caption of the posting", nullable: true })
   @Column({ type: "text", nullable: true })
-  caption: string;
+  previewImage: string;
 
   @Field({ description: "The title of the posting" })
   @Column({ type: "text" })

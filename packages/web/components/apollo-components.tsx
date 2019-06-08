@@ -45,7 +45,7 @@ export interface CreateCommentInput {
 export interface CreatePostingInput {
   previewTitle?: Maybe<string>;
 
-  previewDescription?: Maybe<string>;
+  previewSubtitle?: Maybe<string>;
 
   caption?: Maybe<string>;
 
@@ -60,6 +60,14 @@ export interface CreatePostingInput {
 /** New topic data */
 export interface CreateTopicInput {
   name: string;
+
+  shortCaption?: Maybe<string>;
+
+  pictureUrl?: Maybe<string>;
+}
+/** Update topic data */
+export interface UpdateTopicInput {
+  name?: Maybe<string>;
 
   shortCaption?: Maybe<string>;
 
@@ -548,7 +556,7 @@ export type PostingInfoFragment = {
 
   previewSubtitle: Maybe<string>;
 
-  caption: Maybe<string>;
+  previewImage: Maybe<string>;
 
   title: string;
 
@@ -632,7 +640,7 @@ export const PostingInfoFragmentDoc = gql`
     id
     previewTitle
     previewSubtitle
-    caption
+    previewImage
     title
     body
     createdAt

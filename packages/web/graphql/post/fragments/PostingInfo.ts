@@ -7,7 +7,7 @@ export const PostingInfoFragment = gql`
     id
     previewTitle
     previewSubtitle
-    caption
+    previewImage
     title
     body
     createdAt
