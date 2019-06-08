@@ -12,6 +12,7 @@ export * from "./components/Footer";
 export * from "./components/Pane";
 export * from "./components/Section";
 export * from "./components/PostRow";
+export * from "./components/Story";
 export * from "./components/TopicTile";
 export * from "./components/BlueInput";
 export * from "./components/CodeCard";

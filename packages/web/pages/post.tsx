@@ -1,5 +1,4 @@
 import React from "react";
-import { PostRow } from "@medium/ui";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
 import Layout from "../components/layout";
@@ -12,6 +11,7 @@ import {
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { Text, Box } from "rebass";
+import { Story } from "@medium/ui";
 import {
   PostContextProps,
   PostContext
@@ -19,8 +19,6 @@ import {
 import { DeletePosting } from "../modules/post/deletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
-import { ActionsDropdown } from "../modules/post/shared/actionsDropdown";
-import { DeleteComment } from "../modules/comment/deleteComment";
 
 interface Props {
   id: string;
@@ -85,7 +83,7 @@ export default class Post extends React.PureComponent<Props> {
       // @ts-ignore
       <Layout title={`${title}`}>
         <PostContext.Provider value={context}>
-          <PostRow
+          <Story
             key={id}
             id={id}
             createdAt={createdAt}
@@ -124,10 +122,8 @@ export default class Post extends React.PureComponent<Props> {
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
                           <div id={id.slice(0, 6)} key={key}>
-                            <ActionsDropdown>
-                              <DeleteComment commentId={id} />
-                            </ActionsDropdown>
                             <Comment
+                              id={id}
                               createdAt={createdAt}
                               creator={creator}
                               body={MarkdownRenderer({ text })}
