@@ -1,10 +1,8 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Heading, Box } from "rebass";
-import styled from "../../theme/styled-components";
-import { Avatar } from "../Avatar";
-import { Icon } from "../../components/Icon";
-import { MyButton } from "../MyButton";
+import styled from "styled-components";
+import { Icon, MyButton } from "@medium/ui";
 
 interface Props {
   id: string;
@@ -21,7 +19,7 @@ interface Props {
   getLinkProps: () => any;
 }
 
-export const PostRowContainer = styled.div`
+export const StreamItemContainer = styled.div`
   padding: 1rem;
   margin: 1.6rem 0px;
 `;
@@ -30,12 +28,12 @@ export const TagRowContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
-export const PostRow: React.FC<Props> = ({
+export const StreamItem: React.FC<Props> = ({
   previewTitle,
   previewSubtitle,
   previewImage,
   title,
-  creator: { username, pictureUrl },
+  creator: { username },
   body,
   numComments,
   getLinkProps,
@@ -49,20 +47,8 @@ export const PostRow: React.FC<Props> = ({
   });
 
   return (
-    <PostRowContainer>
+    <StreamItemContainer>
       <Flex justifyContent="center">
-        <span style={{ minWidth: "45px" }}>
-          <Link route={"profile"} params={{ username }}>
-            <a style={{ cursor: "pointer" }}>
-              <Avatar
-                borderRadius={3}
-                size={34}
-                src={pictureUrl}
-                alt="avatar"
-              />
-            </a>
-          </Link>
-        </span>
         <div
           style={{
             paddingLeft: ".8rem",
@@ -90,7 +76,7 @@ export const PostRow: React.FC<Props> = ({
           </Text>
           {previewImage && (
             <Box>
-              <img src={previewImage} />
+              <img height={"50px"} src={previewImage} />
             </Box>
           )}
           <div style={{ display: "flex", fontSize: "12px" }}>
@@ -98,7 +84,6 @@ export const PostRow: React.FC<Props> = ({
               <Link route={"profile"} params={{ username }}>
                 <a>{username}</a>
               </Link>
-              in <a>Topic XY</a>
             </div>
             <div>
               {dtString} •
@@ -116,6 +101,6 @@ export const PostRow: React.FC<Props> = ({
           </div>
         </div>
       </Flex>
-    </PostRowContainer>
+    </StreamItemContainer>
   );
 };

@@ -18,7 +18,6 @@ import { CommentRepository } from "../../repositories/CommentRepo";
 import { PostingRepository } from "../../repositories/PostRepo";
 import { MyContext } from "../../types/Context";
 import { isAuth } from "../middleware/isAuth";
-import { createResolver } from "../shared/create-resolver";
 import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
@@ -34,15 +33,7 @@ import {
 import { PostingTag } from "../../entity/PostingTag";
 import { TagRepository } from "../../repositories/TagRepo";
 
-const suffix = "Posting";
 const POST_LIMIT = 16;
-
-export const createPosting = createResolver(
-  suffix,
-  CreatePostingInput,
-  Posting,
-  PostingResponse
-);
 
 export const loadCreatorForPosting = loadCreatorResolver(Posting);
 
@@ -65,7 +56,7 @@ export class PostingResolver {
     return this.commentRepo.count({ where: { postingId: root.id } });
   }
 
-  @Mutation(() => PostingResponse, { name: `createPostingRepo` })
+  @Mutation(() => PostingResponse, { name: `createPosting` })
   @UseMiddleware(isAuth)
   async createPostingRepo(
     @Arg("posting") input: CreatePostingInput,

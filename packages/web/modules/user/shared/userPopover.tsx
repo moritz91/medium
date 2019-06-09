@@ -60,8 +60,8 @@ export const UserPopover: React.FC<Props> = ({
                 ref={ref}
                 style={{
                   position: "relative",
-                  top: "-125px",
-                  left: "-175px"
+                  top: "-235px",
+                  left: "-130px"
                 }}
               >
                 <Flyout data-cy="thread-actions-dropdown">

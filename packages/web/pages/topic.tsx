@@ -71,7 +71,7 @@ export default class Topic extends React.PureComponent<Props> {
                               creator={post.creator}
                               previewTitle={post.previewTitle}
                               previewSubtitle={post.previewSubtitle}
-                              caption={post.caption}
+                              previewImage={post.previewImage}
                               title={post.title}
                               body={post.body}
                               numComments={post.numComments}

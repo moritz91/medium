@@ -47,6 +47,8 @@ export interface CreatePostingInput {
 
   previewSubtitle?: Maybe<string>;
 
+  previewImage?: Maybe<string>;
+
   caption?: Maybe<string>;
 
   title: string;

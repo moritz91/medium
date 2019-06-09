@@ -110,6 +110,7 @@ export default class Post extends React.PureComponent<Props> {
             <Text fontSize={5}>Responses</Text>
           </Box>
           <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
+          <Box mb={20} />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
             {({ data, loading }) => {
               if (loading) {
