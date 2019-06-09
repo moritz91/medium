@@ -1,34 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Icon, Flyout, FlexRow } from "@medium/ui";
+import { Icon, Flyout, FlexRow, MyButton } from "@medium/ui";
 
 interface Props {
   children: React.ReactNode;
+  flyoutState: boolean;
+  onClick: () => void;
 }
 
-export const ActionsDropdown: React.FC<Props> = ({ children }) => {
-  const [flyoutOpen, setFlyoutOpen] = useState(false);
-
+export const ActionsDropdown: React.FC<Props> = ({
+  children,
+  flyoutState,
+  onClick
+}) => {
   return (
     <Manager>
       <Reference>
         {({ ref }) => {
           return (
             <span ref={ref}>
-              <Icon
-                style={{ cursor: "pointer" }}
-                name="showActions"
-                fill="#000"
-                onClick={() => {
-                  setFlyoutOpen(!flyoutOpen);
-                }}
-                data-cy="thread-actions-dropdown-trigger"
-              />
+              <MyButton variant="action" onClick={onClick}>
+                <Icon
+                  name="showActions"
+                  fill="#000"
+                  data-cy="thread-actions-dropdown-trigger"
+                />
+              </MyButton>
             </span>
           );
         }}
       </Reference>
-      {flyoutOpen && (
+      {flyoutState && (
         <Popper
           modifiers={{
             flip: {

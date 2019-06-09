@@ -6,6 +6,7 @@ import { UserPopover } from "../../modules/user/shared/userPopover";
 import { useHover } from "use-events";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeleteComment } from "../../modules/comment/deleteComment";
+import { useState } from "react";
 
 // body: React.ReactElement<HTMLElement> | null;
 interface Props {
@@ -55,14 +56,15 @@ export const Comment: React.FC<Props> = ({
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
   });
-  const [flyoutOpen, bind] = useHover();
+  const [popoverState, bind] = useHover();
+  const [flyoutState, setFlyoutState] = useState(false);
 
   return (
     <CommmentContainer>
       <TopRow>
         <UserAvatar>
           <UserPopover
-            flyoutOpen={flyoutOpen}
+            popoverState={popoverState}
             username={username}
             pictureUrl={pictureUrl}
           >
@@ -99,9 +101,15 @@ export const Comment: React.FC<Props> = ({
           </Text>
         </Content>
         <Actions style={{ display: "flex", marginLeft: "auto" }}>
-          <div style={{ cursor: "pointer" }}>
-            <ActionsDropdown>
-              <DeleteComment commentId={id} />
+          <div>
+            <ActionsDropdown
+              flyoutState={flyoutState}
+              onClick={() => setFlyoutState(!flyoutState)}
+            >
+              <DeleteComment
+                onClick={() => setFlyoutState(false)}
+                commentId={id}
+              />
             </ActionsDropdown>
           </div>
         </Actions>

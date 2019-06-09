@@ -11,10 +11,10 @@ import { MyButton } from "@medium/ui";
 
 interface Props {
   commentId: string;
+  onClick: () => void;
 }
 
-export const DeleteComment = (props: Props) => {
-  const { commentId } = props;
+export const DeleteComment = ({ commentId, onClick }: Props) => {
   const { postingId } = useContext(PostContext);
 
   return (
@@ -52,11 +52,15 @@ export const DeleteComment = (props: Props) => {
                     variant="action"
                     key={commentId}
                     onClick={async () => {
-                      await mutate({
+                      const response = await mutate({
                         variables: {
                           id: commentId
                         }
                       });
+
+                      if (response) {
+                        onClick();
+                      }
                     }}
                   >
                     Delete Comment

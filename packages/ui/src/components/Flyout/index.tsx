@@ -22,8 +22,10 @@ const StyledRow = styled.div`
   padding: 5px;
 `;
 
-export const Flyout = ({ children }: any): JSX.Element => (
-  <StyledFlyout className={"flyout"}>
-    <StyledRow>{children}</StyledRow>
-  </StyledFlyout>
+export const Flyout = React.forwardRef<HTMLDivElement>(
+  ({ children }: any, ref): JSX.Element => (
+    <StyledFlyout className={"flyout"} ref={ref}>
+      <StyledRow>{children}</StyledRow>
+    </StyledFlyout>
+  )
 );

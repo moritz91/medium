@@ -5,7 +5,7 @@ import { Heading, Text } from "rebass";
 
 interface Props {
   children: React.ReactNode;
-  flyoutOpen: boolean;
+  popoverState: boolean;
   username: string;
   pictureUrl: string;
 }
@@ -29,7 +29,7 @@ const MetaDataTwo = styled.div`
 
 export const UserPopover: React.FC<Props> = ({
   children,
-  flyoutOpen,
+  popoverState,
   pictureUrl,
   username
 }) => {
@@ -44,7 +44,7 @@ export const UserPopover: React.FC<Props> = ({
           );
         }}
       </Reference>
-      {flyoutOpen && (
+      {popoverState && (
         <Popper
           modifiers={{
             flip: {

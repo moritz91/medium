@@ -25,7 +25,7 @@ interface Props {
   creator: UserInfoFragment;
   previewTitle: string;
   previewSubtitle: string;
-  caption: string;
+  previewImage: string;
   title: string;
   body: string;
   numComments: number;
@@ -50,7 +50,7 @@ export default class Post extends React.PureComponent<Props> {
       id,
       previewTitle: getPostingById!.previewTitle,
       previewSubtitle: getPostingById!.previewSubtitle,
-      caption: getPostingById!.caption,
+      previewImage: getPostingById!.previewImage,
       creator: getPostingById!.creator,
       title: getPostingById!.title,
       body: getPostingById!.body,
@@ -64,7 +64,7 @@ export default class Post extends React.PureComponent<Props> {
     const {
       previewTitle,
       previewSubtitle,
-      caption,
+      previewImage,
       title,
       creator,
       body,
@@ -90,7 +90,7 @@ export default class Post extends React.PureComponent<Props> {
             creator={creator}
             previewTitle={previewTitle}
             previewSubtitle={previewSubtitle}
-            caption={caption}
+            previewImage={previewImage}
             title={title}
             body={body}
             numComments={numComments}
@@ -121,15 +121,29 @@ export default class Post extends React.PureComponent<Props> {
                     <>
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
-                          <div id={id.slice(0, 6)} key={key}>
-                            <Comment
-                              id={id}
-                              createdAt={createdAt}
-                              creator={creator}
-                              body={MarkdownRenderer({ text })}
-                              Link={Link}
-                            />
-                            {/* {data.findCommentsById.hasMore &&
+                          <Comment
+                            id={id}
+                            key={key}
+                            createdAt={createdAt}
+                            creator={creator}
+                            body={MarkdownRenderer({ text })}
+                            Link={Link}
+                          />
+                        )
+                      )}
+                    </>
+                  )}
+                </>
+              );
+            }}
+          </GetCommentsByIdComponent>
+        </PostContext.Provider>
+      </Layout>
+    );
+  }
+}
+
+/* {data.findCommentsById.hasMore &&
                               key ===
                                 data.findCommentsById.comments.length - 10 && (
                                 <Waypoint
@@ -166,18 +180,4 @@ export default class Post extends React.PureComponent<Props> {
                                     })
                                   }
                                 />
-                              )} */}
-                          </div>
-                        )
-                      )}
-                    </>
-                  )}
-                </>
-              );
-            }}
-          </GetCommentsByIdComponent>
-        </PostContext.Provider>
-      </Layout>
-    );
-  }
-}
+                              )} */
