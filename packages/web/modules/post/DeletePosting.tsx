@@ -7,9 +7,13 @@ import { get } from "lodash";
 import { PostContext } from "./shared/postContext";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
-import { Icon } from "@medium/ui";
+import { MyButton } from "@medium/ui";
 
-export const DeletePosting = () => {
+interface Props {
+  onClick: () => void;
+}
+
+export const DeletePosting = ({ onClick }: Props) => {
   const { postingId } = useContext(PostContext);
 
   return (
@@ -38,20 +42,25 @@ export const DeletePosting = () => {
 
               if (data && data.me && isLoggedIn) {
                 return (
-                  <div
+                  <MyButton
+                    variant="action"
                     key={postingId}
-                    style={{ cursor: "pointer" }}
                     onClick={async () => {
-                      await mutate({
+                      const response = await mutate({
                         variables: {
                           id: postingId
                         }
                       });
+
+                      if (response) {
+                        onClick();
+                      }
+
                       Router.replace("/posts");
                     }}
                   >
-                    <Icon name="file" fill="rgb(183, 193, 198" />
-                  </div>
+                    Delete Posting
+                  </MyButton>
                 );
               }
 

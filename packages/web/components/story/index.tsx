@@ -1,17 +1,19 @@
-import { distanceInWordsToNow, format } from "date-fns";
+import { format } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Heading } from "rebass";
 import styled from "styled-components";
 import { useHover } from "use-events";
-import { Avatar, Icon, MyButton } from "@medium/ui";
+import { Avatar, MyButton } from "@medium/ui";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { StoryFooterUsername } from "../heading";
+import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { DeletePosting } from "../../modules/post/deletePosting";
+import { useState } from "react";
 
 interface Props {
   id: string;
   previewTitle?: string | null;
   previewSubtitle?: string | null;
-  previewImage?: string | null;
   title: string;
   body: string;
   numComments: number;
@@ -59,7 +61,6 @@ export const Content = styled.div`
 export const Story: React.FC<Props> = ({
   previewTitle,
   previewSubtitle,
-  previewImage,
   title,
   creator: { username, pictureUrl },
   body,
@@ -70,26 +71,13 @@ export const Story: React.FC<Props> = ({
   tags
 }) => {
   const linkProps = getLinkProps();
-
   const dtString = format(Date.parse(createdAt), "MMM D");
-
+  const [flyoutState, setFlyoutState] = useState(false);
   const [popoverState, bind] = useHover();
 
   return (
     <Container>
       <Flex justifyContent="center">
-        <span style={{ minWidth: "45px" }}>
-          <Link route={"profile"} params={{ username }}>
-            <a style={{ cursor: "pointer" }}>
-              <Avatar
-                borderRadius={3}
-                size={34}
-                src={pictureUrl}
-                alt="avatar"
-              />
-            </a>
-          </Link>
-        </span>
         <div
           style={{
             paddingLeft: ".8rem",
@@ -107,8 +95,13 @@ export const Story: React.FC<Props> = ({
               </a>
             </Link>
             <div style={{ display: "flex", marginLeft: "auto" }}>
-              <div style={{ cursor: "pointer" }}>
-                <Icon name="showActions" fill="#000" />
+              <div>
+                <ActionsDropdown
+                  flyoutState={flyoutState}
+                  onClick={() => setFlyoutState(!flyoutState)}
+                >
+                  <DeletePosting onClick={() => setFlyoutState(false)} />
+                </ActionsDropdown>
               </div>
             </div>
           </Flex>

@@ -64,7 +64,6 @@ export default class Post extends React.PureComponent<Props> {
     const {
       previewTitle,
       previewSubtitle,
-      previewImage,
       title,
       creator,
       body,
@@ -90,7 +89,6 @@ export default class Post extends React.PureComponent<Props> {
             creator={creator}
             previewTitle={previewTitle}
             previewSubtitle={previewSubtitle}
-            previewImage={previewImage}
             title={title}
             body={body}
             numComments={numComments}
@@ -103,9 +101,6 @@ export default class Post extends React.PureComponent<Props> {
               }
             })}
           />
-          <Box mx={3} mt={1}>
-            <DeletePosting />
-          </Box>
           <Box my="1.5rem">
             <Text fontSize={5}>Responses</Text>
           </Box>
