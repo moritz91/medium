@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { headerFont } from "../../utils/fonts";
 
 export const Header = styled.h2`
   text-transform: uppercase;
@@ -10,6 +11,8 @@ export const Header = styled.h2`
   line-height: 16px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.84);
+  font-family: ${headerFont};
+  margin-top: ${(props: any) => props.mt || ""};
 `;
 
 export const StoryTitle = styled.h3`
@@ -27,8 +30,11 @@ export const StoryTitle = styled.h3`
   display: -webkit-box;
   color: rgba(0, 0, 0, 0.84);
   word-break: break-word;
+  font-family: ${headerFont};
 `;
 
-export const Heading: React.FC = ({ children }): JSX.Element => {
-  return <Header>{children}</Header>;
+export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (
+  props
+): JSX.Element => {
+  return <Header {...props}>{props.children}</Header>;
 };

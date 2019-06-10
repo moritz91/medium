@@ -21,8 +21,8 @@ interface Props {
 }
 
 const Stream = styled.div`
-  padding-top: "12px";
-  padding-bottom: "12px";
+  padding-top: 12px;
+  padding-bottom: 12px;
 `;
 
 export default class Topic extends React.PureComponent<Props> {

@@ -101,7 +101,7 @@ export const StreamItem: React.FC<Props> = ({
                 >
                   <UserPopover popoverState={popoverState} username={username}>
                     <Link route={"profile"} params={{ username }}>
-                      <a>{username}</a>
+                      <a {...bind}>{username}</a>
                     </Link>
                   </UserPopover>
                 </div>

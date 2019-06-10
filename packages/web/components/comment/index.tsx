@@ -63,11 +63,7 @@ export const Comment: React.FC<Props> = ({
     <CommmentContainer>
       <TopRow>
         <UserAvatar>
-          <UserPopover
-            popoverState={popoverState}
-            username={username}
-            pictureUrl={pictureUrl}
-          >
+          <UserPopover popoverState={popoverState} username={username}>
             <Link route={"profile"} params={{ username }}>
               <a style={{ cursor: "pointer" }}>
                 <Avatar
