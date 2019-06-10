@@ -3,7 +3,7 @@ import * as React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import { Icon, MyButton } from "@medium/ui";
-import { StoryTitle } from "../heading";
+import { StoryPreviewTitle } from "../heading";
 import { useHover } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 
@@ -70,7 +70,9 @@ export const StreamItem: React.FC<Props> = ({
             <Flex className="posting-header">
               <Link {...linkProps}>
                 <a>
-                  <StoryTitle>{previewTitle ? previewTitle : title}</StoryTitle>
+                  <StoryPreviewTitle>
+                    {previewTitle ? previewTitle : title}
+                  </StoryPreviewTitle>
                 </a>
               </Link>
             </Flex>
@@ -79,6 +81,7 @@ export const StreamItem: React.FC<Props> = ({
                 style={{
                   marginTop: 4,
                   fontSize: 14,
+                  lineHeight: "20px",
                   color: "rgba(0, 0, 0, 0.54)"
                 }}
               >
@@ -96,7 +99,8 @@ export const StreamItem: React.FC<Props> = ({
             >
               <div
                 style={{
-                  display: "block"
+                  display: "block",
+                  flex: "1 1 auto"
                 }}
               >
                 <div

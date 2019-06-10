@@ -175,7 +175,7 @@ const theme: ITheme = {
       }
     },
     action: {
-      padding: "5px 10px",
+      padding: "5px",
       "&:hover": {
         color: "#202E78"
       }

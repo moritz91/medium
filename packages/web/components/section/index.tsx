@@ -66,9 +66,26 @@ export const SidebarSection: React.FC<Props> = props => {
             Follow to get great stories about {name} in your inbox and on your
             homepage
           </Text>
-          <div>
-            <Heading style={{ marginTop: 48 }}>Related Topics</Heading>
-          </div>
+          <Heading style={{ marginTop: 48 }}>Related Topics</Heading>
+          <Box mt={"24px"} fontSize={12}>
+            <span style={{ textTransform: "uppercase" }}>
+              Software Engineering
+            </span>
+          </Box>
+          <Box mt={"8px"} fontSize={12}>
+            <span style={{ textTransform: "uppercase" }}>Programming</span>
+          </Box>
+          <Box mt={"8px"} fontSize={12}>
+            <span style={{ textTransform: "uppercase" }}>
+              Artificial Intelligence
+            </span>
+          </Box>
+          <Box mt={"8px"} fontSize={12}>
+            <span style={{ textTransform: "uppercase" }}>Blockchain</span>
+          </Box>
+          <Box mt={"8px"} fontSize={12}>
+            <span style={{ textTransform: "uppercase" }}>Cryptocurrency</span>
+          </Box>
           <div>
             <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
           </div>

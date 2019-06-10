@@ -15,7 +15,7 @@ const Wrapper = styled.nav`
   width: 100%;
   height: ${rem(navbarHeight)};
   font-family: ${headerFont};
-  font-size: ${rem(15)};
+  font-size: 1.3rem;
   font-weight: 500;
   transition: background 300ms ease-out;
   color: white;
@@ -43,9 +43,8 @@ const StyledSocial = styled(Social)``;
 const NormalNavbar = styled.div`
   display: flex;
   margin: auto;
-  max-width: 97rem;
+  max-width: 1047px;
   align-items: center;
-  padding: 0 ${rem(20)};
   justify-content: space-between;
   ${StartWrapper}, ${EndWrapper} ${StyledSocial} {
     ${mobile(css`

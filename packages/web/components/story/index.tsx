@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import * as React from "react";
-import { Flex, Text, Heading } from "rebass";
+import { Flex, Text } from "rebass";
 import styled from "styled-components";
 import { useHover } from "use-events";
 import { Avatar, MyButton } from "@medium/ui";
 import { UserPopover } from "../../modules/user/shared/userPopover";
-import { StoryFooterUsername } from "../heading";
+import { StoryFooterUsername, StoryHeading } from "../heading";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
 import { useState } from "react";
@@ -65,12 +65,12 @@ export const Story: React.FC<Props> = ({
   creator: { username, pictureUrl },
   body,
   numComments,
-  getLinkProps,
+  // getLinkProps,
   Link,
   createdAt,
   tags
 }) => {
-  const linkProps = getLinkProps();
+  // const linkProps = getLinkProps();
   const dtString = format(Date.parse(createdAt), "MMM D");
   const [flyoutState, setFlyoutState] = useState(false);
   const [popoverState, bind] = useHover();
@@ -87,13 +87,7 @@ export const Story: React.FC<Props> = ({
           }}
         >
           <Flex className="posting-header">
-            <Link {...linkProps}>
-              <a>
-                <Heading ml="0rem" mb="1rem" fontSize={5} fontWeight="none">
-                  {previewTitle ? previewTitle : title}
-                </Heading>
-              </a>
-            </Link>
+            <StoryHeading>{previewTitle ? previewTitle : title}</StoryHeading>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               <div>
                 <ActionsDropdown
@@ -112,7 +106,7 @@ export const Story: React.FC<Props> = ({
               : ` ${numComments}` + " responses"}
           </div>
           <div style={{ display: "flex", fontSize: "12px" }}>
-            <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+            <Text lineHeight={1.58} mb="1rem" fontSize={16}>
               {previewSubtitle ? previewSubtitle : body}
             </Text>
           </div>

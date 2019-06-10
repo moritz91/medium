@@ -19,7 +19,7 @@ export const ActionsDropdown: React.FC<Props> = ({
         {({ ref }) => {
           return (
             <span ref={ref}>
-              <MyButton variant="neutral" onClick={onClick}>
+              <MyButton variant="action" onClick={onClick}>
                 <Icon
                   name="showActions"
                   fill="#000"
