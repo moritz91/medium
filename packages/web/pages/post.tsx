@@ -15,7 +15,6 @@ import {
   PostContextProps,
   PostContext
 } from "../modules/post/shared/postContext";
-import { DeletePosting } from "../modules/post/deletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
 import { Story } from "../components/story";
