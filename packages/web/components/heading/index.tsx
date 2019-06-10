@@ -51,6 +51,24 @@ export const StoryTitle = styled.h3`
   font-family: ${headerFont};
 `;
 
+export const StoryFooterUsername = styled.h3`
+  letter-spacing: -0.32px;
+  font-size: 19px;
+  max-height: 48px;
+  line-height: 24px;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  text-align: inherit;
+  font-style: normal;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  color: rgba(0, 0, 0, 0.84);
+  word-break: break-word;
+  font-family: ${headerFont};
+`;
+
 export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (
   props
 ): JSX.Element => {

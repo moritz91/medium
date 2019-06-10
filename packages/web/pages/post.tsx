@@ -11,7 +11,6 @@ import {
 import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { Text, Box } from "rebass";
-import { Story } from "@medium/ui";
 import {
   PostContextProps,
   PostContext
@@ -19,6 +18,7 @@ import {
 import { DeletePosting } from "../modules/post/deletePosting";
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
+import { Story } from "../components/story";
 
 interface Props {
   id: string;

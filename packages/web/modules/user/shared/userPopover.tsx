@@ -77,9 +77,8 @@ export const UserPopover: React.FC<Props> = ({
                               <MetaDataOne>
                                 <Heading>{username}</Heading>
                                 <Text pl={0}>
-                                  Mom, activist, freelance writer, birth doula +
-                                  photographer, future midwife, entrepreneur,
-                                  and raging feminist.
+                                  Activist, freelance writer, birth doula +
+                                  photographer, entrepreneur.
                                 </Text>
                               </MetaDataOne>
                               <MetaDataTwo>
