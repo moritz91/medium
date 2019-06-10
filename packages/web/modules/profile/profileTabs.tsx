@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
-import { PostContent, Comment } from "@medium/ui";
+import { Comment } from "@medium/ui";
 import { PostsContext } from "../post/shared/postContext";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
 import { MarkdownRenderer } from "../post/shared/markdownEditor/markdownRenderer";
+import { ProfilePostItem } from "../../components/profilePostItem";
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);
@@ -17,7 +18,7 @@ export function ProfileTabs() {
         </TabList>
         <TabPanel name="posts">
           {postings.map((p: any) => (
-            <PostContent
+            <ProfilePostItem
               key={p.id}
               id={p.id}
               createdAt={p.createdAt}

@@ -19,7 +19,7 @@ interface Props {
   getLinkProps: () => any;
 }
 
-export const PostContentContainer = styled.div`
+export const ProfilePostItemContainer = styled.div`
   padding: 1rem;
   margin: 1.6rem 0px;
 `;
@@ -28,7 +28,7 @@ export const TagRowContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
-export const PostContent: React.FC<Props> = ({
+export const ProfilePostItem: React.FC<Props> = ({
   previewTitle,
   previewSubtitle,
   previewImage,
@@ -47,7 +47,7 @@ export const PostContent: React.FC<Props> = ({
   });
 
   return (
-    <PostContentContainer>
+    <ProfilePostItemContainer>
       <Flex justifyContent="center">
         <span style={{ minWidth: "45px" }}>
           <Link route={"profile"} params={{ username }}>
@@ -93,12 +93,6 @@ export const PostContent: React.FC<Props> = ({
           )}
           <div style={{ display: "flex", fontSize: "12px" }}>
             <div>
-              <Link route={"profile"} params={{ username }}>
-                <a>{username}</a>
-              </Link>
-              in <a>Topic XY</a>
-            </div>
-            <div>
               {dtString} •
               {numComments == 1
                 ? `${numComments}` + " response"
@@ -114,6 +108,6 @@ export const PostContent: React.FC<Props> = ({
           </div>
         </div>
       </Flex>
-    </PostContentContainer>
+    </ProfilePostItemContainer>
   );
 };

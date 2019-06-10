@@ -15,6 +15,24 @@ export const Header = styled.h2`
   margin-top: ${(props: any) => props.mt || ""};
 `;
 
+export const TopicTitle = styled.h3`
+  letter-spacing: -0.62px;
+  font-size: 24px;
+  max-height: 64px;
+  line-height: 32px;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  text-align: inherit;
+  font-style: normal;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  color: rgba(0, 0, 0, 0.84);
+  word-break: break-word;
+  font-family: ${headerFont};
+`;
+
 export const StoryTitle = styled.h3`
   letter-spacing: -0.32px;
   font-size: 19px;

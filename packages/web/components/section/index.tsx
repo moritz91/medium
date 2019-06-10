@@ -5,7 +5,7 @@ import {
   TopicContext,
   TopicContextProps
 } from "../../modules/topic/shared/topicContext";
-import { StoryTitle, Heading } from "../heading";
+import { Heading, TopicTitle } from "../heading";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -48,14 +48,21 @@ export const SidebarSection: React.FC<Props> = props => {
             }}
           >
             <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-              <StoryTitle>{name}</StoryTitle>
-              <Text fontSize={4}>{shortCaption}</Text>
+              <TopicTitle>{name}</TopicTitle>
+              <Text mt="5px" fontSize={4} color="rgba(0, 0, 0, 0.54)">
+                {shortCaption}
+              </Text>
             </Box>
-            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+            <Box mt={20}>
               <MyButton variant="tag">Follow</MyButton>
             </Box>
           </div>
-          <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+          <Text
+            lineHeight={1.58}
+            mt="23px"
+            fontSize={4}
+            color="rgba(0, 0, 0, 0.54)"
+          >
             Follow to get great stories about {name} in your inbox and on your
             homepage
           </Text>

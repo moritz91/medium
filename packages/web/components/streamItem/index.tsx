@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import * as React from "react";
-import { Flex, Text } from "rebass";
+import { Flex } from "rebass";
 import styled from "styled-components";
 import { Icon, MyButton } from "@medium/ui";
 import { StoryTitle } from "../heading";
