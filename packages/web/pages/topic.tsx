@@ -9,9 +9,8 @@ import {
 } from "../modules/topic/shared/topicContext";
 import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import { StreamItem } from "../components/streamItem";
+import { StreamItem, Stream } from "../components/streamItem";
 import { Heading } from "../components/heading";
-import styled from "styled-components";
 
 interface Props {
   id: string;
@@ -19,11 +18,6 @@ interface Props {
   shortCaption: string;
   numPostings: string;
 }
-
-const Stream = styled.div`
-  padding-top: 12px;
-  padding-bottom: 12px;
-`;
 
 export default class Topic extends React.PureComponent<Props> {
   static async getInitialProps({
@@ -102,7 +96,7 @@ export default class Topic extends React.PureComponent<Props> {
                 </GetPostingsByTopicComponent>
               </Stream>
             </MainSection>
-            <SidebarSection />
+            <SidebarSection variant="topic" />
           </TopicContext.Provider>
         </Sections>
       </Layout>

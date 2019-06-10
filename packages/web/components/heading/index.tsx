@@ -17,7 +17,7 @@ export const Header = styled.h2`
 
 export const StoryTitle = styled.h3`
   letter-spacing: -0.32px;
-  font-size: 21.6px;
+  font-size: 19px;
   max-height: 48px;
   line-height: 24px;
   -webkit-line-clamp: 2;

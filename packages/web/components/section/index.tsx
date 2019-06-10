@@ -31,35 +31,42 @@ export const SidebarContainer = styled.section`
   display: block;
 `;
 
-export const SidebarSection: React.FC = () => {
+interface Props {
+  variant: "main" | "topic";
+}
+
+export const SidebarSection: React.FC<Props> = props => {
   const { name, shortCaption } = useContext<TopicContextProps>(TopicContext);
-  return (
-    <SidebarContainer>
-      <div style={{ marginLeft: 56, display: "block" }}>
-        <div
-          style={{
-            display: "block"
-          }}
-        >
-          <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-            <StoryTitle>{name}</StoryTitle>
-            <Text fontSize={4}>{shortCaption}</Text>
-          </Box>
-          <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-            <MyButton variant="tag">Follow</MyButton>
-          </Box>
+
+  if (props.variant === "topic")
+    return (
+      <SidebarContainer>
+        <div style={{ marginLeft: 56, display: "block" }}>
+          <div
+            style={{
+              display: "block"
+            }}
+          >
+            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+              <StoryTitle>{name}</StoryTitle>
+              <Text fontSize={4}>{shortCaption}</Text>
+            </Box>
+            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+              <MyButton variant="tag">Follow</MyButton>
+            </Box>
+          </div>
+          <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+            Follow to get great stories about {name} in your inbox and on your
+            homepage
+          </Text>
+          <div>
+            <Heading style={{ marginTop: 48 }}>Related Topics</Heading>
+          </div>
+          <div>
+            <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
+          </div>
         </div>
-        <Text lineHeight={1.58} mb="1rem" fontSize={4}>
-          Follow to get great stories about {name} in your inbox and on your
-          homepage
-        </Text>
-        <div>
-          <Heading style={{ marginTop: 48 }}>Related Topics</Heading>
-        </div>
-        <div>
-          <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
-        </div>
-      </div>
-    </SidebarContainer>
-  );
+      </SidebarContainer>
+    );
+  return <div>Sidebar variant prop missing.</div>;
 };

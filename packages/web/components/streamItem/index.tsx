@@ -22,6 +22,11 @@ interface Props {
   getLinkProps: () => any;
 }
 
+export const Stream = styled.div`
+  padding-top: 12px;
+  padding-bottom: 12px;
+`;
+
 export const StreamItemContainer = styled.div`
   display: block;
 `;
@@ -59,7 +64,7 @@ export const StreamItem: React.FC<Props> = ({
           }}
         >
           <div
-            style={{ marginRight: 25, display: "block" }}
+            style={{ marginRight: 25, display: "block", cursor: "pointer" }}
             className="posting-header"
           >
             <Flex className="posting-header">
@@ -70,7 +75,13 @@ export const StreamItem: React.FC<Props> = ({
               </Link>
             </Flex>
             <Link {...linkProps}>
-              <div style={{ fontSize: 12, color: "rgba(0, 0, 0, 0.54)" }}>
+              <div
+                style={{
+                  marginTop: 4,
+                  fontSize: 14,
+                  color: "rgba(0, 0, 0, 0.54)"
+                }}
+              >
                 {previewSubtitle ? previewSubtitle : body}
               </div>
             </Link>

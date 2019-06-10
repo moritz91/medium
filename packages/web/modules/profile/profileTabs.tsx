@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
-import { PostRow, Comment } from "@medium/ui";
+import { PostContent, Comment } from "@medium/ui";
 import { PostsContext } from "../post/shared/postContext";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
@@ -17,7 +17,7 @@ export function ProfileTabs() {
         </TabList>
         <TabPanel name="posts">
           {postings.map((p: any) => (
-            <PostRow
+            <PostContent
               key={p.id}
               id={p.id}
               createdAt={p.createdAt}

@@ -1,10 +1,8 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Heading, Box } from "rebass";
-import styled from "../../theme/styled-components";
-import { Avatar } from "../Avatar";
-import { Icon } from "../../components/Icon";
-import { MyButton } from "../MyButton";
+import styled from "styled-components";
+import { Avatar, Icon, MyButton } from "@medium/ui";
 
 interface Props {
   id: string;
@@ -21,7 +19,7 @@ interface Props {
   getLinkProps: () => any;
 }
 
-export const PostRowContainer = styled.div`
+export const PostContentContainer = styled.div`
   padding: 1rem;
   margin: 1.6rem 0px;
 `;
@@ -30,7 +28,7 @@ export const TagRowContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
-export const PostRow: React.FC<Props> = ({
+export const PostContent: React.FC<Props> = ({
   previewTitle,
   previewSubtitle,
   previewImage,
@@ -49,7 +47,7 @@ export const PostRow: React.FC<Props> = ({
   });
 
   return (
-    <PostRowContainer>
+    <PostContentContainer>
       <Flex justifyContent="center">
         <span style={{ minWidth: "45px" }}>
           <Link route={"profile"} params={{ username }}>
@@ -116,6 +114,6 @@ export const PostRow: React.FC<Props> = ({
           </div>
         </div>
       </Flex>
-    </PostRowContainer>
+    </PostContentContainer>
   );
 };
