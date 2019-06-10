@@ -53,7 +53,7 @@ export class Posting extends BaseEntity {
   @Column({ type: "text", nullable: true })
   previewSubtitle: string;
 
-  @Field({ description: "The caption of the posting", nullable: true })
+  @Field({ description: "The preview image of the posting", nullable: true })
   @Column({ type: "text", nullable: true })
   previewImage: string;
 

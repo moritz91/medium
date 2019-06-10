@@ -12,9 +12,6 @@ export class CreatePostingInput implements Partial<Posting> {
   @Field({ nullable: true })
   previewImage?: string;
 
-  @Field({ nullable: true })
-  caption?: string;
-
   @Field()
   title: string;
 

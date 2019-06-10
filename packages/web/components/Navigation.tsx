@@ -21,8 +21,8 @@ const Wrapper = styled.nav`
   color: white;
   padding: 0;
   background-color: #fff;
-  -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
 `;
 
 const StartWrapper = styled.div`

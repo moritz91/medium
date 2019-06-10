@@ -34,10 +34,7 @@ html {
 a {
   text-decoration: none;
   cursor: pointer;
-  color: #5C6AC4;
-  &:hover {
-    color: #202E78;
-  }
+  color: rgba(0,0,0,0.8);
 }
 ::selection {
   color: #fff;

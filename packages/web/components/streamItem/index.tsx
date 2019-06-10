@@ -40,8 +40,7 @@ export const StreamItem: React.FC<Props> = ({
   numComments,
   getLinkProps,
   Link,
-  createdAt,
-  tags
+  createdAt
 }) => {
   const [popoverState, bind] = useHover();
   const linkProps = getLinkProps();
@@ -69,16 +68,11 @@ export const StreamItem: React.FC<Props> = ({
                   <StoryTitle>{previewTitle ? previewTitle : title}</StoryTitle>
                 </a>
               </Link>
-              <div style={{ display: "flex", marginLeft: "auto" }}>
-                <MyButton variant="action">
-                  <Icon name="showActions" fill="#000" />
-                </MyButton>
-              </div>
             </Flex>
             <Link {...linkProps}>
-              <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+              <div style={{ fontSize: 12, color: "rgba(0, 0, 0, 0.54)" }}>
                 {previewSubtitle ? previewSubtitle : body}
-              </Text>
+              </div>
             </Link>
           </div>
           <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>
@@ -107,7 +101,8 @@ export const StreamItem: React.FC<Props> = ({
                 </div>
                 <span
                   style={{
-                    display: "block"
+                    display: "block",
+                    color: "rgba(0, 0, 0, 0.54)"
                   }}
                 >
                   {dtString} •
@@ -117,20 +112,21 @@ export const StreamItem: React.FC<Props> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                {tags.map((t: any, idx: number) => (
-                  <MyButton variant="tag" key={idx}>
-                    {t.name}
-                  </MyButton>
-                ))}
+                <MyButton variant="action">
+                  <Icon name="saveStory" fill="#000" size={25} />
+                </MyButton>
+                <MyButton variant="action">
+                  <Icon name="showActions" fill="#000" size={15} />
+                </MyButton>
               </div>
             </div>
           </div>
         </div>
         {previewImage && (
-          <div style={{ display: "block" }}>
+          <div style={{ display: "block", flex: "0 0 auto", width: "152px" }}>
             <Link {...linkProps}>
               <a>
-                <img width="152px" src={previewImage} />
+                <img height="100%" width="100%" src={previewImage} />
               </a>
             </Link>
           </div>
