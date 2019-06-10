@@ -11,6 +11,7 @@ import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { StreamItem } from "../components/streamItem";
 import { Heading } from "../components/heading";
+import styled from "styled-components";
 
 interface Props {
   id: string;
@@ -18,6 +19,11 @@ interface Props {
   shortCaption: string;
   numPostings: string;
 }
+
+const Stream = styled.div`
+  padding-top: "12px";
+  padding-bottom: "12px";
+`;
 
 export default class Topic extends React.PureComponent<Props> {
   static async getInitialProps({
@@ -57,42 +63,44 @@ export default class Topic extends React.PureComponent<Props> {
           <TopicContext.Provider value={context}>
             <MainSection>
               <Heading>Latest</Heading>
-              <GetPostingsByTopicComponent
-                variables={{ input: { topicId: id } }}
-              >
-                {({ data }) => {
-                  return (
-                    <>
-                      {data && data.getPostingsByTopic && (
-                        <>
-                          {data.getPostingsByTopic.posts.map(post => (
-                            <StreamItem
-                              key={post.id}
-                              id={post.id}
-                              createdAt={post.createdAt}
-                              creator={post.creator}
-                              previewTitle={post.previewTitle}
-                              previewSubtitle={post.previewSubtitle}
-                              previewImage={post.previewImage}
-                              title={post.title}
-                              body={post.body}
-                              numComments={post.numComments}
-                              Link={Link}
-                              tags={post.tags}
-                              getLinkProps={() => ({
-                                route: "post",
-                                params: {
-                                  id: post.id
-                                }
-                              })}
-                            />
-                          ))}
-                        </>
-                      )}
-                    </>
-                  );
-                }}
-              </GetPostingsByTopicComponent>
+              <Stream>
+                <GetPostingsByTopicComponent
+                  variables={{ input: { topicId: id } }}
+                >
+                  {({ data }) => {
+                    return (
+                      <>
+                        {data && data.getPostingsByTopic && (
+                          <>
+                            {data.getPostingsByTopic.posts.map(post => (
+                              <StreamItem
+                                key={post.id}
+                                id={post.id}
+                                createdAt={post.createdAt}
+                                creator={post.creator}
+                                previewTitle={post.previewTitle}
+                                previewSubtitle={post.previewSubtitle}
+                                previewImage={post.previewImage}
+                                title={post.title}
+                                body={post.body}
+                                numComments={post.numComments}
+                                Link={Link}
+                                tags={post.tags}
+                                getLinkProps={() => ({
+                                  route: "post",
+                                  params: {
+                                    id: post.id
+                                  }
+                                })}
+                              />
+                            ))}
+                          </>
+                        )}
+                      </>
+                    );
+                  }}
+                </GetPostingsByTopicComponent>
+              </Stream>
             </MainSection>
             <SidebarSection />
           </TopicContext.Provider>

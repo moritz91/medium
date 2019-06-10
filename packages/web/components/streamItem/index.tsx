@@ -4,6 +4,8 @@ import { Flex, Text } from "rebass";
 import styled from "styled-components";
 import { Icon, MyButton } from "@medium/ui";
 import { StoryTitle } from "../heading";
+import { useHover } from "use-events";
+import { UserPopover } from "../../modules/user/shared/userPopover";
 
 interface Props {
   id: string;
@@ -41,9 +43,9 @@ export const StreamItem: React.FC<Props> = ({
   createdAt,
   tags
 }) => {
+  const [popoverState, bind] = useHover();
   const linkProps = getLinkProps();
   const dtString = format(Date.parse(createdAt), "MMM D");
-
   return (
     <StreamItemContainer>
       <section style={{ paddingTop: 12, paddingBottom: 12, display: "flex" }}>
@@ -97,9 +99,11 @@ export const StreamItem: React.FC<Props> = ({
                     display: "flex"
                   }}
                 >
-                  <Link route={"profile"} params={{ username }}>
-                    <a>{username}</a>
-                  </Link>
+                  <UserPopover popoverState={popoverState} username={username}>
+                    <Link route={"profile"} params={{ username }}>
+                      <a>{username}</a>
+                    </Link>
+                  </UserPopover>
                 </div>
                 <span
                   style={{
