@@ -1,4 +1,3 @@
-import { PostRow } from "@medium/ui";
 import React from "react";
 import { GetPostingsByTopicComponent } from "../components/apollo-components";
 import Layout from "../components/layout";
@@ -10,6 +9,8 @@ import {
 } from "../modules/topic/shared/topicContext";
 import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
+import { StreamItem } from "../components/streamItem";
+import { Heading } from "../components/heading";
 
 interface Props {
   id: string;
@@ -55,6 +56,7 @@ export default class Topic extends React.PureComponent<Props> {
         <Sections>
           <TopicContext.Provider value={context}>
             <MainSection>
+              <Heading>Latest</Heading>
               <GetPostingsByTopicComponent
                 variables={{ input: { topicId: id } }}
               >
@@ -64,7 +66,7 @@ export default class Topic extends React.PureComponent<Props> {
                       {data && data.getPostingsByTopic && (
                         <>
                           {data.getPostingsByTopic.posts.map(post => (
-                            <PostRow
+                            <StreamItem
                               key={post.id}
                               id={post.id}
                               createdAt={post.createdAt}

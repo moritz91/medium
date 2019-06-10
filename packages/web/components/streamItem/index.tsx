@@ -1,8 +1,9 @@
-import { distanceInWordsToNow } from "date-fns";
+import { format } from "date-fns";
 import * as React from "react";
-import { Flex, Text, Heading, Box } from "rebass";
+import { Flex, Text } from "rebass";
 import styled from "styled-components";
 import { Icon, MyButton } from "@medium/ui";
+import { StoryTitle } from "../heading";
 
 interface Props {
   id: string;
@@ -20,8 +21,7 @@ interface Props {
 }
 
 export const StreamItemContainer = styled.div`
-  padding: 1rem;
-  margin: 1.6rem 0px;
+  display: block;
 `;
 
 export const TagRowContainer = styled.div`
@@ -42,65 +42,96 @@ export const StreamItem: React.FC<Props> = ({
   tags
 }) => {
   const linkProps = getLinkProps();
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: true
-  });
+  const dtString = format(Date.parse(createdAt), "MMM D");
 
   return (
     <StreamItemContainer>
-      <Flex justifyContent="center">
+      <section style={{ paddingTop: 12, paddingBottom: 12, display: "flex" }}>
         <div
           style={{
-            paddingLeft: ".8rem",
-            justifyContent: "center",
+            flex: "1 1 auto",
             flexDirection: "column",
-            marginRight: "auto"
+            marginRight: "0px",
+            justifyContent: "space-between",
+            display: "flex",
+            paddingRight: "24px"
           }}
         >
-          <Flex className="posting-header">
-            <Link {...linkProps}>
-              <a>
-                <Heading ml="0rem" mb="1rem" fontSize={5} fontWeight="none">
-                  {previewTitle ? previewTitle : title}
-                </Heading>
-              </a>
-            </Link>
-            <div style={{ display: "flex", marginLeft: "auto" }}>
-              <div style={{ cursor: "pointer" }}>
-                <Icon name="showActions" fill="#fff" />
-              </div>
-            </div>
-          </Flex>
-          <Text lineHeight={1.58} mb="1rem" fontSize={4}>
-            {previewSubtitle ? previewSubtitle : body}
-          </Text>
-          {previewImage && (
-            <Box>
-              <img height={"50px"} src={previewImage} />
-            </Box>
-          )}
-          <div style={{ display: "flex", fontSize: "12px" }}>
-            <div>
-              <Link route={"profile"} params={{ username }}>
-                <a>{username}</a>
+          <div
+            style={{ marginRight: 25, display: "block" }}
+            className="posting-header"
+          >
+            <Flex className="posting-header">
+              <Link {...linkProps}>
+                <a>
+                  <StoryTitle>{previewTitle ? previewTitle : title}</StoryTitle>
+                </a>
               </Link>
-            </div>
-            <div>
-              {dtString} •
-              {numComments == 1
-                ? `${numComments}` + " response"
-                : `${numComments}` + " responses"}
-            </div>
-            <div style={{ display: "flex", marginLeft: "auto" }}>
-              {tags.map((t: any, idx: number) => (
-                <MyButton variant="tag" key={idx}>
-                  {t.name}
+              <div style={{ display: "flex", marginLeft: "auto" }}>
+                <MyButton variant="action">
+                  <Icon name="showActions" fill="#000" />
                 </MyButton>
-              ))}
+              </div>
+            </Flex>
+            <Link {...linkProps}>
+              <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+                {previewSubtitle ? previewSubtitle : body}
+              </Text>
+            </Link>
+          </div>
+          <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%"
+              }}
+            >
+              <div
+                style={{
+                  display: "block"
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex"
+                  }}
+                >
+                  <Link route={"profile"} params={{ username }}>
+                    <a>{username}</a>
+                  </Link>
+                </div>
+                <span
+                  style={{
+                    display: "block"
+                  }}
+                >
+                  {dtString} •
+                  {numComments == 1
+                    ? ` ${numComments}` + " response"
+                    : ` ${numComments}` + " responses"}
+                </span>
+              </div>
+              <div style={{ display: "flex", marginLeft: "auto" }}>
+                {tags.map((t: any, idx: number) => (
+                  <MyButton variant="tag" key={idx}>
+                    {t.name}
+                  </MyButton>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </Flex>
+        {previewImage && (
+          <div style={{ display: "block" }}>
+            <Link {...linkProps}>
+              <a>
+                <img width="152px" src={previewImage} />
+              </a>
+            </Link>
+          </div>
+        )}
+      </section>
     </StreamItemContainer>
   );
 };

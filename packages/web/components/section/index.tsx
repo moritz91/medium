@@ -5,6 +5,7 @@ import {
   TopicContext,
   TopicContextProps
 } from "../../modules/topic/shared/topicContext";
+import { Heading } from "../heading";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -54,6 +55,12 @@ export const SidebarSection: React.FC = () => {
             Follow to get great stories about {name} in your inbox and on your
             homepage
           </Text>
+        </div>
+        <div>
+          <Heading>Related Topics</Heading>
+        </div>
+        <div>
+          <Heading>Popular in {name}</Heading>
         </div>
       </Flex>
     </SidebarContainer>
