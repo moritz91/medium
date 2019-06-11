@@ -31,7 +31,7 @@ export const FeaturedStory: React.FC<Props> = ({
   previewSubtitle,
   previewImage,
   title,
-  creator: { username, pictureUrl },
+  creator: { username },
   body,
   numComments,
   getLinkProps,
