@@ -11,6 +11,7 @@ import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { StreamItem, Stream } from "../components/streamItem";
 import { Heading } from "../components/heading";
+import { FeaturedStory } from "../components/featured";
 
 interface Props {
   id: string;
@@ -56,45 +57,70 @@ export default class Topic extends React.PureComponent<Props> {
         <Sections>
           <TopicContext.Provider value={context}>
             <MainSection>
-              <Heading>Latest</Heading>
-              <Stream>
-                <GetPostingsByTopicComponent
-                  variables={{ input: { topicId: id } }}
-                >
-                  {({ data }) => {
+              <GetPostingsByTopicComponent
+                variables={{ input: { topicId: id } }}
+              >
+                {({ data }) => {
+                  if (data!.getPostingsByTopic.posts[0]) {
+                    const featured = data!.getPostingsByTopic.posts[0];
                     return (
                       <>
-                        {data && data.getPostingsByTopic && (
+                        <FeaturedStory
+                          id={featured.id}
+                          createdAt={featured.createdAt}
+                          creator={featured.creator}
+                          previewTitle={featured.previewTitle}
+                          previewSubtitle={featured.previewSubtitle}
+                          previewImage={featured.previewImage}
+                          title={featured.title}
+                          body={featured.body}
+                          numComments={featured.numComments}
+                          Link={Link}
+                          tags={featured.tags}
+                          getLinkProps={() => ({
+                            route: "post",
+                            params: {
+                              id: featured.id
+                            }
+                          })}
+                        />
+                        <Heading>Latest</Heading>
+                        <Stream>
                           <>
-                            {data.getPostingsByTopic.posts.map(post => (
-                              <StreamItem
-                                key={post.id}
-                                id={post.id}
-                                createdAt={post.createdAt}
-                                creator={post.creator}
-                                previewTitle={post.previewTitle}
-                                previewSubtitle={post.previewSubtitle}
-                                previewImage={post.previewImage}
-                                title={post.title}
-                                body={post.body}
-                                numComments={post.numComments}
-                                Link={Link}
-                                tags={post.tags}
-                                getLinkProps={() => ({
-                                  route: "post",
-                                  params: {
-                                    id: post.id
-                                  }
-                                })}
-                              />
-                            ))}
+                            {data && data.getPostingsByTopic && (
+                              <>
+                                {data.getPostingsByTopic.posts.map(post => (
+                                  <StreamItem
+                                    key={post.id}
+                                    id={post.id}
+                                    createdAt={post.createdAt}
+                                    creator={post.creator}
+                                    previewTitle={post.previewTitle}
+                                    previewSubtitle={post.previewSubtitle}
+                                    previewImage={post.previewImage}
+                                    title={post.title}
+                                    body={post.body}
+                                    numComments={post.numComments}
+                                    Link={Link}
+                                    tags={post.tags}
+                                    getLinkProps={() => ({
+                                      route: "post",
+                                      params: {
+                                        id: post.id
+                                      }
+                                    })}
+                                  />
+                                ))}
+                              </>
+                            )}
                           </>
-                        )}
+                        </Stream>
                       </>
                     );
-                  }}
-                </GetPostingsByTopicComponent>
-              </Stream>
+                  }
+                  return null;
+                }}
+              </GetPostingsByTopicComponent>
             </MainSection>
             <SidebarSection variant="topic" />
           </TopicContext.Provider>
