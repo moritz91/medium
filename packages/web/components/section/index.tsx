@@ -5,7 +5,10 @@ import {
   TopicContext,
   TopicContextProps
 } from "../../modules/topic/shared/topicContext";
-import { Heading, TopicTitle } from "../heading";
+import { Heading, TopicTitle, H4 } from "../heading";
+import { GetPostingsByTopicComponent } from "../apollo-components";
+import { truncate } from "lodash";
+import { Link } from "../../server/routes";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -36,7 +39,9 @@ interface Props {
 }
 
 export const SidebarSection: React.FC<Props> = props => {
-  const { name, shortCaption } = useContext<TopicContextProps>(TopicContext);
+  const { topicId, name, shortCaption } = useContext<TopicContextProps>(
+    TopicContext
+  );
 
   if (props.variant === "topic")
     return (
@@ -88,6 +93,79 @@ export const SidebarSection: React.FC<Props> = props => {
           </Box>
           <div>
             <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
+            <GetPostingsByTopicComponent variables={{ input: { topicId } }}>
+              {({ data }) => {
+                console.log(data!.getPostingsByTopic.posts);
+                return (
+                  <>
+                    {data!.getPostingsByTopic.posts.map((p: any, i: number) => (
+                      <div style={{ height: "100%" }} key={i}>
+                        <article
+                          style={{
+                            marginBottom: 16,
+                            marginTop: 16,
+                            display: "flex"
+                          }}
+                        >
+                          <div
+                            style={{
+                              flex: "1 1 0%",
+                              marginRight: 12,
+                              flexDirection: "column",
+                              display: "flex"
+                            }}
+                          >
+                            <div style={{ flex: "0 0 auto", display: "block" }}>
+                              <Link route="post" params={{ id: p.id }}>
+                                <a>
+                                  <div
+                                    style={{
+                                      marginBottom: 4,
+                                      display: "block"
+                                    }}
+                                  >
+                                    <H4>
+                                      {truncate(p.previewTitle, {
+                                        length: 80,
+                                        separator: " "
+                                      })}
+                                    </H4>
+                                  </div>
+                                </a>
+                              </Link>
+                            </div>
+                            <div style={{ display: "block", fontWeight: 400 }}>
+                              <span
+                                style={{
+                                  color: "rgba(0, 0, 0, 0.54)",
+                                  letterSpacing: "0px",
+                                  fontSize: "12.8px",
+                                  lineHeight: "20px",
+                                  display: "block",
+                                  fontWeight: 400
+                                }}
+                              >
+                                15 min read
+                              </span>
+                            </div>
+                          </div>
+                          <div style={{ flex: "0 0 auto", display: "block" }}>
+                            <Link route="post" params={{ id: p.id }}>
+                              <a>
+                                <img
+                                  style={{ width: "55px", height: "55px" }}
+                                  src={p.previewImage}
+                                />
+                              </a>
+                            </Link>
+                          </div>
+                        </article>
+                      </div>
+                    ))}
+                  </>
+                );
+              }}
+            </GetPostingsByTopicComponent>
           </div>
         </div>
       </SidebarContainer>

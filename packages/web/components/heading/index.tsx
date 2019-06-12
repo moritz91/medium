@@ -87,6 +87,14 @@ export const StoryFooterUsername = styled.h3`
   font-family: ${headerFont};
 `;
 
+export const H4 = styled.h4`
+  letter-spacing: -0.17px;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  line-height: 20px;
+`;
+
 export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (
   props
 ): JSX.Element => {
