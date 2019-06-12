@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import styled, { css } from "styled-components";
-import rem from "../utils/rem";
-import { navbarHeight } from "../utils/sizes";
-import { headerFont } from "../utils/fonts";
-import { mobile } from "../utils/media";
-import NavLinks from "./navigationLinks";
-import Social from "./social";
+import rem from "polished/lib/helpers/rem";
+import { navbarHeight } from "../../utils/sizes";
+import { headerFont } from "../../utils/fonts";
+import Social from "../social";
+import { mobile } from "../../utils/media";
+import NavLinks from "../navigationLinks";
 
 const Wrapper = styled.nav`
   position: fixed;

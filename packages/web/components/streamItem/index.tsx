@@ -85,7 +85,7 @@ export const StreamItem: React.FC<Props> = ({
                   color: "rgba(0, 0, 0, 0.54)"
                 }}
               >
-                {previewSubtitle ? previewSubtitle : body}
+                <a>{previewSubtitle ? previewSubtitle : body}</a>
               </div>
             </Link>
           </div>

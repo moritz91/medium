@@ -79,14 +79,16 @@ export const FeaturedStory: React.FC<Props> = ({
         </div>
         <div style={{ cursor: "pointer" }}>
           <Link {...linkProps}>
-            <Text
-              lineHeight={1.58}
-              mb="1rem"
-              color="rgba(0, 0, 0, 0.54)"
-              fontSize={18}
-            >
-              {previewSubtitle ? previewSubtitle : body}
-            </Text>
+            <a>
+              <Text
+                lineHeight={1.58}
+                mb="1rem"
+                color="rgba(0, 0, 0, 0.54)"
+                fontSize={18}
+              >
+                {previewSubtitle ? previewSubtitle : body}
+              </Text>
+            </a>
           </Link>
         </div>
         <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>

@@ -3,9 +3,9 @@ import { MyButton, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex } from "rebass";
-import { MeComponent } from "./apollo-components";
-import { Router } from "../server/routes";
 import styled from "styled-components";
+import { Router } from "../../server/routes";
+import { MeComponent } from "../apollo-components";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;

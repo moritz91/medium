@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import UnstyledLink from "next/link";
 
-import rem from "../utils/rem";
-import { red, violetRed, lightGrey } from "../utils/colors";
+import rem from "../../utils/rem";
+import { red, violetRed, lightGrey } from "../../utils/colors";
 
 export const StyledLink = styled.a`
   display: inline-block;

@@ -1,9 +1,9 @@
 import * as React from "react";
 import Head from "next/head";
-import { SubMenu } from "./subMenu";
 import { Wrapper, Footer } from "@medium/ui";
-import Navbar from "./navigation";
-import Link from "./link";
+import Navbar from "../navigation";
+import { SubMenu } from "../subMenu";
+import { Link } from "../../server/routes";
 
 type Props = {
   title: string;
