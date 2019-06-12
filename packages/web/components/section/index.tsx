@@ -95,7 +95,6 @@ export const SidebarSection: React.FC<Props> = props => {
             <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
             <GetPostingsByTopicComponent variables={{ input: { topicId } }}>
               {({ data }) => {
-                console.log(data!.getPostingsByTopic.posts);
                 return (
                   <>
                     {data!.getPostingsByTopic.posts.map((p: any, i: number) => (
