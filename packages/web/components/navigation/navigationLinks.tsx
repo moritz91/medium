@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import rem from "../utils/rem";
-import { navbarHeight } from "../utils/sizes";
-import Link from "./link";
-import { GetTopicsComponent } from "./apollo-components";
+import rem from "../../utils/rem";
+import Link from "../link";
+import { GetTopicsComponent } from "../apollo-components";
+import { navbarHeight } from "../../utils/sizes";
 
 const Wrapper = styled.nav`
   display: flex;

@@ -1,11 +1,9 @@
 import React, { PureComponent } from "react";
 import styled, { css } from "styled-components";
-import rem from "polished/lib/helpers/rem";
-import { navbarHeight } from "../../utils/sizes";
 import { headerFont } from "../../utils/fonts";
 import Social from "../social";
 import { mobile } from "../../utils/media";
-import NavLinks from "../navigationLinks";
+import NavLinks from "./navigationLinks";
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -13,7 +11,7 @@ const Wrapper = styled.nav`
   box-sizing: border-box;
   z-index: 3;
   width: 100%;
-  height: ${rem(navbarHeight)};
+  height: 50px;
   font-family: ${headerFont};
   font-size: 1.3rem;
   font-weight: 500;

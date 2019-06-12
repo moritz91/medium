@@ -77,16 +77,18 @@ export const StreamItem: React.FC<Props> = ({
               </Link>
             </Flex>
             <Link {...linkProps}>
-              <div
-                style={{
-                  marginTop: 4,
-                  fontSize: 14,
-                  lineHeight: "20px",
-                  color: "rgba(0, 0, 0, 0.54)"
-                }}
-              >
-                <a>{previewSubtitle ? previewSubtitle : body}</a>
-              </div>
+              <a>
+                <div
+                  style={{
+                    marginTop: 4,
+                    fontSize: 14,
+                    lineHeight: "20px",
+                    color: "rgba(0, 0, 0, 0.54)"
+                  }}
+                >
+                  {previewSubtitle ? previewSubtitle : body}
+                </div>
+              </a>
             </Link>
           </div>
           <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>
