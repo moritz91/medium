@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
-import { Comment } from "@medium/ui";
+import { Comment } from "../../components/comment";
 import { PostsContext } from "../post/shared/postContext";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
@@ -38,9 +38,10 @@ export function ProfileTabs() {
           ))}
         </TabPanel>
         <TabPanel name="responses">
-          {comments.map(({ createdAt, creator, text }: any, key: any) => (
+          {comments.map(({ id, createdAt, creator, text }: any, key: any) => (
             <Box key={key}>
               <Comment
+                id={id}
                 createdAt={createdAt}
                 creator={creator}
                 body={MarkdownRenderer({ text })}

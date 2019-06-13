@@ -1,4 +1,4 @@
-import styled from "../../theme/styled-components";
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 100%;

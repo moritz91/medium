@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { DropDownDivider } from "../../components/DropDownDivider";
+import { Divider } from "../../components/divider";
 import { Avatar } from "../Avatar";
 import { Icon } from "../../components/Icon";
 
@@ -137,7 +137,7 @@ export const Menu: React.FC<Props> = ({
             )}
             {options.map((o, i) => {
               if (o[0] === "divider") {
-                return <DropDownDivider key={i} />;
+                return <Divider key={i} />;
               }
               const Anchor = <MenuLink key={i}>{o[0]}</MenuLink>;
               return renderOption({

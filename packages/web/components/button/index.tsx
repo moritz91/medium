@@ -14,4 +14,4 @@ const StyledButton = styled.button`
   ${buttonStyle}
 `;
 
-export const MyButton: React.FC<Props> = props => <StyledButton {...props} />;
+export const Button: React.FC<Props> = props => <StyledButton {...props} />;

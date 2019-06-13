@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image } from "rebass";
-import styled from "../../theme/styled-components";
+import styled from "styled-components";
 
 const LinkRebass = styled("a")`
   font-size: 20px;
