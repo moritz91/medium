@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Image, ImageProps } from "rebass";
 
-interface Props extends ImageProps {
+export interface AvatarProps extends ImageProps {
   size?: number;
 }
 
-export const Avatar: React.FC<Props> = ({
+export const Avatar: React.FC<AvatarProps> = ({
   size = 16,
   borderRadius = "1.65rem",
   ...props

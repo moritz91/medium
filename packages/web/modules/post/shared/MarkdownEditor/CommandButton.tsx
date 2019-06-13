@@ -1,6 +1,6 @@
-import { Icon, IconProps } from "@medium/ui";
 import React from "react";
 import { commands } from "./commands";
+import { IconProps, Icon } from "../../../../components/icon";
 
 export const CommandButton: React.FC<{
   onCommand: (name: string) => void;

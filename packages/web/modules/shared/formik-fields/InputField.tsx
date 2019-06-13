@@ -1,4 +1,4 @@
-import { Input } from "@medium/ui";
+import { Input } from "../../../components/input";
 import { FieldProps } from "formik";
 import * as React from "react";
 

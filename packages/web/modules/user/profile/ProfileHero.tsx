@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled from "styled-components";
-import { Avatar } from "@medium/ui";
 import { PostsContext } from "../../post/shared/postContext";
+import styled from "styled-components";
+import { Avatar } from "../../../components/avatar";
 
 const Header = styled.header`
   display: flex;
@@ -100,13 +100,13 @@ const UserInfoSection = styled.section`
   }
 `;
 
-const AvatarImage = styled(Avatar)`
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-`;
+// const AvatarImage = styled(Avatar)`
+//   height: 100%;
+//   left: 0;
+//   position: absolute;
+//   top: 0;
+//   width: 100%;
+// `;
 
 const UserInfo = styled.div`
   @media (min-width: 736px) {
@@ -143,7 +143,7 @@ export function ProfileHero() {
         <AvatarContainerMedia>
           <AvatarContainerTwo>
             <AvatarImageContainer>
-              <AvatarImage m={"0rem"} src={pictureUrl} />
+              <Avatar m={"0rem"} src={pictureUrl} />
             </AvatarImageContainer>
           </AvatarContainerTwo>
         </AvatarContainerMedia>

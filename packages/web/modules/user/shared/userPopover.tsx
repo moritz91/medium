@@ -1,8 +1,10 @@
 import React from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Flyout, FlexRow, styled, Avatar } from "@medium/ui";
 import { Heading, Text } from "rebass";
 import { FindUserComponent } from "../../../components/apollo-components";
+import styled from "styled-components";
+import { Flyout, FlexRow } from "../../../components/flyout";
+import { Avatar } from "../../../components/avatar";
 
 interface Props {
   children: React.ReactNode;

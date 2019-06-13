@@ -1,4 +1,3 @@
-import { LineNumberStyle, styled } from "@medium/ui";
 import "../../../../github-markdown.css";
 import schema from "hast-util-sanitize/lib/github.json";
 import React from "react";
@@ -8,6 +7,8 @@ import remark2react from "remark-react";
 import { Node } from "unist";
 import visit from "unist-util-visit";
 import { getHighlightedCode } from "../../../../utils/highlightCode";
+import styled from "styled-components";
+import { LineNumberStyle } from "../../../../components/codeCard";
 
 const HighlightCode = ({ children }: { children: string }): JSX.Element => {
   try {

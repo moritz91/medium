@@ -1,6 +1,8 @@
 import React from "react";
 import { Manager, Reference, Popper } from "react-popper";
-import { Icon, Flyout, FlexRow, MyButton } from "@medium/ui";
+import { Button } from "../../../components/button";
+import { Icon } from "../../../components/icon";
+import { Flyout, FlexRow } from "../../../components/flyout";
 
 interface Props {
   children: React.ReactNode;
@@ -19,13 +21,13 @@ export const ActionsDropdown: React.FC<Props> = ({
         {({ ref }) => {
           return (
             <span ref={ref}>
-              <MyButton variant="action" onClick={onClick}>
+              <Button variant="action" onClick={onClick}>
                 <Icon
                   name="showActions"
                   fill="#000"
                   data-cy="thread-actions-dropdown-trigger"
                 />
-              </MyButton>
+              </Button>
             </span>
           );
         }}

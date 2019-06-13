@@ -1,4 +1,3 @@
-import { MyButton } from "@medium/ui";
 import { Field, Formik } from "formik";
 import React, { useCallback, useEffect, useRef } from "react";
 import * as yup from "yup";
@@ -6,6 +5,7 @@ import { CommentInputField } from "../../../shared/formik-fields/CommentInputFie
 import { MarkdownEditor } from "../markdownEditor";
 import { FormContainer, FormRow } from "./components";
 import { scrollToView } from "../../../../utils/domScrollUtils";
+import { Button } from "../../../../components/button";
 
 export interface TextEditorProps {
   isReply: boolean;
@@ -147,23 +147,23 @@ export const CommentForm = ({
                 </a>
                 <div className="btn-box">
                   {view === "code-view" && (
-                    <MyButton
+                    <Button
                       type="button"
                       variant="primary"
                       className="btn"
                       onClick={onCancel}
                     >
                       Cancel
-                    </MyButton>
+                    </Button>
                   )}
-                  <MyButton
+                  <Button
                     type="submit"
                     variant="primary"
                     disabled={!isValid}
                     className={`primary ${isValid ? "" : "disabled"}`}
                   >
                     Publish
-                  </MyButton>
+                  </Button>
                 </div>
               </div>
             </div>

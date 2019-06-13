@@ -1,4 +1,4 @@
-import { styled } from "@medium/ui";
+import styled from "styled-components";
 
 export const FormRow = styled.div`
   padding: 1rem 0.9rem;

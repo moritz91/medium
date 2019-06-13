@@ -10,9 +10,9 @@ import {
 } from "../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { Flex } from "rebass";
-import { Avatar } from "@medium/ui";
 import { get } from "lodash";
 import { Link } from "../../server/routes";
+import { Avatar } from "../../components/avatar";
 
 interface EditorSubmitProps {
   submitted: boolean;

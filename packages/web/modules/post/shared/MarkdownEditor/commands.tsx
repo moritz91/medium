@@ -1,4 +1,4 @@
-import { IconProps } from "@medium/ui";
+import { IconProps } from "../../../../components/icon";
 
 interface CommandsMap {
   [key: string]: {
