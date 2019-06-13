@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
-import { MyButton } from "@medium/ui";
+import { Button } from "../../../components/button";
 
 const Input = styled.input`
   width: 100%;
@@ -138,7 +138,7 @@ export const TopicInputField = (): JSX.Element => {
                           gridAutoFlow: "column"
                         }}
                       >
-                        <MyButton
+                        <Button
                           variant="primary"
                           style={{
                             fontWeight: 400,
@@ -152,7 +152,7 @@ export const TopicInputField = (): JSX.Element => {
                           }}
                         >
                           {item}
-                        </MyButton>
+                        </Button>
                         <div
                           {...getRemoveButtonProps({ idx })}
                           style={{

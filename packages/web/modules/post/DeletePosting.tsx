@@ -7,7 +7,7 @@ import { get } from "lodash";
 import { PostContext } from "./shared/postContext";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
-import { MyButton } from "@medium/ui";
+import { Button } from "../../components/button";
 
 interface Props {
   onClick: () => void;
@@ -42,7 +42,7 @@ export const DeletePosting = ({ onClick }: Props) => {
 
               if (data && data.me && isLoggedIn) {
                 return (
-                  <MyButton
+                  <Button
                     variant="action"
                     key={postingId}
                     onClick={async () => {
@@ -60,7 +60,7 @@ export const DeletePosting = ({ onClick }: Props) => {
                     }}
                   >
                     Delete Posting
-                  </MyButton>
+                  </Button>
                 );
               }
 

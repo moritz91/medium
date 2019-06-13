@@ -1,4 +1,3 @@
-import { Icon, MyButton } from "@medium/ui";
 import * as React from "react";
 import Modal from "react-modal";
 import { CreatePostingComponent } from "../../components/apollo-components";
@@ -13,6 +12,8 @@ import {
 import { useContext, useState } from "react";
 import { Router } from "../../server/routes";
 import { useEffect } from "react";
+import { Icon } from "../../components/Icon";
+import { Button } from "../../components/button";
 
 const customStyles = {
   content: {
@@ -96,7 +97,7 @@ export const PostingModal = () => {
               <TagInputField onSelectTags={handleSelectedTags} />
             </div>
             <div style={{ display: "flex" }}>
-              <MyButton
+              <Button
                 variant="primary"
                 style={{
                   marginLeft: "auto",
@@ -123,12 +124,12 @@ export const PostingModal = () => {
                 }}
               >
                 Publish
-              </MyButton>
+              </Button>
             </div>
           </Modal>
-          <MyButton variant="primary" onClick={() => changeOpen(true)}>
+          <Button variant="primary" onClick={() => changeOpen(true)}>
             Publish
-          </MyButton>
+          </Button>
         </>
       )}
     </CreatePostingComponent>
