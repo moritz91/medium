@@ -3,7 +3,7 @@ import * as React from "react";
 import { Flex, Text, Heading, Box } from "rebass";
 import styled from "styled-components";
 import { Avatar } from "../avatar";
-import { Icon } from "../Icon";
+import { Icon } from "../icon";
 import { Button } from "../button";
 
 interface Props {

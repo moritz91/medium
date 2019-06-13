@@ -12,7 +12,7 @@ import {
 import { useContext, useState } from "react";
 import { Router } from "../../server/routes";
 import { useEffect } from "react";
-import { Icon } from "../../components/Icon";
+import { Icon } from "../../components/icon";
 import { Button } from "../../components/button";
 
 const customStyles = {
