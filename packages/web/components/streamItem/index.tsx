@@ -2,10 +2,11 @@ import { format } from "date-fns";
 import * as React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
-import { Icon, MyButton } from "@medium/ui";
 import { StoryPreviewTitle } from "../heading";
 import { useHover } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
+import { Button } from "../button";
+import { Icon } from "../icon";
 
 interface Props {
   id: string;
@@ -129,12 +130,12 @@ export const StreamItem: React.FC<Props> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                <MyButton variant="action">
+                <Button variant="action">
                   <Icon name="saveStory" fill="#000" size={25} />
-                </MyButton>
-                <MyButton variant="action">
+                </Button>
+                <Button variant="action">
                   <Icon name="showActions" fill="#000" size={15} />
-                </MyButton>
+                </Button>
               </div>
             </div>
           </div>

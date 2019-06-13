@@ -1,12 +1,13 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Box } from "rebass";
-import { styled, Avatar } from "@medium/ui";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { useHover } from "use-events";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeleteComment } from "../../modules/comment/deleteComment";
 import { useState } from "react";
+import styled from "styled-components";
+import { Avatar } from "../avatar";
 
 // body: React.ReactElement<HTMLElement> | null;
 interface Props {

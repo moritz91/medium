@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { icons } from "../Icon/icons";
-import { Icon } from "../Icon";
+import { icons } from "../icon/icons";
+import { Icon } from "../icon";
 
 const List = styled.ul`
   display: flex;

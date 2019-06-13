@@ -2,9 +2,9 @@ import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Text, Heading } from "rebass";
 import styled from "styled-components";
-import { MyButton } from "@medium/ui";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { useHover } from "use-events";
+import { Button } from "../button";
 
 interface Props {
   id: string;
@@ -130,9 +130,9 @@ export const FeaturedStory: React.FC<Props> = ({
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               {tags.map((t: any, idx: number) => (
-                <MyButton variant="tag" key={idx}>
+                <Button variant="tag" key={idx}>
                   {t.name}
-                </MyButton>
+                </Button>
               ))}
             </div>
           </div>

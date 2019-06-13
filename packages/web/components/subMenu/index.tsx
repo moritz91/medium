@@ -1,11 +1,14 @@
 import * as React from "react";
-import { MyButton, Avatar, Icon, Menu } from "@medium/ui";
 import get from "lodash.get";
 import NextLink from "next/link";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import { Router } from "../../server/routes";
 import { MeComponent } from "../apollo-components";
+import { Button } from "../button";
+import { Menu } from "../menu";
+import { Avatar } from "../avatar";
+import { Icon } from "../icon";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
@@ -47,12 +50,12 @@ export const SubMenu = (): JSX.Element => {
           if (isLoggedIn) {
             return (
               <Flex alignItems="center">
-                <MyButton
+                <Button
                   variant="primary"
                   onClick={() => Router.push("/create")}
                 >
                   NEW STORY
-                </MyButton>
+                </Button>
                 <Menu
                   options={[
                     ["New story", "/create"],
@@ -93,7 +96,7 @@ export const SubMenu = (): JSX.Element => {
           return (
             <div>
               <a href="http://localhost:4000/auth/github">
-                <MyButton variant="primary">Sign in with GitHub</MyButton>
+                <Button variant="primary">Sign in with GitHub</Button>
               </a>
             </div>
           );

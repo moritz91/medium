@@ -1,6 +1,7 @@
-import { BlueInput, styled } from "@medium/ui";
 import { FieldProps } from "formik";
 import * as React from "react";
+import styled from "styled-components";
+import { InputEl } from "../../../components/input";
 
 interface CommentInputFieldProps extends FieldProps {
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -11,7 +12,7 @@ interface FormInputProps {
   width?: string;
 }
 
-export const FormInput = styled(BlueInput)`
+export const FormInput = styled(InputEl)`
   border: 1px solid transparent;
   font-size: 1.4rem;
   line-height: 1.5;

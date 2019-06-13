@@ -1,4 +1,3 @@
-import { styled, MyButton } from "@medium/ui";
 import { Box, Text } from "rebass";
 import { useContext } from "react";
 import {
@@ -9,6 +8,8 @@ import { Heading, TopicTitle, H4 } from "../heading";
 import { GetPostingsByTopicComponent } from "../apollo-components";
 import { truncate } from "lodash";
 import { Link } from "../../server/routes";
+import styled from "styled-components";
+import { Button } from "../button";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -59,7 +60,7 @@ export const SidebarSection: React.FC<Props> = props => {
               </Text>
             </Box>
             <Box mt={20}>
-              <MyButton variant="tag">Follow</MyButton>
+              <Button variant="tag">Follow</Button>
             </Box>
           </div>
           <Text

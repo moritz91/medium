@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { Divider } from "../../components/divider";
-import { Avatar } from "../Avatar";
-import { Icon } from "../../components/Icon";
+import { Avatar } from "../avatar";
+import { Icon } from "../../components/icon";
 
 interface Props {
   options: string[][];

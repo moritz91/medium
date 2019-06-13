@@ -3,12 +3,13 @@ import * as React from "react";
 import { Flex, Text } from "rebass";
 import styled from "styled-components";
 import { useHover } from "use-events";
-import { Avatar, MyButton } from "@medium/ui";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { StoryFooterUsername, StoryHeading } from "../heading";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
 import { useState } from "react";
+import { Button } from "../button";
+import { Avatar } from "../avatar";
 
 interface Props {
   id: string;
@@ -113,9 +114,9 @@ export const Story: React.FC<Props> = ({
         </div>
       </Flex>
       {tags.map((t: any, idx: number) => (
-        <MyButton variant="tag" key={idx}>
+        <Button variant="tag" key={idx}>
           {t.name}
-        </MyButton>
+        </Button>
       ))}
       <div style={{ display: "flex", marginLeft: "auto" }}>
         <TopRow>
@@ -146,7 +147,7 @@ export const Story: React.FC<Props> = ({
             </p>
           </Content>
           <Actions style={{ display: "flex", marginLeft: "auto" }}>
-            <MyButton variant="tag">Follow</MyButton>
+            <Button variant="tag">Follow</Button>
           </Actions>
         </TopRow>
       </div>
