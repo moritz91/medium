@@ -9,7 +9,7 @@ import {
   CreatePostContextProps,
   CreatePostContext
 } from "./shared/postContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useReducer, createContext } from "react";
 import { Router } from "../../server/routes";
 import { useEffect } from "react";
 import { Icon } from "../../components/icon";
@@ -34,19 +34,32 @@ const customStyles = {
   }
 };
 
+const initialState = [] as any;
+export const TagDispatch = createContext<any>({
+  type: "",
+  action: ""
+});
+
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "add":
+      return [...state, { id: state.length, name: action.tag }];
+    case "remove":
+      return state.filter((_: any, idx: number) => idx != action.idx);
+    default:
+      throw new Error();
+  }
+};
+
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
   const [topicId] = useInputValue("");
   const [tagName] = useInputValue("");
-  const [selectedTags, setSelectedTags] = useState([]);
-
-  const handleSelectedTags = (tags: any): void => {
-    return setSelectedTags(tags);
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log(title, body, selectedTags, isSubmitting);
-  }, [selectedTags]);
+    console.log(state);
+  }, [state]);
 
   const { title, body, isSubmitting } = useContext<CreatePostContextProps>(
     CreatePostContext
@@ -94,7 +107,9 @@ export const PostingModal = () => {
             </div>
             <div style={{ display: "flex" }}>
               <TopicInputField />
-              <TagInputField onSelectTags={handleSelectedTags} />
+              <TagDispatch.Provider value={dispatch}>
+                <TagInputField />
+              </TagDispatch.Provider>
             </div>
             <div style={{ display: "flex" }}>
               <Button

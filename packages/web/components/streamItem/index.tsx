@@ -51,6 +51,7 @@ export const StreamItem: React.FC<Props> = ({
   const [popoverState, bind] = useHover();
   const linkProps = getLinkProps();
   const dtString = format(Date.parse(createdAt), "MMM D");
+
   return (
     <StreamItemContainer>
       <section style={{ paddingTop: 12, paddingBottom: 12, display: "flex" }}>

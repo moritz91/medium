@@ -118,7 +118,11 @@ export default class Topic extends React.PureComponent<Props> {
                       </>
                     );
                   }
-                  return null;
+                  return (
+                    <div>
+                      This topic has no stories yet, be the first to contribute!
+                    </div>
+                  );
                 }}
               </GetPostingsByTopicComponent>
             </MainSection>

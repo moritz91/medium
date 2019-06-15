@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Divider } from "../../components/divider";
 import { Avatar } from "../avatar";
 import { Icon } from "../../components/icon";
+import { Router } from "../../server/routes";
 
 interface Props {
   options: string[][];
@@ -65,6 +66,7 @@ const UserDataFlex = styled.div`
 const UserDataAvatar = styled.div`
   flex: 0 0 auto;
   position: relative;
+  cursor: pointer;
 `;
 
 const UserDataAvatarHalo = styled.div`
@@ -80,6 +82,7 @@ const UserDataMeta = styled.div`
   font-size: 14px;
   flex: 1 1 auto;
   padding-left: 15px;
+  cursor: pointer;
 `;
 
 export const Menu: React.FC<Props> = ({
@@ -107,7 +110,9 @@ export const Menu: React.FC<Props> = ({
             {renderUserData && (
               <UserDataContainer>
                 <UserDataFlex>
-                  <UserDataAvatar>
+                  <UserDataAvatar
+                    onClick={() => Router.push(`/@${renderUserData.username}`)}
+                  >
                     <Avatar
                       src={renderUserData.pictureUrl}
                       size={45}
@@ -128,7 +133,9 @@ export const Menu: React.FC<Props> = ({
                       />
                     </UserDataAvatarHalo>
                   </UserDataAvatar>
-                  <UserDataMeta>
+                  <UserDataMeta
+                    onClick={() => Router.push(`/@${renderUserData.username}`)}
+                  >
                     <div style={{ color: "#5C6AC4" }}>Member</div>
                     <div>{renderUserData.username}</div>
                   </UserDataMeta>

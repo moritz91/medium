@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { GetTagsByLettersComponent } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
+import { useState } from "react";
 
 const Input = styled.input`
   font-size: 12px;
@@ -87,9 +88,15 @@ const MatchingTagsItemText = styled.strong`
   margin-left: 5px;
   font-weight: 700;
 `;
-export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
+export const TagInputField = (): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
+  const [errorText, setErrorText] = useState("");
+
+  const handleError = (input?: string) => {
+    if (input) setErrorText("You have already added this tag.");
+    else setErrorText("");
+  };
 
   return (
     <div
@@ -143,7 +150,6 @@ export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
                   alignItems: "center"
                 }}
               >
-                {onSelectTags(selectedItems)}
                 {selectedItems.length > 0 &&
                   selectedItems.map((item: any, idx: number) => (
                     <SelectedTagsContainer key={idx}>
@@ -173,7 +179,11 @@ export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
                   {...getInputProps({
                     ref: input,
                     onKeyDown(e: any) {
-                      if (e.key === "Backspace" && !inputValue) {
+                      if (
+                        e.key === "Backspace" &&
+                        !inputValue &&
+                        selectedItems.length
+                      ) {
                         removeItem(selectedItems.length - 1);
                       }
                       if (
@@ -186,12 +196,21 @@ export const TagInputField = ({ onSelectTags }: any): JSX.Element => {
                           selectedItems.length < 5
                         ) {
                           addSelectedItem(inputValue);
+                        } else {
+                          {
+                            handleError(inputValue);
+
+                            setTimeout(() => {
+                              handleError();
+                            }, 5000);
+                          }
                         }
                       }
                     },
                     placeholder: "Add a tag..."
                   })}
                 />
+                <div>{errorText && errorText}</div>
               </div>
             </div>
             {Suggestions(
