@@ -93,8 +93,9 @@ export const TagInputField = (): JSX.Element => {
   const itemToString = (item: any) => (item ? item : "");
   const [errorText, setErrorText] = useState("");
 
-  const handleError = (input?: string) => {
-    if (input) setErrorText("You have already added this tag.");
+  const handleError = (error?: string) => {
+    if (error)
+      setErrorText("You have already added this tag."), input.current.blur();
     else setErrorText("");
   };
 
@@ -197,13 +198,10 @@ export const TagInputField = (): JSX.Element => {
                         ) {
                           addSelectedItem(inputValue);
                         } else {
-                          {
-                            handleError(inputValue);
-
+                          handleError(inputValue),
                             setTimeout(() => {
                               handleError();
                             }, 5000);
-                          }
                         }
                       }
                     },

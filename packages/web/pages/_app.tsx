@@ -6,6 +6,7 @@ import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 import withApolloClient from "../lib/with-apollo-client";
 import ReactModal from "react-modal";
+import "../static/linkfix.css";
 
 if (typeof window !== "undefined") {
   ReactModal.setAppElement("body");
