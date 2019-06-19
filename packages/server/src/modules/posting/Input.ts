@@ -48,3 +48,12 @@ export class FindUserPostingsInput {
   @Field(() => String, { nullable: true })
   cursor?: string;
 }
+
+@InputType()
+export class FindTopicPostingsInput {
+  @Field()
+  topicId: string;
+
+  @Field(() => String, { nullable: true })
+  cursor?: string;
+}

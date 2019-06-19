@@ -49,8 +49,6 @@ export interface CreatePostingInput {
 
   previewImage?: Maybe<string>;
 
-  caption?: Maybe<string>;
-
   title: string;
 
   body?: Maybe<string>;
@@ -159,6 +157,7 @@ export type GetCommentsByIdCreator = UserInfoFragment;
 
 export type CreatePostingVariables = {
   posting: CreatePostingInput;
+  topicIds: string[];
 };
 
 export type CreatePostingMutation = {
@@ -817,8 +816,8 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
   >(GetCommentsByIdDocument, operationOptions);
 }
 export const CreatePostingDocument = gql`
-  mutation createPosting($posting: CreatePostingInput!) {
-    createPosting(posting: $posting) {
+  mutation createPosting($posting: CreatePostingInput!, $topicIds: [String!]!) {
+    createPosting(posting: $posting, topicIds: $topicIds) {
       posting {
         id
         title

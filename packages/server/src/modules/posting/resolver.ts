@@ -22,7 +22,8 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindUserPostingsInput
+  FindUserPostingsInput,
+  FindTopicPostingsInput
 } from "./Input";
 import {
   DeletePostingResponse,
@@ -160,10 +161,11 @@ export class PostingResolver {
 
   @Query(() => FindPostingResponse)
   @Authorized()
-  async getPostingsByTopic(
-    @Arg("topicId", () => String) topicId: string,
-    @Arg("cursor", () => String, { nullable: true }) cursor?: string
-  ): Promise<FindPostingResponse> {
+  async getPostingsByTopic(@Arg("input")
+  {
+    cursor,
+    topicId
+  }: FindTopicPostingsInput): Promise<FindPostingResponse> {
     return this.postRepo.findByTopicId({
       cursor,
       limit: POST_LIMIT,
