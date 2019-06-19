@@ -62,21 +62,9 @@ export class PostingResolver {
   async createPostingRepo(
     @Arg("posting") input: CreatePostingInput,
     @Arg("topicIds", () => [String]) topicIds: string[],
+    @Arg("tagNames", () => [String]) tagNames: string[],
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
-    let tag = await this.tagRepo.findOne({
-      where: {
-        name: input.tagName
-      }
-    });
-    if (!tag) {
-      tag = await this.tagRepo
-        .create({
-          name: input.tagName
-        })
-        .save();
-    }
-
     const posting = await this.postRepo
       .create({
         ...input,
@@ -84,11 +72,27 @@ export class PostingResolver {
       })
       .save();
 
-    await this.addPostingTag(posting.id, tag.id);
-
-    topicIds.map(async (tId: string) => {
-      await this.addPostingTopic(posting.id, tId);
+    tagNames.map(async tagName => {
+      let tag = await this.tagRepo.findOne({
+        where: {
+          name: tagName
+        }
+      });
+      if (!tag) {
+        tag = await this.tagRepo
+          .create({
+            name: tagName
+          })
+          .save();
+      }
+      await this.addPostingTag(posting.id, tag.id);
     });
+
+    if (topicIds) {
+      topicIds.map(async (tId: string) => {
+        await this.addPostingTopic(posting.id, tId);
+      });
+    }
 
     return {
       posting
