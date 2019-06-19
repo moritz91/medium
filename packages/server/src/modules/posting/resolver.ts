@@ -22,7 +22,6 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindTopicPostingsInput,
   FindUserPostingsInput
 } from "./Input";
 import {
@@ -32,6 +31,7 @@ import {
 } from "./Response";
 import { PostingTag } from "../../entity/PostingTag";
 import { TagRepository } from "../../repositories/TagRepo";
+import { PostingTopic } from "../../entity/PostingTopic";
 
 const POST_LIMIT = 16;
 
@@ -60,6 +60,7 @@ export class PostingResolver {
   @UseMiddleware(isAuth)
   async createPostingRepo(
     @Arg("posting") input: CreatePostingInput,
+    @Arg("topicIds", () => [String]) topicIds: string[],
     @Ctx() { req }: MyContext
   ): Promise<PostingResponse> {
     let tag = await this.tagRepo.findOne({
@@ -83,6 +84,10 @@ export class PostingResolver {
       .save();
 
     await this.addPostingTag(posting.id, tag.id);
+
+    topicIds.map(async (tId: string) => {
+      await this.addPostingTopic(posting.id, tId);
+    });
 
     return {
       posting
@@ -110,6 +115,15 @@ export class PostingResolver {
     @Arg("tagId", () => String) tagId: string
   ) {
     await PostingTag.create({ postingId, tagId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  async addPostingTopic(
+    @Arg("postingId", () => String) postingId: string,
+    @Arg("topicId", () => String) topicId: string
+  ) {
+    await PostingTopic.create({ postingId, topicId }).save();
     return true;
   }
 
@@ -146,11 +160,10 @@ export class PostingResolver {
 
   @Query(() => FindPostingResponse)
   @Authorized()
-  async getPostingsByTopic(@Arg("input")
-  {
-    cursor,
-    topicId
-  }: FindTopicPostingsInput): Promise<FindPostingResponse> {
+  async getPostingsByTopic(
+    @Arg("topicId", () => String) topicId: string,
+    @Arg("cursor", () => String, { nullable: true }) cursor?: string
+  ): Promise<FindPostingResponse> {
     return this.postRepo.findByTopicId({
       cursor,
       limit: POST_LIMIT,

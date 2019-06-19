@@ -38,4 +38,4 @@ const batchTags = async (postingIds: string[]) => {
   return postingIds.map(postingId => postingIdToTags[postingId]);
 };
 
-export const tagLoader = () => new DataLoader(batchTags);
+export const tagPostingLoader = () => new DataLoader(batchTags);

@@ -1,14 +1,17 @@
-import { ObjectType, Field, ID, Int } from "type-graphql";
+import { ObjectType, Field, ID, Int, Ctx } from "type-graphql";
 import {
   BaseEntity,
   Entity,
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
-  OneToMany
+  OneToMany,
+  JoinTable
 } from "typeorm";
 import { User } from "./User";
 import { Posting } from "./Posting";
+import { PostingTopic } from "./PostingTopic";
+import { MyContext } from "../types/Context";
 
 @Entity()
 @ObjectType()
@@ -32,9 +35,18 @@ export class Topic extends BaseEntity {
   @Field(() => Int)
   numPostings: number;
 
-  @Field(() => [Posting])
-  @OneToMany(() => Posting, qr => qr.topic)
-  postings: Promise<Posting[]>;
+  // @Field(() => [Posting])
+  // @OneToMany(() => Posting, qr => qr.topic)
+  // postings: Promise<Posting[]>;
+
+  @Field(() => [Posting], { nullable: true })
+  async postings(@Ctx() { postingTopicLoader }: MyContext): Promise<Posting[]> {
+    return postingTopicLoader.load(this.id);
+  }
+
+  @OneToMany(() => PostingTopic, tp => tp.topic)
+  @JoinTable({ name: "PostingTopic" })
+  postingConnection: Promise<PostingTopic[]>;
 
   @Field(() => [User])
   @ManyToMany(() => User, sbr => sbr.subscriptions)

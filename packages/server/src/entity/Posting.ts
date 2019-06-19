@@ -15,6 +15,7 @@ import { Topic } from "./Topic";
 import { PostingTag } from "./PostingTag";
 import { MyContext } from "../types/Context";
 import { Tag } from "./Tag";
+import { PostingTopic } from "./PostingTopic";
 
 @Entity()
 @ObjectType()
@@ -70,12 +71,20 @@ export class Posting extends BaseEntity {
   ratings: Rate[];
 
   @Field(() => [Tag], { nullable: true })
-  async tags(@Ctx() { tagLoader }: MyContext): Promise<Tag[]> {
-    return tagLoader.load(this.id);
+  async tags(@Ctx() { tagPostingLoader }: MyContext): Promise<Tag[]> {
+    return tagPostingLoader.load(this.id);
+  }
+
+  @Field(() => [Topic], { nullable: true })
+  async topics(@Ctx() { topicPostingLoader }: MyContext): Promise<Topic[]> {
+    return topicPostingLoader.load(this.id);
   }
 
   @OneToMany(() => PostingTag, tp => tp.posting)
   tagConnection: Promise<PostingTag[]>;
+
+  @OneToMany(() => PostingTopic, tp => tp.posting)
+  topicConnection: Promise<PostingTopic[]>;
 
   @Field()
   @CreateDateColumn()

@@ -27,7 +27,7 @@ export class Tag extends BaseEntity {
   postingConnection: Promise<PostingTag[]>;
 
   @Field(() => [Posting], { nullable: true })
-  async postings(@Ctx() { postingsLoader }: MyContext): Promise<Posting[]> {
-    return postingsLoader.load(this.id);
+  async postings(@Ctx() { postingTagLoader }: MyContext): Promise<Posting[]> {
+    return postingTagLoader.load(this.id);
   }
 }

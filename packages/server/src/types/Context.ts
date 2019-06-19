@@ -2,12 +2,15 @@ import * as DataLoader from "dataloader";
 import { Request, Response } from "express";
 import { User } from "../entity/User";
 import { Posting } from "../entity/Posting";
-import { Tag } from "src/entity/Tag";
+import { Tag } from "../entity/Tag";
+import { Topic } from "../entity/Topic";
 
 export interface MyContext {
   req: Request;
   res: Response;
   userLoader: DataLoader<string, User>;
-  postingsLoader: DataLoader<string, Posting[]>;
-  tagLoader: DataLoader<string, Tag[]>;
+  postingTagLoader: DataLoader<string, Posting[]>;
+  tagPostingLoader: DataLoader<string, Tag[]>;
+  topicPostingLoader: DataLoader<string, Topic[]>;
+  postingTopicLoader: DataLoader<string, Posting[]>;
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const FlexRow = styled.div`
   display: flex;
@@ -8,6 +8,17 @@ export const FlexRow = styled.div`
   align-items: center;
 `;
 
+const scaleIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  `;
+
 const StyledFlyout = styled.div`
   padding: 6px;
   border-radius: 4px;
@@ -15,6 +26,12 @@ const StyledFlyout = styled.div`
   position: absolute;
   z-index: 1000;
   background-color: #fff;
+  animation-name: ${scaleIn};
+  animation-duration: .15s;
+  animation-timing-function: cubic-bezier(.2,0,.13,1.5);
+}
+
+
 `;
 
 const StyledRow = styled.div`

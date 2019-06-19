@@ -17,8 +17,10 @@ import * as cors from "cors";
 import { createTypeormConn } from "./createTypeormConn";
 import { User } from "./entity/User";
 import { userLoader } from "./loaders/UserLoader";
-import { postingsLoader } from "./loaders/postingsLoader";
-import { tagLoader } from "./loaders/tagLoader";
+import { postingTagLoader } from "./loaders/postingTagLoader";
+import { tagPostingLoader } from "./loaders/tagPostingLoader";
+import { topicPostingLoader } from "./loaders/topicPostingLoader";
+import { postingTopicLoader } from "./loaders/postingTopicLoader";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -46,8 +48,10 @@ const startServer = async () => {
       req,
       res,
       userLoader: userLoader(),
-      postingsLoader: postingsLoader(),
-      tagLoader: tagLoader()
+      postingTagLoader: postingTagLoader(),
+      tagPostingLoader: tagPostingLoader(),
+      postingTopicLoader: postingTopicLoader(),
+      topicPostingLoader: topicPostingLoader()
     })
   });
 
