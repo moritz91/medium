@@ -12,12 +12,6 @@ export interface FindPostingsInput {
   limit: number;
 }
 
-export interface FindTopicPostingsInput {
-  topicId: string;
-
-  cursor?: Maybe<string>;
-}
-
 export interface FindUserPostingsInput {
   creatorId: string;
 
@@ -54,8 +48,6 @@ export interface CreatePostingInput {
   body?: Maybe<string>;
 
   topicId: string;
-
-  tagName: string;
 }
 /** New topic data */
 export interface CreateTopicInput {
@@ -158,6 +150,7 @@ export type GetCommentsByIdCreator = UserInfoFragment;
 export type CreatePostingVariables = {
   posting: CreatePostingInput;
   topicIds: string[];
+  tagNames: string[];
 };
 
 export type CreatePostingMutation = {
@@ -273,7 +266,8 @@ export type GetPostingsFindPostings = {
 export type GetPostingsPosts = PostingInfoFragment;
 
 export type GetPostingsByTopicVariables = {
-  input: FindTopicPostingsInput;
+  cursor: string;
+  topicIds: string[];
 };
 
 export type GetPostingsByTopicQuery = {
@@ -816,8 +810,12 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
   >(GetCommentsByIdDocument, operationOptions);
 }
 export const CreatePostingDocument = gql`
-  mutation createPosting($posting: CreatePostingInput!, $topicIds: [String!]!) {
-    createPosting(posting: $posting, topicIds: $topicIds) {
+  mutation createPosting(
+    $posting: CreatePostingInput!
+    $topicIds: [String!]!
+    $tagNames: [String!]!
+  ) {
+    createPosting(posting: $posting, topicIds: $topicIds, tagNames: $tagNames) {
       posting {
         id
         title
@@ -1020,8 +1018,8 @@ export function GetPostingsHOC<TProps, TChildProps = any>(
   >(GetPostingsDocument, operationOptions);
 }
 export const GetPostingsByTopicDocument = gql`
-  query GetPostingsByTopic($input: FindTopicPostingsInput!) {
-    getPostingsByTopic(input: $input) {
+  query GetPostingsByTopic($cursor: String!, $topicIds: [String!]!) {
+    getPostingsByTopic(cursor: $cursor, topicIds: $topicIds) {
       posts {
         ...PostingInfo
       }

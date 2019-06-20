@@ -22,8 +22,7 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindUserPostingsInput,
-  FindTopicPostingsInput
+  FindUserPostingsInput
 } from "./Input";
 import {
   DeletePostingResponse,
@@ -89,8 +88,8 @@ export class PostingResolver {
     });
 
     if (topicIds) {
-      topicIds.map(async (tId: string) => {
-        await this.addPostingTopic(posting.id, tId);
+      topicIds.map(async (topicId: string) => {
+        await this.addPostingTopic(posting.id, topicId);
       });
     }
 
@@ -165,15 +164,14 @@ export class PostingResolver {
 
   @Query(() => FindPostingResponse)
   @Authorized()
-  async getPostingsByTopic(@Arg("input")
-  {
-    cursor,
-    topicId
-  }: FindTopicPostingsInput): Promise<FindPostingResponse> {
+  async getPostingsByTopic(
+    @Arg("topicIds", () => String) topicIds: string[],
+    @Arg("cursor", { nullable: true }) cursor?: string
+  ): Promise<FindPostingResponse> {
     return this.postRepo.findByTopicId({
       cursor,
       limit: POST_LIMIT,
-      topicId
+      topicIds
     });
   }
 

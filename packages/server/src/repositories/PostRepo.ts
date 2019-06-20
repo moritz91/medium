@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 import { Posting } from "../entity/Posting";
+import { PostingTopic } from "../entity/PostingTopic";
 
 interface FindByCreatorIdOptions {
   creatorId: string;
@@ -8,7 +9,7 @@ interface FindByCreatorIdOptions {
 }
 
 interface FindByTopicIdOptions {
-  topicId: string;
+  topicIds: string[];
   cursor?: string;
   limit: number;
 }
@@ -36,13 +37,20 @@ export class PostingRepository extends Repository<Posting> {
     };
   }
 
-  async findByTopicId({ topicId, cursor, limit }: FindByTopicIdOptions) {
+  async findByTopicId({ topicIds, cursor, limit }: FindByTopicIdOptions) {
     const qb = this.createQueryBuilder("p")
-      .orderBy('"createdAt"', "DESC")
+      // .orderBy('"createdAt"', "DESC")
       .take(limit + 1);
 
-    if (topicId) {
-      qb.where("p.topicId = :topicId", { topicId });
+    if (topicIds) {
+      qb.innerJoin(
+        PostingTopic,
+        "pt",
+        "p.id = pt.postingId AND pt.topicId IN (:...topicIds)",
+        {
+          topicIds: topicIds
+        }
+      );
     }
 
     if (cursor) {
