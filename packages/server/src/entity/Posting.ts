@@ -28,10 +28,6 @@ export class Posting extends BaseEntity {
   @Column("uuid")
   creatorId: string;
 
-  @Field()
-  @Column("uuid", { nullable: true })
-  topicId: string;
-
   @Field(() => [Comment])
   @OneToMany(() => Comment, p => p.posting)
   comments: Promise<Comment[]>;

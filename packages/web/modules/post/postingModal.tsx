@@ -54,7 +54,7 @@ const reducer = (state: any, action: any) => {
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
   const [topicId] = useInputValue("");
-  const [tagName] = useInputValue("");
+  const [tagNames] = useInputValue("");
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -125,11 +125,10 @@ export const PostingModal = () => {
                     variables: {
                       posting: {
                         title,
-                        body,
-                        topicId
+                        body
                       },
-                      tagNames: [],
-                      topicIds: []
+                      tagNames: [tagNames],
+                      topicIds: [topicId]
                     }
                   });
                   if (response && response.data) {

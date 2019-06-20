@@ -46,8 +46,6 @@ export interface CreatePostingInput {
   title: string;
 
   body?: Maybe<string>;
-
-  topicId: string;
 }
 /** New topic data */
 export interface CreateTopicInput {

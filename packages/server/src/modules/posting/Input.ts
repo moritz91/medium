@@ -17,9 +17,6 @@ export class CreatePostingInput implements Partial<Posting> {
 
   @Field({ nullable: true })
   body?: string;
-
-  @Field()
-  topicId: string;
 }
 
 @InputType({ description: "Old posting data" })
@@ -41,15 +38,6 @@ export class FindPostingsInput {
 export class FindUserPostingsInput {
   @Field()
   creatorId: string;
-
-  @Field(() => String, { nullable: true })
-  cursor?: string;
-}
-
-@InputType()
-export class FindTopicPostingsInput {
-  @Field()
-  topicId: string;
 
   @Field(() => String, { nullable: true })
   cursor?: string;
