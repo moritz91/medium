@@ -94,7 +94,9 @@ export const SidebarSection: React.FC<Props> = props => {
           </Box>
           <div>
             <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
-            <GetPostingsByTopicComponent variables={{ input: { topicId } }}>
+            <GetPostingsByTopicComponent
+              variables={{ topicIds: [topicId], cursor: "" }}
+            >
               {({ data }) => {
                 return (
                   <>

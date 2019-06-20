@@ -33,7 +33,6 @@ export default class Topic extends React.PureComponent<Props> {
     });
 
     const { getTopicByName } = response.data;
-
     return {
       name,
       id: getTopicByName!.id,
@@ -58,10 +57,10 @@ export default class Topic extends React.PureComponent<Props> {
           <TopicContext.Provider value={context}>
             <MainSection>
               <GetPostingsByTopicComponent
-                variables={{ input: { topicId: id } }}
+                variables={{ cursor: "", topicIds: [id] }}
               >
                 {({ data }) => {
-                  if (data!.getPostingsByTopic.posts[0]) {
+                  if (data && data.getPostingsByTopic.posts[0]) {
                     const featured = data!.getPostingsByTopic.posts[0];
                     return (
                       <>

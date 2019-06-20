@@ -126,9 +126,10 @@ export const PostingModal = () => {
                       posting: {
                         title,
                         body,
-                        topicId,
-                        tagName
-                      }
+                        topicId
+                      },
+                      tagNames: [],
+                      topicIds: []
                     }
                   });
                   if (response && response.data) {
