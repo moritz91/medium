@@ -8,12 +8,6 @@ export class PostingResponse {
 }
 
 @ObjectType()
-export class DeletePostingResponse {
-  @Field()
-  ok: boolean;
-}
-
-@ObjectType()
 export class FindPostingResponse {
   @Field()
   hasMore: boolean;

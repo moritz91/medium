@@ -17,9 +17,10 @@ import { getConnection } from "typeorm";
 import { ApolloError } from "apollo-server-core";
 // import { createResolver } from "../shared/create-resolver";
 import { CreateTopicInput, FindTopicsInput, UpdateTopicInput } from "./Input";
-import { TopicResponse, FindTopicResponse, SuccessResponse } from "./Response";
+import { TopicResponse, FindTopicResponse } from "./Response";
 import { User } from "../../entity/User";
 import { PostingRepository } from "../../repositories/PostRepo";
+import { SuccessResponse } from "../shared/Response";
 
 // const suffix = "Topic";
 // const TOPIC_LIMIT = 16;

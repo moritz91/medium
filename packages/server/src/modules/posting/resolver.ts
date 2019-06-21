@@ -24,14 +24,11 @@ import {
   FindPostingsInput,
   FindUserPostingsInput
 } from "./Input";
-import {
-  DeletePostingResponse,
-  FindPostingResponse,
-  PostingResponse
-} from "./Response";
+import { FindPostingResponse, PostingResponse } from "./Response";
 import { PostingTag } from "../../entity/PostingTag";
 import { TagRepository } from "../../repositories/TagRepo";
 import { PostingTopic } from "../../entity/PostingTopic";
+import { SuccessResponse } from "../shared/Response";
 
 const POST_LIMIT = 16;
 
@@ -98,13 +95,11 @@ export class PostingResolver {
     };
   }
 
-  @Mutation(() => DeletePostingResponse, {
+  @Mutation(() => SuccessResponse, {
     nullable: true
   })
   @Authorized()
-  async deletePostingById(
-    @Arg("id") id: string
-  ): Promise<DeletePostingResponse> {
+  async deletePostingById(@Arg("id") id: string): Promise<SuccessResponse> {
     const value = this.postRepo.findOne(id);
     if (value) {
       this.postRepo.delete(id);
@@ -136,6 +131,73 @@ export class PostingResolver {
   })
   async getPostingById(@Arg("id") id: string) {
     return this.postRepo.findOne(id);
+  }
+
+  @Mutation(() => SuccessResponse, { name: `updatePosting` })
+  @UseMiddleware(isAuth)
+  async updatePostingRepo(
+    @Arg("id") id: string,
+    @Arg("input", { nullable: true }) input: CreatePostingInput,
+    @Arg("topicIds", () => [String], { nullable: true }) topicIds: string[],
+    @Arg("tagNames", () => [String], { nullable: true }) tagNames: string[]
+  ): Promise<SuccessResponse> {
+    if (input) {
+      await this.postRepo.update(
+        { id },
+        {
+          ...input
+        }
+      );
+    }
+
+    if (tagNames) {
+      tagNames.map(async tagName => {
+        let tag = await this.tagRepo.findOne({
+          where: {
+            name: tagName
+          }
+        });
+        if (!tag) {
+          tag = await this.tagRepo
+            .create({
+              name: tagName
+            })
+            .save();
+        }
+
+        PostingTag.delete({ postingId: id });
+
+        const tagConnection = await PostingTag.findOne({
+          where: {
+            postingId: id,
+            tagId: tag
+          }
+        });
+
+        if (!tagConnection) {
+          await this.addPostingTag(id, tag.id);
+        }
+      });
+    }
+
+    if (topicIds) {
+      topicIds.map(async (topicId: string) => {
+        const topicConnection = await PostingTopic.findOne({
+          where: {
+            postingId: id,
+            topicId: topicId
+          }
+        });
+
+        if (!topicConnection) {
+          await this.addPostingTopic(id, topicId);
+        }
+      });
+    }
+
+    return {
+      ok: true
+    };
   }
 
   @Query(() => FindPostingResponse)

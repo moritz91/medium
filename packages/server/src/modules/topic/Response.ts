@@ -8,12 +8,6 @@ export class TopicResponse {
 }
 
 @ObjectType()
-export class SuccessResponse {
-  @Field()
-  ok: boolean;
-}
-
-@ObjectType()
 export class FindTopicResponse {
   @Field()
   hasMore: boolean;
