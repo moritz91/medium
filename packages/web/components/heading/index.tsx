@@ -35,7 +35,7 @@ export const TopicTitle = styled.h3`
 
 export const StoryHeading = styled.h3`
   letter-spacing: -0.32px;
-  font-size: 19px;
+  font-size: 25px;
   max-height: 48px;
   line-height: 24px;
   -webkit-line-clamp: 2;
@@ -93,6 +93,10 @@ export const H4 = styled.h4`
   text-overflow: ellipsis;
   font-weight: 600;
   line-height: 20px;
+`;
+
+export const Caption = styled.p`
+  font-size: 14px;
 `;
 
 export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (

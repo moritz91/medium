@@ -46,11 +46,7 @@ export const UserPopover: React.FC<Props> = ({
             <Manager>
               <Reference>
                 {({ ref }) => {
-                  return (
-                    <span ref={ref} style={{ minWidth: "45px" }}>
-                      {children}
-                    </span>
-                  );
+                  return <span ref={ref}>{children}</span>;
                 }}
               </Reference>
               {popoverState && (

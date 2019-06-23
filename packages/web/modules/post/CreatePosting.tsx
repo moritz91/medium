@@ -6,13 +6,20 @@ import { InputField } from "../shared/formik-fields/InputField";
 import { PostingModal } from "./postingModal";
 import { CreatePostContext } from "./shared/postContext";
 import { useState } from "react";
+import { NextContextWithApollo } from "../../types/NextContextWithApollo";
+import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 
-export const CreatePosting = (): JSX.Element => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+export const CreatePosting = (props: any): JSX.Element => {
+  const { getPostingById } = props;
+  const isUpdate = getPostingById ? true : false;
+  const [title, setTitle] = useState(
+    getPostingById ? getPostingById.title : ""
+  );
+  const [body, setBody] = useState(getPostingById ? getPostingById.body : "");
+  const tags = getPostingById ? getPostingById.tags : [];
 
   return (
-    <Layout title="Create Posting">
+    <Layout title={getPostingById ? "Update Posting" : "Create Posting"}>
       <Formik
         initialValues={{
           title: "",
@@ -50,7 +57,9 @@ export const CreatePosting = (): JSX.Element => {
                   value={body}
                 />
               </form>
-              <CreatePostContext.Provider value={{ title, body, isSubmitting }}>
+              <CreatePostContext.Provider
+                value={{ title, body, tags, isSubmitting, isUpdate }}
+              >
                 <PostingModal />
               </CreatePostContext.Provider>
             </div>
@@ -59,4 +68,25 @@ export const CreatePosting = (): JSX.Element => {
       </Formik>
     </Layout>
   );
+};
+
+CreatePosting.getInitialProps = async ({
+  query: { id },
+  apolloClient
+}: NextContextWithApollo) => {
+  if (id) {
+    const response: any = await apolloClient.query({
+      query: getPostingByIdQuery,
+      variables: {
+        id: id
+      }
+    });
+
+    const { getPostingById } = response.data;
+
+    return {
+      getPostingById
+    };
+  }
+  return {};
 };

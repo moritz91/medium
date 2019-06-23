@@ -41,7 +41,6 @@ const setCodeProps = (): ((ast: Node[]) => void) => {
 
 const MarkdownContainer = styled("div")`
   & .ping-link {
-    background: rgb(16, 91, 153);
     border-radius: 4px;
     padding: 0px 4px 1px;
     font-weight: 600;

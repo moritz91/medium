@@ -145,7 +145,10 @@ export const StreamItem: React.FC<Props> = ({
           <div style={{ display: "block", flex: "0 0 auto", width: "152px" }}>
             <Link {...linkProps}>
               <a>
-                <img height="100%" width="100%" src={previewImage} />
+                <img
+                  style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                  src={previewImage}
+                />
               </a>
             </Link>
           </div>

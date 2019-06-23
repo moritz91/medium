@@ -34,7 +34,6 @@ const customStyles = {
   }
 };
 
-const initialState = [] as any;
 export const TagDispatch = createContext<any>({
   type: "",
   action: ""
@@ -54,16 +53,15 @@ const reducer = (state: any, action: any) => {
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
   const [topicId] = useInputValue("");
-  const [tagNames] = useInputValue("");
+  const { title, body, tags, isSubmitting, isUpdate } = useContext<
+    CreatePostContextProps
+  >(CreatePostContext);
+  const initialState = tags ? tags : ([] as any);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     console.log(state);
   }, [state]);
-
-  const { title, body, isSubmitting } = useContext<CreatePostContextProps>(
-    CreatePostContext
-  );
 
   return (
     <CreatePostingComponent
@@ -127,7 +125,7 @@ export const PostingModal = () => {
                         title,
                         body
                       },
-                      tagNames: [tagNames],
+                      tagNames: tags.map(t => t.name),
                       topicIds: [topicId]
                     }
                   });
@@ -138,12 +136,12 @@ export const PostingModal = () => {
                   }
                 }}
               >
-                Publish
+                {isUpdate ? "Update" : "Publish"}
               </Button>
             </div>
           </Modal>
           <Button variant="primary" onClick={() => changeOpen(true)}>
-            Publish
+            {isUpdate ? "Update" : "Publish"}
           </Button>
         </>
       )}

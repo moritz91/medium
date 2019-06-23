@@ -1,5 +1,8 @@
 import { createContext } from "react";
-import { UserInfoFragment } from "../../../components/apollo-components";
+import {
+  UserInfoFragment,
+  TagInfoFragment
+} from "../../../components/apollo-components";
 import {
   PostingInfoFragment,
   CommentInfoFragment
@@ -14,7 +17,9 @@ export interface PostContextProps {
 export interface CreatePostContextProps {
   title: string;
   body: string;
+  tags: [TagInfoFragment];
   isSubmitting: boolean;
+  isUpdate: boolean;
 }
 
 export interface PostsContextProps {
@@ -33,7 +38,9 @@ export const PostContext = createContext<PostContextProps>({
 export const CreatePostContext = createContext<CreatePostContextProps>({
   title: "",
   body: "",
-  isSubmitting: false
+  tags: [{ id: "", name: "" }],
+  isSubmitting: false,
+  isUpdate: false
 });
 
 export const PostsContext = createContext<PostsContextProps>({

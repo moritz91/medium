@@ -26,7 +26,7 @@ export const CommmentContainer = styled.div`
 export const TopRow = styled.div`
   display: grid;
   grid-template-areas: "avatar content actions";
-  grid-template-columns: min-content 1fr auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto;
   gap: 8px 8px;
   flex: 1 1 0%;

@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import Downshift from "downshift";
 import { includes } from "lodash";
 import { TagDispatch } from "../modules/post/postingModal";
+import { CreatePostContext } from "../modules/post/shared/postContext";
 
 interface Props {
   onSelect: any;
@@ -9,8 +10,11 @@ interface Props {
 }
 
 export const MultiDownshift = (props: Props): any => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const dispatch = useContext(TagDispatch);
+  const { tags } = useContext(CreatePostContext);
+  const [selectedItems, setSelectedItems] = useState<string[]>(
+    tags ? tags.map(t => t.name) : []
+  );
 
   const stateReducer = (state: any, changes: any) => {
     switch (changes.type) {

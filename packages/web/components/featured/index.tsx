@@ -54,7 +54,7 @@ export const FeaturedStory: React.FC<Props> = ({
               <a style={{ cursor: "pointer" }}>
                 <img
                   src={previewImage}
-                  style={{ height: "382px", width: "100%" }}
+                  style={{ height: "382px", width: "100%", objectFit: "cover" }}
                   alt="previewImage"
                 />
               </a>

@@ -4,7 +4,7 @@ import { Flex, Text } from "rebass";
 import styled from "styled-components";
 import { useHover } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
-import { StoryFooterUsername, StoryHeading } from "../heading";
+import { StoryFooterUsername, StoryHeading, Caption } from "../heading";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
 import { useState } from "react";
@@ -26,7 +26,6 @@ interface Props {
 }
 
 const Container = styled.div`
-  padding: 1rem;
   margin: 1.6rem 0px;
 `;
 
@@ -35,10 +34,16 @@ export const CommmentContainer = styled.div`
   margin: 1.6rem 0px 1rem 0px;
 `;
 
+export const StoryFooter = styled.div`
+  margin: 15px 0 0;
+  padding: 15px 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+`;
+
 export const TopRow = styled.div`
   display: grid;
   grid-template-areas: "avatar content actions";
-  grid-template-columns: min-content 1fr auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto;
   gap: 8px 8px;
   flex: 1 1 0%;
@@ -50,13 +55,12 @@ export const UserAvatar = styled.div`
 `;
 
 export const Actions = styled.div`
-  display: grid;
   grid-area: actions / actions / actions / actions;
 `;
 
 export const Content = styled.div`
-  display: grid;
   grid-area: content / content / content / content;
+  padding: 0 10px;
 `;
 
 export const Story: React.FC<Props> = ({
@@ -79,14 +83,7 @@ export const Story: React.FC<Props> = ({
   return (
     <Container>
       <Flex justifyContent="center">
-        <div
-          style={{
-            paddingLeft: ".8rem",
-            justifyContent: "center",
-            flexDirection: "column",
-            marginRight: "auto"
-          }}
-        >
+        <div>
           <Flex className="posting-header">
             <StoryHeading>{previewTitle ? previewTitle : title}</StoryHeading>
             <div style={{ display: "flex", marginLeft: "auto" }}>
@@ -100,17 +97,15 @@ export const Story: React.FC<Props> = ({
               </div>
             </div>
           </Flex>
-          <div style={{ fontSize: 12 }}>
-            {dtString} •
+          <div style={{ fontSize: 14, padding: "8px 0" }}>
+            {dtString} • {username} •
             {numComments == 1
               ? ` ${numComments}` + " response"
               : ` ${numComments}` + " responses"}
           </div>
-          <div style={{ display: "flex", fontSize: "12px" }}>
-            <Text lineHeight={1.58} mb="1rem" fontSize={16}>
-              {previewSubtitle ? previewSubtitle : body}
-            </Text>
-          </div>
+          <Text lineHeight={1.58} mb="2rem" fontSize={16}>
+            {previewSubtitle ? previewSubtitle : body}
+          </Text>
         </div>
       </Flex>
       {tags.map((t: any, idx: number) => (
@@ -118,7 +113,7 @@ export const Story: React.FC<Props> = ({
           {t.name}
         </Button>
       ))}
-      <div style={{ display: "flex", marginLeft: "auto" }}>
+      <StoryFooter>
         <TopRow>
           <UserAvatar>
             <UserPopover popoverState={popoverState} username={username}>
@@ -141,16 +136,16 @@ export const Story: React.FC<Props> = ({
                 <a>{username}</a>
               </Link>
             </StoryFooterUsername>
-            <p>
+            <Caption>
               Financial Consultant. Analyst. Writer. Over a decade of experience
               in the financial industry.
-            </p>
+            </Caption>
           </Content>
-          <Actions style={{ display: "flex", marginLeft: "auto" }}>
+          <Actions>
             <Button variant="tag">Follow</Button>
           </Actions>
         </TopRow>
-      </div>
+      </StoryFooter>
     </Container>
   );
 };
