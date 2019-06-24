@@ -86,7 +86,6 @@ const theme: ITheme = {
       margin: "0 1rem",
       fontSize: "1.4rem",
       padding: ".8rem 1rem",
-      textTransform: "uppercase",
       borderRadius: ".4rem",
       "&.disabled": {
         cursor: "not-allowed"

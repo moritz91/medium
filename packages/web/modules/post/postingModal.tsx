@@ -30,7 +30,8 @@ const customStyles = {
     animation: "fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)"
   },
   overlay: {
-    backgroundColor: "none"
+    backgroundColor: "#fff",
+    zIndex: 1000
   }
 };
 
@@ -83,6 +84,8 @@ export const PostingModal = () => {
             isOpen={open}
             onRequestClose={() => changeOpen(false)}
             style={customStyles}
+            bodyOpenClassName={""}
+            portalClassName={"overlay"}
           >
             <div
               style={{

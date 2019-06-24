@@ -54,7 +54,7 @@ export const SubMenu = (): JSX.Element => {
                   variant="primary"
                   onClick={() => Router.push("/create")}
                 >
-                  NEW STORY
+                  New Story
                 </Button>
                 <Menu
                   options={[
