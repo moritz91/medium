@@ -27,11 +27,8 @@ const StyledFlyout = styled.div`
   z-index: 1000;
   background-color: #fff;
   animation-name: ${scaleIn};
-  animation-duration: .15s;
-  animation-timing-function: cubic-bezier(.2,0,.13,1.5);
-}
-
-
+  animation-duration: 0.15s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.13, 1.5);
 `;
 
 const StyledRow = styled.div`
@@ -40,7 +37,7 @@ const StyledRow = styled.div`
 `;
 
 export const Flyout = React.forwardRef<HTMLDivElement>(
-  ({ children }: any, ref): JSX.Element => (
+  ({ children }: any, ref: any): JSX.Element => (
     <StyledFlyout className={"flyout"} ref={ref}>
       <StyledRow>{children}</StyledRow>
     </StyledFlyout>

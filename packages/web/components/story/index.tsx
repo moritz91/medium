@@ -2,12 +2,12 @@ import { format } from "date-fns";
 import * as React from "react";
 import { Flex, Text } from "rebass";
 import styled from "styled-components";
-import { useHover } from "use-events";
+import { useHover, useClickOutside } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { StoryFooterUsername, StoryHeading, Caption } from "../heading";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
-import { useState } from "react";
+import { useState, createRef } from "react";
 import { Button } from "../button";
 import { Avatar } from "../avatar";
 
@@ -79,6 +79,9 @@ export const Story: React.FC<Props> = ({
   const dtString = format(Date.parse(createdAt), "MMM D");
   const [flyoutState, setFlyoutState] = useState(false);
   const [popoverState, bind] = useHover();
+  const ref1 = createRef<HTMLDivElement>();
+  const ref2 = createRef<HTMLDivElement>();
+  useClickOutside([ref1, ref2], () => setFlyoutState(false));
 
   return (
     <Container>
@@ -91,6 +94,8 @@ export const Story: React.FC<Props> = ({
                 <ActionsDropdown
                   flyoutState={flyoutState}
                   onClick={() => setFlyoutState(!flyoutState)}
+                  ref1={ref1}
+                  ref2={ref2}
                 >
                   <DeletePosting onClick={() => setFlyoutState(false)} />
                 </ActionsDropdown>

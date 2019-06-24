@@ -8,27 +8,33 @@ interface Props {
   children: React.ReactNode;
   flyoutState: boolean;
   onClick: () => void;
+  ref1: React.Ref<HTMLDivElement>;
+  ref2: React.Ref<HTMLDivElement>;
 }
 
 export const ActionsDropdown: React.FC<Props> = ({
   children,
   flyoutState,
-  onClick
+  onClick,
+  ref1,
+  ref2
 }) => {
   return (
     <Manager>
       <Reference>
         {({ ref }) => {
           return (
-            <span ref={ref}>
-              <Button variant="action" onClick={onClick}>
-                <Icon
-                  name="showActions"
-                  fill="#000"
-                  data-cy="thread-actions-dropdown-trigger"
-                />
-              </Button>
-            </span>
+            <div ref={ref1}>
+              <span ref={ref}>
+                <Button variant="action" onClick={onClick}>
+                  <Icon
+                    name="showActions"
+                    fill="#000"
+                    data-cy="thread-actions-dropdown-trigger"
+                  />
+                </Button>
+              </span>
+            </div>
           );
         }}
       </Reference>
@@ -45,7 +51,7 @@ export const ActionsDropdown: React.FC<Props> = ({
           {({ ref }) => {
             return (
               <Flyout data-cy="thread-actions-dropdown" ref={ref}>
-                <FlexRow>
+                <FlexRow ref={ref2}>
                   <Icon
                     size={16}
                     fill="#5C6AC4"

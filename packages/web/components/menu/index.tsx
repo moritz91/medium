@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, createRef } from "react";
 import styled from "styled-components";
 import { Divider } from "../../components/divider";
 import { Avatar } from "../avatar";
 import { Icon } from "../../components/icon";
 import { Router } from "../../server/routes";
+import { useClickOutside } from "use-events";
 
 interface Props {
   options: string[][];
@@ -92,14 +93,21 @@ export const Menu: React.FC<Props> = ({
   renderUserData
 }): JSX.Element => {
   const [open, changeOpen] = useState(false);
+  const ref1 = createRef<HTMLDivElement>();
+  const ref2 = createRef<HTMLDivElement>();
+  useClickOutside([ref1, ref2], () => changeOpen(false));
 
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ cursor: "pointer" }} onClick={() => changeOpen(!open)}>
+      <div
+        style={{ cursor: "pointer" }}
+        ref={ref1}
+        onClick={() => changeOpen(!open)}
+      >
         {children}
       </div>
       {open ? (
-        <MenuContainer>
+        <MenuContainer ref={ref2}>
           <ul
             style={{
               padding: "0",

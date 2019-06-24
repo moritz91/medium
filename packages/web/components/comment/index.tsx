@@ -2,14 +2,13 @@ import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Box } from "rebass";
 import { UserPopover } from "../../modules/user/shared/userPopover";
-import { useHover } from "use-events";
+import { useHover, useClickOutside } from "use-events";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeleteComment } from "../../modules/comment/deleteComment";
-import { useState } from "react";
+import { useState, createRef } from "react";
 import styled from "styled-components";
 import { Avatar } from "../avatar";
 
-// body: React.ReactElement<HTMLElement> | null;
 interface Props {
   id: string;
   body: any;
@@ -59,6 +58,9 @@ export const Comment: React.FC<Props> = ({
   });
   const [popoverState, bind] = useHover();
   const [flyoutState, setFlyoutState] = useState(false);
+  const ref1 = createRef<HTMLDivElement>();
+  const ref2 = createRef<HTMLDivElement>();
+  useClickOutside([ref1, ref2], () => setFlyoutState(false));
 
   return (
     <CommmentContainer>
@@ -102,6 +104,8 @@ export const Comment: React.FC<Props> = ({
             <ActionsDropdown
               flyoutState={flyoutState}
               onClick={() => setFlyoutState(!flyoutState)}
+              ref1={ref1}
+              ref2={ref2}
             >
               <DeleteComment
                 onClick={() => setFlyoutState(false)}
