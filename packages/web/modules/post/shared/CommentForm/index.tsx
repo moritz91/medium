@@ -162,7 +162,7 @@ export const CommentForm = ({
                     disabled={!isValid}
                     className={`primary ${isValid ? "" : "disabled"}`}
                   >
-                    Publish
+                    Comment
                   </Button>
                 </div>
               </div>

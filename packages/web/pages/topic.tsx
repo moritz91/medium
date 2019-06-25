@@ -10,7 +10,7 @@ import {
 import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { StreamItem, Stream } from "../components/streamItem";
-import { Heading } from "../components/heading";
+import { Heading, Caption } from "../components/heading";
 import { FeaturedStory } from "../components/featured";
 
 interface Props {
@@ -118,9 +118,9 @@ export default class Topic extends React.PureComponent<Props> {
                     );
                   }
                   return (
-                    <div>
+                    <Caption>
                       This topic has no stories yet, be the first to contribute!
-                    </div>
+                    </Caption>
                   );
                 }}
               </GetPostingsByTopicComponent>
