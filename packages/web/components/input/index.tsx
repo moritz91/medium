@@ -3,18 +3,21 @@ import styled from "styled-components";
 import { Icon } from "../icon";
 import { icons } from "../icon/icons";
 
-const Container = styled.div`
-  padding: 0.8rem 1.5rem;
-`;
-
 const Row = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  letter-spacing: 0;
+  font-weight: 300;
+  font-style: normal;
+  padding: 5px 0 3px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
 `;
 
 export const InputEl = styled.input`
-  padding-left: 0.1rem;
+  width: 100%;
   border: none;
   border-radius: 3px;
 `;
@@ -35,18 +38,12 @@ export class Input extends React.PureComponent<Props> {
     const { icon, style, errorText, big, ...props } = this.props;
     return (
       <div style={style}>
-        <Container>
-          <Row>
-            {icon && (
-              <Icon
-                name={icon}
-                fill="#b7c1c6"
-                style={{ marginRight: ".8rem" }}
-              />
-            )}
-            <InputEl style={{ fontSize: big ? "2rem" : "1.6rem" }} {...props} />
-          </Row>
-        </Container>
+        <Row>
+          {icon && (
+            <Icon name={icon} fill="#b7c1c6" style={{ marginRight: ".8rem" }} />
+          )}
+          <InputEl style={{ fontSize: big ? "2rem" : "16px" }} {...props} />
+        </Row>
         {errorText && (
           <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
         )}

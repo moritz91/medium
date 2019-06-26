@@ -1,5 +1,6 @@
 import * as React from "react";
 import Modal from "react-modal";
+import * as yup from "yup";
 import { CreatePostingComponent } from "../../components/apollo-components";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
 import { useInputValue } from "../../utils/useInputValue";
@@ -14,22 +15,41 @@ import { Router } from "../../server/routes";
 import { useEffect } from "react";
 import { Icon } from "../../components/icon";
 import { Button } from "../../components/button";
+import styled from "styled-components";
+import { Caption, StoryPreviewTitle } from "../../components/heading";
+import { Formik, Field } from "formik";
+import { InputField } from "../shared/formik-fields/InputField";
+
+const ModalPanel = styled.div`
+  line-height: 20px;
+  font-size: 16px;
+  text-align: left;
+  width: 50%;
+  padding: 40px;
+  flex: 1 1 auto;
+  color: rgba(0, 0, 0, 0.68);
+`;
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
+    position: "",
+    top: "",
+    bottom: "",
+    left: "",
+    right: "",
+    borderRadius: 0,
     border: "",
-    borderRadius: "0px",
-    width: 1040,
-    height: 400,
-    animation: "fade-in-pulse-08 .3s forwards cubic-bezier(.8,.02,.45,.91)"
+    overflow: "hidden",
+    margin: "auto",
+    padding: "100px 0px",
+    width: 1040
   },
   overlay: {
+    display: "flex",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: "#fff",
     zIndex: 1000
   }
@@ -54,12 +74,14 @@ const reducer = (state: any, action: any) => {
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
   const [topicId] = useInputValue("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [previewSubtitle, setPreviewSubtitle] = useState("");
+
   const { title, body, tags, isSubmitting, isUpdate } = useContext<
     CreatePostContextProps
   >(CreatePostContext);
   const initialState = tags ? tags : ([] as any);
   const [state, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
     console.log(state);
   }, [state]);
@@ -87,61 +109,141 @@ export const PostingModal = () => {
             bodyOpenClassName={""}
             portalClassName={"overlay"}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: "2rem",
-                alignItems: "center"
-              }}
-            >
-              <Icon
-                size={24}
-                name="x"
-                fill="#0d0d0d"
-                style={{
-                  cursor: "pointer",
-                  marginLeft: "97%"
-                }}
-                onClick={() => changeOpen(false)}
-              />
-            </div>
-            <div style={{ display: "flex" }}>
-              <TopicInputField />
-              <TagDispatch.Provider value={dispatch}>
-                <TagInputField />
-              </TagDispatch.Provider>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Button
-                variant="primary"
-                style={{
-                  marginLeft: "auto",
-                  marginTop: "2rem",
-                  marginRight: 0
-                }}
-                disabled={isSubmitting}
-                onClick={async () => {
-                  const response = await mutate({
-                    variables: {
-                      posting: {
-                        title,
-                        body
-                      },
-                      tagNames: tags.map(t => t.name),
-                      topicIds: [topicId]
-                    }
-                  });
-                  if (response && response.data) {
-                    Router.pushRoute("post", {
-                      id: response.data.createPosting.posting.id
-                    });
-                  }
-                }}
-              >
-                {isUpdate ? "Update" : "Publish"}
-              </Button>
-            </div>
+            <TagDispatch.Provider value={dispatch}>
+              <div style={{ display: "flex" }}>
+                <Button
+                  variant="action"
+                  style={{ position: "absolute", top: 0, right: 0 }}
+                >
+                  <Icon
+                    size={24}
+                    name="x"
+                    fill="#0d0d0d"
+                    style={{
+                      cursor: "pointer"
+                    }}
+                    onClick={() => changeOpen(false)}
+                  />
+                </Button>
+                <ModalPanel>
+                  <StoryPreviewTitle>Story Preview</StoryPreviewTitle>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                      background: "#fafafa",
+                      width: "100%",
+                      fontSize: "14px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        height: 200,
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      <span
+                        style={{
+                          marginLeft: 80,
+                          marginRight: 80,
+                          lineHeight: "20px",
+                          textAlign: "center"
+                        }}
+                      >
+                        Include a high-quality image in your story to make it
+                        more inviting to readers.
+                      </span>
+                    </div>
+                  </div>
+                  <Formik
+                    initialValues={{
+                      previewTitle: "",
+                      previewSubtitle: ""
+                    }}
+                    onSubmit={async ({ previewTitle }, { setErrors }) => {
+                      if (!previewTitle) {
+                        return setErrors({ previewTitle: "required" });
+                      }
+                    }}
+                    validationSchema={yup.object().shape({
+                      previewTitle: yup.string().required("required")
+                    })}
+                    validateOnBlur={false}
+                    validateOnChange={false}
+                  >
+                    {({ errors, handleSubmit }) => {
+                      return (
+                        <form onSubmit={handleSubmit}>
+                          <Field
+                            errors={errors.previewTitle}
+                            name="previewTitle"
+                            component={InputField}
+                            placeholder="Write a preview title"
+                            onChange={(e: any) =>
+                              setPreviewTitle(e.target.value)
+                            }
+                            value={previewTitle}
+                          />
+                          <Field
+                            errors={errors.previewSubtitle}
+                            name="previewSubtitle"
+                            component={InputField}
+                            placeholder="Write a preview subtitle..."
+                            onChange={(e: any) =>
+                              setPreviewSubtitle(e.target.value)
+                            }
+                            value={previewSubtitle}
+                          />
+                        </form>
+                      );
+                    }}
+                  </Formik>
+                  <Caption
+                    style={{ marginTop: 10, marginBottom: 20, fontWeight: 400 }}
+                  >
+                    <strong style={{ fontWeight: 700 }}>Note:</strong> Changes
+                    here will affect how your story appears in public places
+                    like Medium’s homepage — not the story itself.
+                  </Caption>
+                </ModalPanel>
+                <ModalPanel>
+                  <TopicInputField />
+                  <TagInputField />
+                  <Button
+                    variant="primary"
+                    style={{
+                      marginLeft: "auto",
+                      marginTop: "2rem",
+                      marginRight: 0
+                    }}
+                    disabled={isSubmitting}
+                    onClick={async () => {
+                      const response = await mutate({
+                        variables: {
+                          posting: {
+                            title,
+                            previewTitle,
+                            previewSubtitle,
+                            body
+                          },
+                          tagNames: tags.map(t => t.name),
+                          topicIds: [topicId]
+                        }
+                      });
+                      if (response && response.data) {
+                        Router.pushRoute("post", {
+                          id: response.data.createPosting.posting.id
+                        });
+                      }
+                    }}
+                  >
+                    {isUpdate ? "Update" : "Publish now"}
+                  </Button>
+                </ModalPanel>
+              </div>
+            </TagDispatch.Provider>
           </Modal>
           <Button variant="primary" onClick={() => changeOpen(true)}>
             {isUpdate ? "Update" : "Publish"}
