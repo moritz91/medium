@@ -35,7 +35,7 @@ const MenuLink = styled("a")`
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   &:hover {
-    color: #3290d4;
+    color: #202e78;
   }
 `;
 

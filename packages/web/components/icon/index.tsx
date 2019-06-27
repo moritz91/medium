@@ -16,6 +16,7 @@ export const Icon: React.FC<IconProps> = ({
   style,
   onClick
 }): JSX.Element => {
+  //@ts-ignore
   const { viewBox, d } = icons[name];
   return (
     <svg
