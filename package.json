@@ -3,7 +3,9 @@
   "scripts": {
     "build:server": "lerna run build --scope={@medium/common,@medium/server}",
     "build:web": "lerna run build --scope={@medium/ui,@medium/common,@medium/web}",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "ci:deploy": "lerna run ci:deploy --since $TAG",
+    "new-version": "lerna version --conventional-commits --yes"
   },
   "workspaces": {
     "packages": [

@@ -7,54 +7,55 @@ jobs:
   build:
     docker:
       - image: circleci/node:10-browsers
+      - image: circleci/postgres:11-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: stackflow
+      - image: redis:latest
 
     working_directory: ~/repo
 
     steps:
-      - checkout
+      - checkout:
+        post:
+          - git fetch -all
 
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            # when lock file changes, use increasingly general patterns to restore cache
+            - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-packages-v1-{{ .Branch }}-
+            - yarn-packages-v1-
 
-      - run: yarn install
+      - run: yarn install --freeze-lockfile
 
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
+          key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
       # run tests!
       # - run: yarn test
 
-  deploy:
-    machine:
-      enabled: true
-    working_directory: ~/repo
-    steps:
-      - checkout
       - run: git config --global user.email "moritz.giller@hotmail.com"
       - run: git config --global user.name "Moritz Giller"
-      - run: git checkout master
-      - run: git merge origin/staging
-      - run: git push origin master
 
-workflows:
-  version: 2
-  # The build and deploy workflow
-  build_and_deploy:
-    jobs:
-      - build
-      # The deploy job will only run on the filtered branches and
-      # require the build job to be successful before it starts
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                # - staging
-                - master
+      - run: yarn new-version
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="18.06.3-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run: git tag
+      - run: echo 'export TAG=`git describe --abbrev=0 --tags $(git rev-list --tags --max-count=2) | sed -n 2p`' >> $BASH_ENV
+      - run: echo $TAG
+      - run: yarn ci:deploy
