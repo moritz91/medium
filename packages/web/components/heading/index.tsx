@@ -71,7 +71,7 @@ export const StoryPreviewTitle = styled.h3`
 
 export const StoryFooterUsername = styled.h3`
   letter-spacing: -0.32px;
-  font-size: 19px;
+  font-size: 16px;
   max-height: 48px;
   line-height: 24px;
   -webkit-line-clamp: 2;
@@ -96,7 +96,7 @@ export const H4 = styled.h4`
 `;
 
 export const Caption = styled.p`
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (

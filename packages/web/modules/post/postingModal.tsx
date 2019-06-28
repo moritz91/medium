@@ -19,6 +19,7 @@ import styled from "styled-components";
 import { Caption, StoryPreviewTitle } from "../../components/heading";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
+import { Checkbox } from "../../components/checkbox";
 
 const ModalPanel = styled.div`
   line-height: 20px;
@@ -27,7 +28,6 @@ const ModalPanel = styled.div`
   width: 50%;
   padding: 40px;
   flex: 1 1 auto;
-  color: rgba(0, 0, 0, 0.68);
 `;
 
 const customStyles = {
@@ -73,6 +73,7 @@ const reducer = (state: any, action: any) => {
 
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [topicId] = useInputValue("");
   const [previewTitle, setPreviewTitle] = useState("");
   const [previewSubtitle, setPreviewSubtitle] = useState("");
@@ -201,7 +202,12 @@ export const PostingModal = () => {
                     }}
                   </Formik>
                   <Caption
-                    style={{ marginTop: 10, marginBottom: 20, fontWeight: 400 }}
+                    style={{
+                      marginTop: 10,
+                      marginBottom: 20,
+                      fontWeight: 400,
+                      color: "rgba(0, 0, 0, 0.68)"
+                    }}
                   >
                     <strong style={{ fontWeight: 700 }}>Note:</strong> Changes
                     here will affect how your story appears in public places
@@ -211,6 +217,15 @@ export const PostingModal = () => {
                 <ModalPanel>
                   <TopicInputField />
                   <TagInputField />
+                  <Checkbox
+                    checked={checked}
+                    onClick={() => setChecked(!checked)}
+                  >
+                    Allow curators to recommend my story to interested readers.{" "}
+                    <strong style={{ fontWeight: 700 }}>
+                      Recommended stories are part of Medium’s metered paywall.
+                    </strong>
+                  </Checkbox>
                   <Button
                     variant="primary"
                     style={{

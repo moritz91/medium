@@ -42,16 +42,9 @@ const MatchingTags = styled.ul`
 `;
 
 const SelectedTagsContainer = styled.div`
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-left: 2px;
-  padding-right: 2px;
-  border-radius: 2px;
-
-  &:first-child {
-    padding-left: 0px;
-    margin-left: 0px;
-  }
+  display: inline-block;
+  padding-right: 4px;
+  padding-bottom: 4px;
 `;
 
 const SelectedTagsItem = styled.button`
@@ -102,11 +95,7 @@ export const TagInputField = (): JSX.Element => {
   return (
     <div
       style={{
-        display: "flex",
-        width: "50%",
-        flexDirection: "column",
-        marginTop: 50,
-        lineHeight: "20px",
+        marginTop: 30,
         fontSize: "12px"
       }}
     >
@@ -134,9 +123,6 @@ export const TagInputField = (): JSX.Element => {
             <div
               style={{
                 position: "relative",
-                borderRadius: "6px",
-                borderBottomRightRadius: isOpen ? 0 : 6,
-                borderBottomLeftRadius: isOpen ? 0 : 6,
                 paddingTop: 10,
                 paddingBottom: 5,
                 paddingRight: 50
@@ -147,33 +133,25 @@ export const TagInputField = (): JSX.Element => {
             >
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "center"
+                  display: "block"
                 }}
               >
                 {selectedItems.length > 0 &&
                   selectedItems.map((item: any, idx: number) => (
                     <SelectedTagsContainer key={idx}>
-                      <div
-                        style={{
-                          display: "grid",
-                          gridAutoFlow: "column"
-                        }}
-                      >
-                        <SelectedTagsItem>
-                          <SelectedTagsItemText>{item}</SelectedTagsItemText>
-                          <span
-                            {...getRemoveButtonProps({ idx })}
-                            style={{
-                              margin: "1px",
-                              paddingLeft: "6px",
-                              color: "rgba(0,0,0,.54)"
-                            }}
-                          >
-                            𝘅
-                          </span>
-                        </SelectedTagsItem>
-                      </div>
+                      <SelectedTagsItem>
+                        <SelectedTagsItemText>{item}</SelectedTagsItemText>
+                        <span
+                          {...getRemoveButtonProps({ idx })}
+                          style={{
+                            margin: "1px",
+                            paddingLeft: "6px",
+                            color: "rgba(0,0,0,.54)"
+                          }}
+                        >
+                          𝘅
+                        </span>
+                      </SelectedTagsItem>
                     </SelectedTagsContainer>
                   ))}
                 <Input
