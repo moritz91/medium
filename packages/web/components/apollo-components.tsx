@@ -196,7 +196,7 @@ export type DeletePostingMutation = {
 };
 
 export type DeletePostingDeletePostingById = {
-  __typename?: "DeletePostingResponse";
+  __typename?: "SuccessResponse";
 
   ok: boolean;
 };
@@ -315,7 +315,7 @@ export type GetTagsByLettersQuery = {
 };
 
 export type GetTagsByLettersGetTagsByLetters = {
-  __typename?: "FindTagsByLettersResponse";
+  __typename?: "FindTagResponse";
 
   tags: GetTagsByLettersTags[];
 };
@@ -414,6 +414,30 @@ export type GetTopicsTopics = {
   name: string;
 
   pictureUrl: Maybe<string>;
+};
+
+export type GetTopicsByLettersVariables = {
+  letters: string;
+};
+
+export type GetTopicsByLettersQuery = {
+  __typename?: "Query";
+
+  getTopicsByLetters: Maybe<GetTopicsByLettersGetTopicsByLetters>;
+};
+
+export type GetTopicsByLettersGetTopicsByLetters = {
+  __typename?: "FindTopicResponse";
+
+  topics: GetTopicsByLettersTopics[];
+};
+
+export type GetTopicsByLettersTopics = {
+  __typename?: "Topic";
+
+  id: string;
+
+  name: string;
 };
 
 export type LogoutVariables = {};
@@ -1330,6 +1354,51 @@ export function GetTopicsHOC<TProps, TChildProps = any>(
     GetTopicsVariables,
     GetTopicsProps<TChildProps>
   >(GetTopicsDocument, operationOptions);
+}
+export const GetTopicsByLettersDocument = gql`
+  query GetTopicsByLetters($letters: String!) {
+    getTopicsByLetters(letters: $letters) {
+      topics {
+        id
+        name
+      }
+    }
+  }
+`;
+export class GetTopicsByLettersComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<GetTopicsByLettersQuery, GetTopicsByLettersVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTopicsByLettersQuery, GetTopicsByLettersVariables>
+        query={GetTopicsByLettersDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTopicsByLettersProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTopicsByLettersQuery, GetTopicsByLettersVariables>
+> &
+  TChildProps;
+export function GetTopicsByLettersHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTopicsByLettersQuery,
+        GetTopicsByLettersVariables,
+        GetTopicsByLettersProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTopicsByLettersQuery,
+    GetTopicsByLettersVariables,
+    GetTopicsByLettersProps<TChildProps>
+  >(GetTopicsByLettersDocument, operationOptions);
 }
 export const LogoutDocument = gql`
   mutation Logout {

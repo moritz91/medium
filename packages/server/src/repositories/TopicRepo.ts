@@ -7,6 +7,11 @@ interface FindByTopicIdOptions {
   limit: number;
 }
 
+interface FindByNameContains {
+  letters: string;
+  limit: number;
+}
+
 @EntityRepository(Topic)
 export class TopicRepository extends Repository<Topic> {
   async findByCreatorId({ postingId, cursor, limit }: FindByTopicIdOptions) {
@@ -27,6 +32,20 @@ export class TopicRepository extends Repository<Topic> {
     return {
       hasMore: comments.length === limit + 1,
       comments: comments.slice(0, limit)
+    };
+  }
+  async nameContains({ letters, limit }: FindByNameContains) {
+    const qb = this.createQueryBuilder("t")
+      .orderBy('"name"', "DESC")
+      .take(limit + 1);
+
+    qb.where("t.name ILIKE :name", { name: "%" + letters + "%" });
+
+    const topics = await qb.getMany();
+
+    return {
+      hasMore: topics.length === limit + 1,
+      topics: topics.slice(0, limit)
     };
   }
 }

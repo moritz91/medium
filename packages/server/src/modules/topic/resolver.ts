@@ -123,6 +123,13 @@ export class TopicResolver {
     return this.topicRepo.findOne({ where: { name } });
   }
 
+  @Query(() => FindTopicResponse, {
+    nullable: true
+  })
+  async getTopicsByLetters(@Arg("letters") letters: string) {
+    return this.topicRepo.nameContains({ letters, limit: 5 });
+  }
+
   @Mutation(() => SuccessResponse, {
     nullable: true
   })

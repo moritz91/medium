@@ -21,12 +21,3 @@ export class FindTagResponse {
   @Field(() => [Tag])
   tags: Tag[];
 }
-
-@ObjectType()
-export class FindTagsByLettersResponse {
-  @Field()
-  hasMore: boolean;
-
-  @Field(() => [Tag])
-  tags: Tag[];
-}

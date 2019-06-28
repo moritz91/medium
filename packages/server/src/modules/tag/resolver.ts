@@ -5,11 +5,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Tag } from "../../entity/Tag";
 import { TagRepository } from "../../repositories/TagRepo";
 import { FindTagsInput } from "./Input";
-import {
-  DeleteTagResponse,
-  FindTagResponse,
-  FindTagsByLettersResponse
-} from "./Response";
+import { DeleteTagResponse, FindTagResponse } from "./Response";
 
 @Resolver(Tag)
 export class TagResolver {
@@ -39,27 +35,6 @@ export class TagResolver {
     };
   }
 
-  // @Mutation(() => TagResponse, { name: `findOrCreateTag` })
-  // @Authorized()
-  // async createTag(@Arg("tag") name: CreateTagInput): Promise<TagResponse> {
-  //   let value = await this.tagRepo.findOne({
-  //     where: {
-  //       ...name
-  //     }
-  //   });
-  //   if (!value) {
-  //     value = await this.tagRepo
-  //       .create({
-  //         ...name
-  //       })
-  //       .save();
-  //   }
-
-  //   return {
-  //     tag: value
-  //   };
-  // }
-
   @Query(() => Tag, {
     nullable: true
   })
@@ -78,7 +53,7 @@ export class TagResolver {
     });
   }
 
-  @Query(() => FindTagsByLettersResponse, {
+  @Query(() => FindTagResponse, {
     nullable: true
   })
   async getTagsByLetters(@Arg("letters") letters: string) {

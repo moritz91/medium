@@ -5,7 +5,7 @@ import { CreatePostingComponent } from "../../components/apollo-components";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
 import { useInputValue } from "../../utils/useInputValue";
 import { TagInputField } from "../shared/formik-fields/TagInputField";
-import { TopicInputField } from "../shared/formik-fields/TopicInput";
+import { TopicInputField } from "../shared/formik-fields/TopicInputField";
 import {
   CreatePostContextProps,
   CreatePostContext
