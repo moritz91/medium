@@ -5,7 +5,7 @@
     "build:web": "lerna run build --scope={@medium/ui,@medium/common,@medium/web}",
     "cypress:open": "cypress open",
     "ci:deploy": "lerna run ci:deploy --since $TAG",
-    "new-version": "lerna version --no-git-tag-version --yes"
+    "new-version": "lerna version --conventional-commits --yes"
   },
   "workspaces": {
     "packages": [
