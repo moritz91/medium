@@ -18,8 +18,8 @@ jobs:
 
     steps:
       - checkout:
-        post:
-          - git fetch -all
+          post:
+            - git fetch -all
 
       # Download and cache dependencies
       - restore_cache:
