@@ -15,7 +15,7 @@ import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsByI
 import { Flex } from "rebass";
 import { get } from "lodash";
 import { Link } from "../../server/routes";
-import { Avatar } from "../../components/avatar";
+import { Avatar } from "../../components/common/Avatar";
 
 interface EditorSubmitProps {
   submitted: boolean;

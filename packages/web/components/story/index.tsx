@@ -9,7 +9,7 @@ import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
 import { useState, createRef } from "react";
 import { Button } from "../button";
-import { Avatar } from "../avatar";
+import { Avatar } from "../common/Avatar";
 
 interface Props {
   id: string;

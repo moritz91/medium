@@ -25,7 +25,6 @@ const CheckboxSpan = styled.span`
   height: 17px;
   line-height: 15px;
   vertical-align: text-top;
-  box-sizing: border-box;
 `;
 
 const CheckMarkSpan = styled.span`

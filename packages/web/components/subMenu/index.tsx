@@ -7,7 +7,7 @@ import { Router } from "../../server/routes";
 import { MeComponent } from "../apollo-components";
 import { Button } from "../button";
 import { Menu } from "../menu";
-import { Avatar } from "../avatar";
+import { Avatar } from "../common/Avatar";
 import { Icon } from "../icon";
 
 const Container = styled(Flex)`

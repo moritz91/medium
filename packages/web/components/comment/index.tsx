@@ -7,7 +7,7 @@ import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeleteComment } from "../../modules/comment/deleteComment";
 import { useState, createRef } from "react";
 import styled from "styled-components";
-import { Avatar } from "../avatar";
+import { Avatar } from "../common/Avatar";
 
 interface Props {
   id: string;

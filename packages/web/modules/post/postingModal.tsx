@@ -19,7 +19,7 @@ import styled from "styled-components";
 import { Caption, StoryPreviewTitle } from "../../components/heading";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
-import { Checkbox } from "../../components/checkbox";
+import { Checkbox } from "../../components/common/checkbox";
 
 const ModalPanel = styled.div`
   line-height: 20px;

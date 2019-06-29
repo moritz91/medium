@@ -3,8 +3,8 @@ import { Manager, Reference, Popper } from "react-popper";
 import { Heading, Text } from "rebass";
 import { FindUserComponent } from "../../../components/apollo-components";
 import styled from "styled-components";
-import { Flyout, FlexRow } from "../../../components/flyout";
-import { Avatar } from "../../../components/avatar";
+import { Flyout, FlexRow } from "../../../components/common/Flyout";
+import { Avatar } from "../../../components/common/Avatar";
 
 interface Props {
   children: React.ReactNode;

@@ -2,7 +2,7 @@ import React from "react";
 import { Manager, Reference, Popper } from "react-popper";
 import { Button } from "../../../components/button";
 import { Icon } from "../../../components/icon";
-import { Flyout, FlexRow } from "../../../components/flyout";
+import { Flyout, FlexRow } from "../../../components/common/Flyout";
 
 interface Props {
   children: React.ReactNode;

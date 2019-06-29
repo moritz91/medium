@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useState, createRef } from "react";
 import styled from "styled-components";
-import { Divider } from "../../components/divider";
-import { Avatar } from "../avatar";
+import { Avatar } from "../common/Avatar";
 import { Icon } from "../../components/icon";
 import { Router } from "../../server/routes";
 import { useClickOutside } from "use-events";
@@ -84,6 +83,12 @@ const UserDataMeta = styled.div`
   flex: 1 1 auto;
   padding-left: 15px;
   cursor: pointer;
+`;
+
+const Divider = styled.div`
+  background-color: #e1e4e8;
+  height: 1px;
+  margin: 8px 1px;
 `;
 
 export const Menu: React.FC<Props> = ({

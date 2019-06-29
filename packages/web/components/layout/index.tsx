@@ -3,8 +3,17 @@ import Head from "next/head";
 import Navbar from "../navigation";
 import { SubMenu } from "../subMenu";
 import { Link } from "../../server/routes";
-import { Wrapper } from "../wrapper";
-import { Footer } from "../footer";
+import { Footer } from "../common/footer";
+import styled from "../theme/styled-components";
+
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.6rem;
+`;
 
 type Props = {
   title: string;
