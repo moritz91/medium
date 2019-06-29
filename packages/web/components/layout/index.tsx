@@ -3,7 +3,7 @@ import Head from "next/head";
 import Navbar from "../navigation";
 import { SubMenu } from "../subMenu";
 import { Link } from "../../server/routes";
-import { Footer } from "../common/footer";
+import { Footer } from "../common/Footer";
 import styled from "../theme/styled-components";
 
 const Wrapper = styled.div`
