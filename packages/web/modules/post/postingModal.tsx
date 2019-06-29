@@ -9,7 +9,7 @@ import { TopicInputField } from "../shared/formik-fields/TopicInputField";
 import {
   CreatePostContextProps,
   CreatePostContext
-} from "./shared/postContext";
+} from "../../components/context/PostContext";
 import { useContext, useState, useReducer, createContext } from "react";
 import { Router } from "../../server/routes";
 import { useEffect } from "react";

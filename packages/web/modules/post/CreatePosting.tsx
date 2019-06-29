@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
 import { PostingModal } from "./postingModal";
-import { CreatePostContext } from "./shared/postContext";
+import { CreatePostContext } from "../../components/context/PostContext";
 import { useState } from "react";
 import { NextContextWithApollo } from "../../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";

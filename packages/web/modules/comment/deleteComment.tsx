@@ -6,7 +6,7 @@ import {
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import { get } from "lodash";
-import { PostContext } from "../post/shared/postContext";
+import { PostContext } from "../../components/context/PostContext";
 import { Button } from "../../components/button";
 
 interface Props {

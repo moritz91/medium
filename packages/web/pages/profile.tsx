@@ -10,7 +10,7 @@ import { ProfileTabs } from "../modules/profile/profileTabs";
 import {
   PostsContextProps,
   PostsContext
-} from "../modules/post/shared/postContext";
+} from "../components/context/PostContext";
 import { ProfileHero } from "../modules/user/profile/profileHero";
 
 interface Props {

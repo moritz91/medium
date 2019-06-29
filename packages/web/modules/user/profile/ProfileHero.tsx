@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PostsContext } from "../../post/shared/postContext";
+import { PostsContext } from "../../../components/context/PostContext";
 import styled from "styled-components";
 import { Avatar } from "../../../components/avatar";
 

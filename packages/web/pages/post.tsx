@@ -14,7 +14,7 @@ import { Text, Box } from "rebass";
 import {
   PostContextProps,
   PostContext
-} from "../modules/post/shared/postContext";
+} from "../components/context/PostContext";
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
 import { Story } from "../components/story";

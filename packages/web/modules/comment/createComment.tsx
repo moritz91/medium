@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { CommentForm, TextEditorResult } from "../post/shared/commentForm";
-import { PostContext, PostContextProps } from "../post/shared/postContext";
+import {
+  PostContext,
+  PostContextProps
+} from "../../components/context/PostContext";
 import {
   CommentInfoFragment,
   CreateCommentComponent,

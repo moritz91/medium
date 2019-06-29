@@ -6,7 +6,7 @@ import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
 import {
   TopicContext,
   TopicContextProps
-} from "../modules/topic/shared/topicContext";
+} from "../components/context/TopicContext";
 import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { StreamItem, Stream } from "../components/streamItem";

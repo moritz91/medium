@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import Downshift from "downshift";
 import { includes } from "lodash";
 import { TagDispatch } from "../modules/post/postingModal";
-import { CreatePostContext } from "../modules/post/shared/postContext";
+import { CreatePostContext } from "../components/context/PostContext";
 
 interface Props {
   onSelect: any;

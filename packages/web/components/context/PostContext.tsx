@@ -1,12 +1,6 @@
 import { createContext } from "react";
-import {
-  UserInfoFragment,
-  TagInfoFragment
-} from "../../../components/apollo-components";
-import {
-  PostingInfoFragment,
-  CommentInfoFragment
-} from "../../../components/apollo-components";
+import { UserInfoFragment, TagInfoFragment } from "../apollo-components";
+import { PostingInfoFragment, CommentInfoFragment } from "../apollo-components";
 
 export interface PostContextProps {
   title: string;

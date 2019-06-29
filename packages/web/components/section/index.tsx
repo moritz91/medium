@@ -1,9 +1,6 @@
 import { Box, Text } from "rebass";
 import { useContext } from "react";
-import {
-  TopicContext,
-  TopicContextProps
-} from "../../modules/topic/shared/topicContext";
+import { TopicContext, TopicContextProps } from "../context/TopicContext";
 import { Heading, TopicTitle, H4 } from "../heading";
 import { GetPostingsByTopicComponent } from "../apollo-components";
 import { truncate } from "lodash";

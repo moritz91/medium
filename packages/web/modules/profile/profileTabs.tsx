@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
 import { Comment } from "../../components/comment";
-import { PostsContext } from "../post/shared/postContext";
+import { PostsContext } from "../../components/context/PostContext";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
 import { MarkdownRenderer } from "../post/shared/markdownEditor/markdownRenderer";
