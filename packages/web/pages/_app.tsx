@@ -1,4 +1,3 @@
-import { GlobalStyle, theme, ThemeProvider } from "@medium/ui";
 import App, { Container } from "next/app";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
@@ -6,6 +5,10 @@ import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 import withApolloClient from "../lib/with-apollo-client";
 import ReactModal from "react-modal";
+
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "../components/theme/styled-components";
+import theme from "../components/theme";
 import "../static/linkfix.css";
 
 if (typeof window !== "undefined") {

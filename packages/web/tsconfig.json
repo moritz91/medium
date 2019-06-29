@@ -19,5 +19,5 @@
     "noImplicitAny": true,
     "resolveJsonModule": true
   },
-  "references": [{ "path": "../common" }, { "path": "../ui" }]
+  "references": [{ "path": "../common" }]
 }

@@ -1,4 +1,4 @@
-import { styled } from "@medium/ui";
+import styled from "styled-components";
 
 export const CommandContainer = styled.div`
   float: right;
