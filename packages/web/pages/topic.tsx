@@ -1,6 +1,6 @@
 import React from "react";
 import { GetPostingsByTopicComponent } from "../components/apollo-components";
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import { MainSection, Sections, SidebarSection } from "../components/section";
 import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
 import {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as yup from "yup";
-import Layout from "../../components/layout";
+import { Layout } from "../../components/layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
 import { PostingModal } from "./postingModal";
@@ -11,12 +11,12 @@ import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 
 export const CreatePosting = (props: any): JSX.Element => {
   const { getPostingById } = props;
-  const isUpdate = getPostingById ? true : false;
   const [title, setTitle] = useState(
     getPostingById ? getPostingById.title : ""
   );
   const [body, setBody] = useState(getPostingById ? getPostingById.body : "");
   const tags = getPostingById ? getPostingById.tags : [];
+  const isUpdate = getPostingById ? true : false;
 
   return (
     <Layout title={getPostingById ? "Update Posting" : "Create Posting"}>

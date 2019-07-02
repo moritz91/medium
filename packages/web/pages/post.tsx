@@ -1,7 +1,7 @@
 import React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../graphql/post/query/getPostingById";
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import { Comment } from "../components/comment";
 import {
   UserInfoFragment,

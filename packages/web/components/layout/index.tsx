@@ -1,10 +1,11 @@
-import * as React from "react";
+import React from "react";
 import Head from "next/head";
 import Navbar from "../navigation";
 import { SubMenu } from "../subMenu";
 import { Link } from "../../server/routes";
 import { Footer } from "../common/Footer";
-import styled from "../theme/styled-components";
+import styled from "styled-components";
+import { NextFunctionComponent } from "next";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -15,11 +16,9 @@ const Wrapper = styled.div`
   padding: 0 1.6rem;
 `;
 
-type Props = {
-  title: string;
-};
+type Props = ReturnType<any> & { title: string };
 
-const Layout: React.SFC<Props> = ({ children, title }) => (
+export const Layout: NextFunctionComponent<Props> = ({ children, title }) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -34,7 +33,7 @@ const Layout: React.SFC<Props> = ({ children, title }) => (
     </Wrapper>
     <Footer
       linksLeft={[
-        "© 2019 Medium, Inc.",
+        "© " + `${new Date().getFullYear()}` + " Medium, Inc.",
         <Link href={"/tos"}>Terms</Link>,
         <Link href={"test2"}>Privacy</Link>,
         <Link href={"test3"}>Security</Link>,
@@ -53,5 +52,3 @@ const Layout: React.SFC<Props> = ({ children, title }) => (
     />
   </div>
 );
-
-export default Layout;

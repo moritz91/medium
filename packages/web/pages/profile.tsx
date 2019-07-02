@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import { findUserQuery } from "../graphql/user/query/user";
 import {
   PostingInfoFragment,
