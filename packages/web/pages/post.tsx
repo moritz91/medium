@@ -8,7 +8,6 @@ import {
   GetCommentsByIdComponent,
   TagInfoFragment
 } from "../components/apollo-components";
-import { UserInfoFragment as userInfoFragment } from "../graphql/user/fragments/UserInfo";
 import { Link } from "../server/routes";
 import { Text, Box } from "rebass";
 import {
@@ -18,6 +17,8 @@ import {
 import { MarkdownRenderer } from "../modules/post/shared/markdownEditor/markdownRenderer";
 import { CreatePostingReply } from "../modules/comment/createComment";
 import { Story } from "../components/story";
+import { Waypoint } from "react-waypoint";
+import { getCommentsByIdQuery } from "../graphql/comment/query/getCommentsById";
 
 interface Props {
   id: string;
@@ -73,7 +74,7 @@ export default class Post extends React.PureComponent<Props> {
     } = this.props;
     const context: PostContextProps = {
       title,
-      creator: userInfoFragment,
+      creator,
       postingId: id
     };
 
@@ -106,7 +107,7 @@ export default class Post extends React.PureComponent<Props> {
           <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
           <Box mb={20} />
           <GetCommentsByIdComponent variables={{ input: { postingId: id } }}>
-            {({ data, loading }) => {
+            {({ data, loading, fetchMore }) => {
               if (loading) {
                 <div>Loading...</div>;
               }
@@ -116,48 +117,39 @@ export default class Post extends React.PureComponent<Props> {
                     <>
                       {data.findCommentsById.comments.map(
                         ({ id, createdAt, creator, text }, key: any) => (
-                          <Comment
-                            id={id}
-                            key={key}
-                            createdAt={createdAt}
-                            creator={creator}
-                            body={MarkdownRenderer({ text })}
-                            Link={Link}
-                          />
-                        )
-                      )}
-                    </>
-                  )}
-                </>
-              );
-            }}
-          </GetCommentsByIdComponent>
-        </PostContext.Provider>
-      </Layout>
-    );
-  }
-}
-
-/* {data.findCommentsById.hasMore &&
+                          <React.Fragment key={id}>
+                            <Comment
+                              id={id}
+                              key={key}
+                              createdAt={createdAt}
+                              creator={creator}
+                              body={MarkdownRenderer({ text })}
+                              Link={Link}
+                            />
+                            {data.findCommentsById.hasMore &&
                               key ===
-                                data.findCommentsById.comments.length - 10 && (
+                                data.findCommentsById.comments.length - 4 && (
                                 <Waypoint
-                                  onEnter={() =>
-                                    fetchMore({
+                                  onEnter={async () =>
+                                    await fetchMore({
+                                      query: getCommentsByIdQuery,
                                       variables: {
-                                        postingId: id,
-                                        cursor:
-                                          data.findCommentsById.comments[
-                                            length - 1
-                                          ]
+                                        input: {
+                                          postingId: id,
+                                          cursor:
+                                            data.findCommentsById.comments[
+                                              data.findCommentsById.comments
+                                                .length - 1
+                                            ].createdAt
+                                        }
                                       },
                                       updateQuery: (
                                         prev: any,
-                                        {
-                                          fetchMoreResult
-                                        }: { fetchMoreResult: any }
+                                        { fetchMoreResult }: any
                                       ) => {
-                                        if (!fetchMoreResult) return prev;
+                                        if (!fetchMoreResult) {
+                                          return prev;
+                                        }
                                         return {
                                           findCommentsById: {
                                             __typename: "FindCommentResponse",
@@ -175,4 +167,18 @@ export default class Post extends React.PureComponent<Props> {
                                     })
                                   }
                                 />
-                              )} */
+                              )}
+                          </React.Fragment>
+                        )
+                      )}
+                    </>
+                  )}
+                </>
+              );
+            }}
+          </GetCommentsByIdComponent>
+        </PostContext.Provider>
+      </Layout>
+    );
+  }
+}

@@ -19,7 +19,7 @@ import {
 } from "./response";
 import { CommentRepository } from "../../repositories/CommentRepo";
 
-const COMMENT_LIMIT = 10;
+const COMMENT_LIMIT = 5;
 
 @Resolver(Comment)
 export class CommentResolver {
@@ -63,13 +63,13 @@ export class CommentResolver {
   @Authorized()
   async findCommentsById(@Arg("input")
   {
-    cursor,
-    postingId
+    postingId,
+    cursor
   }: FindCommentsByIdInput): Promise<FindCommentResponse> {
     return this.commentRepo.findByPostingId({
+      postingId,
       cursor,
-      limit: COMMENT_LIMIT,
-      postingId
+      limit: COMMENT_LIMIT
     });
   }
 }
