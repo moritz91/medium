@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import {
   MeComponent,
-  DeleteCommentComponent
+  DeleteCommentComponent,
+  GetCommentsByIdQuery,
+  GetCommentsByIdVariables
 } from "../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import { get } from "lodash";
 import { PostContext } from "../../components/context/PostContext";
 import { Button } from "../../components/button";
@@ -18,24 +19,7 @@ export const DeleteComment = ({ commentId, onClick }: Props) => {
   const { postingId } = useContext(PostContext);
 
   return (
-    <DeleteCommentComponent
-      refetchQueries={[
-        {
-          query: getPostingByIdQuery,
-          variables: {
-            id: postingId
-          }
-        },
-        {
-          query: getCommentsByIdQuery,
-          variables: {
-            input: {
-              postingId
-            }
-          }
-        }
-      ]}
-    >
+    <DeleteCommentComponent>
       {mutate => (
         <>
           <MeComponent>
@@ -55,6 +39,43 @@ export const DeleteComment = ({ commentId, onClick }: Props) => {
                       const response = await mutate({
                         variables: {
                           id: commentId
+                        },
+                        update: (cache, { data }) => {
+                          if (!data) {
+                            return;
+                          }
+
+                          const x = cache.readQuery<
+                            GetCommentsByIdQuery,
+                            GetCommentsByIdVariables
+                          >({
+                            query: getCommentsByIdQuery,
+                            variables: {
+                              input: { postingId }
+                            }
+                          });
+
+                          cache.writeQuery<
+                            GetCommentsByIdQuery,
+                            GetCommentsByIdVariables
+                          >({
+                            query: getCommentsByIdQuery,
+                            variables: {
+                              input: { postingId }
+                            },
+                            data: {
+                              __typename: "Query",
+                              findCommentsById: {
+                                __typename: "FindCommentResponse",
+                                comments: [
+                                  ...x!.findCommentsById.comments.filter(
+                                    c => c.id !== commentId
+                                  )
+                                ],
+                                hasMore: false
+                              }
+                            }
+                          });
                         }
                       });
 
