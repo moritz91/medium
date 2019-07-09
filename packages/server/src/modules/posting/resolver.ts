@@ -45,7 +45,7 @@ export class PostingResolver {
   private readonly tagRepo: TagRepository;
 
   @FieldResolver(() => User)
-  creator(@Root() root: any, @Ctx() ctx: MyContext) {
+  creator(@Root() root: Posting, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(root.creatorId);
   }
 
@@ -136,6 +136,16 @@ export class PostingResolver {
     @Ctx() { req }: MyContext
   ) {
     await UserPosting.create({ postingId, userId: req.session!.userId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async removeUserPosting(
+    @Arg("postingId", () => String) postingId: string,
+    @Ctx() { req }: MyContext
+  ) {
+    await UserPosting.delete({ postingId, userId: req.session!.userId });
     return true;
   }
 

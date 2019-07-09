@@ -13,7 +13,8 @@ const batchPostings = async (userIds: string[]) => {
     },
     where: {
       userId: In(userIds)
-    }
+    },
+    order: { posting: "DESC" }
   });
 
   const userIdToPostings: { [key: string]: Posting[] } = {};

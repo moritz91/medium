@@ -5,6 +5,7 @@ import { Link } from "../server/routes";
 import { StreamItem, Stream } from "../components/streamItem";
 import { meQuery } from "../graphql/user/query/me";
 import { PostingInfoFragment } from "../components/apollo-components";
+import { Caption } from "../components/heading";
 
 interface Props {
   postings: [PostingInfoFragment];
@@ -31,7 +32,7 @@ export default class ReadingList extends React.Component<Props> {
       <Layout title={"Reading List"}>
         <Stream>
           <>
-            {postings && (
+            {postings ? (
               <>
                 {postings.map((post: any) => (
                   <StreamItem
@@ -56,6 +57,8 @@ export default class ReadingList extends React.Component<Props> {
                   />
                 ))}
               </>
+            ) : (
+              <Caption>You have currently not bookmarked any stories.</Caption>
             )}
             {hasMore && <div>load more</div>}
           </>
