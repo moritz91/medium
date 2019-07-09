@@ -22,7 +22,7 @@ export const DeleteComment = ({ commentId, onClick }: Props) => {
     <DeleteCommentComponent>
       {mutate => (
         <>
-          <MeComponent>
+          <MeComponent variables={{ withBookmarks: false }}>
             {({ data, loading }) => {
               if (loading) {
                 return null;

@@ -19,9 +19,9 @@ export default class ReadingList extends React.Component<Props> {
       }
     });
 
-    console.log(response.data.me.bookmarks);
+    const postings = response.data.me.bookmarks;
 
-    return;
+    return { postings };
   }
 
   render() {

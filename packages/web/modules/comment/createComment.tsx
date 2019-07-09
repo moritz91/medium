@@ -98,7 +98,7 @@ export const CreatePostingReply = ({
           }
         };
         return (
-          <MeComponent>
+          <MeComponent variables={{ withBookmarks: false }}>
             {({ data, loading }) => {
               if (loading) {
                 return null;
