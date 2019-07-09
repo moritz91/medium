@@ -23,7 +23,7 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }: any) {
     let pageProps = {};
 
-    // const userProps = await ctx.apolloClient.query({ query: meQuery });
+    // const userProps = await ctx.apolloClient.query({ query: meQuery, variables: {{ withBookmarks: false }} });
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);

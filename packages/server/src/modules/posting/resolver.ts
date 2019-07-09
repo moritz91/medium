@@ -133,9 +133,9 @@ export class PostingResolver {
   @Authorized()
   async addUserPosting(
     @Arg("postingId", () => String) postingId: string,
-    @Arg("userId", () => String) userId: string
+    @Ctx() { req }: MyContext
   ) {
-    await UserPosting.create({ postingId, userId }).save();
+    await UserPosting.create({ postingId, userId: req.session!.userId }).save();
     return true;
   }
 

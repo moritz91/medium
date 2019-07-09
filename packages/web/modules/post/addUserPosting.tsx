@@ -1,35 +1,25 @@
 import React, { useContext } from "react";
 import {
   MeComponent,
-  DeletePostingComponent
+  AddUserPostingComponent
 } from "../../components/apollo-components";
 import { get } from "lodash";
-import { PostContext } from "../../components/context/PostContext";
-import Router from "next/router";
-import { getPostingsQuery } from "../../graphql/post/query/getPostings";
+import {
+  PostContext,
+  PostContextProps
+} from "../../components/context/PostContext";
 import { Button } from "../../components/button";
+import { Icon } from "../../components/icon";
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-export const DeletePosting = ({ onClick }: Props) => {
-  const { postingId } = useContext(PostContext);
+export const AddUserPosting = ({ onClick }: Props) => {
+  const { postingId } = useContext<PostContextProps>(PostContext);
 
   return (
-    <DeletePostingComponent
-      refetchQueries={[
-        {
-          query: getPostingsQuery,
-          variables: {
-            input: {
-              limit: 6,
-              offset: 0
-            }
-          }
-        }
-      ]}
-    >
+    <AddUserPostingComponent>
       {mutate => (
         <>
           <MeComponent variables={{ withBookmarks: false }}>
@@ -48,18 +38,16 @@ export const DeletePosting = ({ onClick }: Props) => {
                     onClick={async () => {
                       const response = await mutate({
                         variables: {
-                          id: postingId
+                          postingId: postingId
                         }
                       });
 
                       if (response && onClick) {
                         onClick();
                       }
-
-                      Router.replace("/posts");
                     }}
                   >
-                    Delete Posting
+                    <Icon name="saveStory" fill="#000" size={25} />
                   </Button>
                 );
               }
@@ -69,6 +57,6 @@ export const DeletePosting = ({ onClick }: Props) => {
           </MeComponent>
         </>
       )}
-    </DeletePostingComponent>
+    </AddUserPostingComponent>
   );
 };

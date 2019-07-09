@@ -7,6 +7,7 @@ import { useHover } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Button } from "../button";
 import { Icon } from "../icon";
+import { AddUserPosting } from "../../modules/post/addUserPosting";
 
 interface Props {
   id: string;
@@ -131,9 +132,7 @@ export const StreamItem: React.FC<Props> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                <Button variant="action">
-                  <Icon name="saveStory" fill="#000" size={25} />
-                </Button>
+                <AddUserPosting />
                 <Button variant="action">
                   <Icon name="showActions" fill="#000" size={15} />
                 </Button>
