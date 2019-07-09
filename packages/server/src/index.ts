@@ -21,6 +21,7 @@ import { postingTagLoader } from "./loaders/postingTagLoader";
 import { tagPostingLoader } from "./loaders/tagPostingLoader";
 import { topicPostingLoader } from "./loaders/topicPostingLoader";
 import { postingTopicLoader } from "./loaders/postingTopicLoader";
+import { userPostingLoader } from "./loaders/userPostingLoader";
 
 process.env.GITHUB_CLIENT_ID;
 
@@ -51,7 +52,8 @@ const startServer = async () => {
       postingTagLoader: postingTagLoader(),
       tagPostingLoader: tagPostingLoader(),
       postingTopicLoader: postingTopicLoader(),
-      topicPostingLoader: topicPostingLoader()
+      topicPostingLoader: topicPostingLoader(),
+      userPostingLoader: userPostingLoader()
     })
   });
 

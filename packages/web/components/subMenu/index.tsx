@@ -39,7 +39,7 @@ export const SubMenu = (): JSX.Element => {
         </NextLink>
       </Flex>
 
-      <MeComponent>
+      <MeComponent variables={{ withBookmarks: false }}>
         {({ data, loading }) => {
           if (loading) {
             return null;

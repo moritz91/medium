@@ -1,11 +1,14 @@
 import gql from "graphql-tag";
-import { UserInfoFragment } from "../fragments/UserInfo";
+import { PostingInfoFragment } from "../../post/fragments/PostingInfo";
 
 export const meQuery = gql`
-  query Me {
+  query Me($withBookmarks: Boolean!) {
     me {
       ...UserInfo
+      bookmarks @include(if: $withBookmarks) {
+        ...PostingInfo
+      }
     }
   }
-  ${UserInfoFragment}
+  ${PostingInfoFragment}
 `;

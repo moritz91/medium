@@ -29,6 +29,7 @@ import { PostingTag } from "../../entity/PostingTag";
 import { TagRepository } from "../../repositories/TagRepo";
 import { PostingTopic } from "../../entity/PostingTopic";
 import { SuccessResponse } from "../shared/Response";
+import { UserPosting } from "../../entity/UserPosting";
 
 const POST_LIMIT = 16;
 
@@ -109,6 +110,7 @@ export class PostingResolver {
   }
 
   @Mutation(() => Boolean)
+  @Authorized()
   async addPostingTag(
     @Arg("postingId", () => String) postingId: string,
     @Arg("tagId", () => String) tagId: string
@@ -118,11 +120,22 @@ export class PostingResolver {
   }
 
   @Mutation(() => Boolean)
+  @Authorized()
   async addPostingTopic(
     @Arg("postingId", () => String) postingId: string,
     @Arg("topicId", () => String) topicId: string
   ) {
     await PostingTopic.create({ postingId, topicId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async addUserPosting(
+    @Arg("postingId", () => String) postingId: string,
+    @Arg("userId", () => String) userId: string
+  ) {
+    await UserPosting.create({ postingId, userId }).save();
     return true;
   }
 

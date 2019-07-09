@@ -13,4 +13,5 @@ export interface MyContext {
   tagPostingLoader: DataLoader<string, Tag[]>;
   topicPostingLoader: DataLoader<string, Topic[]>;
   postingTopicLoader: DataLoader<string, Posting[]>;
+  userPostingLoader: DataLoader<string, Posting[]>;
 }

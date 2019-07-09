@@ -5,9 +5,6 @@ export const getTagByNameQuery = gql`
   query GetTagByName($name: String!) {
     getTagByName(name: $name) {
       name
-      postings {
-        ...PostingInfo
-      }
     }
   }
   ${PostingInfoFragment}

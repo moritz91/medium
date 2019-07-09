@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Ctx } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 import {
   BaseEntity,
   Entity,
@@ -8,8 +8,6 @@ import {
   OneToMany
 } from "typeorm";
 import { PostingTag } from "./PostingTag";
-import { MyContext } from "../types/Context";
-import { Posting } from "./Posting";
 
 @Entity()
 @ObjectType()
@@ -25,9 +23,4 @@ export class Tag extends BaseEntity {
   @OneToMany(() => PostingTag, tp => tp.tag)
   @JoinTable({ name: "PostingTag" })
   postingConnection: Promise<PostingTag[]>;
-
-  @Field(() => [Posting], { nullable: true })
-  async postings(@Ctx() { postingTagLoader }: MyContext): Promise<Posting[]> {
-    return postingTagLoader.load(this.id);
-  }
 }

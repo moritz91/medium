@@ -340,11 +340,7 @@ export type GetTagByNameGetTagByName = {
   __typename?: "Tag";
 
   name: string;
-
-  postings: Maybe<GetTagByNamePostings[]>;
 };
-
-export type GetTagByNamePostings = PostingInfoFragment;
 
 export type GetTagsVariables = {
   input: FindTagsInput;
@@ -448,7 +444,9 @@ export type LogoutMutation = {
   logout: boolean;
 };
 
-export type MeVariables = {};
+export type MeVariables = {
+  withBookmarks: boolean;
+};
 
 export type MeQuery = {
   __typename?: "Query";
@@ -456,7 +454,13 @@ export type MeQuery = {
   me: Maybe<MeMe>;
 };
 
-export type MeMe = UserInfoFragment;
+export type MeMe = {
+  __typename?: "User";
+
+  bookmarks: Maybe<MeBookmarks[]>;
+} & UserInfoFragment;
+
+export type MeBookmarks = PostingInfoFragment;
 
 export type FindUserVariables = {
   username: string;
@@ -1181,13 +1185,8 @@ export const GetTagByNameDocument = gql`
   query GetTagByName($name: String!) {
     getTagByName(name: $name) {
       name
-      postings {
-        ...PostingInfo
-      }
     }
   }
-
-  ${PostingInfoFragmentDoc}
 `;
 export class GetTagByNameComponent extends React.Component<
   Partial<ReactApollo.QueryProps<GetTagByNameQuery, GetTagByNameVariables>>
@@ -1443,13 +1442,17 @@ export function LogoutHOC<TProps, TChildProps = any>(
   >(LogoutDocument, operationOptions);
 }
 export const MeDocument = gql`
-  query Me {
+  query Me($withBookmarks: Boolean!) {
     me {
       ...UserInfo
+      bookmarks @include(if: $withBookmarks) {
+        ...PostingInfo
+      }
     }
   }
 
   ${UserInfoFragmentDoc}
+  ${PostingInfoFragmentDoc}
 `;
 export class MeComponent extends React.Component<
   Partial<ReactApollo.QueryProps<MeQuery, MeVariables>>

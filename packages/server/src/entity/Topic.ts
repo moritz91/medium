@@ -35,10 +35,6 @@ export class Topic extends BaseEntity {
   @Field(() => Int)
   numPostings: number;
 
-  // @Field(() => [Posting])
-  // @OneToMany(() => Posting, qr => qr.topic)
-  // postings: Promise<Posting[]>;
-
   @Field(() => [Posting], { nullable: true })
   async postings(@Ctx() { postingTopicLoader }: MyContext): Promise<Posting[]> {
     return postingTopicLoader.load(this.id);
