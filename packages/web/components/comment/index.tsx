@@ -8,6 +8,7 @@ import { DeleteComment } from "../../modules/comment/deleteComment";
 import { useState, createRef } from "react";
 import styled from "styled-components";
 import { Avatar } from "../common/Avatar";
+import { CopyLink } from "../../modules/comment/copyLink";
 
 interface Props {
   id: string;
@@ -19,7 +20,15 @@ interface Props {
 
 export const CommmentContainer = styled.div`
   width: 100%;
+  padding: 10px;
   margin: 1.6rem 0px 1rem 0px;
+  border-radius: 3px;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
+
+  & :target {
+    border-color: #2188ff;
+    box-shadow: 0 0px 5px #c8e1ff;
+  }
 `;
 
 export const TopRow = styled.div`
@@ -63,7 +72,7 @@ export const Comment: React.FC<Props> = ({
   useClickOutside([ref1, ref2], () => setFlyoutState(false));
 
   return (
-    <CommmentContainer>
+    <CommmentContainer id={id}>
       <TopRow>
         <UserAvatar>
           <UserPopover popoverState={popoverState} username={username}>
@@ -111,6 +120,7 @@ export const Comment: React.FC<Props> = ({
                 onClick={() => setFlyoutState(false)}
                 commentId={id}
               />
+              <CopyLink onClick={() => setFlyoutState(false)} commentId={id} />
             </ActionsDropdown>
           </div>
         </Actions>

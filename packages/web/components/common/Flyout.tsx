@@ -3,9 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 export const FlexRow = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
 `;
 
 const scaleIn = keyframes`
@@ -31,15 +29,10 @@ const StyledFlyout = styled.div`
   animation-timing-function: cubic-bezier(0.2, 0, 0.13, 1.5);
 `;
 
-const StyledRow = styled.div`
-  position: relative;
-  padding: 5px;
-`;
-
 export const Flyout = React.forwardRef<HTMLDivElement>(
   ({ children }: any, ref: any): JSX.Element => (
     <StyledFlyout className={"flyout"} ref={ref}>
-      <StyledRow>{children}</StyledRow>
+      {children}
     </StyledFlyout>
   )
 );

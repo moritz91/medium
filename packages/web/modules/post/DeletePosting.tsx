@@ -8,6 +8,8 @@ import { PostContext } from "../../components/context/PostContext";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
 import { Button } from "../../components/button";
+import { Text } from "rebass";
+import { Icon } from "../../components/icon";
 
 interface Props {
   onClick: () => void;
@@ -44,6 +46,7 @@ export const DeletePosting = ({ onClick }: Props) => {
                 return (
                   <Button
                     variant="action"
+                    style={{ display: "flex" }}
                     key={postingId}
                     onClick={async () => {
                       const response = await mutate({
@@ -59,7 +62,8 @@ export const DeletePosting = ({ onClick }: Props) => {
                       Router.replace("/posts");
                     }}
                   >
-                    Delete Posting
+                    <Icon size={16} fill="#5C6AC4" name={"x"} />
+                    <Text ml={2}>Delete Posting</Text>
                   </Button>
                 );
               }

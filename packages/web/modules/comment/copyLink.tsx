@@ -17,7 +17,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const DeleteComment = ({ commentId, onClick }: Props) => {
+export const CopyLink = ({ commentId, onClick }: Props) => {
   const { postingId } = useContext(PostContext);
 
   return (
@@ -87,8 +87,8 @@ export const DeleteComment = ({ commentId, onClick }: Props) => {
                       }
                     }}
                   >
-                    <Icon size={16} fill="#5C6AC4" name={"x"} />
-                    <Text ml={2}>Delete Comment</Text>
+                    <Icon size={16} fill="#5C6AC4" name={"link"} />
+                    <Text ml={2}>Copy Link</Text>
                   </Button>
                 );
               }

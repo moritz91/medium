@@ -51,14 +51,7 @@ export const ActionsDropdown: React.FC<Props> = ({
           {({ ref }) => {
             return (
               <Flyout data-cy="thread-actions-dropdown" ref={ref}>
-                <FlexRow ref={ref2}>
-                  <Icon
-                    size={16}
-                    fill="#5C6AC4"
-                    name={"activeNotificationBell"}
-                  />
-                  {children}
-                </FlexRow>
+                <FlexRow ref={ref2}>{children}</FlexRow>
               </Flyout>
             );
           }}
