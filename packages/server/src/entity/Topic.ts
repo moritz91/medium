@@ -4,14 +4,13 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
   OneToMany,
   JoinTable
 } from "typeorm";
-import { User } from "./User";
 import { Posting } from "./Posting";
 import { PostingTopic } from "./PostingTopic";
 import { MyContext } from "../types/Context";
+import { UserTopic } from "./UserTopic";
 
 @Entity()
 @ObjectType()
@@ -44,7 +43,7 @@ export class Topic extends BaseEntity {
   @JoinTable({ name: "PostingTopic" })
   postingConnection: Promise<PostingTopic[]>;
 
-  @Field(() => [User])
-  @ManyToMany(() => User, sbr => sbr.subscriptions)
-  subscribers: Promise<User[]>;
+  @OneToMany(() => UserTopic, ut => ut.topic)
+  @JoinTable({ name: "UserTopic" })
+  userConnection: Promise<UserTopic[]>;
 }

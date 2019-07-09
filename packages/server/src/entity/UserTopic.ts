@@ -5,25 +5,25 @@ import {
   ManyToOne,
   BaseEntity
 } from "typeorm";
-import { Posting } from "./Posting";
+import { Topic } from "./Topic";
 import { User } from "./User";
 
-// 'Bookmarks' User-Posting Many-to-Many Relationship (JoinTable)
+// 'Subscriptions' User-Topic Many-to-Many Relationship (JoinTable)
 
 @Entity()
-export class UserPosting extends BaseEntity {
+export class UserTopic extends BaseEntity {
   @PrimaryColumn()
   userId: string;
 
   @PrimaryColumn()
-  postingId: string;
+  topicId: string;
 
-  @ManyToOne(() => Posting, p => p.userConnection, {
+  @ManyToOne(() => Topic, t => t.userConnection, {
     primary: true,
     onDelete: "CASCADE"
   })
-  @JoinColumn({ name: "postingId" })
-  posting: Promise<Posting>;
+  @JoinColumn({ name: "topicId" })
+  topic: Promise<Topic>;
 
   @ManyToOne(() => User, u => u.postingConnection, {
     primary: true,

@@ -8,6 +8,8 @@ import {
 import { Posting } from "./Posting";
 import { Tag } from "./Tag";
 
+// Posting-Tag Many-to-Many Relationship (JoinTable)
+
 @Entity()
 export class PostingTag extends BaseEntity {
   @PrimaryColumn()

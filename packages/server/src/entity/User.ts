@@ -4,15 +4,14 @@ import {
   Column,
   BaseEntity,
   OneToMany,
-  ManyToMany,
   JoinTable
 } from "typeorm";
 import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import { Posting } from "./Posting";
 import { Comment } from "./Comment";
-import { Topic } from "./Topic";
 import { UserPosting } from "./UserPosting";
-import { MyContext } from "src/types/Context";
+import { MyContext } from "../types/Context";
+import { Topic } from "./Topic";
 
 @Entity()
 @ObjectType()
@@ -44,14 +43,15 @@ export class User extends BaseEntity {
   @OneToMany(() => Comment, pr => pr.creatorConnection)
   comments: Promise<Comment[]>;
 
+  @Field(() => [Topic], { nullable: true })
+  async subscriptions(@Ctx() { userTopicLoader }: MyContext): Promise<Topic[]> {
+    return userTopicLoader.load(this.id);
+  }
+
   @Field(() => [Posting], { nullable: true })
   async bookmarks(@Ctx() { userPostingLoader }: MyContext): Promise<Posting[]> {
     return userPostingLoader.load(this.id);
   }
-
-  @Field(() => [Topic])
-  @ManyToMany(() => Topic, topic => topic.subscribers)
-  subscriptions: Promise<Topic[]>;
 
   @OneToMany(() => UserPosting, up => up.user)
   @JoinTable({ name: "PostingBookmark" })

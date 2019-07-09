@@ -30,6 +30,7 @@ import { TagRepository } from "../../repositories/TagRepo";
 import { PostingTopic } from "../../entity/PostingTopic";
 import { SuccessResponse } from "../shared/Response";
 import { UserPosting } from "../../entity/UserPosting";
+import { UserTopic } from "../../entity/UserTopic";
 
 const POST_LIMIT = 16;
 
@@ -126,6 +127,26 @@ export class PostingResolver {
     @Arg("topicId", () => String) topicId: string
   ) {
     await PostingTopic.create({ postingId, topicId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async addUserTopic(
+    @Arg("topicId", () => String) topicId: string,
+    @Ctx() { req }: MyContext
+  ) {
+    await UserTopic.create({ topicId, userId: req.session!.userId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async removeUserTopic(
+    @Arg("topicId", () => String) topicId: string,
+    @Ctx() { req }: MyContext
+  ) {
+    await UserTopic.delete({ topicId, userId: req.session!.userId });
     return true;
   }
 
