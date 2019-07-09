@@ -1,23 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   MeComponent,
   AddUserPostingComponent
 } from "../../components/apollo-components";
 import { get } from "lodash";
-import {
-  PostContext,
-  PostContextProps
-} from "../../components/context/PostContext";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
 
 interface Props {
   onClick?: () => void;
+  postingId: string;
 }
 
-export const AddUserPosting = ({ onClick }: Props) => {
-  const { postingId } = useContext<PostContextProps>(PostContext);
-
+export const AddUserPosting = ({ onClick, postingId }: Props) => {
   return (
     <AddUserPostingComponent>
       {mutate => (
@@ -38,7 +33,7 @@ export const AddUserPosting = ({ onClick }: Props) => {
                     onClick={async () => {
                       const response = await mutate({
                         variables: {
-                          postingId: postingId
+                          postingId
                         }
                       });
 

@@ -38,6 +38,7 @@ export const TagRowContainer = styled.div`
 `;
 
 export const StreamItem: React.FC<Props> = ({
+  id,
   previewTitle,
   previewSubtitle,
   previewImage,
@@ -132,7 +133,7 @@ export const StreamItem: React.FC<Props> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                <AddUserPosting />
+                <AddUserPosting postingId={id} />
                 <Button variant="action">
                   <Icon name="showActions" fill="#000" size={15} />
                 </Button>

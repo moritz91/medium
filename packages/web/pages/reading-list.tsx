@@ -4,9 +4,10 @@ import { Layout } from "../components/layout";
 import { Link } from "../server/routes";
 import { StreamItem, Stream } from "../components/streamItem";
 import { meQuery } from "../graphql/user/query/me";
+import { PostingInfoFragment } from "../components/apollo-components";
 
 interface Props {
-  postings: string[];
+  postings: [PostingInfoFragment];
   hasMore: boolean;
 }
 

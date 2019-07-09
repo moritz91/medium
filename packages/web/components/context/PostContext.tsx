@@ -3,8 +3,8 @@ import { UserInfoFragment, TagInfoFragment } from "../apollo-components";
 import { PostingInfoFragment, CommentInfoFragment } from "../apollo-components";
 
 export interface PostContextProps {
-  title: string;
-  creator: UserInfoFragment;
+  title?: string;
+  creator?: UserInfoFragment;
   postingId: string;
 }
 
