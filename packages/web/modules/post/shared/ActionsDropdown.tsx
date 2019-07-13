@@ -1,24 +1,25 @@
-import React from "react";
-import { Manager, Reference, Popper } from "react-popper";
+import React, { useContext } from "react";
+import { Manager, Popper, Reference } from "react-popper";
 import { Button } from "../../../components/button";
+import { FlexRow, Flyout } from "../../../components/common/Flyout";
+import {
+  FlyoutContext,
+  FlyoutContextProps
+} from "../../../components/context/FlyoutContext";
 import { Icon } from "../../../components/icon";
-import { Flyout, FlexRow } from "../../../components/common/Flyout";
+import { useRef } from "react";
 
 interface Props {
   children: React.ReactNode;
-  flyoutState: boolean;
-  onClick: () => void;
-  ref1: React.Ref<HTMLDivElement>;
-  ref2: React.Ref<HTMLDivElement>;
+  cId: string;
 }
 
-export const ActionsDropdown: React.FC<Props> = ({
-  children,
-  flyoutState,
-  onClick,
-  ref1,
-  ref2
-}) => {
+export const ActionsDropdown: React.FC<Props> = ({ children, cId }) => {
+  const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
+
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+
   return (
     <Manager>
       <Reference>
@@ -26,7 +27,23 @@ export const ActionsDropdown: React.FC<Props> = ({
           return (
             <div ref={ref1}>
               <span ref={ref}>
-                <Button variant="action" onClick={onClick}>
+                <Button
+                  variant="action"
+                  onClick={() => {
+                    if (state.flyoutState) {
+                      dispatch({
+                        type: "close"
+                      });
+                    } else {
+                      dispatch({
+                        type: "open",
+                        cId,
+                        ref1,
+                        ref2
+                      });
+                    }
+                  }}
+                >
                   <Icon
                     name="showActions"
                     fill="#000"
@@ -38,7 +55,7 @@ export const ActionsDropdown: React.FC<Props> = ({
           );
         }}
       </Reference>
-      {flyoutState && (
+      {state.commentId === cId && state.flyoutState && (
         <Popper
           modifiers={{
             flip: {

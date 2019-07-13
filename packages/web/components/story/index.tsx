@@ -11,7 +11,7 @@ import { useState, createRef } from "react";
 import { Button } from "../button";
 import { Avatar } from "../common/Avatar";
 
-interface Props {
+interface StoryProps {
   id: string;
   previewTitle?: string | null;
   previewSubtitle?: string | null;
@@ -63,7 +63,7 @@ export const Content = styled.div`
   padding: 0 10px;
 `;
 
-export const Story: React.FC<Props> = ({
+export const Story: React.FC<StoryProps> = ({
   previewTitle,
   previewSubtitle,
   title,

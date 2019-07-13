@@ -1,24 +1,28 @@
+import { get } from "lodash";
 import React, { useContext } from "react";
+import { Text } from "rebass";
 import {
-  MeComponent,
   DeleteCommentComponent,
   GetCommentsByIdQuery,
-  GetCommentsByIdVariables
+  GetCommentsByIdVariables,
+  MeComponent
 } from "../../components/apollo-components";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
-import { get } from "lodash";
-import { PostContext } from "../../components/context/PostContext";
 import { Button } from "../../components/button";
+import {
+  FlyoutContext,
+  FlyoutContextProps
+} from "../../components/context/FlyoutContext";
+import { PostContext } from "../../components/context/PostContext";
 import { Icon } from "../../components/icon";
-import { Text } from "rebass";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 
 interface Props {
   commentId: string;
-  onClick: () => void;
 }
 
-export const CopyLink = ({ commentId, onClick }: Props) => {
+export const CopyLink = ({ commentId }: Props) => {
   const { postingId } = useContext(PostContext);
+  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <DeleteCommentComponent>
@@ -83,7 +87,9 @@ export const CopyLink = ({ commentId, onClick }: Props) => {
                       });
 
                       if (response) {
-                        onClick();
+                        dispatch({
+                          type: "close"
+                        });
                       }
                     }}
                   >

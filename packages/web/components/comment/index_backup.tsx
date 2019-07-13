@@ -1,19 +1,18 @@
 import { distanceInWordsToNow } from "date-fns";
-import { includes } from "lodash";
 import * as React from "react";
-import { useContext } from "react";
-import { Box, Flex, Text } from "rebass";
-import styled, { css } from "styled-components";
-import { CopyLink } from "../../modules/comment/copyLink";
-import { DeleteComment } from "../../modules/comment/deleteComment";
-import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { Flex, Text, Box } from "rebass";
 import { UserPopover } from "../../modules/user/shared/userPopover";
+import { useHover, useClickOutside } from "use-events";
+import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { DeleteComment } from "../../modules/comment/deleteComment";
+import { useState, createRef } from "react";
+import styled, { css } from "styled-components";
 import { Avatar } from "../common/Avatar";
-import {
-  CommentTargetContext,
-  CommentTargetContextProps
-} from "../context/CommentTargetContext";
-import { PopoverContext, PopoverContextProps } from "../context/PopoverContext";
+import { CopyLink } from "../../modules/comment/copyLink";
+import { format } from "url";
+import Router from "next/router";
+import { useEffect } from "react";
+import { includes } from "lodash";
 
 interface CommentProps {
   id: string;
@@ -77,18 +76,34 @@ export const Comment: React.FC<CommentProps> = ({
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
   });
+  const [popoverState, bind] = useHover();
+  const [flyoutState, setFlyoutState] = useState(false);
+  const [target, setTarget] = useState<string | undefined>("");
 
-  const { target, ref3 } = useContext<CommentTargetContextProps>(
-    CommentTargetContext
-  );
+  const ref1 = createRef<HTMLDivElement>();
+  const ref2 = createRef<HTMLDivElement>();
+  const ref3 = createRef<HTMLDivElement>();
 
-  const { bind } = useContext<PopoverContextProps>(PopoverContext);
+  useClickOutside([ref1, ref2], () => setFlyoutState(false));
+  useClickOutside([ref3], () => {
+    const { pathname, query } = Router;
+    const formatted = format({ pathname, query });
+    Router.push(formatted, `${query!.id}`, { shallow: true });
+    setTarget("");
+  });
+
+  useEffect(() => {
+    const { asPath } = Router;
+    if (includes(asPath, "#")) {
+      setTarget(asPath);
+    }
+  }, [target]);
 
   return (
     <CommmentContainer id={id} ref={ref3} currentTarget={target}>
       <TopRow>
         <UserAvatar>
-          <UserPopover username={username}>
+          <UserPopover popoverState={popoverState} username={username}>
             <Link route={"profile"} params={{ username }}>
               <a style={{ cursor: "pointer" }}>
                 <Avatar
@@ -123,9 +138,17 @@ export const Comment: React.FC<CommentProps> = ({
         </Content>
         <Actions style={{ display: "flex", marginLeft: "auto" }}>
           <div>
-            <ActionsDropdown cId={id}>
-              <DeleteComment commentId={id} />
-              <CopyLink commentId={id} />
+            <ActionsDropdown
+              flyoutState={flyoutState}
+              onClick={() => setFlyoutState(!flyoutState)}
+              ref1={ref1}
+              ref2={ref2}
+            >
+              <DeleteComment
+                onClick={() => setFlyoutState(false)}
+                commentId={id}
+              />
+              <CopyLink onClick={() => setFlyoutState(false)} commentId={id} />
             </ActionsDropdown>
           </div>
         </Actions>

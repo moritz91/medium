@@ -1,14 +1,17 @@
-import React from "react";
-import { Manager, Reference, Popper } from "react-popper";
+import React, { useContext } from "react";
+import { Manager, Popper, Reference } from "react-popper";
 import { Heading, Text } from "rebass";
-import { FindUserComponent } from "../../../components/apollo-components";
 import styled from "styled-components";
-import { Flyout, FlexRow } from "../../../components/common/Flyout";
+import { FindUserComponent } from "../../../components/apollo-components";
 import { Avatar } from "../../../components/common/Avatar";
+import { FlexRow, Flyout } from "../../../components/common/Flyout";
+import {
+  PopoverContext,
+  PopoverContextProps
+} from "../../../components/context/PopoverContext";
 
 interface Props {
   children: React.ReactNode;
-  popoverState: boolean;
   username: string;
 }
 
@@ -29,11 +32,9 @@ const MetaDataTwo = styled.div`
   text-align: top;
 `;
 
-export const UserPopover: React.FC<Props> = ({
-  children,
-  popoverState,
-  username
-}) => {
+export const UserPopover: React.FC<Props> = ({ children, username }) => {
+  const { popoverState } = useContext<PopoverContextProps>(PopoverContext);
+
   return (
     <FindUserComponent variables={{ username }}>
       {({ data, loading }) => {

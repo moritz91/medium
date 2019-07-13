@@ -11,14 +11,18 @@ import { PostContext } from "../../components/context/PostContext";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
 import { Text } from "rebass";
+import {
+  FlyoutContextProps,
+  FlyoutContext
+} from "../../components/context/FlyoutContext";
 
 interface Props {
   commentId: string;
-  onClick: () => void;
 }
 
-export const DeleteComment = ({ commentId, onClick }: Props) => {
+export const DeleteComment = ({ commentId }: Props) => {
   const { postingId } = useContext(PostContext);
+  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <DeleteCommentComponent>
@@ -83,7 +87,9 @@ export const DeleteComment = ({ commentId, onClick }: Props) => {
                       });
 
                       if (response) {
-                        onClick();
+                        dispatch({
+                          type: "close"
+                        });
                       }
                     }}
                   >
