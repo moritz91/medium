@@ -13,7 +13,7 @@ import {
   CommentTargetContext,
   CommentTargetContextProps
 } from "../context/CommentTargetContext";
-import { PopoverContext, PopoverContextProps } from "../context/PopoverContext";
+import { FlyoutContextProps, FlyoutContext } from "../context/FlyoutContext";
 
 interface CommentProps {
   id: string;
@@ -82,13 +82,13 @@ export const Comment: React.FC<CommentProps> = ({
     CommentTargetContext
   );
 
-  const { bind } = useContext<PopoverContextProps>(PopoverContext);
+  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <CommentContainer id={id} ref={ref3} currentTarget={target}>
       <TopRow>
         <UserAvatar>
-          <UserPopover username={username}>
+          <UserPopover id={id} username={username}>
             <Link route={"profile"} params={{ username }}>
               <a style={{ cursor: "pointer" }}>
                 <Avatar
@@ -96,7 +96,12 @@ export const Comment: React.FC<CommentProps> = ({
                   size={34}
                   src={pictureUrl}
                   alt="avatar"
-                  {...bind}
+                  onMouseEnter={() => {
+                    dispatch({ type: "openPopover", id });
+                  }}
+                  onMouseLeave={() => {
+                    dispatch({ type: "close" });
+                  }}
                 />
               </a>
             </Link>

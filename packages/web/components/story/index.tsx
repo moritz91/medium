@@ -9,7 +9,7 @@ import { DeletePosting } from "../../modules/post/deletePosting";
 import { Button } from "../button";
 import { Avatar } from "../common/Avatar";
 import { useContext } from "react";
-import { PopoverContextProps, PopoverContext } from "../context/PopoverContext";
+import { FlyoutContextProps, FlyoutContext } from "../context/FlyoutContext";
 
 interface StoryProps {
   id: string;
@@ -76,7 +76,7 @@ export const Story: React.FC<StoryProps> = ({
   tags
 }) => {
   const dtString = format(Date.parse(createdAt), "MMM D");
-  const { bind } = useContext<PopoverContextProps>(PopoverContext);
+  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <Container>
@@ -111,7 +111,7 @@ export const Story: React.FC<StoryProps> = ({
       <StoryFooter>
         <TopRow>
           <UserAvatar>
-            <UserPopover username={username}>
+            <UserPopover id={id} username={username}>
               <Link route={"profile"} params={{ username }}>
                 <a style={{ cursor: "pointer" }}>
                   <Avatar
@@ -119,7 +119,12 @@ export const Story: React.FC<StoryProps> = ({
                     size={60}
                     src={pictureUrl}
                     alt="avatar"
-                    {...bind}
+                    onMouseEnter={() => {
+                      dispatch({ type: "openPopover", id });
+                    }}
+                    onMouseLeave={() => {
+                      dispatch({ type: "close" });
+                    }}
                   />
                 </a>
               </Link>

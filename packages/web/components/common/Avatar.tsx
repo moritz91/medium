@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Image, ImageProps } from "rebass";
 
-export interface AvatarProps extends ImageProps {
+export interface AvatarProps
+  extends ImageProps,
+    React.DOMAttributes<HTMLImageElement> {
   size?: number;
 }
 

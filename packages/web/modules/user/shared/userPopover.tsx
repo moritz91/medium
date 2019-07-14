@@ -6,12 +6,13 @@ import { FindUserComponent } from "../../../components/apollo-components";
 import { Avatar } from "../../../components/common/Avatar";
 import { FlexRow, Flyout } from "../../../components/common/Flyout";
 import {
-  PopoverContext,
-  PopoverContextProps
-} from "../../../components/context/PopoverContext";
+  FlyoutContext,
+  FlyoutContextProps
+} from "../../../components/context/FlyoutContext";
 
-interface Props {
+interface UserPopoverProps {
   children: React.ReactNode;
+  id: string;
   username: string;
 }
 
@@ -32,8 +33,12 @@ const MetaDataTwo = styled.div`
   text-align: top;
 `;
 
-export const UserPopover: React.FC<Props> = ({ children, username }) => {
-  const { popoverState } = useContext<PopoverContextProps>(PopoverContext);
+export const UserPopover: React.FC<UserPopoverProps> = ({
+  children,
+  username,
+  id
+}) => {
+  const { state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <FindUserComponent variables={{ username }}>
@@ -50,7 +55,7 @@ export const UserPopover: React.FC<Props> = ({ children, username }) => {
                   return <span ref={ref}>{children}</span>;
                 }}
               </Reference>
-              {popoverState && (
+              {state.elementId === id && state.popoverState && (
                 <Popper
                   modifiers={{
                     flip: {

@@ -36,7 +36,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
                       });
                     } else {
                       dispatch({
-                        type: "open",
+                        type: "openFlyout",
                         id,
                         ref1,
                         ref2
