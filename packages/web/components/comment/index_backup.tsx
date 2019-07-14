@@ -27,7 +27,7 @@ interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
   id: string;
 }
 
-export const CommmentContainer = styled.div<ContainerProps>`
+export const CommentContainer = styled.div<ContainerProps>`
   width: 100%;
   padding: 10px;
   margin: 1.6rem 0px 1rem 0px;
@@ -100,7 +100,7 @@ export const Comment: React.FC<CommentProps> = ({
   }, [target]);
 
   return (
-    <CommmentContainer id={id} ref={ref3} currentTarget={target}>
+    <CommentContainer id={id} ref={ref3} currentTarget={target}>
       <TopRow>
         <UserAvatar>
           <UserPopover popoverState={popoverState} username={username}>
@@ -153,6 +153,6 @@ export const Comment: React.FC<CommentProps> = ({
           </div>
         </Actions>
       </TopRow>
-    </CommmentContainer>
+    </CommentContainer>
   );
 };

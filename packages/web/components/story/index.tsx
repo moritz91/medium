@@ -2,14 +2,14 @@ import { format } from "date-fns";
 import * as React from "react";
 import { Flex, Text } from "rebass";
 import styled from "styled-components";
-import { useHover, useClickOutside } from "use-events";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { StoryFooterUsername, StoryHeading, Caption } from "../heading";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { DeletePosting } from "../../modules/post/deletePosting";
-import { useState, createRef } from "react";
 import { Button } from "../button";
 import { Avatar } from "../common/Avatar";
+import { useContext } from "react";
+import { PopoverContextProps, PopoverContext } from "../context/PopoverContext";
 
 interface StoryProps {
   id: string;
@@ -29,7 +29,7 @@ const Container = styled.div`
   margin: 1.6rem 0px;
 `;
 
-export const CommmentContainer = styled.div`
+export const CommentContainer = styled.div`
   width: 100%;
   margin: 1.6rem 0px 1rem 0px;
 `;
@@ -64,24 +64,19 @@ export const Content = styled.div`
 `;
 
 export const Story: React.FC<StoryProps> = ({
+  id,
   previewTitle,
   previewSubtitle,
   title,
   creator: { username, pictureUrl },
   body,
   numComments,
-  // getLinkProps,
   Link,
   createdAt,
   tags
 }) => {
-  // const linkProps = getLinkProps();
   const dtString = format(Date.parse(createdAt), "MMM D");
-  const [flyoutState, setFlyoutState] = useState(false);
-  const [popoverState, bind] = useHover();
-  const ref1 = createRef<HTMLDivElement>();
-  const ref2 = createRef<HTMLDivElement>();
-  useClickOutside([ref1, ref2], () => setFlyoutState(false));
+  const { bind } = useContext<PopoverContextProps>(PopoverContext);
 
   return (
     <Container>
@@ -91,13 +86,8 @@ export const Story: React.FC<StoryProps> = ({
             <StoryHeading>{previewTitle ? previewTitle : title}</StoryHeading>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               <div>
-                <ActionsDropdown
-                  flyoutState={flyoutState}
-                  onClick={() => setFlyoutState(!flyoutState)}
-                  ref1={ref1}
-                  ref2={ref2}
-                >
-                  <DeletePosting onClick={() => setFlyoutState(false)} />
+                <ActionsDropdown id={id}>
+                  <DeletePosting />
                 </ActionsDropdown>
               </div>
             </div>
@@ -121,7 +111,7 @@ export const Story: React.FC<StoryProps> = ({
       <StoryFooter>
         <TopRow>
           <UserAvatar>
-            <UserPopover popoverState={popoverState} username={username}>
+            <UserPopover username={username}>
               <Link route={"profile"} params={{ username }}>
                 <a style={{ cursor: "pointer" }}>
                   <Avatar

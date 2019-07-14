@@ -11,10 +11,10 @@ import { useRef } from "react";
 
 interface Props {
   children: React.ReactNode;
-  cId: string;
+  id?: string;
 }
 
-export const ActionsDropdown: React.FC<Props> = ({ children, cId }) => {
+export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
   const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   const ref1 = useRef(null);
@@ -37,7 +37,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, cId }) => {
                     } else {
                       dispatch({
                         type: "open",
-                        cId,
+                        id,
                         ref1,
                         ref2
                       });
@@ -55,7 +55,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, cId }) => {
           );
         }}
       </Reference>
-      {state.commentId === cId && state.flyoutState && (
+      {state.elementId === id && state.flyoutState && (
         <Popper
           modifiers={{
             flip: {

@@ -10,13 +10,14 @@ import { getPostingsQuery } from "../../graphql/post/query/getPostings";
 import { Button } from "../../components/button";
 import { Text } from "rebass";
 import { Icon } from "../../components/icon";
+import {
+  FlyoutContext,
+  FlyoutContextProps
+} from "../../components/context/FlyoutContext";
 
-interface Props {
-  onClick: () => void;
-}
-
-export const DeletePosting = ({ onClick }: Props) => {
+export const DeletePosting = () => {
   const { postingId } = useContext(PostContext);
+  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
     <DeletePostingComponent
@@ -55,8 +56,10 @@ export const DeletePosting = ({ onClick }: Props) => {
                         }
                       });
 
-                      if (response && onClick) {
-                        onClick();
+                      if (response) {
+                        dispatch({
+                          type: "close"
+                        });
                       }
 
                       Router.replace("/posts");

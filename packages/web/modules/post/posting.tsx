@@ -47,7 +47,7 @@ export const Posting = ({
   const [target, setTarget] = useState<string | undefined>("");
 
   const [state, dispatch] = useReducer(reducer, {
-    commentId: "",
+    elementId: "",
     flyoutState: false,
     ref1: { current: null },
     ref2: { current: null }
@@ -58,14 +58,14 @@ export const Posting = ({
       case "open":
         return {
           ...state,
-          commentId: action.cId,
+          elementId: action.id,
           ref1: action.ref1,
           ref2: action.ref2,
           flyoutState: true
         };
       case "close":
         return {
-          commentId: "",
+          elementId: "",
           flyoutState: false,
           ref1: { current: null },
           ref2: { current: null }
@@ -123,39 +123,42 @@ export const Posting = ({
     // @ts-ignore
     <Layout title={`${title}`}>
       <PostContext.Provider value={PostCtx}>
-        <Story
-          key={postingId}
-          id={postingId}
-          createdAt={createdAt}
-          creator={creator}
-          previewTitle={previewTitle}
-          previewSubtitle={previewSubtitle}
-          title={title}
-          body={body}
-          numComments={numComments}
-          Link={Link}
-          tags={tags}
-          getLinkProps={() => ({
-            route: "post",
-            params: {
-              id: postingId
-            }
-          })}
-        />
-        <Box my="1.5rem">
-          <Text fontSize={5}>Responses</Text>
-        </Box>
-        <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
-        <Box mt={20}>
-          <GetCommentsByIdComponent variables={{ input: { postingId } }}>
-            {({ data, loading, fetchMore }) => {
-              if (loading) {
-                <div>Loading...</div>;
-              }
-              return (
-                <PopoverContext.Provider value={PopoverCtx}>
-                  <FlyoutContext.Provider value={FlyoutCtx}>
-                    <CommentTargetContext.Provider value={CommentTargetCtx}>
+        <PopoverContext.Provider value={PopoverCtx}>
+          <FlyoutContext.Provider value={FlyoutCtx}>
+            <CommentTargetContext.Provider value={CommentTargetCtx}>
+              <Story
+                key={postingId}
+                id={postingId}
+                createdAt={createdAt}
+                creator={creator}
+                previewTitle={previewTitle}
+                previewSubtitle={previewSubtitle}
+                title={title}
+                body={body}
+                numComments={numComments}
+                Link={Link}
+                tags={tags}
+                getLinkProps={() => ({
+                  route: "post",
+                  params: {
+                    id: postingId
+                  }
+                })}
+              />
+              <Box my="1.5rem">
+                <Text fontSize={5}>Responses</Text>
+              </Box>
+              <CreatePostingReply
+                onEditorSubmit={() => {}}
+                view={"repo-view"}
+              />
+              <Box mt={20}>
+                <GetCommentsByIdComponent variables={{ input: { postingId } }}>
+                  {({ data, loading, fetchMore }) => {
+                    if (loading) {
+                      <div>Loading...</div>;
+                    }
+                    return (
                       <>
                         {data && data.findCommentsById && (
                           <>
@@ -222,13 +225,13 @@ export const Posting = ({
                           </>
                         )}
                       </>
-                    </CommentTargetContext.Provider>
-                  </FlyoutContext.Provider>
-                </PopoverContext.Provider>
-              );
-            }}
-          </GetCommentsByIdComponent>
-        </Box>
+                    );
+                  }}
+                </GetCommentsByIdComponent>
+              </Box>
+            </CommentTargetContext.Provider>
+          </FlyoutContext.Provider>
+        </PopoverContext.Provider>
       </PostContext.Provider>
     </Layout>
   );
