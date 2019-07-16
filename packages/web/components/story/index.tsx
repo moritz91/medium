@@ -123,7 +123,7 @@ export const Story: React.FC<StoryProps> = ({
                       dispatch({ type: "openPopover", id });
                     }}
                     onMouseLeave={() => {
-                      dispatch({ type: "close" });
+                      dispatch({ type: "closePopover" });
                     }}
                   />
                 </a>

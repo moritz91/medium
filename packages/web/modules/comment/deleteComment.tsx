@@ -88,7 +88,7 @@ export const DeleteComment = ({ commentId }: Props) => {
 
                       if (response) {
                         dispatch({
-                          type: "close"
+                          type: "closeFlyout"
                         });
                       }
                     }}

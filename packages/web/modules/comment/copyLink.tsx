@@ -88,7 +88,7 @@ export const CopyLink = ({ commentId }: Props) => {
 
                       if (response) {
                         dispatch({
-                          type: "close"
+                          type: "closeFlyout"
                         });
                       }
                     }}

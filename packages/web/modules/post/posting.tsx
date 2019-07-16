@@ -23,6 +23,57 @@ import { CreatePostingReply } from "../comment/createComment";
 import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
 import { includes } from "lodash";
 import Router from "next/router";
+import { format } from "url";
+
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "openFlyout":
+      return {
+        ...state,
+        flyoutId: action.id,
+        flyoutState: true,
+        ref1: action.ref1,
+        ref2: action.ref2
+      };
+    case "openPopover":
+      return {
+        ...state,
+        popoverId: action.id,
+        popoverState: true
+      };
+    case "targetComment":
+      return {
+        ...state,
+        targetId: action.id,
+        targetState: true,
+        ref3: action.ref3
+      };
+    case "closePopover":
+      return {
+        ...state,
+        popoverId: "",
+        popoverState: false
+      };
+    case "closeFlyout":
+      return {
+        ...state,
+        flyoutId: "",
+        flyoutState: false,
+        ref1: { current: null },
+        ref2: { current: null }
+      };
+    case "untargetComment":
+      return {
+        ...state,
+        targetId: "",
+        targetState: false,
+        ref3: { current: null }
+      };
+    default: {
+      return state;
+    }
+  }
+};
 
 export const Posting = ({
   previewTitle,
@@ -35,52 +86,9 @@ export const Posting = ({
   numComments,
   tags
 }: any): JSX.Element => {
-  const reducer = (state: any, action: any) => {
-    switch (action.type) {
-      case "openFlyout":
-        return {
-          ...state,
-          elementId: action.id,
-          flyoutState: true,
-          ref1: action.ref1,
-          ref2: action.ref2
-        };
-      case "openPopover":
-        return {
-          ...state,
-          elementId: action.id,
-          popoverState: true
-        };
-      case "targetComment":
-        return {
-          ...state,
-          targetId: action.id,
-          targetState: true,
-          ref3: action.ref3
-        };
-      case "close":
-        return {
-          ...state,
-          elementId: "",
-          flyoutState: false,
-          popoverState: false,
-          ref1: { current: null },
-          ref2: { current: null }
-        };
-      case "untargetComment":
-        return {
-          ...state,
-          targetState: false,
-          ref3: { current: null }
-        };
-      default: {
-        return state;
-      }
-    }
-  };
-
   const [state, dispatch] = useReducer(reducer, {
-    elementId: "",
+    flyoutId: "",
+    popoverId: "",
     targetId: "",
     flyoutState: false,
     popoverState: false,
@@ -90,15 +98,16 @@ export const Posting = ({
     ref3: { current: null }
   });
 
-  console.log("Posting: ", state);
-
   useClickOutside([state.ref1, state.ref2], () => {
     dispatch({
-      type: "close"
+      type: "closeFlyout"
     });
   });
 
   useClickOutside([state.ref3], () => {
+    const { pathname, query } = Router;
+    const formatted = format({ pathname, query });
+    Router.push(formatted, `${query!.id}`, { shallow: true });
     dispatch({
       type: "untargetComment"
     });
@@ -112,7 +121,7 @@ export const Posting = ({
         id: asPath!.split("#").pop()
       });
     }
-  }, []);
+  }, [dispatch]);
 
   const PostCtx: PostContextProps = {
     title,

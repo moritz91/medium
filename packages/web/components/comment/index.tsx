@@ -80,7 +80,6 @@ export const Comment: React.FC<CommentProps> = ({
   const ref3 = useRef<any>(CommentContainer);
 
   useEffect(() => {
-    console.log("Comment: ", state.targetId);
     if (state.targetId === id) {
       dispatch({ type: "targetComment", id, ref3 });
     }
@@ -107,7 +106,7 @@ export const Comment: React.FC<CommentProps> = ({
                     dispatch({ type: "openPopover", id });
                   }}
                   onMouseLeave={() => {
-                    dispatch({ type: "close" });
+                    dispatch({ type: "closePopover" });
                   }}
                 />
               </a>

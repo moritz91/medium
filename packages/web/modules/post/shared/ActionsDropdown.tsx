@@ -32,7 +32,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
                   onClick={() => {
                     if (state.flyoutState) {
                       dispatch({
-                        type: "close"
+                        type: "closeFlyout"
                       });
                     } else {
                       dispatch({
@@ -55,7 +55,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
           );
         }}
       </Reference>
-      {state.elementId === id && state.flyoutState && (
+      {state.flyoutId === id && state.flyoutState && (
         <Popper
           modifiers={{
             flip: {

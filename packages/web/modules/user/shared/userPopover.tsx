@@ -55,7 +55,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
                   return <span ref={ref}>{children}</span>;
                 }}
               </Reference>
-              {state.elementId === id && state.popoverState && (
+              {state.popoverId === id && state.popoverState && (
                 <Popper
                   modifiers={{
                     flip: {

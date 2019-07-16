@@ -58,7 +58,7 @@ export const DeletePosting = () => {
 
                       if (response) {
                         dispatch({
-                          type: "close"
+                          type: "closeFlyout"
                         });
                       }
 
