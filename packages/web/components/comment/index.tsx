@@ -1,7 +1,6 @@
 import { distanceInWordsToNow } from "date-fns";
-import { includes } from "lodash";
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { Box, Flex, Text } from "rebass";
 import styled, { css } from "styled-components";
 import { CopyLink } from "../../modules/comment/copyLink";
@@ -9,11 +8,8 @@ import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Avatar } from "../common/Avatar";
-import {
-  CommentTargetContext,
-  CommentTargetContextProps
-} from "../context/CommentTargetContext";
 import { FlyoutContextProps, FlyoutContext } from "../context/FlyoutContext";
+import { useEffect } from "react";
 
 interface CommentProps {
   id: string;
@@ -24,7 +20,8 @@ interface CommentProps {
 }
 
 interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
-  currentTarget: string | undefined;
+  targetState: boolean | undefined;
+  targetId: string | undefined;
   id: string;
 }
 
@@ -35,8 +32,9 @@ export const CommentContainer = styled.div<ContainerProps>`
   border-radius: 3px;
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
 
-  ${({ currentTarget, id }) =>
-    includes(currentTarget, id) &&
+  ${({ targetState, targetId, id }) =>
+    targetId === id &&
+    targetState &&
     css`
       border-color: #2188ff;
       box-shadow: 0 0px 5px #c8e1ff;
@@ -78,14 +76,23 @@ export const Comment: React.FC<CommentProps> = ({
     addSuffix: true
   });
 
-  const { target, ref3 } = useContext<CommentTargetContextProps>(
-    CommentTargetContext
-  );
+  const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
+  const ref3 = useRef<any>(CommentContainer);
 
-  const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
+  useEffect(() => {
+    console.log("Comment: ", state.targetId);
+    if (state.targetId === id) {
+      dispatch({ type: "targetComment", id, ref3 });
+    }
+  }, [state.targetId]);
 
   return (
-    <CommentContainer id={id} ref={ref3} currentTarget={target}>
+    <CommentContainer
+      id={id}
+      ref={ref3}
+      targetId={state.targetId}
+      targetState={state.targetState}
+    >
       <TopRow>
         <UserAvatar>
           <UserPopover id={id} username={username}>

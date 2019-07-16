@@ -71,8 +71,8 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
                         ref={ref}
                         style={{
                           position: "relative",
-                          top: "-125px",
-                          left: "-165px"
+                          top: "-200px",
+                          left: "0"
                         }}
                       >
                         <Flyout data-cy="thread-actions-dropdown">
@@ -81,8 +81,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
                               <MetaDataOne>
                                 <Heading>{username}</Heading>
                                 <Text pl={0}>
-                                  Activist, freelance writer, birth doula +
-                                  photographer, entrepreneur.
+                                  Witty, extensive user description.
                                 </Text>
                               </MetaDataOne>
                               <MetaDataTwo>
