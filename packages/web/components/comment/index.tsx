@@ -37,7 +37,7 @@ export const CommentContainer = styled.div<ContainerProps>`
     targetState &&
     css`
       border-color: #2188ff;
-      box-shadow: 0 0px 5px #c8e1ff;
+      box-shadow: 0 0px 5px #5c6ac4;
     `}
 `;
 
