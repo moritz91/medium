@@ -34,19 +34,41 @@ export const Layout: NextFunctionComponent<Props> = ({ children, title }) => (
     <Footer
       linksLeft={[
         "© " + `${new Date().getFullYear()}` + " Medium, Inc.",
-        <Link href={"/tos"}>Terms</Link>,
-        <Link href={"test2"}>Privacy</Link>,
-        <Link href={"test3"}>Security</Link>,
-        <Link href={"test4"}>Status</Link>,
-        <Link href={"test5"}>Help</Link>
+        <Link href={"/tos"}>
+          <a>Terms</a>
+        </Link>,
+        <Link href={"test2"}>
+          <a>Privacy</a>
+        </Link>,
+        <Link href={"test3"}>
+          <a>Security</a>
+        </Link>,
+        <Link href={"test4"}>
+          <a>Status</a>
+        </Link>,
+        <Link href={"test5"}>
+          <a>Help</a>
+        </Link>
       ]}
       linksRight={[
-        <Link href={"test4"}>Contact Medium</Link>,
-        <Link href={"test5"}>Pricing</Link>,
-        <Link href={"test6"}>API</Link>,
-        <Link href={"test6"}>Training</Link>,
-        <Link href={"test6"}>Blog</Link>,
-        <Link href={"test6"}>About</Link>
+        <Link href={"test4"}>
+          <a>Contact Medium</a>
+        </Link>,
+        <Link href={"test5"}>
+          <a>Pricing</a>
+        </Link>,
+        <Link href={"test6"}>
+          <a>API</a>
+        </Link>,
+        <Link href={"test6"}>
+          <a>Training</a>
+        </Link>,
+        <Link href={"test6"}>
+          <a>Blog</a>
+        </Link>,
+        <Link href={"test6"}>
+          <a>About</a>
+        </Link>
       ]}
       icon="github"
     />

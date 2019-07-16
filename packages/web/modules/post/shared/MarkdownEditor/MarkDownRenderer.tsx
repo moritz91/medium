@@ -50,11 +50,13 @@ const MarkdownContainer = styled("div")`
   }
 `;
 
-interface Props {
+interface MarkdownRendererProps {
   text: string;
 }
 
-export const MarkdownRenderer: React.FC<Props> = ({ text }): JSX.Element => (
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+  text
+}): JSX.Element => (
   <MarkdownContainer className="markdown-body">
     {
       remark()

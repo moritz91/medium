@@ -1,9 +1,8 @@
 import * as React from "react";
 import get from "lodash.get";
-import NextLink from "next/link";
 import { Flex } from "rebass";
 import styled from "styled-components";
-import { Router } from "../../server/routes";
+import { Router, Link } from "../../server/routes";
 import { MeComponent } from "../apollo-components";
 import { Button } from "../button";
 import { Menu } from "../menu";
@@ -34,9 +33,9 @@ export const SubMenu = (): JSX.Element => {
   return (
     <Container my="1.5rem" justifyContent="space-between">
       <Flex alignItems="center" fontSize={16}>
-        <NextLink passHref href="/posts">
+        <Link passHref href="/posts">
           <a>Stories</a>
-        </NextLink>
+        </Link>
       </Flex>
 
       <MeComponent variables={{ withBookmarks: false }}>
@@ -75,7 +74,7 @@ export const SubMenu = (): JSX.Element => {
                   ]}
                   renderOption={({ Anchor, optionLink, key }) => (
                     <ListOption key={key}>
-                      <NextLink href={optionLink}>{Anchor}</NextLink>
+                      <Link href={optionLink}>{Anchor}</Link>
                     </ListOption>
                   )}
                   renderUserData={data!.me}
