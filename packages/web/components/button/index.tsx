@@ -1,17 +1,27 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { buttonStyle } from "styled-system";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "topic" | "form" | "github" | "tag" | "action";
+  hoverEffect?: boolean;
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
   border: none;
   text-align: center;
   font-weight: 500;
   cursor: pointer;
   ${buttonStyle}
+
+  ${({ hoverEffect }) =>
+    hoverEffect &&
+    css`
+  & :hover, :focus {
+    color: #5c6ac4;
+  `}
 `;
 
-export const Button: React.FC<Props> = props => <StyledButton {...props} />;
+export const Button: React.FC<ButtonProps> = props => (
+  <StyledButton {...props} />
+);

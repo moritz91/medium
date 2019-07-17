@@ -9,7 +9,7 @@ import { Button } from "../button";
 import { Icon } from "../icon";
 import { AddUserPosting } from "../../modules/post/addUserPosting";
 
-interface Props {
+interface StreamItemProps {
   id: string;
   previewTitle?: string | null;
   previewSubtitle?: string | null;
@@ -37,7 +37,7 @@ export const TagRowContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
-export const StreamItem: React.FC<Props> = ({
+export const StreamItem: React.FC<StreamItemProps> = ({
   id,
   previewTitle,
   previewSubtitle,
@@ -134,8 +134,8 @@ export const StreamItem: React.FC<Props> = ({
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
                 <AddUserPosting postingId={id} />
-                <Button variant="action">
-                  <Icon name="showActions" fill="#000" size={15} />
+                <Button variant="action" hoverEffect>
+                  <Icon name="showActions" size={15} />
                 </Button>
               </div>
             </div>

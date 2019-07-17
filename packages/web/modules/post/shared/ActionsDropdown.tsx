@@ -9,12 +9,15 @@ import {
 import { Icon } from "../../../components/icon";
 import { useRef } from "react";
 
-interface Props {
+interface ActionsDropdownProps {
   children: React.ReactNode;
   id?: string;
 }
 
-export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
+export const ActionsDropdown: React.FC<ActionsDropdownProps> = ({
+  children,
+  id
+}) => {
   const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   const ref1 = useRef(null);
@@ -29,6 +32,7 @@ export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
               <span ref={ref}>
                 <Button
                   variant="action"
+                  hoverEffect
                   onClick={() => {
                     if (state.flyoutState) {
                       dispatch({
