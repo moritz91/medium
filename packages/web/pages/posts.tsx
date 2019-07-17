@@ -6,13 +6,13 @@ import { Link } from "../server/routes";
 import { getTagByNameQuery } from "../graphql/tag/query/getTagByName";
 import { StreamItem, Stream } from "../components/streamItem";
 
-interface Props {
+interface PostsProps {
   postings: string[];
   hasMore: boolean;
   tag: string;
 }
 
-export default class Posts extends React.Component<Props> {
+export default class Posts extends React.Component<PostsProps> {
   static async getInitialProps({
     query: { tag },
     apolloClient

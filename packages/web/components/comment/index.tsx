@@ -27,7 +27,7 @@ interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
 
 export const CommentContainer = styled.div<ContainerProps>`
   width: 100%;
-  padding: 10px;
+  padding: 11px;
   margin: 1.6rem 0px 1rem 0px;
   border-radius: 3px;
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
@@ -43,8 +43,8 @@ export const CommentContainer = styled.div<ContainerProps>`
 
 export const TopRow = styled.div`
   display: grid;
-  grid-template-areas: "avatar content actions";
-  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "avatar content";
+  grid-template-columns: auto 1fr;
   grid-template-rows: auto;
   gap: 8px 8px;
   flex: 1 1 0%;
@@ -127,19 +127,19 @@ export const Comment: React.FC<CommentProps> = ({
             <Box mb={2} mt={0} mr={0} ml={"0rem"}>
               <Text>{dtString}</Text>
             </Box>
+            <Actions style={{ display: "flex", marginLeft: "auto" }}>
+              <div>
+                <ActionsDropdown id={id}>
+                  <DeleteComment commentId={id} />
+                  <CopyLink commentId={id} />
+                </ActionsDropdown>
+              </div>
+            </Actions>
           </Flex>
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
         </Content>
-        <Actions style={{ display: "flex", marginLeft: "auto" }}>
-          <div>
-            <ActionsDropdown id={id}>
-              <DeleteComment commentId={id} />
-              <CopyLink commentId={id} />
-            </ActionsDropdown>
-          </div>
-        </Actions>
       </TopRow>
     </CommentContainer>
   );

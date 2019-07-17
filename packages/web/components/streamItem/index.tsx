@@ -3,8 +3,6 @@ import * as React from "react";
 import { Flex } from "rebass";
 import styled from "styled-components";
 import { StoryPreviewTitle } from "../heading";
-import { useHover } from "use-events";
-import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Button } from "../button";
 import { Icon } from "../icon";
 import { AddUserPosting } from "../../modules/post/addUserPosting";
@@ -50,7 +48,6 @@ export const StreamItem: React.FC<StreamItemProps> = ({
   Link,
   createdAt
 }) => {
-  const [popoverState, bind] = useHover();
   const linkProps = getLinkProps();
   const dtString = format(Date.parse(createdAt), "MMM D");
 
@@ -114,11 +111,9 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                     display: "flex"
                   }}
                 >
-                  <UserPopover popoverState={popoverState} username={username}>
-                    <Link route={"profile"} params={{ username }}>
-                      <a {...bind}>{username}</a>
-                    </Link>
-                  </UserPopover>
+                  <Link route={"profile"} params={{ username }}>
+                    <a>{username}</a>
+                  </Link>
                 </div>
                 <span
                   style={{

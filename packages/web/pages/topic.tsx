@@ -13,14 +13,14 @@ import { StreamItem, Stream } from "../components/streamItem";
 import { Heading, Caption } from "../components/heading";
 import { FeaturedStory } from "../components/featured";
 
-interface Props {
+interface TopicProps {
   id: string;
   name: string;
   shortCaption: string;
   numPostings: string;
 }
 
-export default class Topic extends React.PureComponent<Props> {
+export default class Topic extends React.PureComponent<TopicProps> {
   static async getInitialProps({
     query: { name },
     apolloClient
