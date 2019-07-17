@@ -46,7 +46,6 @@ export const ActionsDropdown: React.FC<Props> = ({ children, id }) => {
                 >
                   <Icon
                     name="showActions"
-                    fill="#000"
                     data-cy="thread-actions-dropdown-trigger"
                   />
                 </Button>

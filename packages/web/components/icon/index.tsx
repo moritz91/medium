@@ -4,7 +4,7 @@ import { icons } from "./icons";
 export interface IconProps {
   name: keyof typeof icons;
   size?: number;
-  fill: string;
+  fill?: string;
   style?: { [key: string]: string };
   onClick?: () => void;
 }
@@ -12,7 +12,7 @@ export interface IconProps {
 export const Icon: React.FC<IconProps> = ({
   name,
   size = 16,
-  fill,
+  fill = "currentColor",
   style,
   onClick
 }): JSX.Element => {
