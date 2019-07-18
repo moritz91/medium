@@ -7,6 +7,7 @@ export const CommentInfoFragment = gql`
     text
     postingId
     creatorId
+    isAuthor
     creator {
       ...UserInfo
     }

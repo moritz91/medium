@@ -79,8 +79,9 @@ export const Posting = ({
   previewTitle,
   previewSubtitle,
   title,
-  creator,
   body,
+  creator,
+  isAuthor,
   postingId,
   createdAt,
   numComments,
@@ -144,6 +145,7 @@ export const Posting = ({
             id={postingId}
             createdAt={createdAt}
             creator={creator}
+            isAuthor={isAuthor}
             previewTitle={previewTitle}
             previewSubtitle={previewSubtitle}
             title={title}
@@ -173,13 +175,17 @@ export const Posting = ({
                     {data && data.findCommentsById && (
                       <>
                         {data.findCommentsById.comments.map(
-                          ({ id, createdAt, creator, text }, key: any) => (
+                          (
+                            { id, createdAt, creator, text, isAuthor },
+                            key: any
+                          ) => (
                             <React.Fragment key={id}>
                               <Comment
                                 id={id}
                                 key={key}
                                 createdAt={createdAt}
                                 creator={creator}
+                                isAuthor={isAuthor}
                                 body={MarkdownRenderer({ text })}
                                 Link={Link}
                               />
@@ -259,9 +265,10 @@ Posting.getInitialProps = async ({
     previewTitle: getPostingById!.previewTitle,
     previewSubtitle: getPostingById!.previewSubtitle,
     previewImage: getPostingById!.previewImage,
-    creator: getPostingById!.creator,
     title: getPostingById!.title,
     body: getPostingById!.body,
+    creator: getPostingById!.creator,
+    isAuthor: getPostingById!.isAuthor,
     numComments: getPostingById!.numComments,
     createdAt: getPostingById!.createdAt,
     tags: getPostingById!.tags

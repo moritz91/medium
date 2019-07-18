@@ -9,6 +9,7 @@ export const getCommentsByIdQuery = gql`
         text
         createdAt
         creatorId
+        isAuthor
         creator {
           ...UserInfo
         }

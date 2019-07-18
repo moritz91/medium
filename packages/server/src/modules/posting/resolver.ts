@@ -51,6 +51,23 @@ export class PostingResolver {
   }
 
   @FieldResolver()
+  async isBookmark(
+    @Ctx() ctx: MyContext,
+    @Root() root: Posting
+  ): Promise<Boolean> {
+    const response = await UserPosting.findOne({
+      where: { postingId: root.id, userId: ctx.req.session!.userId }
+    });
+
+    console.log(response);
+
+    if (response) {
+      return true;
+    }
+    return false;
+  }
+
+  @FieldResolver()
   numComments(@Root() root: Posting): Promise<number> {
     return this.commentRepo.count({ where: { postingId: root.id } });
   }

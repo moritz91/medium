@@ -1,4 +1,4 @@
-import { Ctx, Field, ID, ObjectType } from "type-graphql";
+import { Ctx, Field, ID, ObjectType, Root } from "type-graphql";
 import {
   Column,
   CreateDateColumn,
@@ -40,6 +40,14 @@ export class Comment {
   @Field(() => User)
   creator(@Ctx() { userLoader }: MyContext): Promise<User> {
     return userLoader.load(this.creatorId);
+  }
+
+  @Field(() => Boolean, { nullable: true })
+  async isAuthor(
+    @Root() root: Comment,
+    @Ctx() ctx: MyContext
+  ): Promise<Boolean> {
+    return ctx.req.session!.userId === root.creatorId;
   }
 
   @Field()

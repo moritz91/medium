@@ -16,6 +16,7 @@ interface CommentProps {
   body: any;
   createdAt: string;
   creator: any;
+  isAuthor: boolean | null;
   Link: any;
 }
 
@@ -68,6 +69,7 @@ export const Content = styled.div`
 export const Comment: React.FC<CommentProps> = ({
   id,
   creator: { username, pictureUrl },
+  isAuthor,
   body,
   Link,
   createdAt
@@ -130,7 +132,8 @@ export const Comment: React.FC<CommentProps> = ({
             <Actions style={{ display: "flex", marginLeft: "auto" }}>
               <div>
                 <ActionsDropdown id={id}>
-                  <DeleteComment commentId={id} />
+                  {isAuthor && <DeleteComment commentId={id} />}
+
                   <CopyLink commentId={id} />
                 </ActionsDropdown>
               </div>

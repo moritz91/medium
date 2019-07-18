@@ -20,6 +20,7 @@ interface StoryProps {
   numComments: number;
   createdAt: string;
   creator: any;
+  isAuthor: boolean | null;
   Link: any;
   tags: any;
   getLinkProps: () => any;
@@ -68,8 +69,9 @@ export const Story: React.FC<StoryProps> = ({
   previewTitle,
   previewSubtitle,
   title,
-  creator: { username, pictureUrl },
   body,
+  creator: { username, pictureUrl },
+  isAuthor,
   numComments,
   Link,
   createdAt,
@@ -84,13 +86,15 @@ export const Story: React.FC<StoryProps> = ({
         <div>
           <Flex className="posting-header">
             <StoryHeading>{previewTitle ? previewTitle : title}</StoryHeading>
-            <div style={{ display: "flex", marginLeft: "auto" }}>
-              <div>
-                <ActionsDropdown id={id}>
-                  <DeletePosting />
-                </ActionsDropdown>
+            {isAuthor && (
+              <div style={{ display: "flex", marginLeft: "auto" }}>
+                <div>
+                  <ActionsDropdown id={id}>
+                    <DeletePosting />
+                  </ActionsDropdown>
+                </div>
               </div>
-            </div>
+            )}
           </Flex>
           <div style={{ fontSize: 14, padding: "8px 0" }}>
             {dtString} • {username} •

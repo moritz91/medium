@@ -140,6 +140,8 @@ export type GetCommentsByIdComments = {
 
   creatorId: string;
 
+  isAuthor: Maybe<boolean>;
+
   creator: GetCommentsByIdCreator;
 };
 
@@ -229,6 +231,8 @@ export type GetPostingByIdGetPostingById = {
   body: string;
 
   createdAt: DateTime;
+
+  isAuthor: Maybe<boolean>;
 
   numComments: number;
 
@@ -571,6 +575,8 @@ export type CommentInfoFragment = {
 
   creatorId: string;
 
+  isAuthor: Maybe<boolean>;
+
   creator: CommentInfoCreator;
 
   createdAt: DateTime;
@@ -650,6 +656,7 @@ export const CommentInfoFragmentDoc = gql`
     text
     postingId
     creatorId
+    isAuthor
     creator {
       ...UserInfo
     }
@@ -800,6 +807,7 @@ export const GetCommentsByIdDocument = gql`
         text
         createdAt
         creatorId
+        isAuthor
         creator {
           ...UserInfo
         }
@@ -1000,6 +1008,7 @@ export const GetPostingByIdDocument = gql`
       title
       body
       createdAt
+      isAuthor
       numComments
       comments {
         text

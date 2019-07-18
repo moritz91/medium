@@ -43,6 +43,14 @@ export class Posting extends BaseEntity {
   @ManyToOne(() => User, user => user.postings)
   creator: Promise<User>;
 
+  @Field(() => Boolean, { nullable: true })
+  async isAuthor(@Ctx() ctx: MyContext): Promise<Boolean> {
+    return ctx.req.session!.userId === this.creatorId;
+  }
+
+  @Field(() => Boolean, { nullable: true })
+  isBookmark: boolean;
+
   @Field({ description: "The preview title of the posting", nullable: true })
   @Column({ type: "text", nullable: true })
   previewTitle: string;

@@ -8,6 +8,7 @@ export const getPostingByIdQuery = gql`
       title
       body
       createdAt
+      isAuthor
       numComments
       comments {
         text
