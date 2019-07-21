@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add -D @types/lodash.get
+  /usr/local/bin/node /usr/local/bin/yarn add -D eslint-config-airbnb-base@^13.2.0 object.assign@^4.1.0 eslint-config-airbnb@17.1.1
 
 PATH: 
   ~~/Library/Python/3.6/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types/lodash.get/-/lodash.get-4.4.6.tgz: ETIMEDOUT
+  Error: https://registry.yarnpkg.com/eslint-config-airbnb-base: ETIMEDOUT
       at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:138076:19)
       at ontimeout (timers.js:436:11)
       at tryOnTimeout (timers.js:300:5)
@@ -85,7 +85,7 @@ npm manifest:
       "@babel/plugin-transform-react-jsx": "^7.3.0",
       "@types/cookie": "0.3.2",
       "@types/dom-clipboard-api": "^1.0.1",
-      "@types/lodash": "^4.14.121",
+      "@types/lodash.get": "^4.4.6",
       "@types/next": "7.0.6",
       "@types/react": "16.7.22",
       "@types/react-dom": "16.0.11",
@@ -1658,9 +1658,15 @@ Lockfile:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/@types/is-glob/-/is-glob-4.0.0.tgz#fb8a2bff539025d4dcd6d5efe7689e03341b876d"
   
-  "@types/lodash@^4.14.121":
-    version "4.14.121"
-    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.121.tgz#9327e20d49b95fc2bf983fc2f045b2c6effc80b9"
+  "@types/lodash.get@^4.4.6":
+    version "4.4.6"
+    resolved "https://registry.yarnpkg.com/@types/lodash.get/-/lodash.get-4.4.6.tgz#0c7ac56243dae0f9f09ab6f75b29471e2e777240"
+    dependencies:
+      "@types/lodash" "*"
+  
+  "@types/lodash@*":
+    version "4.14.136"
+    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.136.tgz#413e85089046b865d960c9ff1d400e04c31ab60f"
   
   "@types/long@^4.0.0":
     version "4.0.0"

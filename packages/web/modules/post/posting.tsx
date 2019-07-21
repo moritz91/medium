@@ -82,6 +82,7 @@ export const Posting = ({
   body,
   creator,
   isAuthor,
+  isBookmark,
   postingId,
   createdAt,
   numComments,
@@ -146,6 +147,7 @@ export const Posting = ({
             createdAt={createdAt}
             creator={creator}
             isAuthor={isAuthor}
+            isBookmark={isBookmark}
             previewTitle={previewTitle}
             previewSubtitle={previewSubtitle}
             title={title}

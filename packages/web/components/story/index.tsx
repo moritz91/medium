@@ -10,6 +10,7 @@ import { Button } from "../button";
 import { Avatar } from "../common/Avatar";
 import { useContext } from "react";
 import { FlyoutContextProps, FlyoutContext } from "../context/FlyoutContext";
+import { Icon } from "../icon";
 
 interface StoryProps {
   id: string;
@@ -21,6 +22,7 @@ interface StoryProps {
   createdAt: string;
   creator: any;
   isAuthor: boolean | null;
+  isBookmark: boolean | null;
   Link: any;
   tags: any;
   getLinkProps: () => any;
@@ -33,6 +35,18 @@ const Container = styled.div`
 export const CommentContainer = styled.div`
   width: 100%;
   margin: 1.6rem 0px 1rem 0px;
+`;
+
+export const StoryTags = styled.div``;
+
+export const StoryPerformance = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const StoryMetaOptions = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const StoryFooter = styled.div`
@@ -72,6 +86,7 @@ export const Story: React.FC<StoryProps> = ({
   body,
   creator: { username, pictureUrl },
   isAuthor,
+  isBookmark,
   numComments,
   Link,
   createdAt,
@@ -107,11 +122,28 @@ export const Story: React.FC<StoryProps> = ({
           </Text>
         </div>
       </Flex>
-      {tags.map((t: any, idx: number) => (
-        <Button variant="tag" key={idx}>
-          {t.name}
-        </Button>
-      ))}
+      <StoryTags>
+        {tags.map((t: any, idx: number) => (
+          <Button variant="tag" key={idx}>
+            {t.name}
+          </Button>
+        ))}
+      </StoryTags>
+      <StoryMetaOptions>
+        <StoryPerformance style={{ fontSize: 14 }}>4.6K Likes</StoryPerformance>
+        <StoryPerformance>
+          {isBookmark ? (
+            <div style={{ paddingRight: 8 }}>
+              <Icon name="saveStory" fill="#fff" size={26} />
+            </div>
+          ) : (
+            <div style={{ paddingRight: 8 }}>
+              <Icon name="saveStory" fill="#000" size={26} />
+            </div>
+          )}
+          <Icon name="showActions" fill="#000" />
+        </StoryPerformance>
+      </StoryMetaOptions>
       <StoryFooter>
         <TopRow>
           <UserAvatar>

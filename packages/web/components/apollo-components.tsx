@@ -234,6 +234,8 @@ export type GetPostingByIdGetPostingById = {
 
   isAuthor: Maybe<boolean>;
 
+  isBookmark: Maybe<boolean>;
+
   numComments: number;
 
   comments: GetPostingByIdComments[];
@@ -1009,6 +1011,7 @@ export const GetPostingByIdDocument = gql`
       body
       createdAt
       isAuthor
+      isBookmark
       numComments
       comments {
         text

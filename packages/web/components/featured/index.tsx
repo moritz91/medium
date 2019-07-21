@@ -6,7 +6,7 @@ import { UserPopover } from "../../modules/user/shared/userPopover";
 import { useHover } from "use-events";
 import { Button } from "../button";
 
-interface Props {
+interface FeaturedStoryProps {
   id: string;
   previewTitle?: string | null;
   previewSubtitle?: string | null;
@@ -26,7 +26,7 @@ export const FeaturedStoryContainer = styled.div`
   margin-bottom: 40px;
 `;
 
-export const FeaturedStory: React.FC<Props> = ({
+export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
   previewTitle,
   previewSubtitle,
   previewImage,

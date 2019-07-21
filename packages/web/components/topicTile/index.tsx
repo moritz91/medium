@@ -12,7 +12,7 @@ const LinkRebass = styled("a")`
   }
 `;
 
-interface Props {
+interface TopicTileProps {
   id: string;
   name: string;
   pictureUrl: any;
@@ -20,7 +20,7 @@ interface Props {
   getLinkProps: () => any;
 }
 
-export const TopicTile: React.FC<Props> = ({
+export const TopicTile: React.FC<TopicTileProps> = ({
   name,
   pictureUrl,
   getLinkProps,
