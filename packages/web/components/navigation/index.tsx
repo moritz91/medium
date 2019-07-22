@@ -4,6 +4,7 @@ import { headerFont } from "../../utils/fonts";
 import Social from "../social";
 import { mobile } from "../../utils/media";
 import NavLinks from "./navigationLinks";
+import { SubMenu } from "../subMenu";
 
 const Wrapper = styled.nav`
   position: fixed;
@@ -61,6 +62,7 @@ class Navbar extends PureComponent {
           </StartWrapper>
           <EndWrapper>
             <StyledSocial />
+            <SubMenu />
           </EndWrapper>
         </NormalNavbar>
       </Wrapper>

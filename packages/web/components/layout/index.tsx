@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
 import Navbar from "../navigation";
-import { SubMenu } from "../subMenu";
 import { Link } from "../../server/routes";
 import { Footer } from "../common/Footer";
 import styled from "styled-components";
@@ -12,8 +11,13 @@ const Wrapper = styled.div`
   max-width: 1080px;
   margin: auto;
   display: flex;
-  flex-direction: column;
   padding: 0 1.6rem;
+`;
+
+const InnerWrapper = styled.div`
+  margin-top: 75px;
+  display: flex;
+  flex-direction: column;
 `;
 
 type Props = ReturnType<any> & { title: string };
@@ -28,8 +32,7 @@ export const Layout: NextFunctionComponent<Props> = ({ children, title }) => (
     </Head>
     <Navbar />
     <Wrapper data-cy="home-page">
-      <SubMenu />
-      {children}
+      <InnerWrapper>{children}</InnerWrapper>
     </Wrapper>
     <Footer
       linksLeft={[

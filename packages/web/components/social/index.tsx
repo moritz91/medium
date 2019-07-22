@@ -9,6 +9,7 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   flex: 1 1 auto;
+  padding-right: 15px;
 `;
 
 const SocialLink = styled(Link).attrs({

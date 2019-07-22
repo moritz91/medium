@@ -63,13 +63,13 @@ const UserDataFlex = styled.div`
   display: flex;
 `;
 
-const UserDataAvatar = styled.div`
+export const UserDataAvatar = styled.div`
   flex: 0 0 auto;
   position: relative;
   cursor: pointer;
 `;
 
-const UserDataAvatarHalo = styled.div`
+export const UserDataAvatarHalo = styled.div`
   width: calc(100% + 10px);
   height: calc(100% + 10px);
   top: 1.5px;
@@ -130,6 +130,7 @@ export const Menu: React.FC<Props> = ({
                       src={renderUserData.pictureUrl}
                       size={45}
                       borderRadius={"3rem"}
+                      margin="3.5px"
                     />
                     <UserDataAvatarHalo>
                       <Icon

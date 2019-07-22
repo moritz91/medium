@@ -2,16 +2,15 @@ import * as React from "react";
 import get from "lodash.get";
 import { Flex } from "rebass";
 import styled from "styled-components";
-import { Router, Link } from "../../server/routes";
+import { Link } from "../../server/routes";
 import { MeComponent } from "../apollo-components";
 import { Button } from "../button";
-import { Menu } from "../menu";
+import { Menu, UserDataAvatarHalo } from "../menu";
 import { Avatar } from "../common/Avatar";
 import { Icon } from "../icon";
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
-  margin-top: 6.5rem;
 `;
 
 const ListOption = styled.li`
@@ -31,13 +30,7 @@ const ListOption = styled.li`
 
 export const SubMenu = (): JSX.Element => {
   return (
-    <Container my="1.5rem" justifyContent="space-between">
-      <Flex alignItems="center" fontSize={16}>
-        <Link passHref href="/posts">
-          <a>Stories</a>
-        </Link>
-      </Flex>
-
+    <Container justifyContent="space-between">
       <MeComponent variables={{ withBookmarks: false }}>
         {({ data, loading }) => {
           if (loading) {
@@ -49,12 +42,12 @@ export const SubMenu = (): JSX.Element => {
           if (isLoggedIn) {
             return (
               <Flex alignItems="center">
-                <Button
+                {/* <Button
                   variant="primary"
                   onClick={() => Router.push("/create")}
                 >
                   New Story
-                </Button>
+                </Button> */}
                 <Menu
                   options={[
                     ["New story", "/create"],
@@ -79,13 +72,38 @@ export const SubMenu = (): JSX.Element => {
                   )}
                   renderUserData={data!.me}
                 >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center"
+                    }}
+                  >
+                    {/* <Avatar
                       size={32}
                       src={data && data.me ? data.me.pictureUrl : undefined}
                       alt="avatar"
+                    /> */}
+                    <Avatar
+                      src={data && data.me ? data.me.pictureUrl : undefined}
+                      size={32}
+                      borderRadius={"3rem"}
+                      margin="3.5px"
                     />
-                    <Icon fill="rgb(255,255,255)" name="downArrow" />
+                    <UserDataAvatarHalo>
+                      <Icon
+                        name="haloTop"
+                        fill="#5C6AC4"
+                        size={37}
+                        style={{ position: "absolute" }}
+                      />
+                      <Icon
+                        name="haloBottom"
+                        fill="#5C6AC4"
+                        size={37}
+                        style={{ position: "absolute" }}
+                      />
+                    </UserDataAvatarHalo>
+                    <Icon fill="#000" name="downArrow" />
                   </div>
                 </Menu>
               </Flex>
@@ -95,7 +113,7 @@ export const SubMenu = (): JSX.Element => {
           return (
             <div>
               <a href="http://localhost:4000/auth/github">
-                <Button variant="primary">Sign in with GitHub</Button>
+                <Button variant="primary">Login</Button>
               </a>
             </div>
           );
