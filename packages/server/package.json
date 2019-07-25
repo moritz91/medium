@@ -17,7 +17,7 @@
     "@types/express-session": "1.15.13",
     "@types/passport": "1.0.0",
     "@types/passport-github": "1.1.5",
-    "apollo-server-express": "2.7.0",
+    "apollo-server-express": "2.7.1",
     "argon2": "0.24.0",
     "connect-redis": "3.4.2",
     "cors": "2.8.5",
