@@ -59,8 +59,6 @@ export class PostingResolver {
       where: { postingId: root.id, userId: ctx.req.session!.userId }
     });
 
-    console.log(response);
-
     if (response) {
       return true;
     }
