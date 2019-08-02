@@ -78,11 +78,6 @@ export const SubMenu = (): JSX.Element => {
                       alignItems: "center"
                     }}
                   >
-                    {/* <Avatar
-                      size={32}
-                      src={data && data.me ? data.me.pictureUrl : undefined}
-                      alt="avatar"
-                    /> */}
                     <Avatar
                       src={data && data.me ? data.me.pictureUrl : undefined}
                       size={32}
@@ -103,7 +98,9 @@ export const SubMenu = (): JSX.Element => {
                         style={{ position: "absolute" }}
                       />
                     </UserDataAvatarHalo>
-                    <Icon fill="#000" name="downArrow" />
+                    <Button variant="action">
+                      <Icon fill="#000" name="downArrow" />
+                    </Button>
                   </div>
                 </Menu>
               </Flex>

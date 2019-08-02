@@ -133,15 +133,17 @@ export const Story: React.FC<StoryProps> = ({
         <StoryPerformance style={{ fontSize: 14 }}>4.6K Likes</StoryPerformance>
         <StoryPerformance>
           {isBookmark ? (
-            <div style={{ paddingRight: 8 }}>
+            <Button variant="action" style={{ paddingRight: 8 }}>
               <Icon name="saveStory" fill="#fff" size={26} />
-            </div>
+            </Button>
           ) : (
-            <div style={{ paddingRight: 8 }}>
+            <Button variant="action" style={{ paddingRight: 8 }}>
               <Icon name="saveStory" fill="#000" size={26} />
-            </div>
+            </Button>
           )}
-          <Icon name="showActions" fill="#000" />
+          <Button variant="action" hoverEffect style={{ paddingRight: 8 }}>
+            <Icon name="showActions" fill="#000" />
+          </Button>
         </StoryPerformance>
       </StoryMetaOptions>
       <StoryFooter>
