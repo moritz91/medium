@@ -166,7 +166,7 @@ export const Posting = ({
             <Text fontSize={5}>Responses</Text>
           </Box>
           <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
-          <Box mt={20}>
+          <Box mt={20} style={{ display: "flex", flexDirection: "column" }}>
             <GetCommentsByIdComponent variables={{ input: { postingId } }}>
               {({ data, loading, fetchMore }) => {
                 if (loading) {

@@ -6,7 +6,7 @@ import { Icon } from "../../components/icon";
 import { Router } from "../../server/routes";
 import { useClickOutside } from "use-events";
 
-interface Props {
+interface MenuProps {
   options: string[][];
   renderOption: (data: {
     Anchor: React.ReactElement<any>;
@@ -39,11 +39,11 @@ const MenuLink = styled("a")`
 `;
 
 const MenuContainer = styled.div`
-  right: 0px;
+  left: -90px;
   z-index: 11;
   background: #fff;
   position: absolute;
-  width: 280px;
+  width: 220px;
   margin-top: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
@@ -91,7 +91,7 @@ const Divider = styled.div`
   margin: 8px 1px;
 `;
 
-export const Menu: React.FC<Props> = ({
+export const Menu: React.FC<MenuProps> = ({
   children,
   options,
   renderOption,

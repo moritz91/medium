@@ -28,7 +28,7 @@ interface StoryProps {
   getLinkProps: () => any;
 }
 
-const Container = styled.div`
+const StoryContainer = styled.div`
   margin: 1.6rem 0px;
 `;
 
@@ -96,7 +96,7 @@ export const Story: React.FC<StoryProps> = ({
   const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
-    <Container>
+    <StoryContainer>
       <Flex justifyContent="center">
         <div>
           <Flex className="posting-header">
@@ -184,6 +184,6 @@ export const Story: React.FC<StoryProps> = ({
           </Actions>
         </TopRow>
       </StoryFooter>
-    </Container>
+    </StoryContainer>
   );
 };
