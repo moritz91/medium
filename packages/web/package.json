@@ -21,10 +21,10 @@
     "lodash.get": "4.4.2",
     "next": "9.0.3",
     "next-routes": "1.4.2",
-    "react": "16.8.6",
+    "react": "16.9.0-rc.0",
     "react-apollo": "2.5.8",
     "react-apollo-hooks": "0.5.0",
-    "react-dom": "16.8.6",
+    "react-dom": "16.9.0-rc.0",
     "react-modal": "3.9.1",
     "styled-components": "4.3.2"
   },
@@ -48,8 +48,8 @@
     "url-loader": "2.1.0"
   },
   "resolutions": {
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react": "16.9.0-rc.0",
+    "react-dom": "16.9.0-rc.0"
   },
   "license": "ISC"
 }
