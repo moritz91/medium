@@ -3359,6 +3359,13 @@
   dependencies:
     "@styled-system/core" "^5.0.18"
 
+"@styled-system/border@^5.0.20":
+  version "5.0.20"
+  resolved "https://registry.yarnpkg.com/@styled-system/border/-/border-5.0.20.tgz#071daf687a9e9e1c168d572fcdc5b0c5be3e46dd"
+  integrity sha512-tfcXB5ZBig1nMOCZCwWtr0gQVxCAe6TWtBQlXeC7dzZJ4uBWA4RROSCJv3gvjG9tvfp+CAARde4rCwKX4pOVYQ==
+  dependencies:
+    "@styled-system/core" "^5.0.18"
+
 "@styled-system/color@^5.0.18":
   version "5.0.18"
   resolved "https://registry.yarnpkg.com/@styled-system/color/-/color-5.0.18.tgz#d97c898a8f0ed7e64a561650df065a728a9426ce"
@@ -3922,10 +3929,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@16.8.24":
-  version "16.8.24"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.24.tgz#8d1ea1fcbfa214220da3d3c04e506f1077b0deac"
-  integrity sha512-VpFHUoD37YNY2+lr/+c7qL/tZsIU/bKuskUF3tmGUArbxIcQdb5j3zvo4cuuzu2A6UaVmVn7sJ4PgWYNFEBGzg==
+"@types/react@16.8.25":
+  version "16.8.25"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.25.tgz#0247613ab58b1b11ba10fed662e1947c5f2bb89c"
+  integrity sha512-ydAAkLnNTC4oYSxJ3zwK/4QcVmEecACJ4ZdxXITbxz/dhahBSDKY6OQ1uawAW6rE/7kfHccxulYLSAIZVrSq0A==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -17019,7 +17026,26 @@ styled-jsx@3.2.1:
     stylis "3.5.4"
     stylis-rule-sheet "0.0.10"
 
-styled-system@5.0.18, styled-system@^5.0.0, styled-system@^5.0.18:
+styled-system@5.0.20:
+  version "5.0.20"
+  resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-5.0.20.tgz#569ab9dd7b2b02d940589cbc85453a9d594fcf96"
+  integrity sha512-qQ+nsSQFpOXftrDgTQUB9gndGO3e6MAa/iD5mHk4eruztcIWpfhyXiH4tDT+14NHnUz7rPCAY3tOnnNskFN3Cg==
+  dependencies:
+    "@styled-system/background" "^5.0.18"
+    "@styled-system/border" "^5.0.20"
+    "@styled-system/color" "^5.0.18"
+    "@styled-system/core" "^5.0.18"
+    "@styled-system/flexbox" "^5.0.18"
+    "@styled-system/grid" "^5.0.18"
+    "@styled-system/layout" "^5.0.18"
+    "@styled-system/position" "^5.0.18"
+    "@styled-system/shadow" "^5.0.18"
+    "@styled-system/space" "^5.0.18"
+    "@styled-system/typography" "^5.0.18"
+    "@styled-system/variant" "^5.0.18"
+    object-assign "^4.1.1"
+
+styled-system@^5.0.0, styled-system@^5.0.18:
   version "5.0.18"
   resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-5.0.18.tgz#4cdd15de7fe5ae1ab43c87ed4338c11a6d011514"
   integrity sha512-hOQu0/rPXktT12rjimQnWcvMm+xWVmTWvKMTMNkM4FQcXdS9NwlGXM5hu4LOWpIFhuqM+S6UDqqhy6IjPF5BlQ==
