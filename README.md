@@ -83,7 +83,7 @@ To verify it worked, head to http://localhost:4000
 yarn dev
 ```
 
-The website should then be available at http://localhost:3000
+The website is then available at http://localhost:3000
 
 ## Support
 
