@@ -5,7 +5,6 @@
 <p align="center">
   <a href="#packages">Packages</a>&nbsp;&nbsp;
   <a href="#installation">Installation</a>&nbsp;&nbsp;
-  <a href="#usage">Usage</a>&nbsp;&nbsp;
   <a href="#support">Support</a>&nbsp;&nbsp;
   <a href="#contributing">Contributing</a>&nbsp;&nbsp;
 </p>
