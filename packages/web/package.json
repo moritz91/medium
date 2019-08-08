@@ -15,7 +15,7 @@
   "dependencies": {
     "@medium/common": "1.0.0",
     "@types/match-sorter": "2.3.0",
-    "@types/prismjs": "1.9.0",
+    "@types/prismjs": "1.16.0",
     "@types/react-modal": "3.8.0",
     "@types/rebass": "3.0.4",
     "@typescript-eslint/parser": "1.12.0",
