@@ -32,7 +32,7 @@ cd medium
 yarn
 ```
 
-2. Make sure you have PostgreSQL running on your computer with a database called `codeponder2` and a user who has access to that database with the username `postgres` and password `postgres`
+2. Make sure you have PostgreSQL running on your computer with a database called `stackflow` and a user who has access to that database with the username `postgres` and password `postgres`
 
 - Mac: https://www.codementor.io/engineerapart/getting-started-with-postgresql-on-mac-osx-are8jcopb
 - Windows: https://www.guru99.com/download-install-postgresql.html
@@ -54,7 +54,7 @@ yarn build:deps
 
 - you can set `Application name` to anything you want
 - `Homepage URL` can be either
-  - https://github.com/benawad/codeponder (to connect w/main instance at codeponder.com)
+  - https://github.com/moritz91/medium
   - https://localhost:3000 (to connect to instance on your computer locally)
 - `Authorization callback URL`
   - http://localhost:4000/oauth/github
@@ -66,7 +66,7 @@ GITHUB_CLIENT_ID=<YOUR_CLIENT_ID_HERE>
 GITHUB_CLIENT_SECRET=<YOUR_CLIENT_SECRET_HERE>
 DB_USER=postgres
 DB_PASS=postgres
-SESSION_SECRET=asjdfkljaklsfs
+SESSION_SECRET=ajslkjalksjdfkl
 ```
 
 6. While in the `server` package you can start the server with
