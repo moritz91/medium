@@ -75,7 +75,7 @@ SESSION_SECRET=ajslkjalksjdfkl
 yarn start
 ```
 
-To verified it worked, you can go to http://localhost:4000
+To verify it worked, head to http://localhost:4000
 
 7. While in the `web` package you can start the website with
 
@@ -83,7 +83,7 @@ To verified it worked, you can go to http://localhost:4000
 yarn dev
 ```
 
-The website should be available at http://localhost:3000 now
+The website should then be available at http://localhost:3000
 
 ## Support
 
