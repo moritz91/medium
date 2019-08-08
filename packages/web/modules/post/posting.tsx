@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useReducer, useEffect } from "react";
 import { Waypoint } from "react-waypoint";
-import { Box, Text } from "rebass";
+import { Box, Text, Flex } from "rebass";
 import { useClickOutside } from "use-events";
 import { GetCommentsByIdComponent } from "../../components/apollo-components";
 import { Comment } from "../../components/comment/";
@@ -14,7 +14,6 @@ import {
   PostContextProps
 } from "../../components/context/PostContext";
 import { Layout } from "../../components/layout";
-import { Story } from "../../components/story";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import { Link } from "../../server/routes";
@@ -24,6 +23,69 @@ import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
 import { includes } from "lodash";
 import Router from "next/router";
 import { format } from "url";
+import { format as formatDate } from "date-fns";
+import styled from "styled-components";
+import { UserPopover } from "../user/shared/userPopover";
+import { Avatar } from "../../components/common/Avatar";
+import {
+  Caption,
+  StoryFooterUsername,
+  StoryHeading
+} from "../../components/heading";
+import { Button } from "../../components/button";
+import { ActionsDropdown } from "./shared/actionsDropdown";
+import { DeletePosting } from "./deletePosting";
+import { Icon } from "../../components/icon";
+
+const StoryContainer = styled.div`
+  margin: 1.6rem 0px;
+`;
+
+export const CommentContainer = styled.div`
+  width: 100%;
+  margin: 1.6rem 0px 1rem 0px;
+`;
+
+export const StoryTags = styled.div``;
+
+export const StoryPerformance = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const StoryMetaOptions = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const UserAvatar = styled.div`
+  display: grid;
+  grid-area: avatar / avatar / avatar / avatar;
+`;
+
+export const Actions = styled.div`
+  grid-area: actions / actions / actions / actions;
+`;
+
+export const Content = styled.div`
+  grid-area: content / content / content / content;
+  padding: 0 10px;
+`;
+
+export const StoryFooter = styled.div`
+  margin: 15px 0 0;
+  padding: 15px 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+`;
+
+export const TopRow = styled.div`
+  display: grid;
+  grid-template-areas: "avatar content actions";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto;
+  gap: 8px 8px;
+  flex: 1 1 0%;
+`;
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -81,6 +143,7 @@ export const Posting = ({
   title,
   body,
   creator,
+  creator: { username, pictureUrl },
   isAuthor,
   isBookmark,
   postingId,
@@ -136,32 +199,72 @@ export const Posting = ({
     state
   };
 
+  const dtString = formatDate(Date.parse(createdAt), "MMM D");
+
   return (
     // @ts-ignore
     <Layout title={`${title}`}>
       <PostContext.Provider value={PostCtx}>
         <FlyoutContext.Provider value={FlyoutCtx}>
-          <Story
-            key={postingId}
-            id={postingId}
-            createdAt={createdAt}
-            creator={creator}
-            isAuthor={isAuthor}
-            isBookmark={isBookmark}
-            previewTitle={previewTitle}
-            previewSubtitle={previewSubtitle}
-            title={title}
-            body={body}
-            numComments={numComments}
-            Link={Link}
-            tags={tags}
-            getLinkProps={() => ({
-              route: "post",
-              params: {
-                id: postingId
-              }
-            })}
-          />
+          <StoryContainer>
+            <Flex justifyContent="center">
+              <div>
+                <Flex className="posting-header">
+                  <StoryHeading>
+                    {previewTitle ? previewTitle : title}
+                  </StoryHeading>
+                  {isAuthor && (
+                    <div style={{ display: "flex", marginLeft: "auto" }}>
+                      <div>
+                        <ActionsDropdown id={postingId}>
+                          <DeletePosting />
+                        </ActionsDropdown>
+                      </div>
+                    </div>
+                  )}
+                </Flex>
+                <div style={{ fontSize: 14, padding: "8px 0" }}>
+                  {dtString} • {username} •
+                  {numComments == 1
+                    ? ` ${numComments}` + " response"
+                    : ` ${numComments}` + " responses"}
+                </div>
+                <Text lineHeight={1.58} mb="2rem" fontSize={16}>
+                  {previewSubtitle ? previewSubtitle : body}
+                </Text>
+              </div>
+            </Flex>
+            <StoryTags>
+              {tags.map((t: any, idx: number) => (
+                <Button variant="tag" key={idx}>
+                  {t.name}
+                </Button>
+              ))}
+            </StoryTags>
+            <StoryMetaOptions>
+              <StoryPerformance style={{ fontSize: 14 }}>
+                4.6K Likes
+              </StoryPerformance>
+              <StoryPerformance>
+                {isBookmark ? (
+                  <Button variant="action" style={{ paddingRight: 8 }}>
+                    <Icon name="saveStory" fill="#fff" size={26} />
+                  </Button>
+                ) : (
+                  <Button variant="action" style={{ paddingRight: 8 }}>
+                    <Icon name="saveStory" fill="#000" size={26} />
+                  </Button>
+                )}
+                <Button
+                  variant="action"
+                  hoverEffect
+                  style={{ paddingRight: 8 }}
+                >
+                  <Icon name="showActions" fill="#000" />
+                </Button>
+              </StoryPerformance>
+            </StoryMetaOptions>
+          </StoryContainer>
           <Box
             style={{
               display: "flex",
@@ -170,6 +273,44 @@ export const Posting = ({
               width: 728
             }}
           >
+            <StoryFooter>
+              <TopRow>
+                <UserAvatar>
+                  <UserPopover id={postingId} username={username}>
+                    <Link route={"profile"} params={{ username }}>
+                      <a style={{ cursor: "pointer" }}>
+                        <Avatar
+                          borderRadius={5}
+                          size={60}
+                          src={pictureUrl}
+                          alt="avatar"
+                          onMouseEnter={() => {
+                            dispatch({ type: "openPopover", postingId });
+                          }}
+                          onMouseLeave={() => {
+                            dispatch({ type: "closePopover" });
+                          }}
+                        />
+                      </a>
+                    </Link>
+                  </UserPopover>
+                </UserAvatar>
+                <Content>
+                  <StoryFooterUsername>
+                    <Link route={"profile"} params={{ username }}>
+                      <a>{username}</a>
+                    </Link>
+                  </StoryFooterUsername>
+                  <Caption>
+                    Financial Consultant. Analyst. Writer. Over a decade of
+                    experience in the financial industry.
+                  </Caption>
+                </Content>
+                <Actions>
+                  <Button variant="tag">Follow</Button>
+                </Actions>
+              </TopRow>
+            </StoryFooter>
             <Box my="1.5rem">
               <Text fontSize={5}>Responses</Text>
             </Box>
