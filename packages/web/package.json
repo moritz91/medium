@@ -1,6 +1,6 @@
 {
   "name": "@medium/web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "nodemon server/index.ts",
     "build": "next build",
@@ -13,7 +13,7 @@
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
-    "@medium/common": "1.0.0",
+    "@medium/common": "^1.0.1",
     "@types/match-sorter": "^2.3.0",
     "@types/prismjs": "1.9.0",
     "@types/react-modal": "^3.8.0",
