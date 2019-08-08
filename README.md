@@ -46,11 +46,7 @@ yarn
 - Windows: https://redislabs.com/blog/redis-on-windows-10/
 - Linux: you know what you're doing.
 
-```
-yarn build:deps
-```
-
-5. Setup Github client id and secret by going to https://github.com/settings/applications/new
+4. Setup Github client id and secret by going to https://github.com/settings/applications/new
 
 - you can set `Application name` to anything you want
 - `Homepage URL` can be either
