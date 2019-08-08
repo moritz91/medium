@@ -1,5 +1,7 @@
 # medium
 
+<h5>This repository is a medium-like story-telling platform. It's open source. Suggestions and contributions are appreciated.</h5>
+
 ---
 
 <p align="center">
