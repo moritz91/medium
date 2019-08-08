@@ -38,17 +38,23 @@ export function ProfileTabs() {
           ))}
         </TabPanel>
         <TabPanel name="responses">
-          {comments.map(({ id, createdAt, creator, text }: any, key: any) => (
-            <Box key={key}>
-              <Comment
-                id={id}
-                createdAt={createdAt}
-                creator={creator}
-                body={MarkdownRenderer({ text })}
-                Link={Link}
-              />
-            </Box>
-          ))}
+          {comments.map(
+            ({ id, createdAt, creator, isAuthor, text }: any, key: any) => (
+              <Box
+                key={key}
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <Comment
+                  id={id}
+                  createdAt={createdAt}
+                  creator={creator}
+                  isAuthor={isAuthor}
+                  body={MarkdownRenderer({ text })}
+                  Link={Link}
+                />
+              </Box>
+            )
+          )}
         </TabPanel>
       </Tabs>
     </>

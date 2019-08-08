@@ -13,14 +13,14 @@ import {
 } from "../components/context/PostContext";
 import { ProfileHero } from "../modules/user/profile/profileHero";
 
-interface Props {
+interface ProfileProps {
   postings: [PostingInfoFragment];
   comments: [CommentInfoFragment];
   username: string;
   pictureUrl: string;
 }
 
-export default class Profile extends React.PureComponent<Props> {
+export default class Profile extends React.PureComponent<ProfileProps> {
   static async getInitialProps({
     query: { username },
     apolloClient

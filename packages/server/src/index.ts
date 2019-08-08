@@ -56,7 +56,10 @@ const startServer = async () => {
       topicPostingLoader: topicPostingLoader(),
       userPostingLoader: userPostingLoader(),
       userTopicLoader: userTopicLoader()
-    })
+    }),
+    engine: {
+      apiKey: "service:medium-4935:EkeQwXdjNii1Pr7A5htCEQ"
+    }
   });
 
   app.set("trust proxy", 1);

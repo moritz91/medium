@@ -162,87 +162,98 @@ export const Posting = ({
               }
             })}
           />
-          <Box my="1.5rem">
-            <Text fontSize={5}>Responses</Text>
-          </Box>
-          <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
-          <Box mt={20} style={{ display: "flex", flexDirection: "column" }}>
-            <GetCommentsByIdComponent variables={{ input: { postingId } }}>
-              {({ data, loading, fetchMore }) => {
-                if (loading) {
-                  <div>Loading...</div>;
-                }
-                return (
-                  <>
-                    {data && data.findCommentsById && (
-                      <>
-                        {data.findCommentsById.comments.map(
-                          (
-                            { id, createdAt, creator, text, isAuthor },
-                            key: any
-                          ) => (
-                            <React.Fragment key={id}>
-                              <Comment
-                                id={id}
-                                key={key}
-                                createdAt={createdAt}
-                                creator={creator}
-                                isAuthor={isAuthor}
-                                body={MarkdownRenderer({ text })}
-                                Link={Link}
-                              />
-                              {data.findCommentsById.hasMore &&
-                                key ===
-                                  data.findCommentsById.comments.length - 4 && (
-                                  <Waypoint
-                                    onEnter={async () =>
-                                      await fetchMore({
-                                        query: getCommentsByIdQuery,
-                                        variables: {
-                                          input: {
-                                            postingId,
-                                            cursor:
-                                              data.findCommentsById.comments[
-                                                data.findCommentsById.comments
-                                                  .length - 1
-                                              ].createdAt
-                                          }
-                                        },
-                                        updateQuery: (
-                                          prev: any,
-                                          { fetchMoreResult }: any
-                                        ) => {
-                                          if (!fetchMoreResult) {
-                                            return prev;
-                                          }
-                                          return {
-                                            findCommentsById: {
-                                              __typename: "FindCommentResponse",
-                                              comments: [
-                                                ...prev.findCommentsById
-                                                  .comments,
-                                                ...fetchMoreResult
-                                                  .findCommentsById.comments
-                                              ],
-                                              hasMore:
-                                                fetchMoreResult.findCommentsById
-                                                  .hasMore
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignSelf: "center",
+              width: 728
+            }}
+          >
+            <Box my="1.5rem">
+              <Text fontSize={5}>Responses</Text>
+            </Box>
+            <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
+            <Box mt={20} style={{ display: "flex", flexDirection: "column" }}>
+              <GetCommentsByIdComponent variables={{ input: { postingId } }}>
+                {({ data, loading, fetchMore }) => {
+                  if (loading) {
+                    <div>Loading...</div>;
+                  }
+                  return (
+                    <>
+                      {data && data.findCommentsById && (
+                        <>
+                          {data.findCommentsById.comments.map(
+                            (
+                              { id, createdAt, creator, text, isAuthor },
+                              key: any
+                            ) => (
+                              <React.Fragment key={id}>
+                                <Comment
+                                  id={id}
+                                  key={key}
+                                  createdAt={createdAt}
+                                  creator={creator}
+                                  isAuthor={isAuthor}
+                                  body={MarkdownRenderer({ text })}
+                                  Link={Link}
+                                />
+                                {data.findCommentsById.hasMore &&
+                                  key ===
+                                    data.findCommentsById.comments.length -
+                                      4 && (
+                                    <Waypoint
+                                      onEnter={async () =>
+                                        await fetchMore({
+                                          query: getCommentsByIdQuery,
+                                          variables: {
+                                            input: {
+                                              postingId,
+                                              cursor:
+                                                data.findCommentsById.comments[
+                                                  data.findCommentsById.comments
+                                                    .length - 1
+                                                ].createdAt
                                             }
-                                          };
-                                        }
-                                      })
-                                    }
-                                  />
-                                )}
-                            </React.Fragment>
-                          )
-                        )}
-                      </>
-                    )}
-                  </>
-                );
-              }}
-            </GetCommentsByIdComponent>
+                                          },
+                                          updateQuery: (
+                                            prev: any,
+                                            { fetchMoreResult }: any
+                                          ) => {
+                                            if (!fetchMoreResult) {
+                                              return prev;
+                                            }
+                                            return {
+                                              findCommentsById: {
+                                                __typename:
+                                                  "FindCommentResponse",
+                                                comments: [
+                                                  ...prev.findCommentsById
+                                                    .comments,
+                                                  ...fetchMoreResult
+                                                    .findCommentsById.comments
+                                                ],
+                                                hasMore:
+                                                  fetchMoreResult
+                                                    .findCommentsById.hasMore
+                                              }
+                                            };
+                                          }
+                                        })
+                                      }
+                                    />
+                                  )}
+                              </React.Fragment>
+                            )
+                          )}
+                        </>
+                      )}
+                    </>
+                  );
+                }}
+              </GetCommentsByIdComponent>
+            </Box>
           </Box>
         </FlyoutContext.Provider>
       </PostContext.Provider>

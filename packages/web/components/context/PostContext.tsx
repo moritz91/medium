@@ -61,6 +61,7 @@ export const PostsContext = createContext<PostsContextProps>({
       createdAt: "",
       creatorId: "",
       creator: { id: "", username: "", pictureUrl: "", bio: "" },
+      isAuthor: false,
       postingId: ""
     }
   ]
