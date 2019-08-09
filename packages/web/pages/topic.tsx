@@ -59,7 +59,10 @@ export default class Topic extends React.PureComponent<TopicProps> {
               <GetPostingsByTopicComponent
                 variables={{ cursor: "", topicIds: [id] }}
               >
-                {({ data }) => {
+                {({ data, loading }) => {
+                  if (loading) {
+                    return null;
+                  }
                   if (data && data.getPostingsByTopic.posts[0]) {
                     const featured = data!.getPostingsByTopic.posts[0];
                     return (

@@ -94,75 +94,88 @@ export const SidebarSection: React.FC<Props> = props => {
             <GetPostingsByTopicComponent
               variables={{ topicIds: [topicId], cursor: "" }}
             >
-              {({ data }) => {
-                return (
-                  <>
-                    {data!.getPostingsByTopic.posts.map((p: any, i: number) => (
-                      <div style={{ height: "100%" }} key={i}>
-                        <article
-                          style={{
-                            marginBottom: 16,
-                            marginTop: 16,
-                            display: "flex"
-                          }}
-                        >
-                          <div
-                            style={{
-                              flex: "1 1 0%",
-                              marginRight: 12,
-                              flexDirection: "column",
-                              display: "flex"
-                            }}
-                          >
-                            <div style={{ flex: "0 0 auto", display: "block" }}>
-                              <Link route="post" params={{ id: p.id }}>
-                                <a>
-                                  <div
-                                    style={{
-                                      marginBottom: 4,
-                                      display: "block"
-                                    }}
-                                  >
-                                    <H4>
-                                      {truncate(p.previewTitle, {
-                                        length: 80,
-                                        separator: " "
-                                      })}
-                                    </H4>
-                                  </div>
-                                </a>
-                              </Link>
-                            </div>
-                            <div style={{ display: "block", fontWeight: 400 }}>
-                              <span
+              {({ data, loading }) => {
+                if (loading) {
+                  return null;
+                }
+                if (data) {
+                  return (
+                    <>
+                      {data!.getPostingsByTopic.posts.map(
+                        (p: any, i: number) => (
+                          <div style={{ height: "100%" }} key={i}>
+                            <article
+                              style={{
+                                marginBottom: 16,
+                                marginTop: 16,
+                                display: "flex"
+                              }}
+                            >
+                              <div
                                 style={{
-                                  color: "rgba(0, 0, 0, 0.54)",
-                                  letterSpacing: "0px",
-                                  fontSize: "12.8px",
-                                  lineHeight: "20px",
-                                  display: "block",
-                                  fontWeight: 400
+                                  flex: "1 1 0%",
+                                  marginRight: 12,
+                                  flexDirection: "column",
+                                  display: "flex"
                                 }}
                               >
-                                15 min read
-                              </span>
-                            </div>
+                                <div
+                                  style={{ flex: "0 0 auto", display: "block" }}
+                                >
+                                  <Link route="post" params={{ id: p.id }}>
+                                    <a>
+                                      <div
+                                        style={{
+                                          marginBottom: 4,
+                                          display: "block"
+                                        }}
+                                      >
+                                        <H4>
+                                          {truncate(p.previewTitle, {
+                                            length: 80,
+                                            separator: " "
+                                          })}
+                                        </H4>
+                                      </div>
+                                    </a>
+                                  </Link>
+                                </div>
+                                <div
+                                  style={{ display: "block", fontWeight: 400 }}
+                                >
+                                  <span
+                                    style={{
+                                      color: "rgba(0, 0, 0, 0.54)",
+                                      letterSpacing: "0px",
+                                      fontSize: "12.8px",
+                                      lineHeight: "20px",
+                                      display: "block",
+                                      fontWeight: 400
+                                    }}
+                                  >
+                                    15 min read
+                                  </span>
+                                </div>
+                              </div>
+                              <div
+                                style={{ flex: "0 0 auto", display: "block" }}
+                              >
+                                <Link route="post" params={{ id: p.id }}>
+                                  <a>
+                                    <img
+                                      style={{ width: "55px", height: "55px" }}
+                                      src={p.previewImage}
+                                    />
+                                  </a>
+                                </Link>
+                              </div>
+                            </article>
                           </div>
-                          <div style={{ flex: "0 0 auto", display: "block" }}>
-                            <Link route="post" params={{ id: p.id }}>
-                              <a>
-                                <img
-                                  style={{ width: "55px", height: "55px" }}
-                                  src={p.previewImage}
-                                />
-                              </a>
-                            </Link>
-                          </div>
-                        </article>
-                      </div>
-                    ))}
-                  </>
-                );
+                        )
+                      )}
+                    </>
+                  );
+                }
               }}
             </GetPostingsByTopicComponent>
           </div>

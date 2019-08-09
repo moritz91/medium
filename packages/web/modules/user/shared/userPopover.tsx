@@ -102,6 +102,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
             </Manager>
           );
         }
+        return null;
       }}
     </FindUserComponent>
   );

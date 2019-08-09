@@ -284,7 +284,6 @@ export class PostingResolver {
   }
 
   @Query(() => FindPostingResponse)
-  @Authorized()
   async getPostingsByTopic(
     @Arg("topicIds", () => String) topicIds: string[],
     @Arg("cursor", { nullable: true }) cursor?: string

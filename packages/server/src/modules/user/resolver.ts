@@ -4,7 +4,8 @@ import {
   Ctx,
   UseMiddleware,
   Mutation,
-  Arg
+  Arg,
+  Authorized
 } from "type-graphql";
 import { User } from "../../entity/User";
 import { isAuth } from "../middleware/isAuth";
@@ -24,13 +25,13 @@ export class UserResolver {
     return userId ? User.findOne(userId) : null;
   }
 
-  @UseMiddleware(isAuth)
   @Query(() => User, { nullable: true })
   async findUser(@Arg("username") username: string) {
     return User.findOne({ username });
   }
 
   @Mutation(() => Boolean)
+  @Authorized()
   async logout(@Ctx() ctx: MyContext) {
     return new Promise((res, rej) =>
       ctx.req.session!.destroy(err => {
