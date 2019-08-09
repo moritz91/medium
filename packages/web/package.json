@@ -64,7 +64,7 @@
     "@types/dom-clipboard-api": "1.0.1",
     "@types/lodash.get": "4.4.6",
     "@types/next": "7.0.6",
-    "@types/react": "16.9.0",
+    "@types/react": "16.9.1",
     "@types/react-dom": "16.0.11",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@zeit/next-css": "1.0.1",
