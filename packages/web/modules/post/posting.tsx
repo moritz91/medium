@@ -234,6 +234,15 @@ export const Posting = ({
                 </Text>
               </div>
             </Flex>
+          </StoryContainer>
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignSelf: "center",
+              width: 728
+            }}
+          >
             <StoryTags>
               {tags.map((t: any, idx: number) => (
                 <Button variant="tag" key={idx}>
@@ -264,15 +273,6 @@ export const Posting = ({
                 </Button>
               </StoryPerformance>
             </StoryMetaOptions>
-          </StoryContainer>
-          <Box
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignSelf: "center",
-              width: 728
-            }}
-          >
             <StoryFooter>
               <TopRow>
                 <UserAvatar>
