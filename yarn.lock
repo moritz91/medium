@@ -5716,7 +5716,19 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hast-to-hyperscript@6.0.0, hast-to-hyperscript@^6.0.0:
+hast-to-hyperscript@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/hast-to-hyperscript/-/hast-to-hyperscript-7.0.2.tgz#e9237c88c6069999ad38aec847fefc296f484c4c"
+  integrity sha512-NBMMst0hkDR21uSH75m9W2DkljBrLoMQEhGiLMLNij4HIzEDJMC1UG+CFR6EAjHi2zs3NHBoaAHJOHxftoIN2g==
+  dependencies:
+    comma-separated-tokens "^1.0.0"
+    property-information "^5.0.0"
+    space-separated-tokens "^1.0.0"
+    style-to-object "^0.2.1"
+    unist-util-is "^3.0.0"
+    web-namespaces "^1.1.2"
+
+hast-to-hyperscript@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/hast-to-hyperscript/-/hast-to-hyperscript-6.0.0.tgz#051ee17d41b30da8c5ceb001189adf70226f12f4"
   integrity sha512-QnJbXddVGNJ5v3KegK1MY6luTkNDBcJnCQZcekt7AkES2z4tYy85pbFUXx7Mb0iXZBKfwoVdgfxU12GbmlwbbQ==
@@ -6990,11 +7002,6 @@ lodash@4.17.15:
 lodash@^4.17.12, lodash@^4.17.14:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
-
-lodash@^4.17.13:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log-symbols@2.2.0:
   version "2.2.0"
@@ -10726,6 +10733,11 @@ unist-util-generated@^1.1.0:
 unist-util-is@^2.0.0, unist-util-is@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-2.1.2.tgz#1193fa8f2bfbbb82150633f3a8d2eb9a1c1d55db"
+
+unist-util-is@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-is/-/unist-util-is-3.0.0.tgz#d9e84381c2468e82629e4a5be9d7d05a2dd324cd"
+  integrity sha512-sVZZX3+kspVNmLWBPAB6r+7D9ZgAFPNWm66f7YNb420RlQSbn+n8rG8dGZSkrER7ZIXGQYNm5pqC3v3HopH24A==
 
 unist-util-position@^3.0.0:
   version "3.0.2"
