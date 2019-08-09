@@ -47,7 +47,7 @@
     "react-waypoint": "9.0.2",
     "rebass": "3.1.1",
     "refractor": "2.10.0",
-    "rehype": "7.0.0",
+    "rehype": "9.0.0",
     "remark": "10.0.1",
     "remark-ping": "2.1.8",
     "remark-react": "5.0.1",
