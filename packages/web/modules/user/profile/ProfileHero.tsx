@@ -1,7 +1,13 @@
 import * as React from "react";
-import { PostsContext } from "../../../components/context/PostContext";
+import {
+  PostsContext,
+  PostsContextProps
+} from "../../../components/context/PostContext";
 import styled from "styled-components";
 import { Avatar } from "../../../components/common/Avatar";
+import { useContext } from "react";
+import { Caption } from "../../../components/heading";
+import { distanceInWordsToNow } from "date-fns";
 
 const Header = styled.header`
   display: flex;
@@ -135,7 +141,13 @@ const Username = styled.h1`
 `;
 
 export function ProfileHero() {
-  const { pictureUrl, username } = React.useContext(PostsContext);
+  const { pictureUrl, username, createdAt } = useContext<PostsContextProps>(
+    PostsContext
+  );
+
+  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
+    addSuffix: false
+  });
 
   return (
     <Header>
@@ -143,7 +155,7 @@ export function ProfileHero() {
         <AvatarContainerMedia>
           <AvatarContainerTwo>
             <AvatarImageContainer>
-              <Avatar m={"0rem"} src={pictureUrl} />
+              <Avatar m={"0rem"} src={pictureUrl} size={150} borderRadius={0} />
             </AvatarImageContainer>
           </AvatarContainerTwo>
         </AvatarContainerMedia>
@@ -152,6 +164,7 @@ export function ProfileHero() {
         <UserInfo>
           <Username>{username}</Username>
         </UserInfo>
+        <Caption>Member since {dtString}</Caption>
       </UserInfoSection>
     </Header>
   );

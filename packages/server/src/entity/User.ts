@@ -4,7 +4,8 @@ import {
   Column,
   BaseEntity,
   OneToMany,
-  JoinTable
+  JoinTable,
+  CreateDateColumn
 } from "typeorm";
 import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import { Posting } from "./Posting";
@@ -26,6 +27,10 @@ export class User extends BaseEntity {
 
   @Column({ type: "text", unique: true })
   githubId: string;
+
+  @Field()
+  @CreateDateColumn({ type: "timestamp with time zone" })
+  createdAt: Date;
 
   @Field()
   @Column({ type: "text" })

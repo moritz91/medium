@@ -18,6 +18,7 @@ interface ProfileProps {
   comments: [CommentInfoFragment];
   username: string;
   pictureUrl: string;
+  createdAt: string;
 }
 
 export default class Profile extends React.PureComponent<ProfileProps> {
@@ -37,19 +38,21 @@ export default class Profile extends React.PureComponent<ProfileProps> {
     return {
       username,
       pictureUrl: findUser!.pictureUrl,
+      createdAt: findUser!.createdAt,
       postings: findUser!.postings,
       comments: findUser!.comments
     };
   }
 
   render() {
-    const { postings, comments, pictureUrl, username } = this.props;
+    const { postings, comments, username, pictureUrl, createdAt } = this.props;
 
     const context: PostsContextProps = {
       username: username,
+      pictureUrl: pictureUrl,
+      createdAt: createdAt,
       postings: postings,
-      comments: comments,
-      pictureUrl: pictureUrl
+      comments: comments
     };
     return (
       <Layout title={`${username}`}>

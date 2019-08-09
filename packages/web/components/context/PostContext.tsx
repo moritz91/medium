@@ -21,11 +21,12 @@ export interface PostsContextProps {
   comments: [CommentInfoFragment];
   username: string;
   pictureUrl: string;
+  createdAt: string;
 }
 
 export const PostContext = createContext<PostContextProps>({
   title: "",
-  creator: { id: "", username: "", pictureUrl: "", bio: "" },
+  creator: { id: "", username: "", pictureUrl: "", bio: "", createdAt: "" },
   postingId: ""
 });
 
@@ -45,7 +46,7 @@ export const PostsContext = createContext<PostsContextProps>({
       body: "",
       createdAt: "",
       numComments: 0,
-      creator: { id: "", username: "", pictureUrl: "", bio: "" },
+      creator: { id: "", username: "", pictureUrl: "", bio: "", createdAt: "" },
       tags: [{ id: "", name: "" }],
       previewTitle: "",
       previewSubtitle: "",
@@ -54,13 +55,14 @@ export const PostsContext = createContext<PostsContextProps>({
   ],
   username: "",
   pictureUrl: "",
+  createdAt: "",
   comments: [
     {
       id: "",
       text: "",
       createdAt: "",
       creatorId: "",
-      creator: { id: "", username: "", pictureUrl: "", bio: "" },
+      creator: { id: "", username: "", pictureUrl: "", bio: "", createdAt: "" },
       isAuthor: false,
       postingId: ""
     }

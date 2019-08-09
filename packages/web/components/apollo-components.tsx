@@ -632,6 +632,8 @@ export type UserInfoFragment = {
   pictureUrl: string;
 
   bio: Maybe<string>;
+
+  createdAt: DateTime;
 };
 
 import * as ReactApollo from "react-apollo";
@@ -649,6 +651,7 @@ export const UserInfoFragmentDoc = gql`
     username
     pictureUrl
     bio
+    createdAt
   }
 `;
 
