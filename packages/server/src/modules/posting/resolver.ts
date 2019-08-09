@@ -29,7 +29,7 @@ import { PostingTag } from "../../entity/PostingTag";
 import { TagRepository } from "../../repositories/TagRepo";
 import { PostingTopic } from "../../entity/PostingTopic";
 import { SuccessResponse } from "../shared/Response";
-import { UserPosting } from "../../entity/UserPosting";
+import { Bookmark } from "../../entity/Bookmark";
 import { UserTopic } from "../../entity/UserTopic";
 
 const POST_LIMIT = 16;
@@ -55,7 +55,7 @@ export class PostingResolver {
     @Ctx() ctx: MyContext,
     @Root() root: Posting
   ): Promise<Boolean> {
-    const response = await UserPosting.findOne({
+    const response = await Bookmark.findOne({
       where: { postingId: root.id, userId: ctx.req.session!.userId }
     });
 
@@ -167,21 +167,21 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async addUserPosting(
+  async addBookmark(
     @Arg("postingId", () => String) postingId: string,
     @Ctx() { req }: MyContext
   ) {
-    await UserPosting.create({ postingId, userId: req.session!.userId }).save();
+    await Bookmark.create({ postingId, userId: req.session!.userId }).save();
     return true;
   }
 
   @Mutation(() => Boolean)
   @Authorized()
-  async removeUserPosting(
+  async removeBookmark(
     @Arg("postingId", () => String) postingId: string,
     @Ctx() { req }: MyContext
   ) {
-    await UserPosting.delete({ postingId, userId: req.session!.userId });
+    await Bookmark.delete({ postingId, userId: req.session!.userId });
     return true;
   }
 

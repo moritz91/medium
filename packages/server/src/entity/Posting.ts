@@ -16,7 +16,7 @@ import { PostingTag } from "./PostingTag";
 import { MyContext } from "../types/Context";
 import { Tag } from "./Tag";
 import { PostingTopic } from "./PostingTopic";
-import { UserPosting } from "./UserPosting";
+import { Bookmark } from "./Bookmark";
 
 @Entity()
 @ObjectType()
@@ -91,8 +91,8 @@ export class Posting extends BaseEntity {
   @OneToMany(() => PostingTopic, tp => tp.posting)
   topicConnection: Promise<PostingTopic[]>;
 
-  @OneToMany(() => UserPosting, up => up.posting)
-  userConnection: Promise<UserPosting[]>;
+  @OneToMany(() => Bookmark, up => up.posting)
+  userConnection: Promise<Bookmark[]>;
 
   @Field()
   @CreateDateColumn()

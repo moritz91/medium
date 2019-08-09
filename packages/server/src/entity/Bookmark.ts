@@ -11,7 +11,7 @@ import { User } from "./User";
 // 'Bookmarks' User-Posting Many-to-Many Relationship (JoinTable)
 
 @Entity()
-export class UserPosting extends BaseEntity {
+export class Bookmark extends BaseEntity {
   @PrimaryColumn()
   userId: string;
 

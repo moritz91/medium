@@ -147,14 +147,14 @@ export type GetCommentsByIdComments = {
 
 export type GetCommentsByIdCreator = UserInfoFragment;
 
-export type AddUserPostingVariables = {
+export type AddBookmarkVariables = {
   postingId: string;
 };
 
-export type AddUserPostingMutation = {
+export type AddBookmarkMutation = {
   __typename?: "Mutation";
 
-  addUserPosting: boolean;
+  addBookmark: boolean;
 };
 
 export type CreatePostingVariables = {
@@ -858,49 +858,47 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
     GetCommentsByIdProps<TChildProps>
   >(GetCommentsByIdDocument, operationOptions);
 }
-export const AddUserPostingDocument = gql`
-  mutation addUserPosting($postingId: String!) {
-    addUserPosting(postingId: $postingId)
+export const AddBookmarkDocument = gql`
+  mutation addBookmark($postingId: String!) {
+    addBookmark(postingId: $postingId)
   }
 `;
-export class AddUserPostingComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<AddUserPostingMutation, AddUserPostingVariables>
-  >
+export class AddBookmarkComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<AddBookmarkMutation, AddBookmarkVariables>>
 > {
   render() {
     return (
-      <ReactApollo.Mutation<AddUserPostingMutation, AddUserPostingVariables>
-        mutation={AddUserPostingDocument}
+      <ReactApollo.Mutation<AddBookmarkMutation, AddBookmarkVariables>
+        mutation={AddBookmarkDocument}
         {...(this as any)["props"] as any}
       />
     );
   }
 }
-export type AddUserPostingProps<TChildProps = any> = Partial<
-  ReactApollo.MutateProps<AddUserPostingMutation, AddUserPostingVariables>
+export type AddBookmarkProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<AddBookmarkMutation, AddBookmarkVariables>
 > &
   TChildProps;
-export type AddUserPostingMutationFn = ReactApollo.MutationFn<
-  AddUserPostingMutation,
-  AddUserPostingVariables
+export type AddBookmarkMutationFn = ReactApollo.MutationFn<
+  AddBookmarkMutation,
+  AddBookmarkVariables
 >;
-export function AddUserPostingHOC<TProps, TChildProps = any>(
+export function AddBookmarkHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
         TProps,
-        AddUserPostingMutation,
-        AddUserPostingVariables,
-        AddUserPostingProps<TChildProps>
+        AddBookmarkMutation,
+        AddBookmarkVariables,
+        AddBookmarkProps<TChildProps>
       >
     | undefined
 ) {
   return ReactApollo.graphql<
     TProps,
-    AddUserPostingMutation,
-    AddUserPostingVariables,
-    AddUserPostingProps<TChildProps>
-  >(AddUserPostingDocument, operationOptions);
+    AddBookmarkMutation,
+    AddBookmarkVariables,
+    AddBookmarkProps<TChildProps>
+  >(AddBookmarkDocument, operationOptions);
 }
 export const CreatePostingDocument = gql`
   mutation createPosting(

@@ -10,7 +10,7 @@ import {
 import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import { Posting } from "./Posting";
 import { Comment } from "./Comment";
-import { UserPosting } from "./UserPosting";
+import { Bookmark } from "./Bookmark";
 import { MyContext } from "../types/Context";
 import { Topic } from "./Topic";
 
@@ -58,7 +58,7 @@ export class User extends BaseEntity {
     return userPostingLoader.load(this.id);
   }
 
-  @OneToMany(() => UserPosting, up => up.user)
+  @OneToMany(() => Bookmark, up => up.user)
   @JoinTable({ name: "PostingBookmark" })
-  postingConnection: Promise<UserPosting[]>;
+  postingConnection: Promise<Bookmark[]>;
 }

@@ -1,10 +1,10 @@
 import * as DataLoader from "dataloader";
 import { In } from "typeorm";
 import { Posting } from "../entity/Posting";
-import { UserPosting } from "../entity/UserPosting";
+import { Bookmark } from "../entity/Bookmark";
 
 const batchPostings = async (userIds: string[]) => {
-  const userPostings = await UserPosting.find({
+  const userPostings = await Bookmark.find({
     join: {
       alias: "userPosting",
       innerJoinAndSelect: {

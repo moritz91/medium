@@ -1,7 +1,7 @@
 import React from "react";
 import {
   MeComponent,
-  AddUserPostingComponent
+  AddBookmarkComponent
 } from "../../components/apollo-components";
 import { get } from "lodash";
 import { Button } from "../../components/button";
@@ -12,9 +12,9 @@ interface Props {
   postingId: string;
 }
 
-export const AddUserPosting = ({ onClick, postingId }: Props) => {
+export const AddBookmark = ({ onClick, postingId }: Props) => {
   return (
-    <AddUserPostingComponent>
+    <AddBookmarkComponent>
       {mutate => (
         <>
           <MeComponent variables={{ withBookmarks: false }}>
@@ -52,6 +52,6 @@ export const AddUserPosting = ({ onClick, postingId }: Props) => {
           </MeComponent>
         </>
       )}
-    </AddUserPostingComponent>
+    </AddBookmarkComponent>
   );
 };

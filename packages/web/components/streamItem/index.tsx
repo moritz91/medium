@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { StoryPreviewTitle } from "../heading";
 import { Button } from "../button";
 import { Icon } from "../icon";
-import { AddUserPosting } from "../../modules/post/addUserPosting";
+import { AddBookmark } from "../../modules/post/addBookmark";
 
 interface StreamItemProps {
   id: string;
@@ -128,7 +128,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                <AddUserPosting postingId={id} />
+                <AddBookmark postingId={id} />
                 <Button variant="action" hoverEffect>
                   <Icon name="showActions" size={15} />
                 </Button>
