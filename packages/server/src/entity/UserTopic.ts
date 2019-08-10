@@ -25,7 +25,7 @@ export class UserTopic extends BaseEntity {
   @JoinColumn({ name: "topicId" })
   topic: Promise<Topic>;
 
-  @ManyToOne(() => User, u => u.postingConnection, {
+  @ManyToOne(() => User, u => u.postingUserTopicConnection, {
     primary: true,
     onDelete: "CASCADE"
   })

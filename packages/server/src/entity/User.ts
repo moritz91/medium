@@ -13,6 +13,8 @@ import { Comment } from "./Comment";
 import { Bookmark } from "./Bookmark";
 import { MyContext } from "../types/Context";
 import { Topic } from "./Topic";
+import { Reaction } from "./Reaction";
+import { UserTopic } from "./UserTopic";
 
 @Entity()
 @ObjectType()
@@ -58,7 +60,19 @@ export class User extends BaseEntity {
     return userPostingLoader.load(this.id);
   }
 
+  @OneToMany(() => UserTopic, up => up.user)
+  @JoinTable({ name: "UserTopic" })
+  postingUserTopicConnection: Promise<UserTopic[]>;
+
   @OneToMany(() => Bookmark, up => up.user)
   @JoinTable({ name: "PostingBookmark" })
-  postingConnection: Promise<Bookmark[]>;
+  postingBookmarkConnection: Promise<Bookmark[]>;
+
+  @OneToMany(() => Reaction, r => r.user)
+  @JoinTable({ name: "PostingReaction" })
+  postingReactionConnection: Promise<Reaction[]>;
+
+  @OneToMany(() => Reaction, r => r.user)
+  @JoinTable({ name: "CommentReaction" })
+  commentReactionConnection: Promise<Reaction[]>;
 }

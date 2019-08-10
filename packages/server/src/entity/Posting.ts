@@ -8,7 +8,6 @@ import {
   OneToMany
 } from "typeorm";
 import { ObjectType, Field, ID, Int, Ctx } from "type-graphql";
-import { Rate } from "./Rate";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Topic } from "./Topic";
@@ -17,6 +16,7 @@ import { MyContext } from "../types/Context";
 import { Tag } from "./Tag";
 import { PostingTopic } from "./PostingTopic";
 import { Bookmark } from "./Bookmark";
+import { Reaction } from "./Reaction";
 
 @Entity()
 @ObjectType()
@@ -71,10 +71,6 @@ export class Posting extends BaseEntity {
   @Column({ type: "text" })
   body: string;
 
-  @Field(() => [Rate], { nullable: true })
-  @Column({ type: "int", nullable: true })
-  ratings: Rate[];
-
   @Field(() => [Tag], { nullable: true })
   async tags(@Ctx() { tagPostingLoader }: MyContext): Promise<Tag[]> {
     return tagPostingLoader.load(this.id);
@@ -85,14 +81,17 @@ export class Posting extends BaseEntity {
     return topicPostingLoader.load(this.id);
   }
 
-  @OneToMany(() => PostingTag, tp => tp.posting)
+  @OneToMany(() => PostingTag, pt => pt.posting)
   tagConnection: Promise<PostingTag[]>;
 
-  @OneToMany(() => PostingTopic, tp => tp.posting)
+  @OneToMany(() => PostingTopic, pt => pt.posting)
   topicConnection: Promise<PostingTopic[]>;
 
-  @OneToMany(() => Bookmark, up => up.posting)
-  userConnection: Promise<Bookmark[]>;
+  @OneToMany(() => Bookmark, b => b.posting)
+  userBookmarkConnection: Promise<Bookmark[]>;
+
+  @OneToMany(() => Reaction, r => r.posting)
+  userReactionConnection: Promise<Reaction[]>;
 
   @Field()
   @CreateDateColumn()

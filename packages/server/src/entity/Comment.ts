@@ -6,11 +6,13 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from "typeorm";
 import { MyContext } from "../types/Context";
 import { Posting } from "./Posting";
 import { User } from "./User";
+import { Reaction } from "./Reaction";
 
 @Entity()
 @ObjectType()
@@ -23,15 +25,9 @@ export class Comment {
   @Column({ type: "text" })
   text: string;
 
-  @ManyToOne(() => Posting, p => p.comments, { onDelete: "CASCADE" })
-  posting: Promise<Posting>;
-
   @Field()
   @Column("uuid")
   postingId: string;
-  @ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "creatorId" })
-  creatorConnection: Promise<User>;
 
   @Field()
   @Column("uuid")
@@ -56,4 +52,14 @@ export class Comment {
 
   @UpdateDateColumn({ type: "timestamp with time zone" })
   updatedAt: Date;
+
+  @ManyToOne(() => Posting, p => p.comments, { onDelete: "CASCADE" })
+  posting: Promise<Posting>;
+
+  @ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "creatorId" })
+  creatorConnection: Promise<User>;
+
+  @OneToMany(() => Reaction, r => r.comment)
+  userReactionConnection: Promise<Reaction[]>;
 }

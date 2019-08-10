@@ -18,14 +18,14 @@ export class Bookmark extends BaseEntity {
   @PrimaryColumn()
   postingId: string;
 
-  @ManyToOne(() => Posting, p => p.userConnection, {
+  @ManyToOne(() => Posting, p => p.userBookmarkConnection, {
     primary: true,
     onDelete: "CASCADE"
   })
   @JoinColumn({ name: "postingId" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => User, u => u.postingConnection, {
+  @ManyToOne(() => User, u => u.postingBookmarkConnection, {
     primary: true,
     onDelete: "CASCADE"
   })
