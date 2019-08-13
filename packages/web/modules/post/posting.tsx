@@ -1,10 +1,22 @@
+import { format as formatDate } from "date-fns";
+import { includes } from "lodash";
+import Router from "next/router";
 import * as React from "react";
-import { useReducer, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { Waypoint } from "react-waypoint";
-import { Box, Text, Flex } from "rebass";
+import { Box, Flex, Text } from "rebass";
+import { format } from "url";
 import { useClickOutside } from "use-events";
 import { GetCommentsByIdComponent } from "../../components/apollo-components";
-import { Comment } from "../../components/comment/";
+import { Button } from "../../components/button";
+import {
+  Actions,
+  Comment,
+  Content,
+  TopRow,
+  UserAvatar
+} from "../../components/comment/";
+import { Avatar } from "../../components/common/Avatar";
 import {
   FlyoutContext,
   FlyoutContextProps
@@ -13,129 +25,31 @@ import {
   PostContext,
   PostContextProps
 } from "../../components/context/PostContext";
-import { Layout } from "../../components/layout";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
-import { Link } from "../../server/routes";
-import { NextContextWithApollo } from "../../types/NextContextWithApollo";
-import { CreatePostingReply } from "../comment/createComment";
-import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
-import { includes } from "lodash";
-import Router from "next/router";
-import { format } from "url";
-import { format as formatDate } from "date-fns";
-import styled from "styled-components";
-import { UserPopover } from "../user/shared/userPopover";
-import { Avatar } from "../../components/common/Avatar";
 import {
   Caption,
   StoryFooterUsername,
   StoryHeading
 } from "../../components/heading";
-import { Button } from "../../components/button";
-import { ActionsDropdown } from "./shared/actionsDropdown";
-import { DeletePosting } from "./deletePosting";
 import { Icon } from "../../components/icon";
-
-const StoryContainer = styled.div`
-  margin: 1.6rem 0px;
-`;
-
-export const CommentContainer = styled.div`
-  width: 100%;
-  margin: 1.6rem 0px 1rem 0px;
-`;
-
-export const StoryTags = styled.div``;
-
-export const StoryPerformance = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const StoryMetaOptions = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const UserAvatar = styled.div`
-  display: grid;
-  grid-area: avatar / avatar / avatar / avatar;
-`;
-
-export const Actions = styled.div`
-  grid-area: actions / actions / actions / actions;
-`;
-
-export const Content = styled.div`
-  grid-area: content / content / content / content;
-  padding: 0 10px;
-`;
-
-export const StoryFooter = styled.div`
-  margin: 15px 0 0;
-  padding: 15px 0 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-`;
-
-export const TopRow = styled.div`
-  display: grid;
-  grid-template-areas: "avatar content actions";
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto;
-  gap: 8px 8px;
-  flex: 1 1 0%;
-`;
-
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "openFlyout":
-      return {
-        ...state,
-        flyoutId: action.id,
-        flyoutState: true,
-        ref1: action.ref1,
-        ref2: action.ref2
-      };
-    case "openPopover":
-      return {
-        ...state,
-        popoverId: action.id,
-        popoverState: true
-      };
-    case "targetComment":
-      return {
-        ...state,
-        targetId: action.id,
-        targetState: true,
-        ref3: action.ref3
-      };
-    case "closePopover":
-      return {
-        ...state,
-        popoverId: "",
-        popoverState: false
-      };
-    case "closeFlyout":
-      return {
-        ...state,
-        flyoutId: "",
-        flyoutState: false,
-        ref1: { current: null },
-        ref2: { current: null }
-      };
-    case "untargetComment":
-      return {
-        ...state,
-        targetId: "",
-        targetState: false,
-        ref3: { current: null }
-      };
-    default: {
-      return state;
-    }
-  }
-};
+import { Layout } from "../../components/layout";
+import {
+  StoryContainer,
+  StoryFooter,
+  StoryMetaOptions,
+  StoryPerformance,
+  StoryTags
+} from "../../components/story";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
+import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
+import redirect from "../../lib/redirect";
+import { Link } from "../../server/routes";
+import { NextContextWithApollo } from "../../types/NextContextWithApollo";
+import { CreatePostingReply } from "../comment/createComment";
+import { UserPopover } from "../user/shared/userPopover";
+import { DeletePosting } from "./deletePosting";
+import { ActionsDropdown } from "./shared/actionsDropdown";
+import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
+import { postingReducer } from "../../reducers/postingReducer";
 
 export const Posting = ({
   previewTitle,
@@ -151,7 +65,7 @@ export const Posting = ({
   numComments,
   tags
 }: any): JSX.Element => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(postingReducer, {
     flyoutId: "",
     popoverId: "",
     targetId: "",
@@ -404,7 +318,8 @@ export const Posting = ({
 
 Posting.getInitialProps = async ({
   query: { id },
-  apolloClient
+  apolloClient,
+  ...ctx
 }: NextContextWithApollo) => {
   const response: any = await apolloClient.query({
     query: getPostingByIdQuery,
@@ -414,6 +329,12 @@ Posting.getInitialProps = async ({
   });
 
   const { getPostingById } = response.data;
+
+  if (!getPostingById) {
+    redirect(ctx, "/posts");
+    return {};
+  }
+
   return {
     postingId: id,
     previewTitle: getPostingById!.previewTitle,

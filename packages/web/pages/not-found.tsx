@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { Layout } from "../components/layout";
 
 export default () => (
-  <div style={{ fontSize: 20 }}>
+  <Layout title={`Not found.`}>
     <div>Could not find the page you were looking for.</div>
-    <Link href="/">
-      <a>go back to home page</a>
+    <Link href="/posts">
+      <a>go back to the story feed.</a>
     </Link>
-  </div>
+  </Layout>
 );

@@ -1,16 +1,16 @@
 import { useState, useContext } from "react";
 import Downshift from "downshift";
 import { includes } from "lodash";
-import { TagDispatch } from "../modules/post/postingModal";
 import { CreatePostContext } from "../components/context/PostContext";
+import { TagContext } from "../components/context/TagContext";
 
-interface Props {
+interface MultiDownshiftProps {
   onSelect: any;
   onChange: any;
 }
 
-export const MultiDownshift = (props: Props): any => {
-  const dispatch = useContext(TagDispatch);
+export const MultiDownshift = (props: MultiDownshiftProps): any => {
+  const { dispatch } = useContext(TagContext);
   const { tags } = useContext(CreatePostContext);
   const [selectedItems, setSelectedItems] = useState<string[]>(
     tags ? tags.map(t => t.name) : []

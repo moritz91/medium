@@ -238,24 +238,12 @@ export type GetPostingByIdGetPostingById = {
 
   numComments: number;
 
-  comments: GetPostingByIdComments[];
-
-  creator: GetPostingById_Creator;
+  creator: GetPostingByIdCreator;
 
   tags: Maybe<GetPostingByIdTags[]>;
 };
 
-export type GetPostingByIdComments = {
-  __typename?: "Comment";
-
-  text: string;
-
-  creator: GetPostingByIdCreator;
-};
-
 export type GetPostingByIdCreator = UserInfoFragment;
-
-export type GetPostingById_Creator = UserInfoFragment;
 
 export type GetPostingByIdTags = TagInfoFragment;
 
@@ -1014,12 +1002,6 @@ export const GetPostingByIdDocument = gql`
       isAuthor
       isBookmark
       numComments
-      comments {
-        text
-        creator {
-          ...UserInfo
-        }
-      }
       creator {
         ...UserInfo
       }

@@ -1,25 +1,27 @@
+import { Field, Formik } from "formik";
 import * as React from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 import * as yup from "yup";
 import { CreatePostingComponent } from "../../components/apollo-components";
+import { Button } from "../../components/button";
+import { Checkbox } from "../../components/common/Checkbox";
+import { FlyoutContextProps } from "../../components/context/FlyoutContext";
+import {
+  CreatePostContext,
+  CreatePostContextProps
+} from "../../components/context/PostContext";
+import { Caption, StoryPreviewTitle } from "../../components/heading";
+import { Icon } from "../../components/icon";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
+import { tagReducer } from "../../reducers/tagReducer";
+import { Router } from "../../server/routes";
 import { useInputValue } from "../../utils/useInputValue";
+import { InputField } from "../shared/formik-fields/InputField";
 import { TagInputField } from "../shared/formik-fields/TagInputField";
 import { TopicInputField } from "../shared/formik-fields/TopicInputField";
-import {
-  CreatePostContextProps,
-  CreatePostContext
-} from "../../components/context/PostContext";
-import { useContext, useState, useReducer, createContext } from "react";
-import { Router } from "../../server/routes";
-import { useEffect } from "react";
-import { Icon } from "../../components/icon";
-import { Button } from "../../components/button";
-import styled from "styled-components";
-import { Caption, StoryPreviewTitle } from "../../components/heading";
-import { Formik, Field } from "formik";
-import { InputField } from "../shared/formik-fields/InputField";
-import { Checkbox } from "../../components/common/Checkbox";
+import { TagContext } from "../../components/context/TagContext";
 
 const ModalPanel = styled.div`
   line-height: 20px;
@@ -55,22 +57,6 @@ const customStyles = {
   }
 };
 
-export const TagDispatch = createContext<any>({
-  type: "",
-  action: ""
-});
-
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "add":
-      return [...state, { id: state.length, name: action.tag }];
-    case "remove":
-      return state.filter((_: any, idx: number) => idx != action.idx);
-    default:
-      throw new Error();
-  }
-};
-
 export const PostingModal = () => {
   const [open, changeOpen] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -82,10 +68,15 @@ export const PostingModal = () => {
     CreatePostContextProps
   >(CreatePostContext);
   const initialState = tags ? tags : ([] as any);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(tagReducer, initialState);
   useEffect(() => {
     console.log(state);
   }, [state]);
+
+  const TagCtx: FlyoutContextProps = {
+    dispatch,
+    state
+  };
 
   return (
     <CreatePostingComponent
@@ -110,7 +101,7 @@ export const PostingModal = () => {
             bodyOpenClassName={""}
             portalClassName={"overlay"}
           >
-            <TagDispatch.Provider value={dispatch}>
+            <TagContext.Provider value={TagCtx}>
               <div style={{ display: "flex" }}>
                 <Button
                   variant="action"
@@ -258,7 +249,7 @@ export const PostingModal = () => {
                   </Button>
                 </ModalPanel>
               </div>
-            </TagDispatch.Provider>
+            </TagContext.Provider>
           </Modal>
           <Button variant="primary" onClick={() => changeOpen(true)}>
             {isUpdate ? "Update" : "Publish"}
