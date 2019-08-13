@@ -18,14 +18,6 @@ import {
 } from "../../components/comment/";
 import { Avatar } from "../../components/common/Avatar";
 import {
-  FlyoutContext,
-  FlyoutContextProps
-} from "../../components/context/FlyoutContext";
-import {
-  PostContext,
-  PostContextProps
-} from "../../components/context/PostContext";
-import {
   Caption,
   StoryFooterUsername,
   StoryHeading
@@ -39,9 +31,12 @@ import {
   StoryPerformance,
   StoryTags
 } from "../../components/story";
+import { FlyoutContext, FlyoutContextProps } from "../../context/FlyoutContext";
+import { PostContext, PostContextProps } from "../../context/PostContext";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
 import redirect from "../../lib/redirect";
+import { postingReducer } from "../../reducers/postingReducer";
 import { Link } from "../../server/routes";
 import { NextContextWithApollo } from "../../types/NextContextWithApollo";
 import { CreatePostingReply } from "../comment/createComment";
@@ -49,7 +44,6 @@ import { UserPopover } from "../user/shared/userPopover";
 import { DeletePosting } from "./deletePosting";
 import { ActionsDropdown } from "./shared/actionsDropdown";
 import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
-import { postingReducer } from "../../reducers/postingReducer";
 
 export const Posting = ({
   previewTitle,
