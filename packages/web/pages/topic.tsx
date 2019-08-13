@@ -3,15 +3,12 @@ import { GetPostingsByTopicComponent } from "../components/apollo-components";
 import { Layout } from "../components/layout";
 import { MainSection, Sections, SidebarSection } from "../components/section";
 import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
-import {
-  TopicContext,
-  TopicContextProps
-} from "../components/context/TopicContext";
 import { Link } from "../server/routes";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { StreamItem, Stream } from "../components/streamItem";
 import { Heading, Caption } from "../components/heading";
 import { FeaturedStory } from "../components/featured";
+import { TopicContextProps, TopicContext } from "../context/TopicContext";
 
 interface TopicProps {
   id: string;

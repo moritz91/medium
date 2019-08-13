@@ -1,12 +1,12 @@
 import { Box, Text } from "rebass";
 import { useContext } from "react";
-import { TopicContext, TopicContextProps } from "../context/TopicContext";
 import { Heading, TopicTitle, H4 } from "../heading";
 import { GetPostingsByTopicComponent } from "../apollo-components";
 import { truncate } from "lodash";
 import { Link } from "../../server/routes";
 import styled from "styled-components";
 import { Button } from "../button";
+import { TopicContextProps, TopicContext } from "../../context/TopicContext";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -32,11 +32,11 @@ export const SidebarContainer = styled.section`
   display: block;
 `;
 
-interface Props {
+interface SidebarSectionProps {
   variant: "main" | "topic";
 }
 
-export const SidebarSection: React.FC<Props> = props => {
+export const SidebarSection: React.FC<SidebarSectionProps> = props => {
   const { topicId, name, shortCaption } = useContext<TopicContextProps>(
     TopicContext
   );

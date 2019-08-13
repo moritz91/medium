@@ -7,11 +7,6 @@ import * as yup from "yup";
 import { CreatePostingComponent } from "../../components/apollo-components";
 import { Button } from "../../components/button";
 import { Checkbox } from "../../components/common/Checkbox";
-import { FlyoutContextProps } from "../../components/context/FlyoutContext";
-import {
-  CreatePostContext,
-  CreatePostContextProps
-} from "../../components/context/PostContext";
 import { Caption, StoryPreviewTitle } from "../../components/heading";
 import { Icon } from "../../components/icon";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
@@ -21,7 +16,12 @@ import { useInputValue } from "../../utils/useInputValue";
 import { InputField } from "../shared/formik-fields/InputField";
 import { TagInputField } from "../shared/formik-fields/TagInputField";
 import { TopicInputField } from "../shared/formik-fields/TopicInputField";
-import { TagContext } from "../../components/context/TagContext";
+import {
+  CreatePostContextProps,
+  CreatePostContext
+} from "../../context/PostContext";
+import { FlyoutContextProps } from "../../context/FlyoutContext";
+import { TagContext } from "../../context/TagContext";
 
 const ModalPanel = styled.div`
   line-height: 20px;

@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import Downshift from "downshift";
 import { includes } from "lodash";
-import { CreatePostContext } from "../components/context/PostContext";
-import { TagContext } from "../components/context/TagContext";
+import { TagContext } from "../context/TagContext";
+import { CreatePostContext } from "../context/PostContext";
 
 interface MultiDownshiftProps {
   onSelect: any;

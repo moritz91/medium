@@ -4,10 +4,10 @@ import { Layout } from "../../components/layout";
 import { Formik, Field } from "formik";
 import { InputField } from "../shared/formik-fields/InputField";
 import { PostingModal } from "./postingModal";
-import { CreatePostContext } from "../../components/context/PostContext";
 import { useState } from "react";
 import { NextContextWithApollo } from "../../types/NextContextWithApollo";
 import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
+import { CreatePostContext } from "../../context/PostContext";
 
 export const CreatePosting = (props: any): JSX.Element => {
   const { getPostingById } = props;
