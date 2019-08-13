@@ -235,7 +235,14 @@ export const Posting = ({
                         <>
                           {data.findCommentsById.comments.map(
                             (
-                              { id, createdAt, creator, text, isAuthor },
+                              {
+                                id,
+                                createdAt,
+                                creator,
+                                text,
+                                isAuthor,
+                                numReactions
+                              },
                               key: any
                             ) => (
                               <React.Fragment key={id}>
@@ -245,6 +252,7 @@ export const Posting = ({
                                   createdAt={createdAt}
                                   creator={creator}
                                   isAuthor={isAuthor}
+                                  numReactions={numReactions}
                                   body={MarkdownRenderer({ text })}
                                   Link={Link}
                                 />

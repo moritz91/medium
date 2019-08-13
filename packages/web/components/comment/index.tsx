@@ -17,6 +17,7 @@ interface CommentProps {
   createdAt: string;
   creator: any;
   isAuthor: boolean | null;
+  numReactions: number;
   Link: any;
 }
 
@@ -72,6 +73,7 @@ export const Comment: React.FC<CommentProps> = ({
   isAuthor,
   body,
   Link,
+  numReactions,
   createdAt
 }) => {
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
@@ -143,6 +145,7 @@ export const Comment: React.FC<CommentProps> = ({
             {body}
           </Text>
         </Content>
+        {numReactions} likes
       </TopRow>
     </CommentContainer>
   );

@@ -11,6 +11,7 @@ export const getPostingByIdQuery = gql`
       isAuthor
       isBookmark
       numComments
+      numReactions
       creator {
         ...UserInfo
       }

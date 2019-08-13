@@ -142,6 +142,8 @@ export type GetCommentsByIdComments = {
 
   isAuthor: Maybe<boolean>;
 
+  numReactions: number;
+
   creator: GetCommentsByIdCreator;
 };
 
@@ -237,6 +239,8 @@ export type GetPostingByIdGetPostingById = {
   isBookmark: Maybe<boolean>;
 
   numComments: number;
+
+  numReactions: number;
 
   creator: GetPostingByIdCreator;
 
@@ -567,6 +571,8 @@ export type CommentInfoFragment = {
 
   isAuthor: Maybe<boolean>;
 
+  numReactions: number;
+
   creator: CommentInfoCreator;
 
   createdAt: DateTime;
@@ -650,6 +656,7 @@ export const CommentInfoFragmentDoc = gql`
     postingId
     creatorId
     isAuthor
+    numReactions
     creator {
       ...UserInfo
     }
@@ -801,6 +808,7 @@ export const GetCommentsByIdDocument = gql`
         createdAt
         creatorId
         isAuthor
+        numReactions
         creator {
           ...UserInfo
         }
@@ -1002,6 +1010,7 @@ export const GetPostingByIdDocument = gql`
       isAuthor
       isBookmark
       numComments
+      numReactions
       creator {
         ...UserInfo
       }
