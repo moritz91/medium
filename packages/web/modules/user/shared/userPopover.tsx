@@ -6,9 +6,9 @@ import { FindUserComponent } from "../../../components/apollo-components";
 import { Avatar } from "../../../components/common/Avatar";
 import { FlexRow, Flyout } from "../../../components/common/Flyout";
 import {
-  FlyoutContext,
-  FlyoutContextProps
-} from "../../../components/context/FlyoutContext";
+  FlyoutContextProps,
+  FlyoutContext
+} from "../../../context/FlyoutContext";
 
 interface UserPopoverProps {
   children: React.ReactNode;

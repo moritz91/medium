@@ -3,8 +3,8 @@ import { Text } from "rebass";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
 import { useContext } from "react";
-import { FlyoutContext } from "../../components/context/FlyoutContext";
 import Router from "next/router";
+import { FlyoutContext } from "../../context/FlyoutContext";
 
 interface Props {
   commentId: string;

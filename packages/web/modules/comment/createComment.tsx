@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { CommentForm, TextEditorResult } from "../post/shared/commentForm";
 import {
-  PostContext,
-  PostContextProps
-} from "../../components/context/PostContext";
-import {
   CommentInfoFragment,
   CreateCommentComponent,
   GetCommentsByIdQuery,
@@ -16,6 +12,7 @@ import { Flex } from "rebass";
 import { get } from "lodash";
 import { Link } from "../../server/routes";
 import { Avatar } from "../../components/common/Avatar";
+import { PostContextProps, PostContext } from "../../context/PostContext";
 
 interface EditorSubmitProps {
   submitted: boolean;

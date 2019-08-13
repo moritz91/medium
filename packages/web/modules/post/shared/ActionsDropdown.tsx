@@ -2,11 +2,11 @@ import React, { useContext, useRef } from "react";
 import { Manager, Popper, Reference } from "react-popper";
 import { Button } from "../../../components/button";
 import { FlexRow, Flyout } from "../../../components/common/Flyout";
-import {
-  FlyoutContext,
-  FlyoutContextProps
-} from "../../../components/context/FlyoutContext";
 import { Icon } from "../../../components/icon";
+import {
+  FlyoutContextProps,
+  FlyoutContext
+} from "../../../context/FlyoutContext";
 
 interface ActionsDropdownProps {
   children: React.ReactNode;

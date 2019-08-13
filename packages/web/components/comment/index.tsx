@@ -8,8 +8,8 @@ import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Avatar } from "../common/Avatar";
-import { FlyoutContextProps, FlyoutContext } from "../context/FlyoutContext";
 import { useEffect } from "react";
+import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
 
 interface CommentProps {
   id: string;

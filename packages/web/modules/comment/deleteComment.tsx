@@ -7,14 +7,11 @@ import {
 } from "../../components/apollo-components";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { get } from "lodash";
-import { PostContext } from "../../components/context/PostContext";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
 import { Text } from "rebass";
-import {
-  FlyoutContextProps,
-  FlyoutContext
-} from "../../components/context/FlyoutContext";
+import { PostContext } from "../../context/PostContext";
+import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
 
 interface Props {
   commentId: string;
