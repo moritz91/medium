@@ -1,4 +1,4 @@
-import { Ctx, Field, ID, ObjectType, Root } from "type-graphql";
+import { Ctx, Field, ID, ObjectType, Root, Int } from "type-graphql";
 import {
   Column,
   CreateDateColumn,
@@ -32,6 +32,9 @@ export class Comment {
   @Field()
   @Column("uuid")
   creatorId: string;
+
+  @Field(() => Int)
+  numReactions: number;
 
   @Field(() => User)
   creator(@Ctx() { userLoader }: MyContext): Promise<User> {

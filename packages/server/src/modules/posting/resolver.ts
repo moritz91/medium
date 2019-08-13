@@ -31,6 +31,7 @@ import { PostingTopic } from "../../entity/PostingTopic";
 import { SuccessResponse } from "../shared/Response";
 import { Bookmark } from "../../entity/Bookmark";
 import { UserTopic } from "../../entity/UserTopic";
+import { Reaction } from "../../entity/Reaction";
 
 const POST_LIMIT = 16;
 
@@ -68,6 +69,11 @@ export class PostingResolver {
   @FieldResolver()
   numComments(@Root() root: Posting): Promise<number> {
     return this.commentRepo.count({ where: { postingId: root.id } });
+  }
+
+  @FieldResolver()
+  numReactions(@Root() root: Posting): Promise<number> {
+    return Reaction.count({ where: { postingId: root.id } });
   }
 
   @Mutation(() => PostingResponse, { name: `createPosting` })
@@ -142,6 +148,51 @@ export class PostingResolver {
     @Arg("topicId", () => String) topicId: string
   ) {
     await PostingTopic.create({ postingId, topicId }).save();
+    return true;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async addReaction(
+    @Ctx() { req }: MyContext,
+    @Arg("postingId", () => String, { nullable: true }) postingId?: string,
+    @Arg("commentId", () => String, { nullable: true }) commentId?: string
+  ) {
+    const userId = req.session!.userId;
+    if (postingId) {
+      const value = await Reaction.findOne({
+        where: { userId, postingId }
+      });
+      if (!value) {
+        await Reaction.create({
+          postingId,
+          userId
+        }).save();
+        return true;
+      }
+    }
+    if (commentId) {
+      const value = await Reaction.findOne({
+        where: { userId, commentId }
+      });
+      if (!value) {
+        await Reaction.create({
+          userId,
+          commentId
+        }).save();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Mutation(() => Boolean)
+  @Authorized()
+  async removePostingReaction(
+    @Arg("postingId", () => String) postingId: string,
+    @Arg("userId", () => String) userId: string
+  ) {
+    await Reaction.delete({ postingId, userId });
     return true;
   }
 

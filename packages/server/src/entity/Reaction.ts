@@ -1,10 +1,11 @@
 import {
   Entity,
-  PrimaryColumn,
   JoinColumn,
   ManyToOne,
   BaseEntity,
-  CreateDateColumn
+  CreateDateColumn,
+  Column,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Posting } from "./Posting";
 import { User } from "./User";
@@ -15,13 +16,16 @@ import { Comment } from "./Comment";
 
 @Entity()
 export class Reaction extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
   userId: string;
 
-  @PrimaryColumn()
+  @Column({ nullable: true })
   postingId: string;
 
-  @PrimaryColumn()
+  @Column({ nullable: true })
   commentId: string;
 
   @Field()

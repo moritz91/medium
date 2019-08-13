@@ -5,7 +5,9 @@ import {
   Resolver,
   UseMiddleware,
   Authorized,
-  Query
+  Query,
+  FieldResolver,
+  Root
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Comment } from "../../entity/Comment";
@@ -18,6 +20,7 @@ import {
   DeleteCommentResponse
 } from "./response";
 import { CommentRepository } from "../../repositories/CommentRepo";
+import { Reaction } from "../../../src/entity/Reaction";
 
 const COMMENT_LIMIT = 5;
 
@@ -71,5 +74,10 @@ export class CommentResolver {
       cursor,
       limit: COMMENT_LIMIT
     });
+  }
+
+  @FieldResolver()
+  numReactions(@Root() root: Comment): Promise<number> {
+    return Reaction.count({ where: { commentId: root.id } });
   }
 }

@@ -36,6 +36,9 @@ export class Posting extends BaseEntity {
   @Field(() => Int)
   numComments: number;
 
+  @Field(() => Int)
+  numReactions: number;
+
   @ManyToOne(() => Topic, p => p.postings, { onDelete: "CASCADE" })
   topic: Promise<Topic>;
 

@@ -7,11 +7,8 @@ import {
   CommentInfoFragment
 } from "../components/apollo-components";
 import { ProfileTabs } from "../modules/profile/profileTabs";
-import {
-  PostsContextProps,
-  PostsContext
-} from "../components/context/PostContext";
 import { ProfileHero } from "../modules/user/profile/profileHero";
+import { PostsContextProps, PostsContext } from "../context/PostContext";
 
 interface ProfileProps {
   postings: [PostingInfoFragment];

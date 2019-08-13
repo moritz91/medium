@@ -1,13 +1,10 @@
 import * as React from "react";
-import {
-  PostsContext,
-  PostsContextProps
-} from "../../../components/context/PostContext";
 import styled from "styled-components";
 import { Avatar } from "../../../components/common/Avatar";
 import { useContext } from "react";
 import { Caption } from "../../../components/heading";
 import { distanceInWordsToNow } from "date-fns";
+import { PostsContextProps, PostsContext } from "../../../context/PostContext";
 
 const Header = styled.header`
   display: flex;
