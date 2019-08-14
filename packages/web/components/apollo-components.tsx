@@ -627,6 +627,8 @@ export type PostingInfoFragment = {
 
   body: string;
 
+  isBookmark: Maybe<boolean>;
+
   createdAt: DateTime;
 
   numComments: number;
@@ -713,6 +715,7 @@ export const PostingInfoFragmentDoc = gql`
     previewImage
     title
     body
+    isBookmark
     createdAt
     numComments
     creator {

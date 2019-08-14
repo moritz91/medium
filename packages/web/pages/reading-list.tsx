@@ -45,6 +45,7 @@ export default class ReadingList extends React.Component<Props> {
                     previewImage={post.previewImage}
                     title={post.title}
                     body={post.body}
+                    isBookmark={post.isBookmark}
                     numComments={post.numComments}
                     Link={Link}
                     tags={post.tags}

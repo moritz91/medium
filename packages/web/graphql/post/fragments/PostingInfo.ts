@@ -10,6 +10,7 @@ export const PostingInfoFragment = gql`
     previewImage
     title
     body
+    isBookmark
     createdAt
     numComments
     creator {

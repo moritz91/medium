@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { StoryPreviewTitle } from "../heading";
 import { Button } from "../button";
 import { Icon } from "../icon";
-import { AddBookmark } from "../../modules/post/addBookmark";
+import { BookmarkPosting } from "../../modules/post/bookmarkPosting";
 
 interface StreamItemProps {
   id: string;
@@ -14,6 +14,7 @@ interface StreamItemProps {
   previewImage?: string | null;
   title: string;
   body: string;
+  isBookmark: boolean | null;
   numComments: number;
   createdAt: string;
   creator: any;
@@ -43,6 +44,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
   title,
   creator: { username },
   body,
+  isBookmark,
   numComments,
   getLinkProps,
   Link,
@@ -128,7 +130,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
-                <AddBookmark postingId={id} />
+                <BookmarkPosting postingId={id} isBookmark={isBookmark} />
                 <Button variant="action" hoverEffect>
                   <Icon name="showActions" size={15} />
                 </Button>

@@ -2,8 +2,6 @@ import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
 import { Text, Heading } from "rebass";
 import styled from "styled-components";
-import { UserPopover } from "../../modules/user/shared/userPopover";
-import { useHover } from "use-events";
 import { Button } from "../button";
 
 interface FeaturedStoryProps {
@@ -39,12 +37,10 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
   createdAt,
   tags
 }) => {
-  const [popoverState, bind] = useHover();
   const linkProps = getLinkProps();
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
   });
-
   return (
     <FeaturedStoryContainer>
       <div style={{ height: "100%", width: "100%" }}>
@@ -70,7 +66,6 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
                 fontSize={44}
                 lineHeight="48px"
                 letterSpacing={-1.25}
-                fontWeight="600"
               >
                 {previewTitle ? previewTitle : title}
               </Heading>
@@ -110,11 +105,9 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
                   display: "flex"
                 }}
               >
-                <UserPopover popoverState={popoverState} username={username}>
-                  <Link route={"profile"} params={{ username }}>
-                    <a {...bind}>{username}</a>
-                  </Link>
-                </UserPopover>
+                <Link route={"profile"} params={{ username }}>
+                  <a>{username}</a>
+                </Link>
               </div>
               <span
                 style={{

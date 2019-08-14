@@ -2,7 +2,7 @@ import { format as formatDate } from "date-fns";
 import { includes } from "lodash";
 import Router from "next/router";
 import * as React from "react";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { Waypoint } from "react-waypoint";
 import { Box, Flex, Text } from "rebass";
 import { format } from "url";
@@ -44,9 +44,7 @@ import { UserPopover } from "../user/shared/userPopover";
 import { DeletePosting } from "./deletePosting";
 import { ActionsDropdown } from "./shared/actionsDropdown";
 import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
-import { useMutation } from "@apollo/react-hooks";
-import { addBookmarkMutation } from "../../graphql/post/mutation/addBookmark";
-import { removeBookmarkMutation } from "../../graphql/post/mutation/removeBookmark";
+import { BookmarkPosting } from "./bookmarkPosting";
 
 export const Posting = ({
   previewTitle,
@@ -112,9 +110,6 @@ export const Posting = ({
 
   const dtString = formatDate(Date.parse(createdAt), "MMM D");
 
-  const [addBookmark] = useMutation(addBookmarkMutation);
-  const [removeBookmark] = useMutation(removeBookmarkMutation);
-  const [bookmarked, setBookmark] = useState(isBookmark);
   return (
     // @ts-ignore
     <Layout title={`${title}`}>
@@ -169,31 +164,10 @@ export const Posting = ({
                 4.6K Likes
               </StoryPerformance>
               <StoryPerformance>
-                {bookmarked ? (
-                  <Button variant="action" style={{ paddingRight: 8 }}>
-                    <Icon
-                      onClick={() => (
-                        removeBookmark({ variables: { postingId } }),
-                        setBookmark(!bookmarked)
-                      )}
-                      name="saveStory"
-                      fill="#000"
-                      size={26}
-                    />
-                  </Button>
-                ) : (
-                  <Button variant="action" style={{ paddingRight: 8 }}>
-                    <Icon
-                      onClick={() => (
-                        addBookmark({ variables: { postingId } }),
-                        setBookmark(!bookmarked)
-                      )}
-                      name="saveStory"
-                      fill="rgb(238, 238, 238)"
-                      size={26}
-                    />
-                  </Button>
-                )}
+                <BookmarkPosting
+                  postingId={postingId}
+                  isBookmark={isBookmark}
+                />
                 <Button
                   variant="action"
                   hoverEffect
