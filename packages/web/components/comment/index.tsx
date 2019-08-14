@@ -144,8 +144,12 @@ export const Comment: React.FC<CommentProps> = ({
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
+          <Text color={"rgba(0,0,0,0.5)"} fontSize={2}>
+            {numReactions == 1
+              ? ` ${numReactions}` + " like"
+              : ` ${numReactions}` + " likes"}
+          </Text>
         </Content>
-        {numReactions} likes
       </TopRow>
     </CommentContainer>
   );

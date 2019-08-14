@@ -36,6 +36,9 @@ export class Comment {
   @Field(() => Int)
   numReactions: number;
 
+  @Field(() => Boolean, { nullable: true })
+  hasReacted: boolean;
+
   @Field(() => User)
   creator(@Ctx() { userLoader }: MyContext): Promise<User> {
     return userLoader.load(this.creatorId);

@@ -80,4 +80,19 @@ export class CommentResolver {
   numReactions(@Root() root: Comment): Promise<number> {
     return Reaction.count({ where: { commentId: root.id } });
   }
+
+  @FieldResolver()
+  async hasReacted(
+    @Ctx() ctx: MyContext,
+    @Root() root: Comment
+  ): Promise<Boolean> {
+    const response = await Reaction.findOne({
+      where: { commentId: root.id, userId: ctx.req.session!.userId }
+    });
+
+    if (response) {
+      return true;
+    }
+    return false;
+  }
 }

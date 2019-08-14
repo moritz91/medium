@@ -188,12 +188,21 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async removePostingReaction(
-    @Arg("postingId", () => String) postingId: string,
-    @Arg("userId", () => String) userId: string
+  async removeReaction(
+    @Ctx() { req }: MyContext,
+    @Arg("postingId", () => String, { nullable: true }) postingId?: string,
+    @Arg("commentId", () => String, { nullable: true }) commentId?: string
   ) {
-    await Reaction.delete({ postingId, userId });
-    return true;
+    const userId = req.session!.userId;
+    if (postingId) {
+      await Reaction.delete({ postingId, userId });
+      return true;
+    }
+    if (commentId) {
+      await Reaction.delete({ commentId, userId });
+      return true;
+    }
+    return false;
   }
 
   @Mutation(() => Boolean)
@@ -202,8 +211,15 @@ export class PostingResolver {
     @Arg("topicId", () => String) topicId: string,
     @Ctx() { req }: MyContext
   ) {
-    await UserTopic.create({ topicId, userId: req.session!.userId }).save();
-    return true;
+    const userId = req.session!.userId;
+    const value = await UserTopic.findOne({
+      where: { userId, topicId }
+    });
+    if (!value) {
+      await UserTopic.create({ topicId, userId }).save();
+      return true;
+    }
+    return false;
   }
 
   @Mutation(() => Boolean)
@@ -212,8 +228,15 @@ export class PostingResolver {
     @Arg("topicId", () => String) topicId: string,
     @Ctx() { req }: MyContext
   ) {
-    await UserTopic.delete({ topicId, userId: req.session!.userId });
-    return true;
+    const userId = req.session!.userId;
+    const value = await UserTopic.findOne({
+      where: { userId, topicId }
+    });
+    if (value) {
+      await UserTopic.delete({ topicId, userId });
+      return true;
+    }
+    return false;
   }
 
   @Mutation(() => Boolean)
@@ -222,8 +245,15 @@ export class PostingResolver {
     @Arg("postingId", () => String) postingId: string,
     @Ctx() { req }: MyContext
   ) {
-    await Bookmark.create({ postingId, userId: req.session!.userId }).save();
-    return true;
+    const userId = req.session!.userId;
+    const value = await Bookmark.findOne({
+      where: { userId, postingId }
+    });
+    if (!value) {
+      await Bookmark.create({ userId, postingId }).save();
+      return true;
+    }
+    return false;
   }
 
   @Mutation(() => Boolean)
@@ -232,8 +262,15 @@ export class PostingResolver {
     @Arg("postingId", () => String) postingId: string,
     @Ctx() { req }: MyContext
   ) {
-    await Bookmark.delete({ postingId, userId: req.session!.userId });
-    return true;
+    const userId = req.session!.userId;
+    const value = await Bookmark.findOne({
+      where: { userId, postingId }
+    });
+    if (value) {
+      await Bookmark.delete({ postingId, userId });
+      return true;
+    }
+    return false;
   }
 
   @Query(() => Posting, {

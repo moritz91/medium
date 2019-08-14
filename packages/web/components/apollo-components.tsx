@@ -215,6 +215,16 @@ export type DeletePostingDeletePostingById = {
   ok: boolean;
 };
 
+export type RemoveBookmarkVariables = {
+  postingId: string;
+};
+
+export type RemoveBookmarkMutation = {
+  __typename?: "Mutation";
+
+  removeBookmark: boolean;
+};
+
 export type GetPostingByIdVariables = {
   id: string;
 };
@@ -311,6 +321,28 @@ export type GetUserPostingsFindUserPostings = {
 };
 
 export type GetUserPostingsPosts = PostingInfoFragment;
+
+export type AddReactionVariables = {
+  postingId: string;
+  commentId: string;
+};
+
+export type AddReactionMutation = {
+  __typename?: "Mutation";
+
+  addReaction: boolean;
+};
+
+export type RemoveReactionVariables = {
+  postingId: string;
+  commentId: string;
+};
+
+export type RemoveReactionMutation = {
+  __typename?: "Mutation";
+
+  removeReaction: boolean;
+};
 
 export type GetTagsByLettersVariables = {
   letters: string;
@@ -1001,6 +1033,50 @@ export function DeletePostingHOC<TProps, TChildProps = any>(
     DeletePostingProps<TChildProps>
   >(DeletePostingDocument, operationOptions);
 }
+export const RemoveBookmarkDocument = gql`
+  mutation removeBookmark($postingId: String!) {
+    removeBookmark(postingId: $postingId)
+  }
+`;
+export class RemoveBookmarkComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<RemoveBookmarkMutation, RemoveBookmarkVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<RemoveBookmarkMutation, RemoveBookmarkVariables>
+        mutation={RemoveBookmarkDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type RemoveBookmarkProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<RemoveBookmarkMutation, RemoveBookmarkVariables>
+> &
+  TChildProps;
+export type RemoveBookmarkMutationFn = ReactApollo.MutationFn<
+  RemoveBookmarkMutation,
+  RemoveBookmarkVariables
+>;
+export function RemoveBookmarkHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        RemoveBookmarkMutation,
+        RemoveBookmarkVariables,
+        RemoveBookmarkProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    RemoveBookmarkMutation,
+    RemoveBookmarkVariables,
+    RemoveBookmarkProps<TChildProps>
+  >(RemoveBookmarkDocument, operationOptions);
+}
 export const GetPostingByIdDocument = gql`
   query GetPostingById($id: String!) {
     getPostingById(id: $id) {
@@ -1194,6 +1270,92 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
     GetUserPostingsVariables,
     GetUserPostingsProps<TChildProps>
   >(GetUserPostingsDocument, operationOptions);
+}
+export const AddReactionDocument = gql`
+  mutation addReaction($postingId: String!, $commentId: String!) {
+    addReaction(postingId: $postingId, commentId: $commentId)
+  }
+`;
+export class AddReactionComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<AddReactionMutation, AddReactionVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<AddReactionMutation, AddReactionVariables>
+        mutation={AddReactionDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type AddReactionProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<AddReactionMutation, AddReactionVariables>
+> &
+  TChildProps;
+export type AddReactionMutationFn = ReactApollo.MutationFn<
+  AddReactionMutation,
+  AddReactionVariables
+>;
+export function AddReactionHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        AddReactionMutation,
+        AddReactionVariables,
+        AddReactionProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    AddReactionMutation,
+    AddReactionVariables,
+    AddReactionProps<TChildProps>
+  >(AddReactionDocument, operationOptions);
+}
+export const RemoveReactionDocument = gql`
+  mutation removeReaction($postingId: String!, $commentId: String!) {
+    removeReaction(postingId: $postingId, commentId: $commentId)
+  }
+`;
+export class RemoveReactionComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<RemoveReactionMutation, RemoveReactionVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<RemoveReactionMutation, RemoveReactionVariables>
+        mutation={RemoveReactionDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type RemoveReactionProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<RemoveReactionMutation, RemoveReactionVariables>
+> &
+  TChildProps;
+export type RemoveReactionMutationFn = ReactApollo.MutationFn<
+  RemoveReactionMutation,
+  RemoveReactionVariables
+>;
+export function RemoveReactionHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        RemoveReactionMutation,
+        RemoveReactionVariables,
+        RemoveReactionProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    RemoveReactionMutation,
+    RemoveReactionVariables,
+    RemoveReactionProps<TChildProps>
+  >(RemoveReactionDocument, operationOptions);
 }
 export const GetTagsByLettersDocument = gql`
   query GetTagsByLetters($letters: String!) {
