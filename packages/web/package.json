@@ -13,7 +13,7 @@
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
   },
   "dependencies": {
-    "@apollo/react-hooks": "3.0.0",
+    "@apollo/react-hooks": "3.0.1",
     "@medium/common": "1.0.0",
     "@types/match-sorter": "2.3.0",
     "@types/prismjs": "1.16.0",
