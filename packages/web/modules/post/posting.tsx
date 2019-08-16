@@ -237,7 +237,8 @@ export const Posting = ({
                                 creator,
                                 text,
                                 isAuthor,
-                                numReactions
+                                numReactions,
+                                hasReacted
                               },
                               key: any
                             ) => (
@@ -247,6 +248,7 @@ export const Posting = ({
                                   key={key}
                                   createdAt={createdAt}
                                   creator={creator}
+                                  hasReacted={hasReacted}
                                   isAuthor={isAuthor}
                                   numReactions={numReactions}
                                   body={MarkdownRenderer({ text })}

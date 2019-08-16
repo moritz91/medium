@@ -10,9 +10,10 @@ import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Avatar } from "../common/Avatar";
 import { useEffect } from "react";
 import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 
 interface CommentProps {
   id: string;
@@ -21,7 +22,7 @@ interface CommentProps {
   creator: any;
   isAuthor: boolean | null;
   numReactions: number;
-  hasReacted: boolean;
+  hasReacted: boolean | null;
   Link: any;
 }
 
@@ -94,11 +95,21 @@ export const Comment: React.FC<CommentProps> = ({
     }
   }, [state.targetId]);
 
+  const client = useApolloClient();
+
   const [addReaction] = useMutation(addReactionMutation, {
-    variables: { commentId: id }
+    variables: { commentId: id },
+    onCompleted() {
+      setReacted(!reacted);
+      client.writeData({ data: { hasReacted: true } });
+    }
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
-    variables: { commentId: id }
+    variables: { commentId: id },
+    onCompleted() {
+      setReacted(!reacted);
+      client.writeData({ data: { hasReacted: false } });
+    }
   });
   const [reacted, setReacted] = useState(hasReacted);
 
@@ -158,7 +169,8 @@ export const Comment: React.FC<CommentProps> = ({
           </Text>
           {reacted ? (
             <Text
-              onClick={() => (addReaction(), setReacted(!hasReacted))}
+              style={{ cursor: "pointer" }}
+              onClick={() => removeReaction()}
               color={"#5C6AC4"}
               fontSize={2}
             >
@@ -168,8 +180,9 @@ export const Comment: React.FC<CommentProps> = ({
             </Text>
           ) : (
             <Text
-              onClick={() => (removeReaction(), setReacted(!hasReacted))}
-              color={"rgba(0,0,0,0.5)"}
+              style={{ cursor: "pointer" }}
+              onClick={() => addReaction()}
+              color={"rgba(0,0,0,0.5) "}
               fontSize={2}
             >
               {numReactions == 1

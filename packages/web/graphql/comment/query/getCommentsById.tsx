@@ -11,6 +11,7 @@ export const getCommentsByIdQuery = gql`
         creatorId
         isAuthor
         numReactions
+        hasReacted
         creator {
           ...UserInfo
         }

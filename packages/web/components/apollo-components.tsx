@@ -144,6 +144,8 @@ export type GetCommentsByIdComments = {
 
   numReactions: number;
 
+  hasReacted: Maybe<boolean>;
+
   creator: GetCommentsByIdCreator;
 };
 
@@ -844,6 +846,7 @@ export const GetCommentsByIdDocument = gql`
         creatorId
         isAuthor
         numReactions
+        hasReacted
         creator {
           ...UserInfo
         }
