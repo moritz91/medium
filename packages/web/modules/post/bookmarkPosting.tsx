@@ -6,6 +6,7 @@ import { Icon } from "../../components/icon";
 import { useMutation } from "@apollo/react-hooks";
 import { addBookmarkMutation } from "../../graphql/post/mutation/addBookmark";
 import { removeBookmarkMutation } from "../../graphql/post/mutation/removeBookmark";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 
 interface BookmarkPostingProps {
   isBookmark: boolean | null;
@@ -16,7 +17,10 @@ export const BookmarkPosting = ({
   postingId,
   isBookmark
 }: BookmarkPostingProps) => {
-  const [addBookmark] = useMutation(addBookmarkMutation);
+  const [addBookmark] = useMutation(addBookmarkMutation, {
+    refetchQueries: [getCommentsByIdQuery],
+    awaitRefetchQueries: true
+  });
   const [removeBookmark] = useMutation(removeBookmarkMutation);
   const [bookmarked, setBookmark] = useState(isBookmark);
 
@@ -32,8 +36,8 @@ export const BookmarkPosting = ({
         if (data && data.me && isLoggedIn) {
           return (
             <div>
-              {bookmarked ? (
-                <Button variant="action" style={{ paddingRight: 8 }}>
+              <Button variant="action" style={{ paddingRight: 8 }}>
+                {bookmarked ? (
                   <Icon
                     onClick={() => (
                       removeBookmark({ variables: { postingId } }),
@@ -43,9 +47,7 @@ export const BookmarkPosting = ({
                     fill="#000"
                     size={26}
                   />
-                </Button>
-              ) : (
-                <Button variant="action" style={{ paddingRight: 8 }}>
+                ) : (
                   <Icon
                     onClick={() => (
                       addBookmark({ variables: { postingId } }),
@@ -55,8 +57,8 @@ export const BookmarkPosting = ({
                     fill="rgb(238, 238, 238)"
                     size={26}
                   />
-                </Button>
-              )}
+                )}
+              </Button>
             </div>
           );
         }

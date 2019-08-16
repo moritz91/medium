@@ -1,6 +1,6 @@
 import { distanceInWordsToNow } from "date-fns";
 import * as React from "react";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import styled, { css } from "styled-components";
 import { CopyLink } from "../../modules/comment/copyLink";
@@ -10,6 +10,9 @@ import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Avatar } from "../common/Avatar";
 import { useEffect } from "react";
 import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
+import { useMutation } from "@apollo/react-hooks";
+import { addReactionMutation } from "../../graphql/shared/addReaction";
+import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 
 interface CommentProps {
   id: string;
@@ -18,6 +21,7 @@ interface CommentProps {
   creator: any;
   isAuthor: boolean | null;
   numReactions: number;
+  hasReacted: boolean;
   Link: any;
 }
 
@@ -74,6 +78,7 @@ export const Comment: React.FC<CommentProps> = ({
   body,
   Link,
   numReactions,
+  hasReacted,
   createdAt
 }) => {
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
@@ -88,6 +93,14 @@ export const Comment: React.FC<CommentProps> = ({
       dispatch({ type: "targetComment", id, ref3 });
     }
   }, [state.targetId]);
+
+  const [addReaction] = useMutation(addReactionMutation, {
+    variables: { commentId: id }
+  });
+  const [removeReaction] = useMutation(removeReactionMutation, {
+    variables: { commentId: id }
+  });
+  const [reacted, setReacted] = useState(hasReacted);
 
   return (
     <CommentContainer
@@ -135,7 +148,6 @@ export const Comment: React.FC<CommentProps> = ({
               <div>
                 <ActionsDropdown id={id}>
                   {isAuthor && <DeleteComment commentId={id} />}
-
                   <CopyLink commentId={id} />
                 </ActionsDropdown>
               </div>
@@ -144,11 +156,27 @@ export const Comment: React.FC<CommentProps> = ({
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
-          <Text color={"rgba(0,0,0,0.5)"} fontSize={2}>
-            {numReactions == 1
-              ? ` ${numReactions}` + " like"
-              : ` ${numReactions}` + " likes"}
-          </Text>
+          {reacted ? (
+            <Text
+              onClick={() => (addReaction(), setReacted(!hasReacted))}
+              color={"#5C6AC4"}
+              fontSize={2}
+            >
+              {numReactions == 1
+                ? `${numReactions}` + " like"
+                : `${numReactions}` + " likes"}
+            </Text>
+          ) : (
+            <Text
+              onClick={() => (removeReaction(), setReacted(!hasReacted))}
+              color={"rgba(0,0,0,0.5)"}
+              fontSize={2}
+            >
+              {numReactions == 1
+                ? `${numReactions}` + " like"
+                : `${numReactions}` + " likes"}
+            </Text>
+          )}
         </Content>
       </TopRow>
     </CommentContainer>

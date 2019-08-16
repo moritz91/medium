@@ -323,8 +323,8 @@ export type GetUserPostingsFindUserPostings = {
 export type GetUserPostingsPosts = PostingInfoFragment;
 
 export type AddReactionVariables = {
-  postingId: string;
-  commentId: string;
+  postingId?: Maybe<string>;
+  commentId?: Maybe<string>;
 };
 
 export type AddReactionMutation = {
@@ -334,8 +334,8 @@ export type AddReactionMutation = {
 };
 
 export type RemoveReactionVariables = {
-  postingId: string;
-  commentId: string;
+  postingId?: Maybe<string>;
+  commentId?: Maybe<string>;
 };
 
 export type RemoveReactionMutation = {
@@ -1275,7 +1275,7 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
   >(GetUserPostingsDocument, operationOptions);
 }
 export const AddReactionDocument = gql`
-  mutation addReaction($postingId: String!, $commentId: String!) {
+  mutation addReaction($postingId: String, $commentId: String) {
     addReaction(postingId: $postingId, commentId: $commentId)
   }
 `;
@@ -1317,7 +1317,7 @@ export function AddReactionHOC<TProps, TChildProps = any>(
   >(AddReactionDocument, operationOptions);
 }
 export const RemoveReactionDocument = gql`
-  mutation removeReaction($postingId: String!, $commentId: String!) {
+  mutation removeReaction($postingId: String, $commentId: String) {
     removeReaction(postingId: $postingId, commentId: $commentId)
   }
 `;
