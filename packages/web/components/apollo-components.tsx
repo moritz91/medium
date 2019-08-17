@@ -607,6 +607,8 @@ export type CommentInfoFragment = {
 
   numReactions: number;
 
+  hasReacted: Maybe<boolean>;
+
   creator: CommentInfoCreator;
 
   createdAt: DateTime;
@@ -693,6 +695,7 @@ export const CommentInfoFragmentDoc = gql`
     creatorId
     isAuthor
     numReactions
+    hasReacted
     creator {
       ...UserInfo
     }

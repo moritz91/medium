@@ -14,6 +14,7 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
+import { PostContext, PostContextProps } from "../../context/PostContext";
 
 interface CommentProps {
   id: string;
@@ -37,7 +38,6 @@ export const CommentContainer = styled.div<ContainerProps>`
   padding: 11px;
   margin: 1.6rem 0px 1rem 0px;
   border-radius: 3px;
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
 
   ${({ targetState, targetId, id }) =>
     targetId === id &&
@@ -87,6 +87,7 @@ export const Comment: React.FC<CommentProps> = ({
   });
 
   const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
+  const { postingId } = useContext<PostContextProps>(PostContext);
   const ref3 = useRef<any>(CommentContainer);
 
   useEffect(() => {
@@ -101,15 +102,27 @@ export const Comment: React.FC<CommentProps> = ({
     variables: { commentId: id },
     onCompleted() {
       setReacted(!reacted);
-      client.writeData({ data: { hasReacted: true } });
-    }
+      client.writeData({ data: { numReactions: 5 }, id });
+    },
+    refetchQueries: [
+      {
+        query: getCommentsByIdQuery,
+        variables: { input: { postingId } }
+      }
+    ]
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
     variables: { commentId: id },
     onCompleted() {
       setReacted(!reacted);
-      client.writeData({ data: { hasReacted: false } });
-    }
+      client.writeData({ data: { numReactions: 4 }, id });
+    },
+    refetchQueries: [
+      {
+        query: getCommentsByIdQuery,
+        variables: { postingId }
+      }
+    ]
   });
   const [reacted, setReacted] = useState(hasReacted);
 
@@ -169,9 +182,11 @@ export const Comment: React.FC<CommentProps> = ({
           </Text>
           {reacted ? (
             <Text
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+                color: "#5C6AC4"
+              }}
               onClick={() => removeReaction()}
-              color={"#5C6AC4"}
               fontSize={2}
             >
               {numReactions == 1
@@ -180,9 +195,11 @@ export const Comment: React.FC<CommentProps> = ({
             </Text>
           ) : (
             <Text
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+                color: "rgba(0,0,0,0.5)"
+              }}
               onClick={() => addReaction()}
-              color={"rgba(0,0,0,0.5) "}
               fontSize={2}
             >
               {numReactions == 1

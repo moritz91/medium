@@ -96,7 +96,7 @@ export const H4 = styled.h4`
 `;
 
 export const Caption = styled.p`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 export const Heading: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (
