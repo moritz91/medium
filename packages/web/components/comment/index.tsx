@@ -13,8 +13,9 @@ import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
 import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 import { PostContext, PostContextProps } from "../../context/PostContext";
+import gql from "graphql-tag";
+import { Button } from "../button";
 
 interface CommentProps {
   id: string;
@@ -102,27 +103,47 @@ export const Comment: React.FC<CommentProps> = ({
     variables: { commentId: id },
     onCompleted() {
       setReacted(!reacted);
-      client.writeData({ data: { numReactions: 5 }, id });
-    },
-    refetchQueries: [
-      {
-        query: getCommentsByIdQuery,
+      client.writeFragment({
+        id: `Comment:${id}`,
+        fragment: gql`
+          fragment numReactions on Comment {
+            __typename
+            numReactions
+          }
+        `,
+        data: {
+          __typename: "Comment",
+          numReactions: numReactions + 1
+        },
         variables: { input: { postingId } }
-      }
-    ]
+      });
+    }
+    // refetchQueries: [
+    //   {
+    //     query: getCommentsByIdQuery,
+    //     variables: { input: { postingId } }
+    //   }
+    // ]
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
     variables: { commentId: id },
     onCompleted() {
       setReacted(!reacted);
-      client.writeData({ data: { numReactions: 4 }, id });
-    },
-    refetchQueries: [
-      {
-        query: getCommentsByIdQuery,
-        variables: { postingId }
-      }
-    ]
+      client.writeFragment({
+        id: `Comment:${id}`,
+        fragment: gql`
+          fragment numReactions on Comment {
+            __typename
+            numReactions
+          }
+        `,
+        data: {
+          __typename: "Comment",
+          numReactions: numReactions - 1
+        },
+        variables: { input: { postingId } }
+      });
+    }
   });
   const [reacted, setReacted] = useState(hasReacted);
 
@@ -181,31 +202,33 @@ export const Comment: React.FC<CommentProps> = ({
             {body}
           </Text>
           {reacted ? (
-            <Text
+            <Button
+              variant="tag"
               style={{
                 cursor: "pointer",
-                color: "#5C6AC4"
+                color: "#5C6AC4",
+                width: "100px"
               }}
               onClick={() => removeReaction()}
-              fontSize={2}
             >
               {numReactions == 1
                 ? `${numReactions}` + " like"
                 : `${numReactions}` + " likes"}
-            </Text>
+            </Button>
           ) : (
-            <Text
+            <Button
+              variant="tag"
               style={{
                 cursor: "pointer",
-                color: "rgba(0,0,0,0.5)"
+                color: "rgba(0,0,0,0.5)",
+                width: "100px"
               }}
               onClick={() => addReaction()}
-              fontSize={2}
             >
               {numReactions == 1
                 ? `${numReactions}` + " like"
                 : `${numReactions}` + " likes"}
-            </Text>
+            </Button>
           )}
         </Content>
       </TopRow>

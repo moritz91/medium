@@ -63,7 +63,6 @@ export class CommentResolver {
   }
 
   @Query(() => FindCommentResponse)
-  @Authorized()
   async findCommentsById(@Arg("input")
   {
     postingId,

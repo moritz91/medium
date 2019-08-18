@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 export function isScrolledIntoView(
   elm: HTMLElement | null
 ): {
@@ -55,4 +57,30 @@ export const scrollToView = (elm: HTMLElement, duration: number): void => {
     }
   };
   window.requestAnimationFrame(step);
+};
+
+export const useScrollPosition = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const setScrollPositionCallback = () => setScrollPosition(window.scrollY);
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", setScrollPositionCallback);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("scroll", setScrollPositionCallback);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.scrollY !== 0) {
+      setScrollPosition(window.scrollY);
+    }
+  }, []);
+
+  return scrollPosition;
 };

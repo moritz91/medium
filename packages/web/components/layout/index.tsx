@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import Navbar from "../navigation";
+import { Navbar } from "../navigation";
 import { Link } from "../../server/routes";
 import { Footer } from "../common/Footer";
 import styled from "styled-components";

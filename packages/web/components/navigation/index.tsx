@@ -1,12 +1,16 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { headerFont } from "../../utils/fonts";
 import Social from "../social";
 import { mobile } from "../../utils/media";
 import NavLinks from "./navigationLinks";
 import { SubMenu } from "../subMenu";
+import { useScrollPosition } from "../../utils/domScrollUtils";
 
-const Wrapper = styled.nav`
+const Wrapper: any = styled.nav`
+  visibility: ${(p: any) => (p.show > 50 ? "hidden" : "visible")};
+  transition: all 200ms ${(p: any) => (p.show > 50 ? "ease-out" : "ease-in")};
+  transform: translate(0, ${(p: any) => (p.show > 50 ? "-100%" : "0%")});
   position: fixed;
   left: 0;
   box-sizing: border-box;
@@ -16,7 +20,6 @@ const Wrapper = styled.nav`
   font-family: ${headerFont};
   font-size: 1.3rem;
   font-weight: 500;
-  transition: background 300ms ease-out;
   color: white;
   padding: 0;
   background-color: #fff;
@@ -52,22 +55,20 @@ const NormalNavbar = styled.div`
   }
 `;
 
-class Navbar extends PureComponent {
-  render() {
-    return (
-      <Wrapper>
-        <NormalNavbar>
-          <StartWrapper>
-            <NavLinks />
-          </StartWrapper>
-          <EndWrapper>
-            <StyledSocial />
-            <SubMenu />
-          </EndWrapper>
-        </NormalNavbar>
-      </Wrapper>
-    );
-  }
-}
+export const Navbar = () => {
+  const show = useScrollPosition();
 
-export default Navbar;
+  return (
+    <Wrapper show={show}>
+      <NormalNavbar>
+        <StartWrapper>
+          <NavLinks />
+        </StartWrapper>
+        <EndWrapper>
+          <StyledSocial />
+          <SubMenu />
+        </EndWrapper>
+      </NormalNavbar>
+    </Wrapper>
+  );
+};
