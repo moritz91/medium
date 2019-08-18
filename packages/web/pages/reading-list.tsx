@@ -7,12 +7,12 @@ import { meQuery } from "../graphql/user/query/me";
 import { PostingInfoFragment } from "../components/apollo-components";
 import { Caption } from "../components/heading";
 
-interface Props {
+interface ReadingListProps {
   postings: [PostingInfoFragment];
   hasMore: boolean;
 }
 
-export default class ReadingList extends React.Component<Props> {
+export default class ReadingList extends React.Component<ReadingListProps> {
   static async getInitialProps({ apolloClient }: NextContextWithApollo) {
     const response: any = await apolloClient.query({
       query: meQuery,
