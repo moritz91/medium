@@ -13,11 +13,11 @@ import { Text } from "rebass";
 import { PostContext } from "../../context/PostContext";
 import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
 
-interface Props {
+interface DeleteCommentProps {
   commentId: string;
 }
 
-export const DeleteComment = ({ commentId }: Props) => {
+export const DeleteComment = ({ commentId }: DeleteCommentProps) => {
   const { postingId } = useContext(PostContext);
   const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
 

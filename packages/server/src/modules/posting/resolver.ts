@@ -396,4 +396,19 @@ export class PostingResolver {
       creatorId
     });
   }
+
+  @FieldResolver()
+  async hasReacted(
+    @Ctx() ctx: MyContext,
+    @Root() root: Posting
+  ): Promise<Boolean> {
+    const response = await Reaction.findOne({
+      where: { postingId: root.id, userId: ctx.req.session!.userId }
+    });
+
+    if (response) {
+      return true;
+    }
+    return false;
+  }
 }

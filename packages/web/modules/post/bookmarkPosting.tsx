@@ -6,7 +6,6 @@ import { Icon } from "../../components/icon";
 import { useMutation } from "@apollo/react-hooks";
 import { addBookmarkMutation } from "../../graphql/post/mutation/addBookmark";
 import { removeBookmarkMutation } from "../../graphql/post/mutation/removeBookmark";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
 
 interface BookmarkPostingProps {
   isBookmark: boolean | null;
@@ -17,10 +16,7 @@ export const BookmarkPosting = ({
   postingId,
   isBookmark
 }: BookmarkPostingProps) => {
-  const [addBookmark] = useMutation(addBookmarkMutation, {
-    refetchQueries: [getCommentsByIdQuery],
-    awaitRefetchQueries: true
-  });
+  const [addBookmark] = useMutation(addBookmarkMutation);
   const [removeBookmark] = useMutation(removeBookmarkMutation);
   const [bookmarked, setBookmark] = useState(isBookmark);
 

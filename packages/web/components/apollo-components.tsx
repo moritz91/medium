@@ -250,6 +250,8 @@ export type GetPostingByIdGetPostingById = {
 
   isBookmark: Maybe<boolean>;
 
+  hasReacted: Maybe<boolean>;
+
   numComments: number;
 
   numReactions: number;
@@ -1094,6 +1096,7 @@ export const GetPostingByIdDocument = gql`
       createdAt
       isAuthor
       isBookmark
+      hasReacted
       numComments
       numReactions
       creator {

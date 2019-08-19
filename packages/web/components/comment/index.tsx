@@ -118,12 +118,6 @@ export const Comment: React.FC<CommentProps> = ({
         variables: { input: { postingId } }
       });
     }
-    // refetchQueries: [
-    //   {
-    //     query: getCommentsByIdQuery,
-    //     variables: { input: { postingId } }
-    //   }
-    // ]
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
     variables: { commentId: id },
@@ -209,7 +203,9 @@ export const Comment: React.FC<CommentProps> = ({
                 color: "#5C6AC4",
                 width: "100px"
               }}
-              onClick={() => removeReaction()}
+              onClick={async () => {
+                removeReaction();
+              }}
             >
               {numReactions == 1
                 ? `${numReactions}` + " like"

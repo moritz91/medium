@@ -2,7 +2,7 @@ import { format as formatDate } from "date-fns";
 import { includes } from "lodash";
 import Router from "next/router";
 import * as React from "react";
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Waypoint } from "react-waypoint";
 import { Box, Flex, Text } from "rebass";
 import { format } from "url";
@@ -45,6 +45,9 @@ import { DeletePosting } from "./deletePosting";
 import { ActionsDropdown } from "./shared/actionsDropdown";
 import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
 import { BookmarkPosting } from "./bookmarkPosting";
+import { useMutation } from "@apollo/react-hooks";
+import { addReactionMutation } from "../../graphql/shared/addReaction";
+import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 
 export const Posting = ({
   previewTitle,
@@ -55,9 +58,11 @@ export const Posting = ({
   creator: { username, pictureUrl },
   isAuthor,
   isBookmark,
+  hasReacted,
   postingId,
   createdAt,
   numComments,
+  numReactions,
   tags
 }: any): JSX.Element => {
   const [state, dispatch] = useReducer(postingReducer, {
@@ -108,7 +113,27 @@ export const Posting = ({
     state
   };
 
+  const [addReaction] = useMutation(addReactionMutation, {
+    variables: { postingId },
+    onCompleted() {
+      setReacted(!reacted);
+    },
+    refetchQueries: [
+      { query: getPostingByIdQuery, variables: { id: postingId } }
+    ]
+  });
+  const [removeReaction] = useMutation(removeReactionMutation, {
+    variables: { postingId },
+    onCompleted() {
+      setReacted(!reacted);
+    },
+    refetchQueries: [
+      { query: getPostingByIdQuery, variables: { id: postingId } }
+    ],
+    awaitRefetchQueries: true
+  });
   const dtString = formatDate(Date.parse(createdAt), "MMM D");
+  const [reacted, setReacted] = useState(hasReacted);
 
   return (
     // @ts-ignore
@@ -161,7 +186,35 @@ export const Posting = ({
             </StoryTags>
             <StoryMetaOptions>
               <StoryPerformance style={{ fontSize: 14 }}>
-                4.6K Likes
+                {reacted ? (
+                  <Button
+                    variant="tag"
+                    style={{
+                      cursor: "pointer",
+                      color: "#5C6AC4",
+                      width: "100px"
+                    }}
+                    onClick={() => removeReaction()}
+                  >
+                    {numReactions == 1
+                      ? `${numReactions}` + " like"
+                      : `${numReactions}` + " likes"}
+                  </Button>
+                ) : (
+                  <Button
+                    variant="tag"
+                    style={{
+                      cursor: "pointer",
+                      color: "rgba(0,0,0,0.5)",
+                      width: "100px"
+                    }}
+                    onClick={() => addReaction()}
+                  >
+                    {numReactions == 1
+                      ? `${numReactions}` + " like"
+                      : `${numReactions}` + " likes"}
+                  </Button>
+                )}
               </StoryPerformance>
               <StoryPerformance>
                 <BookmarkPosting
@@ -344,7 +397,9 @@ Posting.getInitialProps = async ({
     body: getPostingById!.body,
     creator: getPostingById!.creator,
     isAuthor: getPostingById!.isAuthor,
-    isBookmark: getPostingById.isBookmark,
+    isBookmark: getPostingById!.isBookmark,
+    hasReacted: getPostingById!.hasReacted,
+    numReactions: getPostingById!.numReactions,
     numComments: getPostingById!.numComments,
     createdAt: getPostingById!.createdAt,
     tags: getPostingById!.tags

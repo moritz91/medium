@@ -10,6 +10,7 @@ export const getPostingByIdQuery = gql`
       createdAt
       isAuthor
       isBookmark
+      hasReacted
       numComments
       numReactions
       creator {

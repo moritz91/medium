@@ -30,7 +30,6 @@ export const CreatePostingReply = ({
   ...props
 }: PostingReplyProps): JSX.Element => {
   const { postingId } = useContext<PostContextProps>(PostContext);
-
   return (
     <CreateCommentComponent>
       {mutate => {

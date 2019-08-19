@@ -54,6 +54,9 @@ export class Posting extends BaseEntity {
   @Field(() => Boolean, { nullable: true })
   isBookmark: boolean;
 
+  @Field(() => Boolean, { nullable: true })
+  hasReacted: boolean;
+
   @Field({ description: "The preview title of the posting", nullable: true })
   @Column({ type: "text", nullable: true })
   previewTitle: string;
