@@ -151,6 +151,20 @@ export const Posting = ({
                     <div style={{ display: "flex", marginLeft: "auto" }}>
                       <div>
                         <ActionsDropdown id={postingId}>
+                          <Button
+                            variant="action"
+                            style={{ display: "flex" }}
+                            key={postingId}
+                            onClick={() =>
+                              Router.push(
+                                `/p?id=${postingId}/edit`,
+                                `/p/${postingId}/edit`
+                              )
+                            }
+                          >
+                            <Icon size={16} fill="#5C6AC4" name={"x"} />
+                            <Text ml={2}>Edit Posting</Text>
+                          </Button>
                           <DeletePosting />
                         </ActionsDropdown>
                       </div>

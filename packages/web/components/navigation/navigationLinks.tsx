@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import rem from "../../utils/rem";
+// import { Link } from "../../server/routes";
 import Link from "../common/Link";
 import { GetTopicsComponent } from "../apollo-components";
 import { navbarHeight } from "../../utils/sizes";
@@ -40,11 +41,10 @@ const NavLinks = (): JSX.Element => {
           <Wrapper>
             {data && data.findTopics && (
               <>
-                {data.findTopics.topics.map(topic => (
-                  <React.Fragment key={topic.id}>
-                    <NavLink href={`/topic/${topic.name}`}>
-                      {topic.name}
-                    </NavLink>
+                {data.findTopics.topics.map(({ id, name }) => (
+                  <React.Fragment key={id}>
+                    {/* <NavLink route={"topic"} params={{ name }}> */}
+                    <NavLink href={`/topic/${name}`}>{name}</NavLink>
                   </React.Fragment>
                 ))}
               </>
