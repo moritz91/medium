@@ -4,7 +4,7 @@ require("dotenv-safe").config({
 });
 import { ApolloServer } from "apollo-server-express";
 import * as express from "express";
-import { buildSchema, useContainer } from "type-graphql";
+import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import * as typeorm from "typeorm";
 import * as session from "express-session";
@@ -24,13 +24,12 @@ import { postingTopicLoader } from "./loaders/postingTopicLoader";
 import { userPostingLoader } from "./loaders/userPostingLoader";
 import { userTopicLoader } from "./loaders/userTopicLoader";
 
+typeorm.useContainer(Container);
+
 process.env.GITHUB_CLIENT_ID;
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
-
-useContainer(Container);
-typeorm.useContainer(Container);
 
 const startServer = async () => {
   await createTypeormConn();
@@ -44,7 +43,8 @@ const startServer = async () => {
       authChecker: ({ context }) => {
         return context.req.session && context.req.session.userId; // or false if access denied
       },
-      validate: false
+      validate: false,
+      container: Container
     }),
     context: ({ req, res }: any) => ({
       req,

@@ -195,37 +195,49 @@ export const Comment: React.FC<CommentProps> = ({
           <Text lineHeight={1.58} mb="1rem" fontSize={4}>
             {body}
           </Text>
-          {reacted ? (
+          <div style={{ display: "flex" }}>
+            {reacted ? (
+              <Button
+                variant="tag"
+                style={{
+                  cursor: "pointer",
+                  color: "#5C6AC4",
+                  width: "100px"
+                }}
+                onClick={async () => {
+                  removeReaction();
+                }}
+              >
+                {numReactions == 1
+                  ? `${numReactions}` + " like"
+                  : `${numReactions}` + " likes"}
+              </Button>
+            ) : (
+              <Button
+                variant="tag"
+                style={{
+                  cursor: "pointer",
+                  width: "100px"
+                }}
+                onClick={() => addReaction()}
+              >
+                {numReactions == 1
+                  ? `${numReactions}` + " like"
+                  : `${numReactions}` + " likes"}
+              </Button>
+            )}
             <Button
               variant="tag"
               style={{
                 cursor: "pointer",
                 color: "#5C6AC4",
-                width: "100px"
-              }}
-              onClick={async () => {
-                removeReaction();
+                width: "100px",
+                marginLeft: "auto"
               }}
             >
-              {numReactions == 1
-                ? `${numReactions}` + " like"
-                : `${numReactions}` + " likes"}
+              + Reply
             </Button>
-          ) : (
-            <Button
-              variant="tag"
-              style={{
-                cursor: "pointer",
-                color: "rgba(0,0,0,0.5)",
-                width: "100px"
-              }}
-              onClick={() => addReaction()}
-            >
-              {numReactions == 1
-                ? `${numReactions}` + " like"
-                : `${numReactions}` + " likes"}
-            </Button>
-          )}
+          </div>
         </Content>
       </TopRow>
     </CommentContainer>
