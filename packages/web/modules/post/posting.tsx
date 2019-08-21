@@ -305,7 +305,8 @@ export const Posting = ({
                                 text,
                                 isAuthor,
                                 numReactions,
-                                hasReacted
+                                hasReacted,
+                                replies
                               },
                               key: any
                             ) => (
@@ -319,7 +320,7 @@ export const Posting = ({
                                   isAuthor={isAuthor}
                                   numReactions={numReactions}
                                   body={MarkdownRenderer({ text })}
-                                  Link={Link}
+                                  replies={replies}
                                 />
                                 {data.findCommentsById.hasMore &&
                                   key ===

@@ -17,6 +17,9 @@ import { PostContext, PostContextProps } from "../../context/PostContext";
 import gql from "graphql-tag";
 import { Button } from "../button";
 import { CreatePostingReply } from "../../modules/comment/createComment";
+import { ReplyInfoFragment } from "../apollo-components";
+import { Reply } from "../reply";
+import { Link } from "../../server/routes";
 
 interface CommentProps {
   id: string;
@@ -26,7 +29,7 @@ interface CommentProps {
   isAuthor: boolean | null;
   numReactions: number;
   hasReacted: boolean | null;
-  Link: any;
+  replies: ReplyInfoFragment[];
 }
 
 interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
@@ -79,10 +82,10 @@ export const Comment: React.FC<CommentProps> = ({
   creator: { username, pictureUrl },
   isAuthor,
   body,
-  Link,
   numReactions,
   hasReacted,
-  createdAt
+  createdAt,
+  replies
 }) => {
   const dtString = distanceInWordsToNow(Date.parse(createdAt), {
     addSuffix: true
@@ -251,6 +254,32 @@ export const Comment: React.FC<CommentProps> = ({
           view={"repo-view"}
         />
       )}
+      {replies &&
+        replies.map(
+          (
+            {
+              id,
+              creator,
+              isAuthor,
+              text,
+              numReactions,
+              createdAt,
+              hasReacted
+            },
+            key
+          ) => (
+            <Reply
+              id={id}
+              key={key}
+              creator={creator}
+              isAuthor={isAuthor}
+              text={text}
+              numReactions={numReactions}
+              createdAt={createdAt}
+              hasReacted={hasReacted}
+            />
+          )
+        )}
     </CommentContainer>
   );
 };

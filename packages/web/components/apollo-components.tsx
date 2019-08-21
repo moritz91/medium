@@ -18,6 +18,12 @@ export interface FindUserPostingsInput {
   cursor?: Maybe<string>;
 }
 
+export interface FindRepliesByIdInput {
+  commentId: string;
+
+  cursor?: Maybe<string>;
+}
+
 export interface FindTagsInput {
   offset: number;
 
@@ -47,6 +53,12 @@ export interface CreatePostingInput {
 
   body?: Maybe<string>;
 }
+
+export interface CreateReplyInput {
+  text: string;
+
+  commentId: string;
+}
 /** New topic data */
 export interface CreateTopicInput {
   name: string;
@@ -62,6 +74,48 @@ export interface UpdateTopicInput {
   shortCaption?: Maybe<string>;
 
   pictureUrl?: Maybe<string>;
+}
+/** New posting data */
+export interface CreateTagInput {
+  name: string;
+}
+
+export interface DeleteCommentInput {
+  id: string;
+}
+/** Old posting data */
+export interface DeletePostingInput {
+  id: string;
+}
+
+export interface DeleteReplyInput {
+  id: string;
+}
+/** Old posting data */
+export interface DeleteTagInput {
+  id: string;
+}
+/** Old topic data */
+export interface DeleteTopicInput {
+  id: string;
+}
+
+export interface FindCommentsByUsernameInput {
+  username: string;
+
+  cursor?: Maybe<string>;
+}
+
+export interface FindRepliesByUsernameInput {
+  username: string;
+
+  cursor?: Maybe<string>;
+}
+
+export interface FindUserTopicsInput {
+  creatorId: string;
+
+  cursor?: Maybe<string>;
 }
 
 /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
@@ -144,10 +198,14 @@ export type GetCommentsByIdComments = {
 
   numReactions: number;
 
-  hasReacted: Maybe<boolean>;
+  hasReacted: boolean;
+
+  replies: GetCommentsByIdReplies[];
 
   creator: GetCommentsByIdCreator;
 };
+
+export type GetCommentsByIdReplies = ReplyInfoFragment;
 
 export type GetCommentsByIdCreator = UserInfoFragment;
 
@@ -609,14 +667,40 @@ export type CommentInfoFragment = {
 
   numReactions: number;
 
-  hasReacted: Maybe<boolean>;
+  hasReacted: boolean;
 
   creator: CommentInfoCreator;
+
+  replies: CommentInfoReplies[];
 
   createdAt: DateTime;
 };
 
 export type CommentInfoCreator = UserInfoFragment;
+
+export type CommentInfoReplies = ReplyInfoFragment;
+
+export type ReplyInfoFragment = {
+  __typename?: "Reply";
+
+  id: string;
+
+  text: string;
+
+  creatorId: string;
+
+  isAuthor: Maybe<boolean>;
+
+  numReactions: number;
+
+  hasReacted: boolean;
+
+  creator: ReplyInfoCreator;
+
+  createdAt: DateTime;
+};
+
+export type ReplyInfoCreator = UserInfoFragment;
 
 export type PostingInfoFragment = {
   __typename?: "Posting";
@@ -689,6 +773,23 @@ export const UserInfoFragmentDoc = gql`
   }
 `;
 
+export const ReplyInfoFragmentDoc = gql`
+  fragment ReplyInfo on Reply {
+    id
+    text
+    creatorId
+    isAuthor
+    numReactions
+    hasReacted
+    creator {
+      ...UserInfo
+    }
+    createdAt
+  }
+
+  ${UserInfoFragmentDoc}
+`;
+
 export const CommentInfoFragmentDoc = gql`
   fragment CommentInfo on Comment {
     id
@@ -701,10 +802,14 @@ export const CommentInfoFragmentDoc = gql`
     creator {
       ...UserInfo
     }
+    replies {
+      ...ReplyInfo
+    }
     createdAt
   }
 
   ${UserInfoFragmentDoc}
+  ${ReplyInfoFragmentDoc}
 `;
 
 export const TagInfoFragmentDoc = gql`
@@ -852,6 +957,9 @@ export const GetCommentsByIdDocument = gql`
         isAuthor
         numReactions
         hasReacted
+        replies {
+          ...ReplyInfo
+        }
         creator {
           ...UserInfo
         }
@@ -860,6 +968,7 @@ export const GetCommentsByIdDocument = gql`
     }
   }
 
+  ${ReplyInfoFragmentDoc}
   ${UserInfoFragmentDoc}
 `;
 export class GetCommentsByIdComponent extends React.Component<

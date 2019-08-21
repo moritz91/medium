@@ -73,7 +73,7 @@ export class Comment extends Response {
   @Column("uuid")
   postingId: string;
 
-  @Field(() => [Reply])
+  @Field(() => [Reply], { nullable: true })
   @OneToMany(() => Reply, r => r.comment)
   replies: Promise<Reply[]>;
 }

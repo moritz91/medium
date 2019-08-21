@@ -1,12 +1,10 @@
 import gql from "graphql-tag";
 import { UserInfoFragment } from "../../user/fragments/UserInfo";
-import { ReplyInfoFragment } from "./ReplyInfo";
 
-export const CommentInfoFragment = gql`
-  fragment CommentInfo on Comment {
+export const ReplyInfoFragment = gql`
+  fragment ReplyInfo on Reply {
     id
     text
-    postingId
     creatorId
     isAuthor
     numReactions
@@ -14,10 +12,7 @@ export const CommentInfoFragment = gql`
     creator {
       ...UserInfo
     }
-    replies {
-      ...ReplyInfo
-    }
     createdAt
   }
-  ${UserInfoFragment}, ${ReplyInfoFragment}
+  ${UserInfoFragment}
 `;
