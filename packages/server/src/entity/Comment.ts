@@ -16,7 +16,7 @@ import { Reaction } from "./Reaction";
 
 @Entity()
 @ObjectType()
-export class Comment {
+class Response {
   @Field(() => ID)
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -24,10 +24,6 @@ export class Comment {
   @Field()
   @Column({ type: "text" })
   text: string;
-
-  @Field()
-  @Column("uuid")
-  postingId: string;
 
   @Field()
   @Column("uuid")
@@ -46,7 +42,7 @@ export class Comment {
 
   @Field(() => Boolean, { nullable: true })
   async isAuthor(
-    @Root() root: Comment,
+    @Root() root: Response,
     @Ctx() ctx: MyContext
   ): Promise<Boolean> {
     return ctx.req.session!.userId === root.creatorId;
@@ -68,4 +64,27 @@ export class Comment {
 
   @OneToMany(() => Reaction, r => r.comment)
   userReactionConnection: Promise<Reaction[]>;
+}
+
+@Entity()
+@ObjectType()
+export class Comment extends Response {
+  @Field()
+  @Column("uuid")
+  postingId: string;
+
+  @Field(() => [Reply])
+  @OneToMany(() => Reply, r => r.comment)
+  replies: Promise<Reply[]>;
+}
+
+@Entity()
+@ObjectType()
+export class Reply extends Response {
+  @Field()
+  @Column("uuid")
+  commentId: string;
+
+  @ManyToOne(() => Comment, c => c.replies, { onDelete: "CASCADE" })
+  comment: Promise<Comment>;
 }

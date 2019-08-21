@@ -75,12 +75,12 @@ export class CommentResolver {
     });
   }
 
-  @FieldResolver()
+  @FieldResolver(() => Number)
   numReactions(@Root() root: Comment): Promise<number> {
     return Reaction.count({ where: { commentId: root.id } });
   }
 
-  @FieldResolver()
+  @FieldResolver(() => Boolean)
   async hasReacted(
     @Ctx() ctx: MyContext,
     @Root() root: Comment

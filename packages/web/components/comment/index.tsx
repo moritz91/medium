@@ -16,6 +16,7 @@ import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 import { PostContext, PostContextProps } from "../../context/PostContext";
 import gql from "graphql-tag";
 import { Button } from "../button";
+import { CreatePostingReply } from "../../modules/comment/createComment";
 
 interface CommentProps {
   id: string;
@@ -140,6 +141,7 @@ export const Comment: React.FC<CommentProps> = ({
     }
   });
   const [reacted, setReacted] = useState(hasReacted);
+  const [replyInput, setReplyInput] = useState(false);
 
   return (
     <CommentContainer
@@ -228,6 +230,7 @@ export const Comment: React.FC<CommentProps> = ({
             )}
             <Button
               variant="tag"
+              onClick={() => setReplyInput(!replyInput)}
               style={{
                 cursor: "pointer",
                 color: "#5C6AC4",
@@ -240,6 +243,14 @@ export const Comment: React.FC<CommentProps> = ({
           </div>
         </Content>
       </TopRow>
+      {replyInput && (
+        <CreatePostingReply
+          onEditorSubmit={() => {
+            setReplyInput(false);
+          }}
+          view={"repo-view"}
+        />
+      )}
     </CommentContainer>
   );
 };

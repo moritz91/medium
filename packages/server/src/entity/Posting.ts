@@ -30,7 +30,7 @@ export class Posting extends BaseEntity {
   creatorId: string;
 
   @Field(() => [Comment])
-  @OneToMany(() => Comment, p => p.posting)
+  @OneToMany(() => Comment, c => c.posting)
   comments: Promise<Comment[]>;
 
   @Field(() => Int)
