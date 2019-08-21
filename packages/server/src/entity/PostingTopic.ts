@@ -9,6 +9,7 @@ import { Posting } from "./Posting";
 import { Topic } from "./Topic";
 
 // Posting-Topic Many-to-Many Relationship (JoinTable)
+// Stories can belong to several topics and vice-versa!
 
 @Entity()
 export class PostingTopic extends BaseEntity {

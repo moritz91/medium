@@ -75,7 +75,9 @@ export class ReplyResolver {
 
   @FieldResolver(() => Number)
   numReactions(@Root() root: Reply): Promise<number> {
-    return Reaction.count({ where: { replyId: root.id } });
+    return Reaction.count({
+      where: { replyId: root.id, commentId: root.commentId }
+    });
   }
 
   @FieldResolver(() => Boolean)
