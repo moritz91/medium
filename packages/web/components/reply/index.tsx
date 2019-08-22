@@ -4,10 +4,22 @@ import { CopyLink } from "../../modules/comment/copyLink";
 import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { Button } from "../button";
-import { Actions, Content, TopRow, UserAvatar } from "../comment";
+import { Actions, Content, UserAvatar } from "../comment";
 import { Avatar } from "../common/Avatar";
 import { useState } from "react";
 import { Link } from "../../server/routes";
+import styled from "styled-components";
+
+export const ReplyTopRow = styled.div`
+  display: grid;
+  grid-template-areas: "avatar content";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  gap: 8px 8px;
+  flex: 1 1 0%;
+  padding-left: 25px;
+  margin: 1rem 0px 0px 20px;
+`;
 
 interface ReplyProps {
   id: string;
@@ -33,7 +45,7 @@ export const Reply: React.FC<ReplyProps> = ({
   });
   const [reacted, setReacted] = useState(hasReacted);
   return (
-    <TopRow>
+    <ReplyTopRow>
       <UserAvatar>
         <Link route={"profile"} params={{ username }}>
           <a style={{ cursor: "pointer" }}>
@@ -96,6 +108,6 @@ export const Reply: React.FC<ReplyProps> = ({
           )}
         </div>
       </Content>
-    </TopRow>
+    </ReplyTopRow>
   );
 };
