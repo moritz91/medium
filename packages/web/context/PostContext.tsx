@@ -54,7 +54,8 @@ export const PostsContext = createContext<PostsContextProps>({
       tags: [{ id: "", name: "" }],
       previewTitle: "",
       previewSubtitle: "",
-      previewImage: ""
+      previewImage: "",
+      isBookmark: false
     }
   ],
   username: "",
@@ -68,7 +69,10 @@ export const PostsContext = createContext<PostsContextProps>({
       creatorId: "",
       creator: { id: "", username: "", pictureUrl: "", bio: "", createdAt: "" },
       isAuthor: false,
-      postingId: ""
+      postingId: "",
+      numReactions: 0,
+      hasReacted: false,
+      replies: []
     }
   ]
 });

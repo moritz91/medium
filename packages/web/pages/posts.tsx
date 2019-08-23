@@ -69,6 +69,7 @@ export default class Posts extends React.Component<PostsProps> {
                     title={post.title}
                     body={post.body}
                     numComments={post.numComments}
+                    isBookmark={post.isBookmark}
                     Link={Link}
                     tags={post.tags}
                     getLinkProps={() => ({

@@ -10,20 +10,23 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../components/theme/styled-components";
 import theme from "../components/theme";
 import "../static/linkfix.css";
-import { createContext } from "react";
+import AppProviders from "../context/AppProviders";
+import { Router } from "../server/routes";
+import NProgress from "nprogress";
 
 if (typeof window !== "undefined") {
   ReactModal.setAppElement("body");
 }
 
-// In case we need global state for user data storage in the future
-export const UserContext = createContext(null);
+Router.events.on("routeChangeStart", () => {
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }: any) {
     let pageProps = {};
-
-    // const userProps = await ctx.apolloClient.query({ query: meQuery, variables: {{ withBookmarks: false }} });
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -33,16 +36,16 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, userProps, apolloClient } = this.props as any;
+    const { Component, pageProps, apolloClient } = this.props as any;
     return (
       <Container>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
           <ApolloProvider client={apolloClient}>
             <ApolloHooksProvider client={apolloClient}>
-              <UserContext.Provider value={userProps}>
+              <AppProviders>
                 <Component {...pageProps} />
-              </UserContext.Provider>
+              </AppProviders>
             </ApolloHooksProvider>
           </ApolloProvider>
         </ThemeProvider>
