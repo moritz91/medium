@@ -27,9 +27,6 @@ export const Layout: NextFunctionComponent<LayoutProps> = ({
   children,
   title
 }) => {
-  const user = useUser();
-  console.log("User: ", user);
-
   return (
     <div>
       <Head>

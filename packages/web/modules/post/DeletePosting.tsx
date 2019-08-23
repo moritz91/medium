@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
-import {
-  MeComponent,
-  DeletePostingComponent
-} from "../../components/apollo-components";
+import { DeletePostingComponent } from "../../components/apollo-components";
 import { get } from "lodash";
 import Router from "next/router";
 import { getPostingsQuery } from "../../graphql/post/query/getPostings";
@@ -11,10 +8,12 @@ import { Text } from "rebass";
 import { Icon } from "../../components/icon";
 import { PostContext } from "../../context/PostContext";
 import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
+import { useAuth } from "../../context/AuthContext";
 
 export const DeletePosting = () => {
   const { postingId } = useContext(PostContext);
   const { dispatch } = useContext<FlyoutContextProps>(FlyoutContext);
+  const { data } = useAuth();
 
   return (
     <DeletePostingComponent
@@ -30,49 +29,39 @@ export const DeletePosting = () => {
         }
       ]}
     >
-      {mutate => (
-        <>
-          <MeComponent variables={{ withBookmarks: false }}>
-            {({ data, loading }) => {
-              if (loading) {
-                return null;
-              }
+      {mutate => {
+        let isLoggedIn = !!get(data, "me", false);
 
-              let isLoggedIn = !!get(data, "me", false);
+        if (data && data.me && isLoggedIn) {
+          return (
+            <Button
+              variant="action"
+              style={{ display: "flex" }}
+              key={postingId}
+              onClick={async () => {
+                const response = await mutate({
+                  variables: {
+                    id: postingId
+                  }
+                });
 
-              if (data && data.me && isLoggedIn) {
-                return (
-                  <Button
-                    variant="action"
-                    style={{ display: "flex" }}
-                    key={postingId}
-                    onClick={async () => {
-                      const response = await mutate({
-                        variables: {
-                          id: postingId
-                        }
-                      });
+                if (response) {
+                  dispatch({
+                    type: "closeFlyout"
+                  });
+                }
 
-                      if (response) {
-                        dispatch({
-                          type: "closeFlyout"
-                        });
-                      }
+                Router.replace("/posts");
+              }}
+            >
+              <Icon size={16} fill="#5C6AC4" name={"x"} />
+              <Text ml={2}>Delete Posting</Text>
+            </Button>
+          );
+        }
 
-                      Router.replace("/posts");
-                    }}
-                  >
-                    <Icon size={16} fill="#5C6AC4" name={"x"} />
-                    <Text ml={2}>Delete Posting</Text>
-                  </Button>
-                );
-              }
-
-              return null;
-            }}
-          </MeComponent>
-        </>
-      )}
+        return null;
+      }}
     </DeletePostingComponent>
   );
 };

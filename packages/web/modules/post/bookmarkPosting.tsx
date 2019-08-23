@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { MeComponent } from "../../components/apollo-components";
 import { get } from "lodash";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
 import { useMutation } from "@apollo/react-hooks";
 import { addBookmarkMutation } from "../../graphql/post/mutation/addBookmark";
 import { removeBookmarkMutation } from "../../graphql/post/mutation/removeBookmark";
+import { useAuth } from "../../context/AuthContext";
 
 interface BookmarkPostingProps {
   isBookmark: boolean | null;
@@ -20,47 +20,38 @@ export const BookmarkPosting = ({
   const [removeBookmark] = useMutation(removeBookmarkMutation);
   const [bookmarked, setBookmark] = useState(isBookmark);
 
-  return (
-    <MeComponent variables={{ withBookmarks: false }}>
-      {({ data, loading }) => {
-        if (loading) {
-          return null;
-        }
+  const { data } = useAuth();
+  let isLoggedIn = !!get(data, "me", false);
 
-        let isLoggedIn = !!get(data, "me", false);
+  if (data && data.me && isLoggedIn) {
+    return (
+      <div>
+        <Button variant="action" style={{ paddingRight: 8 }}>
+          {bookmarked ? (
+            <Icon
+              onClick={() => (
+                removeBookmark({ variables: { postingId } }),
+                setBookmark(!bookmarked)
+              )}
+              name="saveStory"
+              fill="#000"
+              size={26}
+            />
+          ) : (
+            <Icon
+              onClick={() => (
+                addBookmark({ variables: { postingId } }),
+                setBookmark(!bookmarked)
+              )}
+              name="saveStory"
+              fill="rgb(238, 238, 238)"
+              size={26}
+            />
+          )}
+        </Button>
+      </div>
+    );
+  }
 
-        if (data && data.me && isLoggedIn) {
-          return (
-            <div>
-              <Button variant="action" style={{ paddingRight: 8 }}>
-                {bookmarked ? (
-                  <Icon
-                    onClick={() => (
-                      removeBookmark({ variables: { postingId } }),
-                      setBookmark(!bookmarked)
-                    )}
-                    name="saveStory"
-                    fill="#000"
-                    size={26}
-                  />
-                ) : (
-                  <Icon
-                    onClick={() => (
-                      addBookmark({ variables: { postingId } }),
-                      setBookmark(!bookmarked)
-                    )}
-                    name="saveStory"
-                    fill="rgb(238, 238, 238)"
-                    size={26}
-                  />
-                )}
-              </Button>
-            </div>
-          );
-        }
-
-        return null;
-      }}
-    </MeComponent>
-  );
+  return null;
 };

@@ -5,7 +5,7 @@ import { logoutMutation } from "../graphql/user/mutations/logout";
 import redirect from "../lib/redirect";
 
 const AuthContext = React.createContext({
-  data: { me: "" },
+  data: { me: { username: "", pictureUrl: "", createdAt: "", bio: "" } },
   logout: (ctx: any) => ctx
 });
 
