@@ -5,7 +5,6 @@ import { Link } from "../../server/routes";
 import { Footer } from "../common/Footer";
 import styled from "styled-components";
 import { NextFunctionComponent } from "next";
-import { useUser } from "../../context/UserContext";
 
 const Wrapper = styled.div`
   width: 100%;
