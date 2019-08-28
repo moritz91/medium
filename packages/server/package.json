@@ -19,7 +19,7 @@
     "@types/passport-github": "1.1.4",
     "apollo-server-express": "2.9.0",
     "argon2": "0.20.0",
-    "connect-redis": "3.4.0",
+    "connect-redis": "4.0.0",
     "cors": "2.8.5",
     "dataloader": "1.4.0",
     "dotenv-safe": "8.1.0",
