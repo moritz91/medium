@@ -39,7 +39,6 @@ import redirect from "../../lib/redirect";
 import { postingReducer } from "../../reducers/postingReducer";
 import { Link } from "../../server/routes";
 import { NextContextWithApollo } from "../../types/NextContextWithApollo";
-import { CreatePostingReply } from "../comment/createComment";
 import { UserPopover } from "../user/shared/userPopover";
 import { DeletePosting } from "./deletePosting";
 import { ActionsDropdown } from "./shared/actionsDropdown";
@@ -48,6 +47,7 @@ import { BookmarkPosting } from "./bookmarkPosting";
 import { useMutation } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
+import { CreateReply } from "../comment/createComment";
 
 export const Posting = ({
   previewTitle,
@@ -285,7 +285,12 @@ export const Posting = ({
             <Box my="1.5rem">
               <Text fontSize={5}>Responses</Text>
             </Box>
-            <CreatePostingReply onEditorSubmit={() => {}} view={"repo-view"} />
+            <CreateReply
+              onEditorSubmit={() => {}}
+              postingId={postingId}
+              commentId=""
+              isReply={false}
+            />
             <Box mt={20} style={{ display: "flex", flexDirection: "column" }}>
               <GetCommentsByIdComponent variables={{ input: { postingId } }}>
                 {({ data, loading, fetchMore }) => {

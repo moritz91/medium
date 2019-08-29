@@ -16,10 +16,10 @@ import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 import { PostContext, PostContextProps } from "../../context/PostContext";
 import gql from "graphql-tag";
 import { Button } from "../button";
-import { CreatePostingReply } from "../../modules/comment/createComment";
-import { ReplyInfoFragment } from "../apollo-components";
+import { ReplyInfoFragment, Maybe } from "../apollo-components";
 import { Reply } from "../reply";
 import { Link } from "../../server/routes";
+import { CreateReply } from "../../modules/comment/createComment";
 
 interface CommentProps {
   id: string;
@@ -29,7 +29,7 @@ interface CommentProps {
   isAuthor: boolean | null;
   numReactions: number;
   hasReacted: boolean | null;
-  replies: ReplyInfoFragment[];
+  replies: Maybe<ReplyInfoFragment[]>;
 }
 
 interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
@@ -247,11 +247,13 @@ export const Comment: React.FC<CommentProps> = ({
         </Content>
       </TopRow>
       {replyInput && (
-        <CreatePostingReply
+        <CreateReply
           onEditorSubmit={() => {
             setReplyInput(false);
           }}
-          view={"repo-view"}
+          isReply={true}
+          commentId={id}
+          postingId=""
         />
       )}
       {replies &&

@@ -1,138 +1,155 @@
-import React, { useContext } from "react";
-import { CommentForm, TextEditorResult } from "../post/shared/commentForm";
+import { useMutation } from "@apollo/react-hooks";
+import { text } from "body-parser";
+import gql from "graphql-tag";
+import { get } from "lodash";
+import React from "react";
+import { Flex } from "rebass";
 import {
   CommentInfoFragment,
-  CreateCommentComponent,
   GetCommentsByIdQuery,
-  GetCommentsByIdVariables,
-  MeComponent
+  GetCommentsByIdVariables
 } from "../../components/apollo-components";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
-import { Flex } from "rebass";
-import { get } from "lodash";
-import { Link } from "../../server/routes";
 import { Avatar } from "../../components/common/Avatar";
-import { PostContextProps, PostContext } from "../../context/PostContext";
+import { useAuth } from "../../context/AuthContext";
+import { createCommentMutation } from "../../graphql/comment/mutation/createComment";
+import { createReplyMutation } from "../../graphql/comment/mutation/createReply";
+import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
+import { Link } from "../../server/routes";
+import { CommentForm } from "../post/shared/commentForm";
 
-interface EditorSubmitProps {
+export interface EditorSubmitProps {
   submitted: boolean;
   response?: CommentInfoFragment | void;
 }
 
-interface PostingReplyProps {
-  lineNum?: number;
+interface ReplyProps {
   onEditorSubmit: (T: EditorSubmitProps) => void;
-  view: "code-view" | "repo-view";
+  isReply: boolean;
+  commentId: string;
+  postingId: string;
 }
 
-export const CreatePostingReply = ({
+export const CreateReply = ({
   onEditorSubmit,
+  isReply,
+  commentId,
+  postingId,
   ...props
-}: PostingReplyProps): JSX.Element => {
-  const { postingId } = useContext<PostContextProps>(PostContext);
-  return (
-    <CreateCommentComponent>
-      {mutate => {
-        const submitForm = async ({
-          cancel,
-          text
-        }: TextEditorResult): Promise<void> => {
-          if (!cancel) {
-            // save result
-            const response = await mutate({
-              variables: {
-                comment: {
-                  postingId,
-                  text
-                }
-              },
-              update: (cache, { data }) => {
-                if (!data) {
-                  return;
-                }
+}: ReplyProps): JSX.Element => {
+  const { data: meData } = useAuth();
 
-                const x = cache.readQuery<
-                  GetCommentsByIdQuery,
-                  GetCommentsByIdVariables
-                >({
-                  query: getCommentsByIdQuery,
-                  variables: {
-                    input: { postingId }
-                  }
-                });
+  const [createComment, { data: commentData }] = useMutation(
+    createCommentMutation,
+    {
+      variables: { comment: { postingId, text } },
+      update: (cache, { data }) => {
+        if (!data) {
+          return;
+        }
 
-                cache.writeQuery<
-                  GetCommentsByIdQuery,
-                  GetCommentsByIdVariables
-                >({
-                  query: getCommentsByIdQuery,
-                  variables: {
-                    input: { postingId }
-                  },
-                  data: {
-                    __typename: "Query",
-                    findCommentsById: {
-                      __typename: "FindCommentResponse",
-                      comments: [
-                        data.createComment.comment,
-                        ...x!.findCommentsById.comments
-                      ],
-                      hasMore: false
-                    }
-                  }
-                });
-              }
-            });
-
-            onEditorSubmit({
-              submitted: true,
-              response:
-                response && response.data && response.data.createComment.comment
-            });
-          } else {
-            onEditorSubmit({ submitted: false });
+        const x = cache.readQuery<
+          GetCommentsByIdQuery,
+          GetCommentsByIdVariables
+        >({
+          query: getCommentsByIdQuery,
+          variables: {
+            input: { postingId }
           }
-        };
-        return (
-          <MeComponent variables={{ withBookmarks: false }}>
-            {({ data, loading }) => {
-              if (loading) {
-                return null;
-              }
+        });
 
-              let isLoggedIn = !!get(data, "me", false);
-
-              if (data && data.me && isLoggedIn) {
-                const { pictureUrl, username } = data!.me!;
-
-                return (
-                  <Flex my={15}>
-                    <span style={{ marginRight: 10 }}>
-                      <Link route={"profile"} params={{ username }}>
-                        <a style={{ cursor: "pointer" }}>
-                          <Avatar
-                            borderRadius={3}
-                            size={34}
-                            src={pictureUrl}
-                            alt="avatar"
-                          />
-                        </a>
-                      </Link>
-                    </span>
-                    <CommentForm
-                      {...props}
-                      isReply={true}
-                      submitForm={submitForm}
-                    />
-                  </Flex>
-                );
-              }
-
-              return null;
-            }}
-          </MeComponent>
-        );
-      }}
-    </CreateCommentComponent>
+        cache.writeQuery<GetCommentsByIdQuery, GetCommentsByIdVariables>({
+          query: getCommentsByIdQuery,
+          variables: {
+            input: { postingId }
+          },
+          data: {
+            __typename: "Query",
+            findCommentsById: {
+              __typename: "FindCommentResponse",
+              comments: [
+                data.createComment.comment,
+                ...x!.findCommentsById.comments
+              ],
+              hasMore: false
+            }
+          }
+        });
+      }
+    }
   );
+
+  const [createReply, { data: replyData }] = useMutation(createReplyMutation, {
+    variables: { reply: { commentId, text } },
+    update: (cache, { data }) => {
+      if (!data) {
+        return;
+      }
+
+      const x = cache.readFragment<any>({
+        id: `Comment:${commentId}`,
+        fragment: gql`
+          fragment Reply on Comment {
+            replies {
+              id
+              text
+            }
+          }
+        `
+      });
+
+      cache.writeFragment({
+        id: `Comment:${commentId}`,
+        fragment: gql`
+          fragment Reply on Comment {
+            __typename
+            replies {
+              id
+              text
+            }
+          }
+        `,
+        data: {
+          __typename: "Comment",
+          replies: [...x!.replies, data.createReply.reply]
+        }
+      });
+    }
+  });
+
+  if (meData) {
+    let isLoggedIn = !!get(meData, "me", false);
+
+    if (meData && meData.me && isLoggedIn) {
+      const { pictureUrl, username } = meData!.me!;
+
+      return (
+        <Flex my={15}>
+          <span style={{ marginRight: 10 }}>
+            <Link route={"profile"} params={{ username }}>
+              <a style={{ cursor: "pointer" }}>
+                <Avatar
+                  borderRadius={3}
+                  size={34}
+                  src={pictureUrl}
+                  alt="avatar"
+                />
+              </a>
+            </Link>
+          </span>
+          <CommentForm
+            {...props}
+            isReply={isReply}
+            onEditorSubmit={onEditorSubmit}
+            postingId={postingId}
+            commentId={commentId}
+            createReply={createReply}
+            createComment={createComment}
+            replyData={replyData}
+            commentData={commentData}
+          />
+        </Flex>
+      );
+    }
+  }
+  return <div />;
 };

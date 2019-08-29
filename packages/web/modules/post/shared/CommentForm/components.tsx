@@ -7,15 +7,11 @@ export const FormRow = styled.div`
 export const FormContainer = styled.form`
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-top: ${(p: { isReply: boolean; view: string }) =>
-    p.isReply ? "none" : "1px solid #d1d5da"};
-  border-bottom: ${p =>
-    p.view === "repo-view" ? "none" : "1px solid #d1d5da"};
   display: flex;
   flex-direction: column;
-  padding: ${(p: { isReply: boolean }) => (p.isReply ? "0" : "0 0.9rem")};
+  padding: 0px;
   &.is-open {
-    padding: ${(p: { isReply: boolean }) => (p.isReply ? "0" : "0.9rem")};
+    padding: 0px;
   }
   /* Tooltip text */
   .start-tooltip + .tooltiptext {

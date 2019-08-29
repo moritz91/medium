@@ -149,6 +149,30 @@ export type CreateCommentComment = {
 
 export type CreateCommentCreator = UserInfoFragment;
 
+export type CreateReplyVariables = {
+  reply: CreateReplyInput;
+};
+
+export type CreateReplyMutation = {
+  __typename?: "Mutation";
+
+  createReply: CreateReplyCreateReply;
+};
+
+export type CreateReplyCreateReply = {
+  __typename?: "ReplyResponse";
+
+  reply: CreateReplyReply;
+};
+
+export type CreateReplyReply = {
+  __typename?: "Reply";
+
+  creator: CreateReplyCreator;
+} & ReplyInfoFragment;
+
+export type CreateReplyCreator = UserInfoFragment;
+
 export type DeleteCommentVariables = {
   id: string;
 };
@@ -200,7 +224,7 @@ export type GetCommentsByIdComments = {
 
   hasReacted: boolean;
 
-  replies: GetCommentsByIdReplies[];
+  replies: Maybe<GetCommentsByIdReplies[]>;
 
   creator: GetCommentsByIdCreator;
 };
@@ -208,6 +232,32 @@ export type GetCommentsByIdComments = {
 export type GetCommentsByIdReplies = ReplyInfoFragment;
 
 export type GetCommentsByIdCreator = UserInfoFragment;
+
+export type GetRepliesByIdVariables = {
+  input: FindRepliesByIdInput;
+};
+
+export type GetRepliesByIdQuery = {
+  __typename?: "Query";
+
+  findRepliesById: GetRepliesByIdFindRepliesById;
+};
+
+export type GetRepliesByIdFindRepliesById = {
+  __typename?: "FindReplyResponse";
+
+  replies: GetRepliesByIdReplies[];
+
+  hasMore: boolean;
+};
+
+export type GetRepliesByIdReplies = {
+  __typename?: "Reply";
+
+  creator: GetRepliesByIdCreator;
+} & ReplyInfoFragment;
+
+export type GetRepliesByIdCreator = UserInfoFragment;
 
 export type AddBookmarkVariables = {
   postingId: string;
@@ -671,7 +721,7 @@ export type CommentInfoFragment = {
 
   creator: CommentInfoCreator;
 
-  replies: CommentInfoReplies[];
+  replies: Maybe<CommentInfoReplies[]>;
 
   createdAt: DateTime;
 };
@@ -689,15 +739,17 @@ export type ReplyInfoFragment = {
 
   creatorId: string;
 
-  isAuthor: Maybe<boolean>;
-
   numReactions: number;
 
   hasReacted: boolean;
 
-  creator: ReplyInfoCreator;
+  isAuthor: Maybe<boolean>;
 
   createdAt: DateTime;
+
+  commentId: string;
+
+  creator: ReplyInfoCreator;
 };
 
 export type ReplyInfoCreator = UserInfoFragment;
@@ -778,13 +830,14 @@ export const ReplyInfoFragmentDoc = gql`
     id
     text
     creatorId
-    isAuthor
     numReactions
     hasReacted
+    isAuthor
+    createdAt
+    commentId
     creator {
       ...UserInfo
     }
-    createdAt
   }
 
   ${UserInfoFragmentDoc}
@@ -900,6 +953,58 @@ export function CreateCommentHOC<TProps, TChildProps = any>(
     CreateCommentProps<TChildProps>
   >(CreateCommentDocument, operationOptions);
 }
+export const CreateReplyDocument = gql`
+  mutation createReply($reply: CreateReplyInput!) {
+    createReply(reply: $reply) {
+      reply {
+        ...ReplyInfo
+        creator {
+          ...UserInfo
+        }
+      }
+    }
+  }
+
+  ${ReplyInfoFragmentDoc}
+  ${UserInfoFragmentDoc}
+`;
+export class CreateReplyComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<CreateReplyMutation, CreateReplyVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<CreateReplyMutation, CreateReplyVariables>
+        mutation={CreateReplyDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreateReplyProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreateReplyMutation, CreateReplyVariables>
+> &
+  TChildProps;
+export type CreateReplyMutationFn = ReactApollo.MutationFn<
+  CreateReplyMutation,
+  CreateReplyVariables
+>;
+export function CreateReplyHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreateReplyMutation,
+        CreateReplyVariables,
+        CreateReplyProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreateReplyMutation,
+    CreateReplyVariables,
+    CreateReplyProps<TChildProps>
+  >(CreateReplyDocument, operationOptions);
+}
 export const DeleteCommentDocument = gql`
   mutation deleteComment($id: String!) {
     deleteCommentById(id: $id) {
@@ -1005,6 +1110,55 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
     GetCommentsByIdVariables,
     GetCommentsByIdProps<TChildProps>
   >(GetCommentsByIdDocument, operationOptions);
+}
+export const GetRepliesByIdDocument = gql`
+  query getRepliesById($input: FindRepliesByIdInput!) {
+    findRepliesById(input: $input) {
+      replies {
+        ...ReplyInfo
+        creator {
+          ...UserInfo
+        }
+      }
+      hasMore
+    }
+  }
+
+  ${ReplyInfoFragmentDoc}
+  ${UserInfoFragmentDoc}
+`;
+export class GetRepliesByIdComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetRepliesByIdQuery, GetRepliesByIdVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetRepliesByIdQuery, GetRepliesByIdVariables>
+        query={GetRepliesByIdDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetRepliesByIdProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetRepliesByIdQuery, GetRepliesByIdVariables>
+> &
+  TChildProps;
+export function GetRepliesByIdHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetRepliesByIdQuery,
+        GetRepliesByIdVariables,
+        GetRepliesByIdProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetRepliesByIdQuery,
+    GetRepliesByIdVariables,
+    GetRepliesByIdProps<TChildProps>
+  >(GetRepliesByIdDocument, operationOptions);
 }
 export const AddBookmarkDocument = gql`
   mutation addBookmark($postingId: String!) {
