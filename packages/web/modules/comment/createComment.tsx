@@ -97,22 +97,41 @@ export const CreateReply = ({
         `
       });
 
-      cache.writeFragment({
-        id: `Comment:${commentId}`,
-        fragment: gql`
-          fragment Reply on Comment {
-            __typename
-            replies {
-              id
-              text
+      if (x.replies) {
+        cache.writeFragment({
+          id: `Comment:${commentId}`,
+          fragment: gql`
+            fragment Reply on Comment {
+              __typename
+              replies {
+                id
+                text
+              }
             }
+          `,
+          data: {
+            __typename: "Comment",
+            replies: [...x!.replies, data.createReply.reply]
           }
-        `,
-        data: {
-          __typename: "Comment",
-          replies: [...x!.replies, data.createReply.reply]
-        }
-      });
+        });
+      } else {
+        cache.writeFragment({
+          id: `Comment:${commentId}`,
+          fragment: gql`
+            fragment Reply on Comment {
+              __typename
+              replies {
+                id
+                text
+              }
+            }
+          `,
+          data: {
+            __typename: "Comment",
+            replies: [data.createReply.reply]
+          }
+        });
+      }
     }
   });
 
