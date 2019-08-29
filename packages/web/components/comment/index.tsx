@@ -1,25 +1,25 @@
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import { distanceInWordsToNow } from "date-fns";
+import gql from "graphql-tag";
 import * as React from "react";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import styled, { css } from "styled-components";
-import { CopyLink } from "../../modules/comment/copyLink";
-import { DeleteComment } from "../../modules/comment/deleteComment";
-import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
-import { UserPopover } from "../../modules/user/shared/userPopover";
-import { Avatar } from "../common/Avatar";
-import { useEffect } from "react";
-import { FlyoutContextProps, FlyoutContext } from "../../context/FlyoutContext";
-import { useMutation, useApolloClient } from "@apollo/react-hooks";
+import { FlyoutContext, FlyoutContextProps } from "../../context/FlyoutContext";
+import { PostContext, PostContextProps } from "../../context/PostContext";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
-import { PostContext, PostContextProps } from "../../context/PostContext";
-import gql from "graphql-tag";
-import { Button } from "../button";
-import { ReplyInfoFragment, Maybe } from "../apollo-components";
-import { Reply } from "../reply";
-import { Link } from "../../server/routes";
+import { CopyLink } from "../../modules/comment/copyLink";
 import { CreateReply } from "../../modules/comment/createComment";
+import { DeleteComment } from "../../modules/comment/deleteComment";
+import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor/markdownRenderer";
+import { UserPopover } from "../../modules/user/shared/userPopover";
+import { Link } from "../../server/routes";
+import { Maybe, ReplyInfoFragment } from "../apollo-components";
+import { Button } from "../button";
+import { Avatar } from "../common/Avatar";
+import { Reply } from "../reply";
 
 interface CommentProps {
   id: string;
@@ -43,6 +43,7 @@ export const CommentContainer = styled.div<ContainerProps>`
   padding: 11px;
   margin: 1.6rem 0px 1rem 0px;
   border-radius: 3px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
 
   ${({ targetState, targetId, id }) =>
     targetId === id &&
@@ -147,105 +148,133 @@ export const Comment: React.FC<CommentProps> = ({
   const [replyInput, setReplyInput] = useState(false);
 
   return (
-    <CommentContainer
-      id={id}
-      ref={ref3}
-      targetId={state.targetId}
-      targetState={state.targetState}
-    >
-      <TopRow>
-        <UserAvatar>
-          <UserPopover id={id} username={username}>
-            <Link route={"profile"} params={{ username }}>
-              <a style={{ cursor: "pointer" }}>
-                <Avatar
-                  borderRadius={3}
-                  size={34}
-                  src={pictureUrl}
-                  alt="avatar"
-                  onMouseEnter={() => {
-                    dispatch({ type: "openPopover", id });
-                  }}
-                  onMouseLeave={() => {
-                    dispatch({ type: "closePopover" });
-                  }}
-                />
-              </a>
-            </Link>
-          </UserPopover>
-        </UserAvatar>
-        <Content>
-          <Flex alignItems="baseline">
-            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+    <div>
+      <CommentContainer
+        id={id}
+        ref={ref3}
+        targetId={state.targetId}
+        targetState={state.targetState}
+      >
+        <TopRow>
+          <UserAvatar>
+            <UserPopover id={id} username={username}>
               <Link route={"profile"} params={{ username }}>
-                <a>
-                  <Text fontWeight="bold" fontSize={4}>
-                    {username}
-                  </Text>
+                <a style={{ cursor: "pointer" }}>
+                  <Avatar
+                    borderRadius={3}
+                    size={34}
+                    src={pictureUrl}
+                    alt="avatar"
+                    onMouseEnter={() => {
+                      dispatch({ type: "openPopover", id });
+                    }}
+                    onMouseLeave={() => {
+                      dispatch({ type: "closePopover" });
+                    }}
+                  />
                 </a>
               </Link>
-            </Box>
-            <Box mb={2} mt={0} mr={0} ml={"0rem"}>
-              <Text>{dtString}</Text>
-            </Box>
-            <Actions style={{ display: "flex", marginLeft: "auto" }}>
-              <div>
-                <ActionsDropdown id={id}>
-                  {isAuthor && <DeleteComment commentId={id} />}
-                  <CopyLink commentId={id} />
-                </ActionsDropdown>
-              </div>
-            </Actions>
-          </Flex>
-          <Text lineHeight={1.58} mb="1rem" fontSize={4}>
-            {body}
-          </Text>
-          <div style={{ display: "flex" }}>
-            {reacted ? (
+            </UserPopover>
+          </UserAvatar>
+          <Content>
+            <Flex alignItems="baseline">
+              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+                <Link route={"profile"} params={{ username }}>
+                  <a>
+                    <Text fontWeight="bold" fontSize={4}>
+                      {username}
+                    </Text>
+                  </a>
+                </Link>
+              </Box>
+              <Box mb={2} mt={0} mr={0} ml={"0rem"}>
+                <Text>{dtString}</Text>
+              </Box>
+              <Actions style={{ display: "flex", marginLeft: "auto" }}>
+                <div>
+                  <ActionsDropdown id={id}>
+                    {isAuthor && <DeleteComment commentId={id} />}
+                    <CopyLink commentId={id} />
+                  </ActionsDropdown>
+                </div>
+              </Actions>
+            </Flex>
+            <Text lineHeight={1.58} mb="1rem" fontSize={4}>
+              {body}
+            </Text>
+            <div style={{ display: "flex" }}>
+              {reacted ? (
+                <Button
+                  variant="tag"
+                  style={{
+                    cursor: "pointer",
+                    color: "#5C6AC4",
+                    width: "100px"
+                  }}
+                  onClick={async () => {
+                    removeReaction();
+                  }}
+                >
+                  {numReactions == 1
+                    ? `${numReactions}` + " like"
+                    : `${numReactions}` + " likes"}
+                </Button>
+              ) : (
+                <Button
+                  variant="tag"
+                  style={{
+                    cursor: "pointer",
+                    width: "100px"
+                  }}
+                  onClick={() => addReaction()}
+                >
+                  {numReactions == 1
+                    ? `${numReactions}` + " like"
+                    : `${numReactions}` + " likes"}
+                </Button>
+              )}
               <Button
                 variant="tag"
+                onClick={() => setReplyInput(!replyInput)}
                 style={{
                   cursor: "pointer",
                   color: "#5C6AC4",
-                  width: "100px"
-                }}
-                onClick={async () => {
-                  removeReaction();
+                  width: "100px",
+                  marginLeft: "auto"
                 }}
               >
-                {numReactions == 1
-                  ? `${numReactions}` + " like"
-                  : `${numReactions}` + " likes"}
+                + Reply
               </Button>
-            ) : (
-              <Button
-                variant="tag"
-                style={{
-                  cursor: "pointer",
-                  width: "100px"
-                }}
-                onClick={() => addReaction()}
-              >
-                {numReactions == 1
-                  ? `${numReactions}` + " like"
-                  : `${numReactions}` + " likes"}
-              </Button>
-            )}
-            <Button
-              variant="tag"
-              onClick={() => setReplyInput(!replyInput)}
-              style={{
-                cursor: "pointer",
-                color: "#5C6AC4",
-                width: "100px",
-                marginLeft: "auto"
-              }}
-            >
-              + Reply
-            </Button>
-          </div>
-        </Content>
-      </TopRow>
+            </div>
+          </Content>
+        </TopRow>
+        {replies &&
+          replies.map(
+            (
+              {
+                id,
+                creator,
+                isAuthor,
+                text,
+                numReactions,
+                createdAt,
+                hasReacted
+              },
+              key
+            ) => (
+              <Reply
+                id={id}
+                key={key}
+                creator={creator}
+                isAuthor={isAuthor}
+                text={MarkdownRenderer({ text })}
+                numReactions={numReactions}
+                createdAt={createdAt}
+                hasReacted={hasReacted}
+              />
+            )
+          )}
+      </CommentContainer>
       {replyInput && (
         <CreateReply
           onEditorSubmit={() => {
@@ -256,32 +285,6 @@ export const Comment: React.FC<CommentProps> = ({
           postingId=""
         />
       )}
-      {replies &&
-        replies.map(
-          (
-            {
-              id,
-              creator,
-              isAuthor,
-              text,
-              numReactions,
-              createdAt,
-              hasReacted
-            },
-            key
-          ) => (
-            <Reply
-              id={id}
-              key={key}
-              creator={creator}
-              isAuthor={isAuthor}
-              text={text}
-              numReactions={numReactions}
-              createdAt={createdAt}
-              hasReacted={hasReacted}
-            />
-          )
-        )}
-    </CommentContainer>
+    </div>
   );
 };

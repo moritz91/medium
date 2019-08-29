@@ -19,7 +19,6 @@ import { ApolloError } from "apollo-server-core";
 import { CreateTopicInput, FindTopicsInput, UpdateTopicInput } from "./Input";
 import { TopicResponse, FindTopicResponse } from "./Response";
 import { User } from "../../entity/User";
-import { PostingRepository } from "../../repositories/PostRepo";
 import { SuccessResponse } from "../shared/Response";
 
 // const suffix = "Topic";
@@ -38,17 +37,10 @@ export const loadCreatorForTopic = loadCreatorResolver(Topic);
 export class TopicResolver {
   @InjectRepository(TopicRepository)
   private readonly topicRepo: TopicRepository;
-  @InjectRepository(PostingRepository)
-  private readonly postingRepo: PostingRepository;
 
   @FieldResolver(() => User)
   creator(@Root() root: any, @Ctx() ctx: MyContext) {
     return ctx.userLoader.load(root.creatorId);
-  }
-
-  @FieldResolver()
-  numPostings(@Root() root: Topic): Promise<number> {
-    return this.postingRepo.count({ where: { topicId: root.id } });
   }
 
   @Query(() => FindTopicResponse)

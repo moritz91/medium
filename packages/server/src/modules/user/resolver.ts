@@ -26,7 +26,7 @@ export class UserResolver {
   }
 
   @Query(() => User, { nullable: true })
-  async findUser(@Arg("username") username: string) {
+  async findUserByName(@Arg("username") username: string) {
     return User.findOne({ username });
   }
 

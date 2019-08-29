@@ -532,8 +532,6 @@ export type GetTopicByNameGetTopicByName = {
   name: string;
 
   shortCaption: Maybe<string>;
-
-  numPostings: number;
 };
 
 export type GetTopicsVariables = {
@@ -614,25 +612,25 @@ export type MeMe = {
 
 export type MeBookmarks = PostingInfoFragment;
 
-export type FindUserVariables = {
+export type FindUserByNameVariables = {
   username: string;
 };
 
-export type FindUserQuery = {
+export type FindUserByNameQuery = {
   __typename?: "Query";
 
-  findUser: Maybe<FindUserFindUser>;
+  findUserByName: Maybe<FindUserByNameFindUserByName>;
 };
 
-export type FindUserFindUser = {
+export type FindUserByNameFindUserByName = {
   __typename?: "User";
 
-  postings: FindUserPostings[];
+  postings: FindUserByNamePostings[];
 
-  comments: FindUserComments[];
+  comments: FindUserByNameComments[];
 } & UserInfoFragment;
 
-export type FindUserPostings = {
+export type FindUserByNamePostings = {
   __typename?: "Posting";
 
   id: string;
@@ -645,12 +643,12 @@ export type FindUserPostings = {
 
   numComments: number;
 
-  tags: Maybe<FindUserTags[]>;
+  tags: Maybe<FindUserByNameTags[]>;
 
-  creator: FindUserCreator;
+  creator: FindUserByNameCreator;
 };
 
-export type FindUserTags = {
+export type FindUserByNameTags = {
   __typename?: "Tag";
 
   id: string;
@@ -658,9 +656,9 @@ export type FindUserTags = {
   name: string;
 };
 
-export type FindUserCreator = UserInfoFragment;
+export type FindUserByNameCreator = UserInfoFragment;
 
-export type FindUserComments = {
+export type FindUserByNameComments = {
   __typename?: "Comment";
 
   id: string;
@@ -669,10 +667,10 @@ export type FindUserComments = {
 
   createdAt: DateTime;
 
-  creator: FindUser_Creator;
+  creator: FindUserByName_Creator;
 };
 
-export type FindUser_Creator = UserInfoFragment;
+export type FindUserByName_Creator = UserInfoFragment;
 
 export type FindUserCommentsVariables = {
   username: string;
@@ -681,10 +679,10 @@ export type FindUserCommentsVariables = {
 export type FindUserCommentsQuery = {
   __typename?: "Query";
 
-  findUser: Maybe<FindUserCommentsFindUser>;
+  findUserByName: Maybe<FindUserCommentsFindUserByName>;
 };
 
-export type FindUserCommentsFindUser = {
+export type FindUserCommentsFindUserByName = {
   __typename?: "User";
 
   id: string;
@@ -1767,7 +1765,6 @@ export const GetTopicByNameDocument = gql`
       id
       name
       shortCaption
-      numPostings
     }
   }
 `;
@@ -1982,9 +1979,9 @@ export function MeHOC<TProps, TChildProps = any>(
     MeProps<TChildProps>
   >(MeDocument, operationOptions);
 }
-export const FindUserDocument = gql`
-  query FindUser($username: String!) {
-    findUser(username: $username) {
+export const FindUserByNameDocument = gql`
+  query FindUserByName($username: String!) {
+    findUserByName(username: $username) {
       ...UserInfo
       postings {
         id
@@ -2013,42 +2010,42 @@ export const FindUserDocument = gql`
 
   ${UserInfoFragmentDoc}
 `;
-export class FindUserComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<FindUserQuery, FindUserVariables>>
+export class FindUserByNameComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindUserByNameQuery, FindUserByNameVariables>>
 > {
   render() {
     return (
-      <ReactApollo.Query<FindUserQuery, FindUserVariables>
-        query={FindUserDocument}
+      <ReactApollo.Query<FindUserByNameQuery, FindUserByNameVariables>
+        query={FindUserByNameDocument}
         {...(this as any)["props"] as any}
       />
     );
   }
 }
-export type FindUserProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<FindUserQuery, FindUserVariables>
+export type FindUserByNameProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUserByNameQuery, FindUserByNameVariables>
 > &
   TChildProps;
-export function FindUserHOC<TProps, TChildProps = any>(
+export function FindUserByNameHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
         TProps,
-        FindUserQuery,
-        FindUserVariables,
-        FindUserProps<TChildProps>
+        FindUserByNameQuery,
+        FindUserByNameVariables,
+        FindUserByNameProps<TChildProps>
       >
     | undefined
 ) {
   return ReactApollo.graphql<
     TProps,
-    FindUserQuery,
-    FindUserVariables,
-    FindUserProps<TChildProps>
-  >(FindUserDocument, operationOptions);
+    FindUserByNameQuery,
+    FindUserByNameVariables,
+    FindUserByNameProps<TChildProps>
+  >(FindUserByNameDocument, operationOptions);
 }
 export const FindUserCommentsDocument = gql`
   query FindUserComments($username: String!) {
-    findUser(username: $username) {
+    findUserByName(username: $username) {
       id
       comments {
         id

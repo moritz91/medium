@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import { Layout } from "../components/layout";
-import { findUserQuery } from "../graphql/user/query/user";
+import { findUserByNameQuery } from "../graphql/user/query/user";
 import {
   PostingInfoFragment,
   CommentInfoFragment
@@ -24,20 +24,20 @@ export default class Profile extends React.PureComponent<ProfileProps> {
     apolloClient
   }: NextContextWithApollo) {
     const response: any = await apolloClient.query({
-      query: findUserQuery,
+      query: findUserByNameQuery,
       variables: {
         username
       }
     });
 
-    const { findUser } = response.data;
+    const { findUserByName } = response.data;
 
     return {
       username,
-      pictureUrl: findUser!.pictureUrl,
-      createdAt: findUser!.createdAt,
-      postings: findUser!.postings,
-      comments: findUser!.comments
+      pictureUrl: findUserByName!.pictureUrl,
+      createdAt: findUserByName!.createdAt,
+      postings: findUserByName!.postings,
+      comments: findUserByName!.comments
     };
   }
 
