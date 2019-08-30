@@ -36,6 +36,10 @@ export class Posting extends BaseEntity {
   @Field(() => Int)
   numComments: number;
 
+  @Field(() => Boolean, { defaultValue: true })
+  @Column({ type: "boolean", nullable: true })
+  allowResponses: boolean;
+
   @Field(() => Int)
   numReactions: number;
 

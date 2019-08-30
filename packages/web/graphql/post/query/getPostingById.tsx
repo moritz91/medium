@@ -9,6 +9,7 @@ export const getPostingByIdQuery = gql`
       body
       createdAt
       readingTime
+      allowResponses
       isAuthor
       isBookmark
       hasReacted

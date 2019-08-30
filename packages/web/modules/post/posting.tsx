@@ -55,6 +55,7 @@ export const Posting = ({
   title,
   body,
   readingTime,
+  allowResponses,
   creator,
   creator: { username, pictureUrl },
   isAuthor,
@@ -287,103 +288,119 @@ export const Posting = ({
             <Box my="1.5rem">
               <Text fontSize={5}>Responses</Text>
             </Box>
-            <CreateReply
-              onEditorSubmit={() => {}}
-              postingId={postingId}
-              commentId=""
-              isReply={false}
-            />
-            <Box mt={20} style={{ display: "flex", flexDirection: "column" }}>
-              <GetCommentsByIdComponent variables={{ input: { postingId } }}>
-                {({ data, loading, fetchMore }) => {
-                  if (loading) {
-                    <div>Loading...</div>;
-                  }
-                  return (
-                    <>
-                      {data && data.findCommentsById && (
+            {allowResponses ? (
+              <div>
+                <CreateReply
+                  onEditorSubmit={() => {}}
+                  postingId={postingId}
+                  commentId=""
+                  isReply={false}
+                />
+                <Box
+                  mt={20}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <GetCommentsByIdComponent
+                    variables={{ input: { postingId } }}
+                  >
+                    {({ data, loading, fetchMore }) => {
+                      if (loading) {
+                        <div>Loading...</div>;
+                      }
+                      return (
                         <>
-                          {data.findCommentsById.comments.map(
-                            (
-                              {
-                                id,
-                                createdAt,
-                                creator,
-                                text,
-                                isAuthor,
-                                numReactions,
-                                hasReacted,
-                                replies
-                              },
-                              key: any
-                            ) => (
-                              <React.Fragment key={id}>
-                                <Comment
-                                  id={id}
-                                  key={key}
-                                  createdAt={createdAt}
-                                  creator={creator}
-                                  hasReacted={hasReacted}
-                                  isAuthor={isAuthor}
-                                  numReactions={numReactions}
-                                  body={MarkdownRenderer({ text })}
-                                  replies={replies}
-                                />
-                                {data.findCommentsById.hasMore &&
-                                  key ===
-                                    data.findCommentsById.comments.length -
-                                      4 && (
-                                    <Waypoint
-                                      onEnter={async () =>
-                                        await fetchMore({
-                                          query: getCommentsByIdQuery,
-                                          variables: {
-                                            input: {
-                                              postingId,
-                                              cursor:
-                                                data.findCommentsById.comments[
-                                                  data.findCommentsById.comments
-                                                    .length - 1
-                                                ].createdAt
-                                            }
-                                          },
-                                          updateQuery: (
-                                            prev: any,
-                                            { fetchMoreResult }: any
-                                          ) => {
-                                            if (!fetchMoreResult) {
-                                              return prev;
-                                            }
-                                            return {
-                                              findCommentsById: {
-                                                __typename:
-                                                  "FindCommentResponse",
-                                                comments: [
-                                                  ...prev.findCommentsById
-                                                    .comments,
-                                                  ...fetchMoreResult
-                                                    .findCommentsById.comments
-                                                ],
-                                                hasMore:
-                                                  fetchMoreResult
-                                                    .findCommentsById.hasMore
-                                              }
-                                            };
-                                          }
-                                        })
-                                      }
+                          {data && data.findCommentsById && (
+                            <>
+                              {data.findCommentsById.comments.map(
+                                (
+                                  {
+                                    id,
+                                    createdAt,
+                                    creator,
+                                    text,
+                                    isAuthor,
+                                    numReactions,
+                                    hasReacted,
+                                    replies
+                                  },
+                                  key: any
+                                ) => (
+                                  <React.Fragment key={id}>
+                                    <Comment
+                                      id={id}
+                                      key={key}
+                                      createdAt={createdAt}
+                                      creator={creator}
+                                      hasReacted={hasReacted}
+                                      isAuthor={isAuthor}
+                                      numReactions={numReactions}
+                                      body={MarkdownRenderer({ text })}
+                                      replies={replies}
                                     />
-                                  )}
-                              </React.Fragment>
-                            )
+                                    {data.findCommentsById.hasMore &&
+                                      key ===
+                                        data.findCommentsById.comments.length -
+                                          4 && (
+                                        <Waypoint
+                                          onEnter={async () =>
+                                            await fetchMore({
+                                              query: getCommentsByIdQuery,
+                                              variables: {
+                                                input: {
+                                                  postingId,
+                                                  cursor:
+                                                    data.findCommentsById
+                                                      .comments[
+                                                      data.findCommentsById
+                                                        .comments.length - 1
+                                                    ].createdAt
+                                                }
+                                              },
+                                              updateQuery: (
+                                                prev: any,
+                                                { fetchMoreResult }: any
+                                              ) => {
+                                                if (!fetchMoreResult) {
+                                                  return prev;
+                                                }
+                                                return {
+                                                  findCommentsById: {
+                                                    __typename:
+                                                      "FindCommentResponse",
+                                                    comments: [
+                                                      ...prev.findCommentsById
+                                                        .comments,
+                                                      ...fetchMoreResult
+                                                        .findCommentsById
+                                                        .comments
+                                                    ],
+                                                    hasMore:
+                                                      fetchMoreResult
+                                                        .findCommentsById
+                                                        .hasMore
+                                                  }
+                                                };
+                                              }
+                                            })
+                                          }
+                                        />
+                                      )}
+                                  </React.Fragment>
+                                )
+                              )}
+                            </>
                           )}
                         </>
-                      )}
-                    </>
-                  );
-                }}
-              </GetCommentsByIdComponent>
-            </Box>
+                      );
+                    }}
+                  </GetCommentsByIdComponent>
+                </Box>
+              </div>
+            ) : (
+              <Caption>
+                Responding to this post has been disabled by the author.
+              </Caption>
+            )}
           </Box>
         </FlyoutContext.Provider>
       </PostContext.Provider>
@@ -418,6 +435,7 @@ Posting.getInitialProps = async ({
     title: getPostingById!.title,
     body: getPostingById!.body,
     readingTime: getPostingById!.readingTime,
+    allowResponses: getPostingById!.allowResponses,
     creator: getPostingById!.creator,
     isAuthor: getPostingById!.isAuthor,
     isBookmark: getPostingById!.isBookmark,

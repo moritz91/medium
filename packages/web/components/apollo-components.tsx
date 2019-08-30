@@ -372,6 +372,8 @@ export type GetPostingByIdGetPostingById = {
 
   readingTime: number;
 
+  allowResponses: Maybe<boolean>;
+
   isAuthor: Maybe<boolean>;
 
   isBookmark: Maybe<boolean>;
@@ -1421,6 +1423,7 @@ export const GetPostingByIdDocument = gql`
       body
       createdAt
       readingTime
+      allowResponses
       isAuthor
       isBookmark
       hasReacted
