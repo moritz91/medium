@@ -33,17 +33,15 @@ export default class Topic extends React.PureComponent<TopicProps> {
     return {
       name,
       id: getTopicByName!.id,
-      shortCaption: getTopicByName!.shortCaption,
-      numPostings: getTopicByName!.numPostings
+      shortCaption: getTopicByName!.shortCaption
     };
   }
 
   render() {
-    const { name, shortCaption, id, numPostings } = this.props;
+    const { name, shortCaption, id } = this.props;
     const context: TopicContextProps = {
       name,
       shortCaption,
-      numPostings,
       topicId: id
     };
 
@@ -99,6 +97,7 @@ export default class Topic extends React.PureComponent<TopicProps> {
                                     previewImage={post.previewImage}
                                     title={post.title}
                                     body={post.body}
+                                    readingTime={post.readingTime}
                                     isBookmark={post.isBookmark}
                                     numComments={post.numComments}
                                     Link={Link}

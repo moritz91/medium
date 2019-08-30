@@ -54,6 +54,7 @@ export const Posting = ({
   previewSubtitle,
   title,
   body,
+  readingTime,
   creator,
   creator: { username, pictureUrl },
   isAuthor,
@@ -175,7 +176,8 @@ export const Posting = ({
                   {dtString} • {username} •
                   {numComments == 1
                     ? ` ${numComments}` + " response"
-                    : ` ${numComments}` + " responses"}
+                    : ` ${numComments}` + " responses"}{" "}
+                  • {readingTime < 1 ? "1" : Math.round(readingTime)} min read
                 </div>
                 <Text lineHeight={1.58} mb="2rem" fontSize={16}>
                   {previewSubtitle ? previewSubtitle : body}
@@ -415,6 +417,7 @@ Posting.getInitialProps = async ({
     previewImage: getPostingById!.previewImage,
     title: getPostingById!.title,
     body: getPostingById!.body,
+    readingTime: getPostingById!.readingTime,
     creator: getPostingById!.creator,
     isAuthor: getPostingById!.isAuthor,
     isBookmark: getPostingById!.isBookmark,

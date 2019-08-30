@@ -13,6 +13,7 @@ export const PostingInfoFragment = gql`
     isBookmark
     createdAt
     numComments
+    readingTime
     creator {
       ...UserInfo
     }

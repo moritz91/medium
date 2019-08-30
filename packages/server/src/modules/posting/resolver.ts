@@ -411,4 +411,12 @@ export class PostingResolver {
     }
     return false;
   }
+
+  @FieldResolver()
+  async readingTime(@Root() root: Posting): Promise<number> {
+    const wordCount = root.body.trim().split(/\s+/).length;
+    const readingTime = wordCount / 264;
+
+    return readingTime;
+  }
 }

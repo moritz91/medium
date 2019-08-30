@@ -354,6 +354,8 @@ export type GetPostingByIdGetPostingById = {
 
   createdAt: DateTime;
 
+  readingTime: number;
+
   isAuthor: Maybe<boolean>;
 
   isBookmark: Maybe<boolean>;
@@ -773,6 +775,8 @@ export type PostingInfoFragment = {
 
   numComments: number;
 
+  readingTime: number;
+
   creator: PostingInfoCreator;
 
   tags: Maybe<PostingInfoTags[]>;
@@ -881,6 +885,7 @@ export const PostingInfoFragmentDoc = gql`
     isBookmark
     createdAt
     numComments
+    readingTime
     creator {
       ...UserInfo
     }
@@ -1355,6 +1360,7 @@ export const GetPostingByIdDocument = gql`
       title
       body
       createdAt
+      readingTime
       isAuthor
       isBookmark
       hasReacted

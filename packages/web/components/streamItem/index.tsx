@@ -14,6 +14,7 @@ interface StreamItemProps {
   previewImage?: string | null;
   title: string;
   body: string;
+  readingTime: number;
   isBookmark: boolean | null;
   numComments: number;
   createdAt: string;
@@ -42,8 +43,9 @@ export const StreamItem: React.FC<StreamItemProps> = ({
   previewSubtitle,
   previewImage,
   title,
-  creator: { username },
   body,
+  readingTime,
+  creator: { username },
   isBookmark,
   numComments,
   getLinkProps,
@@ -126,7 +128,8 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                   {dtString} •
                   {numComments == 1
                     ? ` ${numComments}` + " response"
-                    : ` ${numComments}` + " responses"}
+                    : ` ${numComments}` + " responses"}{" "}
+                  • {readingTime < 1 ? "1" : Math.round(readingTime)} min read
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
