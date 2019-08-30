@@ -10,7 +10,7 @@ import { PostContext, PostContextProps } from "../../context/PostContext";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 import { CopyLink } from "../../modules/comment/copyLink";
-import { CreateReply } from "../../modules/comment/createComment";
+import { CreateReply } from "../../modules/comment/createResponse";
 import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor/markdownRenderer";

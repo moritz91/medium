@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import React, { useEffect, useRef } from "react";
 import * as yup from "yup";
 import { Button } from "../../../../components/button";
-import { EditorSubmitProps } from "../../../comment/createComment";
+import { EditorSubmitProps } from "../../../comment/createResponse";
 import { MarkdownEditor } from "../markdownEditor";
 import { FormContainer } from "./components";
 

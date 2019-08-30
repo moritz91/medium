@@ -189,6 +189,22 @@ export type DeleteCommentDeleteCommentById = {
   ok: boolean;
 };
 
+export type DeleteReplyVariables = {
+  id: string;
+};
+
+export type DeleteReplyMutation = {
+  __typename?: "Mutation";
+
+  deleteReplyById: Maybe<DeleteReplyDeleteReplyById>;
+};
+
+export type DeleteReplyDeleteReplyById = {
+  __typename?: "DeleteReplyResponse";
+
+  ok: boolean;
+};
+
 export type GetCommentsByIdVariables = {
   input: FindCommentsByIdInput;
 };
@@ -1053,6 +1069,50 @@ export function DeleteCommentHOC<TProps, TChildProps = any>(
     DeleteCommentVariables,
     DeleteCommentProps<TChildProps>
   >(DeleteCommentDocument, operationOptions);
+}
+export const DeleteReplyDocument = gql`
+  mutation deleteReply($id: String!) {
+    deleteReplyById(id: $id) {
+      ok
+    }
+  }
+`;
+export class DeleteReplyComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<DeleteReplyMutation, DeleteReplyVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeleteReplyMutation, DeleteReplyVariables>
+        mutation={DeleteReplyDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeleteReplyProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeleteReplyMutation, DeleteReplyVariables>
+> &
+  TChildProps;
+export type DeleteReplyMutationFn = ReactApollo.MutationFn<
+  DeleteReplyMutation,
+  DeleteReplyVariables
+>;
+export function DeleteReplyHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeleteReplyMutation,
+        DeleteReplyVariables,
+        DeleteReplyProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeleteReplyMutation,
+    DeleteReplyVariables,
+    DeleteReplyProps<TChildProps>
+  >(DeleteReplyDocument, operationOptions);
 }
 export const GetCommentsByIdDocument = gql`
   query getCommentsById($input: FindCommentsByIdInput!) {
