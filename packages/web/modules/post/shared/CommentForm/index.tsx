@@ -1,35 +1,34 @@
-import { Field, Formik } from "formik";
-import React, { useCallback, useEffect, useRef } from "react";
+import { Formik } from "formik";
+import React, { useEffect, useRef } from "react";
 import * as yup from "yup";
-import { CommentInputField } from "../../../shared/formik-fields/CommentInputField";
-import { MarkdownEditor } from "../markdownEditor";
-import { FormContainer, FormRow } from "./components";
-import { scrollToView } from "../../../../utils/domScrollUtils";
 import { Button } from "../../../../components/button";
+import { EditorSubmitProps } from "../../../comment/createResponse";
+import { MarkdownEditor } from "../markdownEditor";
+import { FormContainer } from "./components";
 
 export interface TextEditorProps {
+  onEditorSubmit: (T: EditorSubmitProps) => void;
+  postingId: string;
+  commentId: string;
   isReply: boolean;
   lineNum?: number;
-  submitForm: (props: TextEditorResult) => Promise<void>;
-  view: "code-view" | "repo-view";
+  createReply: any;
+  createComment: any;
+  replyData: any;
+  commentData: any;
 }
 
-export interface TextEditorResult {
-  cancel: boolean;
-  lineNum?: number;
-  title: string;
+export interface SubmitProps {
   text: string;
+  onEditorSubmit: (T: EditorSubmitProps) => void;
+  postingId: string;
+  commentId: string;
+  isReply: boolean;
+  createReply: any;
+  createComment: any;
+  replyData: any;
+  commentData: any;
 }
-
-const cleanSelectedLines = (
-  lineNum: number,
-  parentElm = document.querySelector(".code-content")
-): void => {
-  parentElm &&
-    parentElm
-      .querySelectorAll(`.is-selected-${lineNum}`)
-      .forEach(elm => elm.classList.remove(`is-selected-${lineNum}`));
-};
 
 const highlightSelectedLines = (
   lineNum: number,
@@ -43,20 +42,48 @@ const highlightSelectedLines = (
     );
 };
 
-const questionSchema = yup.object().shape({
-  title: yup.string().required(),
-  text: yup.string().required()
-});
-
 const replySchema = yup.object().shape({
   text: yup.string().required()
 });
 
+function onSubmit({
+  text,
+  isReply,
+  onEditorSubmit,
+  postingId,
+  commentId,
+  createReply,
+  createComment,
+  replyData,
+  commentData
+}: SubmitProps) {
+  // save result
+  if (isReply) createReply({ variables: { reply: { commentId, text } } });
+  else
+    createComment({
+      variables: { comment: { postingId, text } }
+    });
+
+  onEditorSubmit({
+    submitted: true,
+    response: postingId
+      ? commentData &&
+        commentData.data &&
+        commentData.data.createComment.comment
+      : replyData && replyData.data && replyData.data.createReply.reply
+  });
+}
+
 export const CommentForm = ({
   isReply,
   lineNum,
-  submitForm,
-  view
+  onEditorSubmit,
+  postingId,
+  commentId,
+  createComment,
+  createReply,
+  commentData,
+  replyData
 }: TextEditorProps): JSX.Element => {
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -71,65 +98,36 @@ export const CommentForm = ({
     if (formRef.current) {
       formRef.current.classList.add("is-open");
     }
-    if (view === "code-view" && formRef.current) {
-      scrollToView(formRef.current, 200);
-    }
-  }, []);
-
-  const onCancel = useCallback(() => {
-    if (lineNum) {
-      cleanSelectedLines(lineNum);
-    }
-    if (formRef.current) {
-      formRef.current.classList.remove("is-open");
-    }
-    setTimeout(() => {
-      submitForm({ cancel: true, text: "", title: "" });
-    }, 200);
   }, []);
 
   return (
     <Formik
-      validationSchema={isReply ? replySchema : questionSchema}
+      validationSchema={replySchema}
       initialValues={{
         title: "",
         text: ""
       }}
-      onSubmit={({ text, title }, { resetForm }) => {
+      onSubmit={({ text }) => {
         if (formRef.current) {
           formRef.current.classList.remove("is-open");
         }
-        submitForm({
-          cancel: false,
-          lineNum,
-          title: title.trim(),
-          text: text.trim()
+
+        onSubmit({
+          text,
+          onEditorSubmit,
+          postingId,
+          commentId,
+          isReply,
+          createComment,
+          createReply,
+          commentData,
+          replyData
         });
-        if (view === "repo-view") {
-          resetForm();
-        }
       }}
     >
       {({ isValid, handleSubmit, values, handleChange }) => {
         return (
-          <FormContainer
-            onSubmit={handleSubmit}
-            ref={formRef}
-            isReply={isReply}
-            view={view}
-            className={`${view === "code-view" ? "inner-animate-box" : ""}`}
-          >
-            {// show title only for posting
-            !isReply && (
-              <FormRow>
-                <Field
-                  component={CommentInputField}
-                  placeholder="Title"
-                  name="title"
-                  autoFocus={!isReply}
-                />
-              </FormRow>
-            )}
+          <FormContainer onSubmit={handleSubmit} ref={formRef} className={""}>
             <div className="editor-outer-box">
               <MarkdownEditor
                 isReply={isReply}
@@ -146,16 +144,6 @@ export const CommentForm = ({
                   Styling with Markdown is supported
                 </a>
                 <div className="btn-box">
-                  {view === "code-view" && (
-                    <Button
-                      type="button"
-                      variant="primary"
-                      className="btn"
-                      onClick={onCancel}
-                    >
-                      Cancel
-                    </Button>
-                  )}
                   <Button
                     type="submit"
                     variant="primary"

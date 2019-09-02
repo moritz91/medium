@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Manager, Popper, Reference } from "react-popper";
 import { Heading, Text } from "rebass";
 import styled from "styled-components";
-import { FindUserComponent } from "../../../components/apollo-components";
+import { FindUserByNameComponent } from "../../../components/apollo-components";
 import { Avatar } from "../../../components/common/Avatar";
 import { FlexRow, Flyout } from "../../../components/common/Flyout";
 import {
@@ -41,7 +41,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
   const { state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
-    <FindUserComponent variables={{ username }}>
+    <FindUserByNameComponent variables={{ username }}>
       {({ data, loading }) => {
         if (loading) {
           return null;
@@ -87,7 +87,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
                               <MetaDataTwo>
                                 <Avatar
                                   size={65}
-                                  src={data!.findUser!.pictureUrl}
+                                  src={data!.findUserByName!.pictureUrl}
                                   borderRadius={0}
                                 />
                               </MetaDataTwo>
@@ -104,6 +104,6 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
         }
         return null;
       }}
-    </FindUserComponent>
+    </FindUserByNameComponent>
   );
 };

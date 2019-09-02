@@ -68,6 +68,7 @@ export default class Posts extends React.Component<PostsProps> {
                     previewImage={post.previewImage}
                     title={post.title}
                     body={post.body}
+                    readingTime={post.readingTime}
                     numComments={post.numComments}
                     isBookmark={post.isBookmark}
                     Link={Link}

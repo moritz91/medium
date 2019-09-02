@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   OneToMany
 } from "typeorm";
-import { ObjectType, Field, ID, Int, Ctx } from "type-graphql";
+import { ObjectType, Field, ID, Int, Ctx, Float } from "type-graphql";
 import { User } from "./User";
 import { Comment } from "./Comment";
 import { Topic } from "./Topic";
@@ -36,8 +36,15 @@ export class Posting extends BaseEntity {
   @Field(() => Int)
   numComments: number;
 
+  @Field(() => Boolean, { defaultValue: true })
+  @Column({ type: "boolean", nullable: true })
+  allowResponses: boolean;
+
   @Field(() => Int)
   numReactions: number;
+
+  @Field(() => Float)
+  readingTime: number;
 
   @ManyToOne(() => Topic, p => p.postings, { onDelete: "CASCADE" })
   topic: Promise<Topic>;

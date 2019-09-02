@@ -1,7 +1,6 @@
 import { distanceInWordsToNow } from "date-fns";
 import { Box, Flex, Text } from "rebass";
 import { CopyLink } from "../../modules/comment/copyLink";
-import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
 import { Button } from "../button";
 import { Actions, Content, UserAvatar } from "../comment";
@@ -9,6 +8,7 @@ import { Avatar } from "../common/Avatar";
 import { useState } from "react";
 import { Link } from "../../server/routes";
 import styled from "styled-components";
+import { DeleteReply } from "../../modules/comment/deleteReply";
 
 export const ReplyTopRow = styled.div`
   display: grid;
@@ -70,7 +70,7 @@ export const Reply: React.FC<ReplyProps> = ({
           <Actions style={{ display: "flex", marginLeft: "auto" }}>
             <div>
               <ActionsDropdown id={id}>
-                {isAuthor && <DeleteComment commentId={id} />}
+                {isAuthor && <DeleteReply replyId={id} />}
                 <CopyLink commentId={id} />
               </ActionsDropdown>
             </div>

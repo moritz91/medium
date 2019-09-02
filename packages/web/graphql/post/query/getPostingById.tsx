@@ -8,6 +8,8 @@ export const getPostingByIdQuery = gql`
       title
       body
       createdAt
+      readingTime
+      allowResponses
       isAuthor
       isBookmark
       hasReacted

@@ -149,6 +149,30 @@ export type CreateCommentComment = {
 
 export type CreateCommentCreator = UserInfoFragment;
 
+export type CreateReplyVariables = {
+  reply: CreateReplyInput;
+};
+
+export type CreateReplyMutation = {
+  __typename?: "Mutation";
+
+  createReply: CreateReplyCreateReply;
+};
+
+export type CreateReplyCreateReply = {
+  __typename?: "ReplyResponse";
+
+  reply: CreateReplyReply;
+};
+
+export type CreateReplyReply = {
+  __typename?: "Reply";
+
+  creator: CreateReplyCreator;
+} & ReplyInfoFragment;
+
+export type CreateReplyCreator = UserInfoFragment;
+
 export type DeleteCommentVariables = {
   id: string;
 };
@@ -161,6 +185,22 @@ export type DeleteCommentMutation = {
 
 export type DeleteCommentDeleteCommentById = {
   __typename?: "DeleteCommentResponse";
+
+  ok: boolean;
+};
+
+export type DeleteReplyVariables = {
+  id: string;
+};
+
+export type DeleteReplyMutation = {
+  __typename?: "Mutation";
+
+  deleteReplyById: Maybe<DeleteReplyDeleteReplyById>;
+};
+
+export type DeleteReplyDeleteReplyById = {
+  __typename?: "DeleteReplyResponse";
 
   ok: boolean;
 };
@@ -200,7 +240,7 @@ export type GetCommentsByIdComments = {
 
   hasReacted: boolean;
 
-  replies: GetCommentsByIdReplies[];
+  replies: Maybe<GetCommentsByIdReplies[]>;
 
   creator: GetCommentsByIdCreator;
 };
@@ -208,6 +248,32 @@ export type GetCommentsByIdComments = {
 export type GetCommentsByIdReplies = ReplyInfoFragment;
 
 export type GetCommentsByIdCreator = UserInfoFragment;
+
+export type GetRepliesByIdVariables = {
+  input: FindRepliesByIdInput;
+};
+
+export type GetRepliesByIdQuery = {
+  __typename?: "Query";
+
+  findRepliesById: GetRepliesByIdFindRepliesById;
+};
+
+export type GetRepliesByIdFindRepliesById = {
+  __typename?: "FindReplyResponse";
+
+  replies: GetRepliesByIdReplies[];
+
+  hasMore: boolean;
+};
+
+export type GetRepliesByIdReplies = {
+  __typename?: "Reply";
+
+  creator: GetRepliesByIdCreator;
+} & ReplyInfoFragment;
+
+export type GetRepliesByIdCreator = UserInfoFragment;
 
 export type AddBookmarkVariables = {
   postingId: string;
@@ -303,6 +369,10 @@ export type GetPostingByIdGetPostingById = {
   body: string;
 
   createdAt: DateTime;
+
+  readingTime: number;
+
+  allowResponses: Maybe<boolean>;
 
   isAuthor: Maybe<boolean>;
 
@@ -482,8 +552,6 @@ export type GetTopicByNameGetTopicByName = {
   name: string;
 
   shortCaption: Maybe<string>;
-
-  numPostings: number;
 };
 
 export type GetTopicsVariables = {
@@ -564,25 +632,25 @@ export type MeMe = {
 
 export type MeBookmarks = PostingInfoFragment;
 
-export type FindUserVariables = {
+export type FindUserByNameVariables = {
   username: string;
 };
 
-export type FindUserQuery = {
+export type FindUserByNameQuery = {
   __typename?: "Query";
 
-  findUser: Maybe<FindUserFindUser>;
+  findUserByName: Maybe<FindUserByNameFindUserByName>;
 };
 
-export type FindUserFindUser = {
+export type FindUserByNameFindUserByName = {
   __typename?: "User";
 
-  postings: FindUserPostings[];
+  postings: FindUserByNamePostings[];
 
-  comments: FindUserComments[];
+  comments: FindUserByNameComments[];
 } & UserInfoFragment;
 
-export type FindUserPostings = {
+export type FindUserByNamePostings = {
   __typename?: "Posting";
 
   id: string;
@@ -595,12 +663,12 @@ export type FindUserPostings = {
 
   numComments: number;
 
-  tags: Maybe<FindUserTags[]>;
+  tags: Maybe<FindUserByNameTags[]>;
 
-  creator: FindUserCreator;
+  creator: FindUserByNameCreator;
 };
 
-export type FindUserTags = {
+export type FindUserByNameTags = {
   __typename?: "Tag";
 
   id: string;
@@ -608,9 +676,9 @@ export type FindUserTags = {
   name: string;
 };
 
-export type FindUserCreator = UserInfoFragment;
+export type FindUserByNameCreator = UserInfoFragment;
 
-export type FindUserComments = {
+export type FindUserByNameComments = {
   __typename?: "Comment";
 
   id: string;
@@ -619,10 +687,10 @@ export type FindUserComments = {
 
   createdAt: DateTime;
 
-  creator: FindUser_Creator;
+  creator: FindUserByName_Creator;
 };
 
-export type FindUser_Creator = UserInfoFragment;
+export type FindUserByName_Creator = UserInfoFragment;
 
 export type FindUserCommentsVariables = {
   username: string;
@@ -631,10 +699,10 @@ export type FindUserCommentsVariables = {
 export type FindUserCommentsQuery = {
   __typename?: "Query";
 
-  findUser: Maybe<FindUserCommentsFindUser>;
+  findUserByName: Maybe<FindUserCommentsFindUserByName>;
 };
 
-export type FindUserCommentsFindUser = {
+export type FindUserCommentsFindUserByName = {
   __typename?: "User";
 
   id: string;
@@ -671,7 +739,7 @@ export type CommentInfoFragment = {
 
   creator: CommentInfoCreator;
 
-  replies: CommentInfoReplies[];
+  replies: Maybe<CommentInfoReplies[]>;
 
   createdAt: DateTime;
 };
@@ -689,15 +757,17 @@ export type ReplyInfoFragment = {
 
   creatorId: string;
 
-  isAuthor: Maybe<boolean>;
-
   numReactions: number;
 
   hasReacted: boolean;
 
-  creator: ReplyInfoCreator;
+  isAuthor: Maybe<boolean>;
 
   createdAt: DateTime;
+
+  commentId: string;
+
+  creator: ReplyInfoCreator;
 };
 
 export type ReplyInfoCreator = UserInfoFragment;
@@ -722,6 +792,8 @@ export type PostingInfoFragment = {
   createdAt: DateTime;
 
   numComments: number;
+
+  readingTime: number;
 
   creator: PostingInfoCreator;
 
@@ -778,13 +850,14 @@ export const ReplyInfoFragmentDoc = gql`
     id
     text
     creatorId
-    isAuthor
     numReactions
     hasReacted
+    isAuthor
+    createdAt
+    commentId
     creator {
       ...UserInfo
     }
-    createdAt
   }
 
   ${UserInfoFragmentDoc}
@@ -830,6 +903,7 @@ export const PostingInfoFragmentDoc = gql`
     isBookmark
     createdAt
     numComments
+    readingTime
     creator {
       ...UserInfo
     }
@@ -900,6 +974,58 @@ export function CreateCommentHOC<TProps, TChildProps = any>(
     CreateCommentProps<TChildProps>
   >(CreateCommentDocument, operationOptions);
 }
+export const CreateReplyDocument = gql`
+  mutation createReply($reply: CreateReplyInput!) {
+    createReply(reply: $reply) {
+      reply {
+        ...ReplyInfo
+        creator {
+          ...UserInfo
+        }
+      }
+    }
+  }
+
+  ${ReplyInfoFragmentDoc}
+  ${UserInfoFragmentDoc}
+`;
+export class CreateReplyComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<CreateReplyMutation, CreateReplyVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<CreateReplyMutation, CreateReplyVariables>
+        mutation={CreateReplyDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type CreateReplyProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<CreateReplyMutation, CreateReplyVariables>
+> &
+  TChildProps;
+export type CreateReplyMutationFn = ReactApollo.MutationFn<
+  CreateReplyMutation,
+  CreateReplyVariables
+>;
+export function CreateReplyHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CreateReplyMutation,
+        CreateReplyVariables,
+        CreateReplyProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CreateReplyMutation,
+    CreateReplyVariables,
+    CreateReplyProps<TChildProps>
+  >(CreateReplyDocument, operationOptions);
+}
 export const DeleteCommentDocument = gql`
   mutation deleteComment($id: String!) {
     deleteCommentById(id: $id) {
@@ -945,6 +1071,50 @@ export function DeleteCommentHOC<TProps, TChildProps = any>(
     DeleteCommentVariables,
     DeleteCommentProps<TChildProps>
   >(DeleteCommentDocument, operationOptions);
+}
+export const DeleteReplyDocument = gql`
+  mutation deleteReply($id: String!) {
+    deleteReplyById(id: $id) {
+      ok
+    }
+  }
+`;
+export class DeleteReplyComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<DeleteReplyMutation, DeleteReplyVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeleteReplyMutation, DeleteReplyVariables>
+        mutation={DeleteReplyDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeleteReplyProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeleteReplyMutation, DeleteReplyVariables>
+> &
+  TChildProps;
+export type DeleteReplyMutationFn = ReactApollo.MutationFn<
+  DeleteReplyMutation,
+  DeleteReplyVariables
+>;
+export function DeleteReplyHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeleteReplyMutation,
+        DeleteReplyVariables,
+        DeleteReplyProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeleteReplyMutation,
+    DeleteReplyVariables,
+    DeleteReplyProps<TChildProps>
+  >(DeleteReplyDocument, operationOptions);
 }
 export const GetCommentsByIdDocument = gql`
   query getCommentsById($input: FindCommentsByIdInput!) {
@@ -1005,6 +1175,55 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
     GetCommentsByIdVariables,
     GetCommentsByIdProps<TChildProps>
   >(GetCommentsByIdDocument, operationOptions);
+}
+export const GetRepliesByIdDocument = gql`
+  query getRepliesById($input: FindRepliesByIdInput!) {
+    findRepliesById(input: $input) {
+      replies {
+        ...ReplyInfo
+        creator {
+          ...UserInfo
+        }
+      }
+      hasMore
+    }
+  }
+
+  ${ReplyInfoFragmentDoc}
+  ${UserInfoFragmentDoc}
+`;
+export class GetRepliesByIdComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetRepliesByIdQuery, GetRepliesByIdVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetRepliesByIdQuery, GetRepliesByIdVariables>
+        query={GetRepliesByIdDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetRepliesByIdProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetRepliesByIdQuery, GetRepliesByIdVariables>
+> &
+  TChildProps;
+export function GetRepliesByIdHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetRepliesByIdQuery,
+        GetRepliesByIdVariables,
+        GetRepliesByIdProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetRepliesByIdQuery,
+    GetRepliesByIdVariables,
+    GetRepliesByIdProps<TChildProps>
+  >(GetRepliesByIdDocument, operationOptions);
 }
 export const AddBookmarkDocument = gql`
   mutation addBookmark($postingId: String!) {
@@ -1203,6 +1422,8 @@ export const GetPostingByIdDocument = gql`
       title
       body
       createdAt
+      readingTime
+      allowResponses
       isAuthor
       isBookmark
       hasReacted
@@ -1613,7 +1834,6 @@ export const GetTopicByNameDocument = gql`
       id
       name
       shortCaption
-      numPostings
     }
   }
 `;
@@ -1828,9 +2048,9 @@ export function MeHOC<TProps, TChildProps = any>(
     MeProps<TChildProps>
   >(MeDocument, operationOptions);
 }
-export const FindUserDocument = gql`
-  query FindUser($username: String!) {
-    findUser(username: $username) {
+export const FindUserByNameDocument = gql`
+  query FindUserByName($username: String!) {
+    findUserByName(username: $username) {
       ...UserInfo
       postings {
         id
@@ -1859,42 +2079,42 @@ export const FindUserDocument = gql`
 
   ${UserInfoFragmentDoc}
 `;
-export class FindUserComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<FindUserQuery, FindUserVariables>>
+export class FindUserByNameComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindUserByNameQuery, FindUserByNameVariables>>
 > {
   render() {
     return (
-      <ReactApollo.Query<FindUserQuery, FindUserVariables>
-        query={FindUserDocument}
+      <ReactApollo.Query<FindUserByNameQuery, FindUserByNameVariables>
+        query={FindUserByNameDocument}
         {...(this as any)["props"] as any}
       />
     );
   }
 }
-export type FindUserProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<FindUserQuery, FindUserVariables>
+export type FindUserByNameProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUserByNameQuery, FindUserByNameVariables>
 > &
   TChildProps;
-export function FindUserHOC<TProps, TChildProps = any>(
+export function FindUserByNameHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
         TProps,
-        FindUserQuery,
-        FindUserVariables,
-        FindUserProps<TChildProps>
+        FindUserByNameQuery,
+        FindUserByNameVariables,
+        FindUserByNameProps<TChildProps>
       >
     | undefined
 ) {
   return ReactApollo.graphql<
     TProps,
-    FindUserQuery,
-    FindUserVariables,
-    FindUserProps<TChildProps>
-  >(FindUserDocument, operationOptions);
+    FindUserByNameQuery,
+    FindUserByNameVariables,
+    FindUserByNameProps<TChildProps>
+  >(FindUserByNameDocument, operationOptions);
 }
 export const FindUserCommentsDocument = gql`
   query FindUserComments($username: String!) {
-    findUser(username: $username) {
+    findUserByName(username: $username) {
       id
       comments {
         id

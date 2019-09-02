@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int, Ctx } from "type-graphql";
+import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import {
   BaseEntity,
   Entity,
@@ -30,9 +30,6 @@ export class Topic extends BaseEntity {
   @Field({ nullable: true })
   @Column({ type: "text", unique: true, nullable: true })
   pictureUrl: string;
-
-  @Field(() => Int)
-  numPostings: number;
 
   @Field(() => [Posting], { nullable: true })
   async postings(@Ctx() { postingTopicLoader }: MyContext): Promise<Posting[]> {

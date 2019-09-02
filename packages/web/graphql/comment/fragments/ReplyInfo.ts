@@ -6,13 +6,14 @@ export const ReplyInfoFragment = gql`
     id
     text
     creatorId
-    isAuthor
     numReactions
     hasReacted
+    isAuthor
+    createdAt
+    commentId
     creator {
       ...UserInfo
     }
-    createdAt
   }
   ${UserInfoFragment}
 `;

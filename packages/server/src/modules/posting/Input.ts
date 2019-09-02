@@ -17,6 +17,9 @@ export class CreatePostingInput implements Partial<Posting> {
 
   @Field({ nullable: true })
   body?: string;
+
+  @Field({ defaultValue: true })
+  allowResponses: boolean;
 }
 
 @InputType({ description: "Old posting data" })
