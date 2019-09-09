@@ -22,20 +22,20 @@ export interface EditorSubmitProps {
   response?: CommentInfoFragment | void;
 }
 
-interface ReplyProps {
+interface CreateResponseProps {
   onEditorSubmit: (T: EditorSubmitProps) => void;
   isReply: boolean;
   commentId: string;
   postingId: string;
 }
 
-export const CreateReply = ({
+export const CreateResponse = ({
   onEditorSubmit,
   isReply,
   commentId,
   postingId,
   ...props
-}: ReplyProps): JSX.Element => {
+}: CreateResponseProps): JSX.Element => {
   const { data: meData } = useAuth();
 
   const [createComment, { data: commentData }] = useMutation(

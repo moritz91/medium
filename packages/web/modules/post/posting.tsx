@@ -47,7 +47,7 @@ import { BookmarkPosting } from "./bookmarkPosting";
 import { useMutation } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
 import { removeReactionMutation } from "../../graphql/shared/removeReaction";
-import { CreateReply } from "../comment/createResponse";
+import { CreateResponse } from "../comment/createResponse";
 
 export const Posting = ({
   previewTitle,
@@ -290,7 +290,7 @@ export const Posting = ({
             </Box>
             {allowResponses ? (
               <div>
-                <CreateReply
+                <CreateResponse
                   onEditorSubmit={() => {}}
                   postingId={postingId}
                   commentId=""

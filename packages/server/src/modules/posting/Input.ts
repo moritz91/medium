@@ -12,7 +12,7 @@ export class CreatePostingInput implements Partial<Posting> {
   @Field({ nullable: true })
   previewImage?: string;
 
-  @Field()
+  @Field({ nullable: true })
   title: string;
 
   @Field({ nullable: true })
