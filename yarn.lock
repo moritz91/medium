@@ -7321,9 +7321,10 @@ markdown-table@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-1.1.2.tgz#c78db948fa879903a41bce522e3b96f801c63786"
 
-match-sorter@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/match-sorter/-/match-sorter-4.0.1.tgz#94197906dec723c8023517f99189e5fa662b1036"
+match-sorter@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/match-sorter/-/match-sorter-4.0.2.tgz#1b451e8bc7112e5a41ebe3a977b7e19f167c3215"
+  integrity sha512-5EcCLEmPgfvq2hg1DAgAG7zqqS9bnZmRXzLR3md0xRi3Q1oGnnze6HuY+4bDRtm+X2lTsVZL8oG9FOkALFT4vw==
   dependencies:
     "@babel/runtime" "^7.5.5"
     remove-accents "0.4.2"
