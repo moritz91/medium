@@ -68,7 +68,7 @@
     "@types/lodash.get": "4.4.6",
     "@types/next": "7.0.6",
     "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
+    "@types/react-dom": "16.9.3",
     "@typescript-eslint/eslint-plugin": "2.2.0",
     "@zeit/next-css": "1.0.1",
     "@zeit/next-typescript": "1.1.1",
