@@ -84,7 +84,7 @@
     "graphql-codegen-typescript-client": "0.16.0",
     "graphql-codegen-typescript-common": "0.16.0",
     "graphql-codegen-typescript-react-apollo": "0.16.0",
-    "next-images": "1.1.2",
+    "next-images": "1.2.0",
     "nodemon": "1.19.2",
     "ts-node": "7.0.1",
     "typescript": "3.6.4",
