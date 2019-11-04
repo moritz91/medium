@@ -26,7 +26,7 @@
     "apollo-link-context": "1.0.19",
     "cookie": "0.3.1",
     "cross-env": "5.2.1",
-    "downshift": "3.2.14",
+    "downshift": "3.4.1",
     "formik": "1.4.2",
     "github-markdown-css": "3.0.1",
     "hast-to-hyperscript": "7.0.2",
@@ -75,7 +75,7 @@
     "babel-loader": "8.0.6",
     "eslint": "6.3.0",
     "eslint-config-airbnb": "18.0.1",
-    "eslint-config-prettier": "6.2.0",
+    "eslint-config-prettier": "6.5.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.3",
@@ -87,7 +87,7 @@
     "next-images": "1.1.2",
     "nodemon": "1.19.2",
     "ts-node": "7.0.1",
-    "typescript": "3.6.2",
+    "typescript": "3.6.4",
     "url-loader": "1.1.2"
   },
   "resolutions": {

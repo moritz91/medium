@@ -4359,10 +4359,10 @@ dotenv@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.1.0.tgz#d811e178652bfb8a1e593c6dd704ec7e90d85ea2"
 
-downshift@3.2.14:
-  version "3.2.14"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.2.14.tgz#5ca9ebc1ce65141652cf9ae71e3528dc95bc74ee"
-  integrity sha512-1gdKK6CtvLnHtNN4FRvLzdhjIoga6NnpkDVNf0WIpnpkU1d0c+EkYzZQd9bJnPafGIbgQjNOrGYAv7r3biGVgg==
+downshift@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-3.4.1.tgz#2de8c4865181eb6762f70478ae8c15495b5df32b"
+  integrity sha512-VD0PjXpDVQH7bQd9vtRj/4KK4aS00O0SDGtKRauQ946nmP1UmmfOc6byG0Njd5wMDgRtEZiHXKYC7vXRZeI40w==
   dependencies:
     "@babel/runtime" "^7.4.5"
     compute-scroll-into-view "^1.0.9"
@@ -4552,10 +4552,10 @@ eslint-config-airbnb@18.0.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
-eslint-config-prettier@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.2.0.tgz#80e0b8714e3f6868c4ac2a25fbf39c02e73527a7"
-  integrity sha512-VLsgK/D+S/FEsda7Um1+N8FThec6LqE3vhcMyp8mlmto97y3fGf3DX7byJexGuOb1QY0Z/zz222U5t+xSfcZDQ==
+eslint-config-prettier@6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.5.0.tgz#aaf9a495e2a816865e541bfdbb73a65cc162b3eb"
+  integrity sha512-cjXp8SbO9VFGW/Z7mbTydqS9to8Z58E5aYhj3e1+Hx7lS9s6gL5ILKNpCqZAFOVYRcSkWPFYljHrEh8QFEK5EQ==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -10828,10 +10828,10 @@ typeorm@0.2.12:
     yargonaut "^1.1.2"
     yargs "^12.0.5"
 
-typescript@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.2.tgz#105b0f1934119dde543ac8eb71af3a91009efe54"
-  integrity sha512-lmQ4L+J6mnu3xweP8+rOrUwzmN+MRAj7TgtJtDaXE5PMyX2kCrklhg3rvOsOIfNeAWMQWO2F1GPc1kMD2vLAfw==
+typescript@3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
+  integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
 
 typescript@^3.2.2:
   version "3.2.2"
