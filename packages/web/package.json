@@ -61,8 +61,8 @@
     "use-events": "1.3.0"
   },
   "devDependencies": {
-    "@babel/core": "7.6.4",
-    "@babel/plugin-transform-react-jsx": "7.3.0",
+    "@babel/core": "7.7.0",
+    "@babel/plugin-transform-react-jsx": "7.7.0",
     "@types/cookie": "0.3.2",
     "@types/dom-clipboard-api": "1.0.1",
     "@types/lodash.get": "4.4.6",
