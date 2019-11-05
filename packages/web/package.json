@@ -29,7 +29,7 @@
     "downshift": "3.2.14",
     "formik": "1.4.2",
     "github-markdown-css": "3.0.1",
-    "hast-to-hyperscript": "7.0.2",
+    "hast-to-hyperscript": "7.0.3",
     "hast-util-sanitize": "2.0.1",
     "hotkeys-js": "3.7.2",
     "isomorphic-unfetch": "3.0.0",
