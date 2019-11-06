@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "cypress": "3.6.0",
-    "lerna": "3.10.7"
+    "lerna": "3.18.3"
   },
   "resolutions": {
     "graphql": "14.1.1"
