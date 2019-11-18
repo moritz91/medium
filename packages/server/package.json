@@ -21,7 +21,7 @@
     "argon2": "0.25.1",
     "connect-redis": "4.0.3",
     "cors": "2.8.5",
-    "dataloader": "1.4.0",
+    "dataloader": "2.0.0",
     "dotenv-safe": "8.1.0",
     "express": "4.16.4",
     "express-session": "1.17.0",
