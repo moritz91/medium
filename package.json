@@ -15,7 +15,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "3.6.0",
+    "cypress": "3.8.2",
     "lerna": "3.18.4"
   },
   "resolutions": {
