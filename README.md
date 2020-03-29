@@ -1,6 +1,18 @@
+<div align="center">
 <h1>medium</h1>
 
-<h5>This repository is a medium-like story-telling platform. It's open source. Suggestions and contributions are appreciated.</h5>
+<a href="https://www.joypixels.com/profiles/emoji/butterfly">
+  <img
+    height="80"
+    width="80"
+    alt="butterfly"
+    src="https://user-images.githubusercontent.com/4271921/76940653-f33a0500-68fa-11ea-9d28-56926e37f20a.png"
+  />
+</a>
+
+<p>This repository is a medium-like story-telling platform. It's open source. Suggestions and contributions are appreciated.</p>
+
+</div>
 
 ---
 
