@@ -10,5 +10,6 @@ dist
 storybook-static/
 cypress/
 
+.DS_Store
 cypress.json
 medium-2ed68760b511.json
