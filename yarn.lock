@@ -9066,14 +9066,14 @@ react-apollo@2.4.0:
     lodash.isequal "^4.5.0"
     prop-types "^15.6.0"
 
-react-dom@16.9.0:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+react-dom@0.0.0-d7382b6c4:
+  version "0.0.0-d7382b6c4"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-0.0.0-d7382b6c4.tgz#45ed7e6aa7dce26f9993b3a276536374f697ce1f"
+  integrity sha512-MUThsXBPQgF3d93BPjMjlsCmJvK14YmJ3ZzRUwUhtp2eDSAfsvcNxL9soS79X466RoOBVCe7DnoNJodT7to2DQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.15.0"
+    scheduler "0.0.0-d7382b6c4"
 
 react-error-overlay@4.0.0:
   version "4.0.0"
@@ -9715,9 +9715,10 @@ sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-scheduler@^0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+scheduler@0.0.0-d7382b6c4:
+  version "0.0.0-d7382b6c4"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.0.0-d7382b6c4.tgz#e95e54348672c0ad9cdc705ffd1b1622d598fc81"
+  integrity sha512-eBGEL2GmEpiwg1kHT4Yt/j5n/1V/RzQxlBvvkDIr8bQpIl7eSgvvSn4xLwfpKOtvQOMUlO7hyb8JQUrNzSeeeQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
