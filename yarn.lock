@@ -9134,13 +9134,13 @@ react-waypoint@9.0.2:
     prop-types "^15.0.0"
     react-is "^16.6.3"
 
-react@16.9.0:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+react@0.0.0-d7382b6c4:
+  version "0.0.0-d7382b6c4"
+  resolved "https://registry.yarnpkg.com/react/-/react-0.0.0-d7382b6c4.tgz#332f23a767144a7be261ff92b5537238d79a2d40"
+  integrity sha512-cA0aW/k5CPPk1abKbQ9xZzbKxcvbYA2KxI8eopQifvW8+r9l0zS3m/2pXPauEJ6UmJw2ASr0WH7qjleOegCi/g==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-cmd-shim@^1.0.1:
   version "1.0.1"
