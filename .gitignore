@@ -12,12 +12,13 @@ cypress/
 
 .env
 .env.prod
-.dockerignore
-.prettierignore
-.prettierrc
 .DS_Store
+.yarnclean
+.prettierrc
 .eslintcache
 .eslintrc.js
-.yarnclean
+.dockerignore
+.prettierignore
+tsconfig.tsbuildinfo
 cypress.json
 medium-2ed68760b511.json
