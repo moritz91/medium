@@ -14,13 +14,13 @@ import {
   Comment,
   Content,
   TopRow,
-  UserAvatar
+  UserAvatar,
 } from "../../components/comment/";
 import { Avatar } from "../../components/common/Avatar";
 import {
   Caption,
   StoryFooterUsername,
-  StoryHeading
+  StoryHeading,
 } from "../../components/heading";
 import { Icon } from "../../components/icon";
 import { Layout } from "../../components/layout";
@@ -29,7 +29,7 @@ import {
   StoryFooter,
   StoryMetaOptions,
   StoryPerformance,
-  StoryTags
+  StoryTags,
 } from "../../components/story";
 import { FlyoutContext, FlyoutContextProps } from "../../context/FlyoutContext";
 import { PostContext, PostContextProps } from "../../context/PostContext";
@@ -40,8 +40,8 @@ import { postingReducer } from "../../reducers/postingReducer";
 import { Link } from "../../server/routes";
 import { NextContextWithApollo } from "../../types/NextContextWithApollo";
 import { UserPopover } from "../user/shared/userPopover";
-import { DeletePosting } from "./deletePosting";
-import { ActionsDropdown } from "./shared/actionsDropdown";
+import { DeletePosting } from "./DeletePosting";
+import { ActionsDropdown } from "./shared/ActionsDropdown";
 import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
 import { BookmarkPosting } from "./bookmarkPosting";
 import { useMutation } from "@apollo/react-hooks";
@@ -65,7 +65,7 @@ export const Posting = ({
   createdAt,
   numComments,
   numReactions,
-  tags
+  tags,
 }: any): JSX.Element => {
   const [state, dispatch] = useReducer(postingReducer, {
     flyoutId: "",
@@ -76,12 +76,12 @@ export const Posting = ({
     targetState: false,
     ref1: { current: null },
     ref2: { current: null },
-    ref3: { current: null }
+    ref3: { current: null },
   });
 
   useClickOutside([state.ref1, state.ref2], () => {
     dispatch({
-      type: "closeFlyout"
+      type: "closeFlyout",
     });
   });
 
@@ -90,7 +90,7 @@ export const Posting = ({
     const formatted = format({ pathname, query });
     Router.push(formatted, `${query!.id}`, { shallow: true });
     dispatch({
-      type: "untargetComment"
+      type: "untargetComment",
     });
   });
 
@@ -99,7 +99,7 @@ export const Posting = ({
     if (includes(asPath, "#")) {
       dispatch({
         type: "targetComment",
-        id: asPath!.split("#").pop()
+        id: asPath!.split("#").pop(),
       });
     }
   }, [dispatch]);
@@ -107,12 +107,12 @@ export const Posting = ({
   const PostCtx: PostContextProps = {
     title,
     creator,
-    postingId
+    postingId,
   };
 
   const FlyoutCtx: FlyoutContextProps = {
     dispatch,
-    state
+    state,
   };
 
   const [addReaction] = useMutation(addReactionMutation, {
@@ -121,8 +121,8 @@ export const Posting = ({
       setReacted(!reacted);
     },
     refetchQueries: [
-      { query: getPostingByIdQuery, variables: { id: postingId } }
-    ]
+      { query: getPostingByIdQuery, variables: { id: postingId } },
+    ],
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
     variables: { postingId },
@@ -130,11 +130,11 @@ export const Posting = ({
       setReacted(!reacted);
     },
     refetchQueries: [
-      { query: getPostingByIdQuery, variables: { id: postingId } }
+      { query: getPostingByIdQuery, variables: { id: postingId } },
     ],
-    awaitRefetchQueries: true
+    awaitRefetchQueries: true,
   });
-  const dtString = formatDate(Date.parse(createdAt), "MMM D");
+  const dtString = formatDate(Date.parse(createdAt), "MMM d");
   const [reacted, setReacted] = useState(hasReacted);
 
   return (
@@ -160,7 +160,7 @@ export const Posting = ({
                             onClick={() =>
                               Router.push(
                                 `/p?id=${postingId}/edit`,
-                                `/p/${postingId}/edit`
+                                `/p/${postingId}/edit`,
                               )
                             }
                           >
@@ -191,7 +191,7 @@ export const Posting = ({
               display: "flex",
               flexDirection: "column",
               alignSelf: "center",
-              width: 728
+              width: 728,
             }}
           >
             <StoryTags>
@@ -209,7 +209,7 @@ export const Posting = ({
                     style={{
                       cursor: "pointer",
                       color: "#5C6AC4",
-                      width: "100px"
+                      width: "100px",
                     }}
                     onClick={() => removeReaction()}
                   >
@@ -223,7 +223,7 @@ export const Posting = ({
                     style={{
                       cursor: "pointer",
                       color: "rgba(0,0,0,0.5)",
-                      width: "100px"
+                      width: "100px",
                     }}
                     onClick={() => addReaction()}
                   >
@@ -321,9 +321,9 @@ export const Posting = ({
                                     isAuthor,
                                     numReactions,
                                     hasReacted,
-                                    replies
+                                    replies,
                                   },
-                                  key: any
+                                  key: any,
                                 ) => (
                                   <React.Fragment key={id}>
                                     <Comment
@@ -353,12 +353,12 @@ export const Posting = ({
                                                       .comments[
                                                       data.findCommentsById
                                                         .comments.length - 1
-                                                    ].createdAt
-                                                }
+                                                    ].createdAt,
+                                                },
                                               },
                                               updateQuery: (
                                                 prev: any,
-                                                { fetchMoreResult }: any
+                                                { fetchMoreResult }: any,
                                               ) => {
                                                 if (!fetchMoreResult) {
                                                   return prev;
@@ -372,21 +372,21 @@ export const Posting = ({
                                                         .comments,
                                                       ...fetchMoreResult
                                                         .findCommentsById
-                                                        .comments
+                                                        .comments,
                                                     ],
                                                     hasMore:
                                                       fetchMoreResult
                                                         .findCommentsById
-                                                        .hasMore
-                                                  }
+                                                        .hasMore,
+                                                  },
                                                 };
-                                              }
+                                              },
                                             })
                                           }
                                         />
                                       )}
                                   </React.Fragment>
-                                )
+                                ),
                               )}
                             </>
                           )}
@@ -416,8 +416,8 @@ Posting.getInitialProps = async ({
   const response: any = await apolloClient.query({
     query: getPostingByIdQuery,
     variables: {
-      id
-    }
+      id,
+    },
   });
 
   const { getPostingById } = response.data;
@@ -443,6 +443,6 @@ Posting.getInitialProps = async ({
     numReactions: getPostingById!.numReactions,
     numComments: getPostingById!.numComments,
     createdAt: getPostingById!.createdAt,
-    tags: getPostingById!.tags
+    tags: getPostingById!.tags,
   };
 };

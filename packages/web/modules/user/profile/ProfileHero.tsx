@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Avatar } from "../../../components/common/Avatar";
 import { useContext } from "react";
 import { Caption } from "../../../components/heading";
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { PostsContextProps, PostsContext } from "../../../context/PostContext";
 
 const Header = styled.header`
@@ -139,11 +139,11 @@ const Username = styled.h1`
 
 export function ProfileHero() {
   const { pictureUrl, username, createdAt } = useContext<PostsContextProps>(
-    PostsContext
+    PostsContext,
   );
 
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: false
+  const dtString = formatDistanceToNow(Date.parse(createdAt), {
+    addSuffix: false,
   });
 
   return (

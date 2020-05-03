@@ -4,12 +4,20 @@ node_modules/
 build/
 tmp/
 temp/
+charts
 dist
 .next
-.env
 storybook-static/
 cypress/
 
+.env
+.env.prod
+.dockerignore
+.prettierignore
+.prettierrc
 .DS_Store
+.eslintcache
+.eslintrc.js
+.yarnclean
 cypress.json
 medium-2ed68760b511.json

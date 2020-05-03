@@ -1,17 +1,17 @@
 import React from "react";
 import cookie from "cookie";
 import PropTypes from "prop-types";
-import { getDataFromTree } from "react-apollo";
 import Head from "next/head";
 
 import initApollo from "./init-apollo";
 import { isBrowser } from "./isBrowser";
 import { NormalizedCacheObject, ApolloClient } from "apollo-boost";
+import { getDataFromTree } from "react-apollo";
 
 function parseCookies(req?: any, options = {}) {
   return cookie.parse(
     req ? req.headers.cookie || "" : document.cookie,
-    options
+    options,
   );
 }
 
@@ -19,20 +19,20 @@ export default (App: any) => {
   return class WithData extends React.Component {
     static displayName = `WithData(${App.displayName})`;
     static propTypes = {
-      apolloState: PropTypes.object.isRequired
+      apolloState: PropTypes.object.isRequired,
     };
 
     static async getInitialProps(ctx: any) {
       const {
         Component,
         router,
-        ctx: { req, res }
+        ctx: { req, res },
       } = ctx;
       const apollo = initApollo(
         {},
         {
-          getToken: () => parseCookies(req).qid
-        }
+          getToken: () => parseCookies(req).qid,
+        },
       );
 
       ctx.ctx.apolloClient = apollo;
@@ -59,7 +59,7 @@ export default (App: any) => {
               Component={Component}
               router={router}
               apolloClient={apollo}
-            />
+            />,
           );
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -78,7 +78,7 @@ export default (App: any) => {
 
       return {
         ...appProps,
-        apolloState
+        apolloState,
       };
     }
 
@@ -91,7 +91,7 @@ export default (App: any) => {
       this.apolloClient = initApollo(props.apolloState, {
         getToken: () => {
           return parseCookies().qid;
-        }
+        },
       });
     }
 

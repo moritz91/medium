@@ -14,7 +14,7 @@ interface BookmarkPostingProps {
 
 export const BookmarkPosting = ({
   postingId,
-  isBookmark
+  isBookmark,
 }: BookmarkPostingProps) => {
   const [addBookmark] = useMutation(addBookmarkMutation);
   const [removeBookmark] = useMutation(removeBookmarkMutation);

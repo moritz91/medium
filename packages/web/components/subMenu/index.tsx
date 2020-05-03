@@ -8,6 +8,11 @@ import { Menu, UserDataAvatarHalo } from "../menu";
 import { Avatar } from "../common/Avatar";
 import { Icon } from "../icon";
 import { useAuth } from "../../context/AuthContext";
+import getConfig from "next/config";
+
+const {
+  publicRuntimeConfig: { BACKEND_URI },
+} = getConfig();
 
 const Container = styled(Flex)`
   flex: 0 0 auto;
@@ -57,7 +62,7 @@ export const SubMenu = (): JSX.Element => {
               ["Profile", "/profile"],
               ["Settings", "/settings"],
               ["Help", "/help"],
-              ["Sign Out", "/logout"]
+              ["Sign Out", "/logout"],
             ]}
             renderOption={({ Anchor, optionLink, key }) => (
               <ListOption key={key}>
@@ -69,7 +74,7 @@ export const SubMenu = (): JSX.Element => {
             <div
               style={{
                 display: "flex",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               <Avatar
@@ -104,7 +109,7 @@ export const SubMenu = (): JSX.Element => {
 
   return (
     <div>
-      <a href="http://localhost:4000/auth/github">
+      <a href={"http://" + BACKEND_URI + "/auth/github"}>
         <Button variant="primary">Login</Button>
       </a>
     </div>

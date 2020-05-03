@@ -1,4 +1,4 @@
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import * as React from "react";
 import { Text, Heading } from "rebass";
 import styled from "styled-components";
@@ -35,11 +35,11 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
   getLinkProps,
   Link,
   createdAt,
-  tags
+  tags,
 }) => {
   const linkProps = getLinkProps();
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: true
+  const dtString = formatDistanceToNow(Date.parse(createdAt), {
+    addSuffix: true,
   });
   return (
     <FeaturedStoryContainer>
@@ -91,18 +91,18 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
             style={{
               display: "flex",
               justifyContent: "space-between",
-              width: "100%"
+              width: "100%",
             }}
           >
             <div
               style={{
                 display: "block",
-                flex: "1 1 auto"
+                flex: "1 1 auto",
               }}
             >
               <div
                 style={{
-                  display: "flex"
+                  display: "flex",
                 }}
               >
                 <Link route={"profile"} params={{ username }}>
@@ -112,7 +112,7 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
               <span
                 style={{
                   display: "block",
-                  color: "rgba(0, 0, 0, 0.54)"
+                  color: "rgba(0, 0, 0, 0.54)",
                 }}
               >
                 {dtString} •

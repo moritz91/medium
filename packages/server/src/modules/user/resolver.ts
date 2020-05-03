@@ -5,7 +5,7 @@ import {
   UseMiddleware,
   Mutation,
   Arg,
-  Authorized
+  Authorized,
 } from "type-graphql";
 import { User } from "../../entity/User";
 import { isAuth } from "../middleware/isAuth";
@@ -17,10 +17,7 @@ export class UserResolver {
 
   @UseMiddleware(isAuth)
   @Query(() => User, { nullable: true })
-  async me(
-    @Ctx()
-    ctx: MyContext
-  ) {
+  async me(@Ctx() ctx: MyContext) {
     const { userId } = ctx.req.session!;
     return userId ? User.findOne(userId) : null;
   }
@@ -34,7 +31,7 @@ export class UserResolver {
   @Authorized()
   async logout(@Ctx() ctx: MyContext) {
     return new Promise((res, rej) =>
-      ctx.req.session!.destroy(err => {
+      ctx.req.session!.destroy((err) => {
         if (err) {
           console.log(err);
           return rej(false);
@@ -42,7 +39,7 @@ export class UserResolver {
 
         ctx.res.clearCookie("qid");
         return res(true);
-      })
+      }),
     );
   }
 }

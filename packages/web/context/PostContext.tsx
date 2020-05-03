@@ -55,7 +55,8 @@ export const PostsContext = createContext<PostsContextProps>({
       previewTitle: "",
       previewSubtitle: "",
       previewImage: "",
-      isBookmark: false
+      isBookmark: false,
+      readingTime: 0
     }
   ],
   username: "",

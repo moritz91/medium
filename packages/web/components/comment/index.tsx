@@ -1,5 +1,5 @@
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import gql from "graphql-tag";
 import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -12,7 +12,7 @@ import { removeReactionMutation } from "../../graphql/shared/removeReaction";
 import { CopyLink } from "../../modules/comment/copyLink";
 import { CreateResponse } from "../../modules/comment/createResponse";
 import { DeleteComment } from "../../modules/comment/deleteComment";
-import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { ActionsDropdown } from "../../modules/post/shared/ActionsDropdown";
 import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor/markdownRenderer";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Link } from "../../server/routes";
@@ -86,10 +86,10 @@ export const Comment: React.FC<CommentProps> = ({
   numReactions,
   hasReacted,
   createdAt,
-  replies
+  replies,
 }) => {
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: true
+  const dtString = formatDistanceToNow(Date.parse(createdAt), {
+    addSuffix: true,
   });
 
   const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
@@ -118,11 +118,11 @@ export const Comment: React.FC<CommentProps> = ({
         `,
         data: {
           __typename: "Comment",
-          numReactions: numReactions + 1
+          numReactions: numReactions + 1,
         },
-        variables: { input: { postingId } }
+        variables: { input: { postingId } },
       });
-    }
+    },
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
     variables: { commentId: id },
@@ -138,11 +138,11 @@ export const Comment: React.FC<CommentProps> = ({
         `,
         data: {
           __typename: "Comment",
-          numReactions: numReactions - 1
+          numReactions: numReactions - 1,
         },
-        variables: { input: { postingId } }
+        variables: { input: { postingId } },
       });
-    }
+    },
   });
   const [reacted, setReacted] = useState(hasReacted);
   const [replyInput, setReplyInput] = useState(false);
@@ -209,7 +209,7 @@ export const Comment: React.FC<CommentProps> = ({
                   style={{
                     cursor: "pointer",
                     color: "#5C6AC4",
-                    width: "100px"
+                    width: "100px",
                   }}
                   onClick={async () => {
                     removeReaction();
@@ -224,7 +224,7 @@ export const Comment: React.FC<CommentProps> = ({
                   variant="tag"
                   style={{
                     cursor: "pointer",
-                    width: "100px"
+                    width: "100px",
                   }}
                   onClick={() => addReaction()}
                 >
@@ -240,7 +240,7 @@ export const Comment: React.FC<CommentProps> = ({
                   cursor: "pointer",
                   color: "#5C6AC4",
                   width: "100px",
-                  marginLeft: "auto"
+                  marginLeft: "auto",
                 }}
               >
                 + Reply
@@ -258,9 +258,9 @@ export const Comment: React.FC<CommentProps> = ({
                 text,
                 numReactions,
                 createdAt,
-                hasReacted
+                hasReacted,
               },
-              key
+              key,
             ) => (
               <Reply
                 id={id}
@@ -272,7 +272,7 @@ export const Comment: React.FC<CommentProps> = ({
                 createdAt={createdAt}
                 hasReacted={hasReacted}
               />
-            )
+            ),
           )}
       </CommentContainer>
       {replyInput && (

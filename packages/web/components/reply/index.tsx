@@ -1,7 +1,7 @@
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { Box, Flex, Text } from "rebass";
 import { CopyLink } from "../../modules/comment/copyLink";
-import { ActionsDropdown } from "../../modules/post/shared/actionsDropdown";
+import { ActionsDropdown } from "../../modules/post/shared/ActionsDropdown";
 import { Button } from "../button";
 import { Actions, Content, UserAvatar } from "../comment";
 import { Avatar } from "../common/Avatar";
@@ -38,10 +38,10 @@ export const Reply: React.FC<ReplyProps> = ({
   text,
   numReactions,
   createdAt,
-  hasReacted
+  hasReacted,
 }) => {
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: true
+  const dtString = formatDistanceToNow(Date.parse(createdAt), {
+    addSuffix: true,
   });
   const [reacted, setReacted] = useState(hasReacted);
   return (
@@ -86,7 +86,7 @@ export const Reply: React.FC<ReplyProps> = ({
               style={{
                 cursor: "pointer",
                 color: "#5C6AC4",
-                width: "100px"
+                width: "100px",
               }}
             >
               {numReactions == 1
@@ -98,7 +98,7 @@ export const Reply: React.FC<ReplyProps> = ({
               variant="tag"
               style={{
                 cursor: "pointer",
-                width: "100px"
+                width: "100px",
               }}
             >
               {numReactions == 1

@@ -1,0 +1,50 @@
+version: "3.3"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./packages/server/Dockerfile
+    expose:
+      - 4000
+    volumes:
+      - ~/Library/Caches/Yarn/v6:/yarn
+    depends_on:
+      - postgresql
+      - redis
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./packages/web/Dockerfile
+    expose:
+      - 3000
+    volumes:
+      - ~/Library/Caches/Yarn/v6:/yarn
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8080:80
+      - 443:443
+    depends_on:
+      - backend
+      - frontend
+
+  redis:
+    image: redis:alpine
+    expose:
+      - 6379
+
+  postgresql:
+    image: postgres
+    expose:
+      - 5432
+    environment:
+      POSTGRES_DB: stackflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

@@ -50,10 +50,10 @@ export const StreamItem: React.FC<StreamItemProps> = ({
   numComments,
   getLinkProps,
   Link,
-  createdAt
+  createdAt,
 }) => {
   const linkProps = getLinkProps();
-  const dtString = format(Date.parse(createdAt), "MMM D");
+  const dtString = format(Date.parse(createdAt), "MMM dd");
 
   return (
     <StreamItemContainer>
@@ -65,7 +65,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
             marginRight: "0px",
             justifyContent: "space-between",
             display: "flex",
-            paddingRight: "24px"
+            paddingRight: "24px",
           }}
         >
           <div
@@ -88,7 +88,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                     marginTop: 4,
                     fontSize: 14,
                     lineHeight: "20px",
-                    color: "rgba(0, 0, 0, 0.54)"
+                    color: "rgba(0, 0, 0, 0.54)",
                   }}
                 >
                   {previewSubtitle ? previewSubtitle : body}
@@ -101,18 +101,18 @@ export const StreamItem: React.FC<StreamItemProps> = ({
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%"
+                width: "100%",
               }}
             >
               <div
                 style={{
                   display: "block",
-                  flex: "1 1 auto"
+                  flex: "1 1 auto",
                 }}
               >
                 <div
                   style={{
-                    display: "flex"
+                    display: "flex",
                   }}
                 >
                   <Link route={"profile"} params={{ username }}>
@@ -122,7 +122,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                 <span
                   style={{
                     display: "block",
-                    color: "rgba(0, 0, 0, 0.54)"
+                    color: "rgba(0, 0, 0, 0.54)",
                   }}
                 >
                   {dtString} •

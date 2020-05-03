@@ -1,4 +1,4 @@
-import { distanceInWordsToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import * as React from "react";
 import { Flex, Text, Heading, Box } from "rebass";
 import styled from "styled-components";
@@ -41,11 +41,11 @@ export const ProfilePostItem: React.FC<Props> = ({
   getLinkProps,
   Link,
   createdAt,
-  tags
+  tags,
 }) => {
   const linkProps = getLinkProps();
-  const dtString = distanceInWordsToNow(Date.parse(createdAt), {
-    addSuffix: true
+  const dtString = formatDistanceToNow(Date.parse(createdAt), {
+    addSuffix: true,
   });
 
   return (
@@ -68,7 +68,7 @@ export const ProfilePostItem: React.FC<Props> = ({
             paddingLeft: ".8rem",
             justifyContent: "center",
             flexDirection: "column",
-            marginRight: "auto"
+            marginRight: "auto",
           }}
         >
           <Flex className="posting-header">

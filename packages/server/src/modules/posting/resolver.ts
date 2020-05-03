@@ -8,7 +8,7 @@ import {
   Query,
   Resolver,
   Root,
-  UseMiddleware
+  UseMiddleware,
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
@@ -22,7 +22,7 @@ import { loadCreatorResolver } from "../shared/load-creator-resolver";
 import {
   CreatePostingInput,
   FindPostingsInput,
-  FindUserPostingsInput
+  FindUserPostingsInput,
 } from "./Input";
 import { FindPostingResponse, PostingResponse } from "./Response";
 import { PostingTag } from "../../entity/PostingTag";
@@ -54,10 +54,10 @@ export class PostingResolver {
   @FieldResolver()
   async isBookmark(
     @Ctx() ctx: MyContext,
-    @Root() root: Posting
+    @Root() root: Posting,
   ): Promise<Boolean> {
     const response = await Bookmark.findOne({
-      where: { postingId: root.id, userId: ctx.req.session!.userId }
+      where: { postingId: root.id, userId: ctx.req.session!.userId },
     });
 
     if (response) {
@@ -82,27 +82,16 @@ export class PostingResolver {
     @Arg("posting") input: CreatePostingInput,
     @Arg("topicIds", () => [String]) topicIds: string[],
     @Arg("tagNames", () => [String]) tagNames: string[],
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ): Promise<PostingResponse> {
     const posting = await this.postRepo
-      .create({
-        ...input,
-        creatorId: req.session!.userId
-      })
+      .create({ ...input, creatorId: req.session!.userId })
       .save();
 
-    tagNames.map(async tagName => {
-      let tag = await this.tagRepo.findOne({
-        where: {
-          name: tagName
-        }
-      });
+    tagNames.map(async (tagName) => {
+      let tag = await this.tagRepo.findOne({ where: { name: tagName } });
       if (!tag) {
-        tag = await this.tagRepo
-          .create({
-            name: tagName
-          })
-          .save();
+        tag = await this.tagRepo.create({ name: tagName }).save();
       }
       await this.addPostingTag(posting.id, tag.id);
     });
@@ -113,14 +102,10 @@ export class PostingResolver {
       });
     }
 
-    return {
-      posting
-    };
+    return { posting };
   }
 
-  @Mutation(() => SuccessResponse, {
-    nullable: true
-  })
+  @Mutation(() => SuccessResponse, { nullable: true })
   @Authorized()
   async deletePostingById(@Arg("id") id: string): Promise<SuccessResponse> {
     const value = this.postRepo.findOne(id);
@@ -135,7 +120,7 @@ export class PostingResolver {
   @Authorized()
   async addPostingTag(
     @Arg("postingId", () => String) postingId: string,
-    @Arg("tagId", () => String) tagId: string
+    @Arg("tagId", () => String) tagId: string,
   ) {
     await PostingTag.create({ postingId, tagId }).save();
     return true;
@@ -145,7 +130,7 @@ export class PostingResolver {
   @Authorized()
   async addPostingTopic(
     @Arg("postingId", () => String) postingId: string,
-    @Arg("topicId", () => String) topicId: string
+    @Arg("topicId", () => String) topicId: string,
   ) {
     await PostingTopic.create({ postingId, topicId }).save();
     return true;
@@ -156,30 +141,20 @@ export class PostingResolver {
   async addReaction(
     @Ctx() { req }: MyContext,
     @Arg("postingId", () => String, { nullable: true }) postingId?: string,
-    @Arg("commentId", () => String, { nullable: true }) commentId?: string
+    @Arg("commentId", () => String, { nullable: true }) commentId?: string,
   ) {
     const userId = req.session!.userId;
     if (postingId) {
-      const value = await Reaction.findOne({
-        where: { userId, postingId }
-      });
+      const value = await Reaction.findOne({ where: { userId, postingId } });
       if (!value) {
-        await Reaction.create({
-          postingId,
-          userId
-        }).save();
+        await Reaction.create({ postingId, userId }).save();
         return true;
       }
     }
     if (commentId) {
-      const value = await Reaction.findOne({
-        where: { userId, commentId }
-      });
+      const value = await Reaction.findOne({ where: { userId, commentId } });
       if (!value) {
-        await Reaction.create({
-          userId,
-          commentId
-        }).save();
+        await Reaction.create({ userId, commentId }).save();
         return true;
       }
     }
@@ -191,7 +166,7 @@ export class PostingResolver {
   async removeReaction(
     @Ctx() { req }: MyContext,
     @Arg("postingId", () => String, { nullable: true }) postingId?: string,
-    @Arg("commentId", () => String, { nullable: true }) commentId?: string
+    @Arg("commentId", () => String, { nullable: true }) commentId?: string,
   ) {
     const userId = req.session!.userId;
     if (postingId) {
@@ -209,12 +184,10 @@ export class PostingResolver {
   @Authorized()
   async addUserTopic(
     @Arg("topicId", () => String) topicId: string,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ) {
     const userId = req.session!.userId;
-    const value = await UserTopic.findOne({
-      where: { userId, topicId }
-    });
+    const value = await UserTopic.findOne({ where: { userId, topicId } });
     if (!value) {
       await UserTopic.create({ topicId, userId }).save();
       return true;
@@ -226,12 +199,10 @@ export class PostingResolver {
   @Authorized()
   async removeUserTopic(
     @Arg("topicId", () => String) topicId: string,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ) {
     const userId = req.session!.userId;
-    const value = await UserTopic.findOne({
-      where: { userId, topicId }
-    });
+    const value = await UserTopic.findOne({ where: { userId, topicId } });
     if (value) {
       await UserTopic.delete({ topicId, userId });
       return true;
@@ -243,12 +214,10 @@ export class PostingResolver {
   @Authorized()
   async addBookmark(
     @Arg("postingId", () => String) postingId: string,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ) {
     const userId = req.session!.userId;
-    const value = await Bookmark.findOne({
-      where: { userId, postingId }
-    });
+    const value = await Bookmark.findOne({ where: { userId, postingId } });
     if (!value) {
       await Bookmark.create({ userId, postingId }).save();
       return true;
@@ -260,12 +229,10 @@ export class PostingResolver {
   @Authorized()
   async removeBookmark(
     @Arg("postingId", () => String) postingId: string,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ) {
     const userId = req.session!.userId;
-    const value = await Bookmark.findOne({
-      where: { userId, postingId }
-    });
+    const value = await Bookmark.findOne({ where: { userId, postingId } });
     if (value) {
       await Bookmark.delete({ postingId, userId });
       return true;
@@ -273,9 +240,7 @@ export class PostingResolver {
     return false;
   }
 
-  @Query(() => Posting, {
-    nullable: true
-  })
+  @Query(() => Posting, { nullable: true })
   async getPostingById(@Arg("id") id: string) {
     return this.postRepo.findOne(id);
   }
@@ -286,39 +251,24 @@ export class PostingResolver {
     @Arg("id") id: string,
     @Arg("input", { nullable: true }) input: CreatePostingInput,
     @Arg("topicIds", () => [String], { nullable: true }) topicIds: string[],
-    @Arg("tagNames", () => [String], { nullable: true }) tagNames: string[]
+    @Arg("tagNames", () => [String], { nullable: true }) tagNames: string[],
   ): Promise<SuccessResponse> {
     if (input) {
-      await this.postRepo.update(
-        { id },
-        {
-          ...input
-        }
-      );
+      await this.postRepo.update({ id }, { ...input });
     }
 
     if (tagNames) {
-      tagNames.map(async tagName => {
-        let tag = await this.tagRepo.findOne({
-          where: {
-            name: tagName
-          }
-        });
+      tagNames.map(async (tagName) => {
+        let tag = await this.tagRepo.findOne({ where: { name: tagName } });
+
         if (!tag) {
-          tag = await this.tagRepo
-            .create({
-              name: tagName
-            })
-            .save();
+          tag = await this.tagRepo.create({ name: tagName }).save();
         }
 
         PostingTag.delete({ postingId: id });
 
         const tagConnection = await PostingTag.findOne({
-          where: {
-            postingId: id,
-            tagId: tag
-          }
+          where: { postingId: id, tagId: tag },
         });
 
         if (!tagConnection) {
@@ -330,10 +280,7 @@ export class PostingResolver {
     if (topicIds) {
       topicIds.map(async (topicId: string) => {
         const topicConnection = await PostingTopic.findOne({
-          where: {
-            postingId: id,
-            topicId: topicId
-          }
+          where: { postingId: id, topicId: topicId },
         });
 
         if (!topicConnection) {
@@ -342,16 +289,14 @@ export class PostingResolver {
       });
     }
 
-    return {
-      ok: true
-    };
+    return { ok: true };
   }
 
   @Query(() => FindPostingResponse)
   async findPostings(@Arg("input")
   {
     offset,
-    limit
+    limit,
   }: FindPostingsInput): Promise<FindPostingResponse> {
     if (limit > 6) {
       throw new ApolloError("max limit of 6");
@@ -367,20 +312,16 @@ export class PostingResolver {
 
     return {
       hasMore: posts.length === limit + 1,
-      posts: posts.slice(0, limit)
+      posts: posts.slice(0, limit),
     };
   }
 
   @Query(() => FindPostingResponse)
   async getPostingsByTopic(
     @Arg("topicIds", () => String) topicIds: string[],
-    @Arg("cursor", { nullable: true }) cursor?: string
+    @Arg("cursor", { nullable: true }) cursor?: string,
   ): Promise<FindPostingResponse> {
-    return this.postRepo.findByTopicId({
-      cursor,
-      limit: POST_LIMIT,
-      topicIds
-    });
+    return this.postRepo.findByTopicId({ cursor, limit: POST_LIMIT, topicIds });
   }
 
   @Query(() => FindPostingResponse)
@@ -388,27 +329,25 @@ export class PostingResolver {
   async findUserPostings(@Arg("input")
   {
     cursor,
-    creatorId
+    creatorId,
   }: FindUserPostingsInput): Promise<FindPostingResponse> {
     return this.postRepo.findByCreatorId({
       cursor,
       limit: POST_LIMIT,
-      creatorId
+      creatorId,
     });
   }
 
   @FieldResolver()
   async hasReacted(
     @Ctx() ctx: MyContext,
-    @Root() root: Posting
+    @Root() root: Posting,
   ): Promise<Boolean> {
     const response = await Reaction.findOne({
-      where: { postingId: root.id, userId: ctx.req.session!.userId }
+      where: { postingId: root.id, userId: ctx.req.session!.userId },
     });
 
-    if (response) {
-      return true;
-    }
+    if (response) return true;
     return false;
   }
 

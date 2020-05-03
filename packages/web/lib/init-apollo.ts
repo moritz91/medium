@@ -1,12 +1,17 @@
 import {
   ApolloClient,
   InMemoryCache,
-  NormalizedCacheObject
+  NormalizedCacheObject,
 } from "apollo-boost";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import fetch from "isomorphic-unfetch";
 import { isBrowser } from "./isBrowser";
+import getConfig from "next/config";
+
+const {
+  publicRuntimeConfig: { BACKEND_URI_DOCKER, BACKEND_URI },
+} = getConfig();
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
@@ -16,18 +21,21 @@ if (!isBrowser) {
 }
 
 function create(initialState: any, { getToken }: { getToken: () => string }) {
+  const adjustedUri =
+    !isBrowser && process.env.NODE_ENV === "production"
+      ? BACKEND_URI_DOCKER
+      : BACKEND_URI;
+
   const httpLink = createHttpLink({
-    uri: "http://localhost:4000/graphql",
-    credentials: "include"
+    // uri: "http://localhost:4000/graphql",
+    uri: `http://${adjustedUri}/graphql`,
+    credentials: "include",
   });
 
   const authLink = setContext((_, { headers }) => {
     const token = getToken();
     return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : ""
-      }
+      headers: { ...headers, authorization: token ? `Bearer ${token}` : "" },
     };
   });
 
@@ -36,13 +44,13 @@ function create(initialState: any, { getToken }: { getToken: () => string }) {
     connectToDevTools: isBrowser,
     ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache().restore(initialState || {})
+    cache: new InMemoryCache().restore(initialState || {}),
   });
 }
 
 export default function initApollo(
   initialState: any,
-  options: { getToken: () => string }
+  options: { getToken: () => string },
 ) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)

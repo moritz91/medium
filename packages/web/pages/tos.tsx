@@ -1,22 +1,22 @@
-import * as React from "react";
-import Layout from "../components/layout";
-import { Heading, Card, Box, Text } from "rebass";
-import styled from "styled-components";
+import * as React from 'react'
+import { Layout } from '../components/layout'
+import { Heading, Card, Box, Text } from 'rebass'
+import styled from 'styled-components'
 
 export const UnorderedList = styled.ul`
   list-item-style: none;
-`;
+`
 
-export const OrderedList = styled.ol``;
+export const OrderedList = styled.ol``
 
-export const ListItem = styled.li``;
+export const ListItem = styled.li``
 
 export default class ToS extends React.PureComponent {
   render() {
     return (
       <Layout title={`Terms of Service`}>
         <Card pb={2}>
-          <Heading fontSize={30} mb={10} mt={"0px"} mx={"0px"}>
+          <Heading fontSize={30} mb={10} mt={'0px'} mx={'0px'}>
             Terms of Service
           </Heading>
           <Box fontSize={15}>
@@ -32,7 +32,7 @@ export default class ToS extends React.PureComponent {
         </Card>
         <Card>
           <Box fontSize={15}>
-            <Heading fontSize={30} mb={10} mt={"0px"} mx={"0px"}>
+            <Heading fontSize={30} mb={10} mt={'0px'} mx={'0px'}>
               The Medium Terms of Service
             </Heading>
             <Heading>Effective date: April 19, 2019 A.</Heading>
@@ -671,6 +671,6 @@ export default class ToS extends React.PureComponent {
           </Box>
         </Card>
       </Layout>
-    );
+    )
   }
 }

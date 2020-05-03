@@ -6,14 +6,14 @@ import redirect from "../lib/redirect";
 
 const AuthContext = React.createContext({
   data: { me: { username: "", pictureUrl: "", createdAt: "", bio: "" } },
-  logout: (ctx: any) => ctx
+  logout: (ctx: any) => ctx,
 });
 
 const AuthProvider = (props: any) => {
   const apolloClient = useApolloClient();
   const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
   const { data, error, loading } = useQuery(meQuery, {
-    variables: { withBookmarks: false }
+    variables: { withBookmarks: false },
   });
 
   React.useEffect(() => {

@@ -1,3 +1,7 @@
+require("dotenv-safe").config({
+  allowEmptyValues: true,
+});
+
 import { createServer } from "http";
 import { parse } from "url";
 import * as next from "next";
@@ -9,13 +13,12 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
 
-app.prepare().then(() => {
+(app as any).prepare().then(() => {
   createServer((req, res) => {
     const parsedUrl = parse(req.url!, true);
 
     handle(req, res, parsedUrl);
-  }).listen(port, (err: any) => {
-    if (err) throw err;
+  }).listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });

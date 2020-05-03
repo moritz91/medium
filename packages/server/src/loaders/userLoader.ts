@@ -7,10 +7,10 @@ export const userLoader = () =>
 
     const userMap: { [key: string]: User } = {};
 
-    users.forEach(u => {
+    users.forEach((u) => {
       userMap[u.id] = u;
     });
 
     // O(n) * O(1)
-    return keys.map(k => userMap[k]);
+    return keys.map((k) => userMap[k]);
   });

@@ -21,7 +21,7 @@
   {
     "name": "production",
     "type": "postgres",
-    "host": "db",
+    "host": "medium_postgresql_1",
     "port": 5432,
     "username": "postgres",
     "password": "postgres",
@@ -30,6 +30,11 @@
     "logging": false,
     "entities": ["dist/entity/**/*.*"],
     "migrations": ["dist/migration/**/*.*"],
-    "subscribers": ["dist/subscriber/**/*.*"]
+    "subscribers": ["dist/subscriber/**/*.*"],
+    "cli": {
+      "entitiesDir": "dist/entity",
+      "migrationsDir": "dist/migration",
+      "subscribersDir": "dist/subscriber"
+    }
   }
 ]

@@ -965,7 +965,7 @@ export function CreateCommentHOC<TProps, TChildProps = any>(
         CreateCommentVariables,
         CreateCommentProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1017,7 +1017,7 @@ export function CreateReplyHOC<TProps, TChildProps = any>(
         CreateReplyVariables,
         CreateReplyProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1063,7 +1063,7 @@ export function DeleteCommentHOC<TProps, TChildProps = any>(
         DeleteCommentVariables,
         DeleteCommentProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1107,7 +1107,7 @@ export function DeleteReplyHOC<TProps, TChildProps = any>(
         DeleteReplyVariables,
         DeleteReplyProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1167,7 +1167,7 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
         GetCommentsByIdVariables,
         GetCommentsByIdProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1216,7 +1216,7 @@ export function GetRepliesByIdHOC<TProps, TChildProps = any>(
         GetRepliesByIdVariables,
         GetRepliesByIdProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1258,7 +1258,7 @@ export function AddBookmarkHOC<TProps, TChildProps = any>(
         AddBookmarkVariables,
         AddBookmarkProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1317,7 +1317,7 @@ export function CreatePostingHOC<TProps, TChildProps = any>(
         CreatePostingVariables,
         CreatePostingProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1363,7 +1363,7 @@ export function DeletePostingHOC<TProps, TChildProps = any>(
         DeletePostingVariables,
         DeletePostingProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1407,7 +1407,7 @@ export function RemoveBookmarkHOC<TProps, TChildProps = any>(
         RemoveBookmarkVariables,
         RemoveBookmarkProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1465,7 +1465,7 @@ export function GetPostingByIdHOC<TProps, TChildProps = any>(
         GetPostingByIdVariables,
         GetPostingByIdProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1510,7 +1510,7 @@ export function GetPostingsHOC<TProps, TChildProps = any>(
         GetPostingsVariables,
         GetPostingsProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1557,7 +1557,7 @@ export function GetPostingsByTopicHOC<TProps, TChildProps = any>(
         GetPostingsByTopicVariables,
         GetPostingsByTopicProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1604,7 +1604,7 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
         GetUserPostingsVariables,
         GetUserPostingsProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1646,7 +1646,7 @@ export function AddReactionHOC<TProps, TChildProps = any>(
         AddReactionVariables,
         AddReactionProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1690,7 +1690,7 @@ export function RemoveReactionHOC<TProps, TChildProps = any>(
         RemoveReactionVariables,
         RemoveReactionProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1734,7 +1734,7 @@ export function GetTagsByLettersHOC<TProps, TChildProps = any>(
         GetTagsByLettersVariables,
         GetTagsByLettersProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1774,7 +1774,7 @@ export function GetTagByNameHOC<TProps, TChildProps = any>(
         GetTagByNameVariables,
         GetTagByNameProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1819,7 +1819,7 @@ export function GetTagsHOC<TProps, TChildProps = any>(
         GetTagsVariables,
         GetTagsProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1861,7 +1861,7 @@ export function GetTopicByNameHOC<TProps, TChildProps = any>(
         GetTopicByNameVariables,
         GetTopicByNameProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1906,7 +1906,7 @@ export function GetTopicsHOC<TProps, TChildProps = any>(
         GetTopicsVariables,
         GetTopicsProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1951,7 +1951,7 @@ export function GetTopicsByLettersHOC<TProps, TChildProps = any>(
         GetTopicsByLettersVariables,
         GetTopicsByLettersProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -1993,7 +1993,7 @@ export function LogoutHOC<TProps, TChildProps = any>(
         LogoutVariables,
         LogoutProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -2039,7 +2039,7 @@ export function MeHOC<TProps, TChildProps = any>(
         MeVariables,
         MeProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -2103,7 +2103,7 @@ export function FindUserByNameHOC<TProps, TChildProps = any>(
         FindUserByNameVariables,
         FindUserByNameProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,
@@ -2150,7 +2150,7 @@ export function FindUserCommentsHOC<TProps, TChildProps = any>(
         FindUserCommentsVariables,
         FindUserCommentsProps<TChildProps>
       >
-    | undefined
+    | undefined,
 ) {
   return ReactApollo.graphql<
     TProps,

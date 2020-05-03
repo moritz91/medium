@@ -7,7 +7,7 @@ import {
   CommentInfoFragment
 } from "../components/apollo-components";
 import { ProfileTabs } from "../modules/profile/profileTabs";
-import { ProfileHero } from "../modules/user/profile/profileHero";
+import { ProfileHero } from "../modules/user/profile/ProfileHero";
 import { PostsContextProps, PostsContext } from "../context/PostContext";
 
 interface ProfileProps {

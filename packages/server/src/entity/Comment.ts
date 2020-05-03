@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
 } from "typeorm";
 import { MyContext } from "../types/Context";
 import { Posting } from "./Posting";
@@ -43,7 +43,7 @@ class Response {
   @Field(() => Boolean, { nullable: true })
   async isAuthor(
     @Root() root: Response,
-    @Ctx() ctx: MyContext
+    @Ctx() ctx: MyContext,
   ): Promise<Boolean> {
     return ctx.req.session!.userId === root.creatorId;
   }
@@ -55,14 +55,14 @@ class Response {
   @UpdateDateColumn({ type: "timestamp with time zone" })
   updatedAt: Date;
 
-  @ManyToOne(() => Posting, p => p.comments, { onDelete: "CASCADE" })
+  @ManyToOne(() => Posting, (p) => p.comments, { onDelete: "CASCADE" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.comments, { onDelete: "CASCADE" })
   @JoinColumn({ name: "creatorId" })
   creatorConnection: Promise<User>;
 
-  @OneToMany(() => Reaction, r => r.comment)
+  @OneToMany(() => Reaction, (r) => r.comment)
   userReactionConnection: Promise<Reaction[]>;
 }
 
@@ -74,7 +74,7 @@ export class Comment extends Response {
   postingId: string;
 
   @Field(() => [Reply], { nullable: true })
-  @OneToMany(() => Reply, r => r.comment)
+  @OneToMany(() => Reply, (r) => r.comment)
   replies: Promise<Reply[]>;
 }
 
@@ -85,6 +85,6 @@ export class Reply extends Response {
   @Column("uuid")
   commentId: string;
 
-  @ManyToOne(() => Comment, c => c.replies, { onDelete: "CASCADE" })
+  @ManyToOne(() => Comment, (c) => c.replies, { onDelete: "CASCADE" })
   comment: Promise<Comment>;
 }
