@@ -21,4 +21,3 @@ cypress/
 .prettierignore
 tsconfig.tsbuildinfo
 cypress.json
-medium-2ed68760b511.json
