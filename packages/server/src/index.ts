@@ -12,7 +12,7 @@ import { Strategy as GitHubStrategy } from "passport-github";
 
 import * as middlewares from "@medium/common";
 
-import { createTypeormConn } from "./createTypeormConn";
+import { createTypeormConn, resetDatabase } from "./typeorm";
 import { seedData } from "./helpers/seedData";
 import { User } from "./entity/User";
 import { userLoader } from "./loaders/UserLoader";
@@ -33,9 +33,7 @@ const startServer = async () => {
 
   // pre-populate the db with some data
   if (conn?.isConnected && process.env.NODE_ENV === "production") {
-    // await conn?.runMigrations().then(async () => await seedData())
-    await conn.dropDatabase();
-    await conn.synchronize();
+    resetDatabase(conn);
     await seedData();
   }
 
