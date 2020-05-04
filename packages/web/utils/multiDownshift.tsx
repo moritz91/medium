@@ -1,19 +1,14 @@
 import { useState, useContext } from "react";
-import Downshift from "downshift";
+import Downshift, { DownshiftProps } from "downshift";
 import { includes } from "lodash";
 import { TagContext } from "../context/TagContext";
 import { CreatePostContext } from "../context/PostContext";
 
-interface MultiDownshiftProps {
-  onSelect: any;
-  onChange: any;
-}
-
-export const MultiDownshift = (props: MultiDownshiftProps): any => {
+export const MultiDownshift = (props: DownshiftProps<any>): any => {
   const { dispatch } = useContext(TagContext);
   const { tags } = useContext(CreatePostContext);
   const [selectedItems, setSelectedItems] = useState<string[]>(
-    tags ? tags.map(t => t.name) : []
+    tags ? tags.map((t) => t.name) : [],
   );
 
   const stateReducer = (state: any, changes: any) => {
@@ -22,21 +17,21 @@ export const MultiDownshift = (props: MultiDownshiftProps): any => {
         return {
           ...changes,
           isOpen: false,
-          inputValue: ""
+          inputValue: "",
         };
       case Downshift.stateChangeTypes.clickItem:
         return {
           ...changes,
           highlightedIndex: state.highlightedIndex,
           isOpen: false,
-          inputValue: ""
+          inputValue: "",
         };
       case Downshift.stateChangeTypes.changeInput:
         if (changes.inputValue == "")
           return {
             ...changes,
             isOpen: false,
-            inputValue: ""
+            inputValue: "",
           };
       default:
         return changes;
@@ -80,7 +75,7 @@ export const MultiDownshift = (props: MultiDownshiftProps): any => {
         e.stopPropagation();
         removeItem(idx);
       },
-      ...props
+      ...props,
     };
   };
 
@@ -90,7 +85,7 @@ export const MultiDownshift = (props: MultiDownshiftProps): any => {
       addSelectedItem,
       removeItem,
       selectedItems,
-      ...downshift
+      ...downshift,
     };
   };
 
@@ -104,7 +99,7 @@ export const MultiDownshift = (props: MultiDownshiftProps): any => {
       id="autocomplete"
       defaultHighlightedIndex={null}
     >
-      {downshift => children(getStateAndHelpers(downshift))}
+      {(downshift) => children(getStateAndHelpers(downshift))}
     </Downshift>
   );
 };
