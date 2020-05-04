@@ -28,7 +28,5 @@ COPY ./packages/web/next.config.js .
 COPY ./packages/web/.env.prod .env
 COPY ./packages/web/.env.example .
 
-WORKDIR /medium/packages/web
-
 EXPOSE 3000
 CMD ["../../node_modules/.bin/next", "start"]

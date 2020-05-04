@@ -36,7 +36,5 @@ COPY ./packages/server/.env.prod .env
 COPY ./packages/server/.env.example .
 COPY ./packages/server/ormconfig.json .
 
-WORKDIR /medium/packages/server
-
 EXPOSE 4000
 CMD ["node", "dist/index.js"]
