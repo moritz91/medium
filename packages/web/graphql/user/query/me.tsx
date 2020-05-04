@@ -6,6 +6,7 @@ export const meQuery = gql`
     me {
       ...UserInfo
       bookmarks @include(if: $withBookmarks) {
+        id
         ...PostingInfo
       }
     }

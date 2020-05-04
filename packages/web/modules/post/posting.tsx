@@ -7,7 +7,12 @@ import { Waypoint } from "react-waypoint";
 import { Box, Flex, Text } from "rebass";
 import { format } from "url";
 import { useClickOutside } from "use-events";
-import { GetCommentsByIdComponent } from "../../components/apollo-components";
+import {
+  GetCommentsByIdComponent,
+  PostingInfoFragment,
+  GetPostingByIdGetPostingById,
+  Maybe,
+} from "../../components/apollo-components";
 import { Button } from "../../components/button";
 import {
   Actions,
@@ -66,7 +71,7 @@ export const Posting = ({
   numComments,
   numReactions,
   tags,
-}: any): JSX.Element => {
+}: { postingId: string } & PostingInfoFragment): JSX.Element => {
   const [state, dispatch] = useReducer(postingReducer, {
     flyoutId: "",
     popoverId: "",
@@ -121,7 +126,10 @@ export const Posting = ({
       setReacted(!reacted);
     },
     refetchQueries: [
-      { query: getPostingByIdQuery, variables: { id: postingId } },
+      {
+        query: getPostingByIdQuery,
+        variables: { id: postingId },
+      },
     ],
   });
   const [removeReaction] = useMutation(removeReactionMutation, {
@@ -130,7 +138,10 @@ export const Posting = ({
       setReacted(!reacted);
     },
     refetchQueries: [
-      { query: getPostingByIdQuery, variables: { id: postingId } },
+      {
+        query: getPostingByIdQuery,
+        variables: { id: postingId },
+      },
     ],
     awaitRefetchQueries: true,
   });
@@ -150,7 +161,12 @@ export const Posting = ({
                     {previewTitle ? previewTitle : title}
                   </StoryHeading>
                   {isAuthor && (
-                    <div style={{ display: "flex", marginLeft: "auto" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        marginLeft: "auto",
+                      }}
+                    >
                       <div>
                         <ActionsDropdown id={postingId}>
                           <Button
@@ -195,7 +211,7 @@ export const Posting = ({
             }}
           >
             <StoryTags>
-              {tags.map((t: any, idx: number) => (
+              {tags?.map((t: any, idx: number) => (
                 <Button variant="tag" key={idx}>
                   {t.name}
                 </Button>
@@ -259,7 +275,10 @@ export const Posting = ({
                           src={pictureUrl}
                           alt="avatar"
                           onMouseEnter={() => {
-                            dispatch({ type: "openPopover", postingId });
+                            dispatch({
+                              type: "openPopover",
+                              postingId,
+                            });
                           }}
                           onMouseLeave={() => {
                             dispatch({ type: "closePopover" });
@@ -298,7 +317,10 @@ export const Posting = ({
                 />
                 <Box
                   mt={20}
-                  style={{ display: "flex", flexDirection: "column" }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
                   <GetCommentsByIdComponent
                     variables={{ input: { postingId } }}
@@ -309,7 +331,7 @@ export const Posting = ({
                       }
                       return (
                         <>
-                          {data && data.findCommentsById && (
+                          {data?.findCommentsById && (
                             <>
                               {data.findCommentsById.comments.map(
                                 (
@@ -334,7 +356,9 @@ export const Posting = ({
                                       hasReacted={hasReacted}
                                       isAuthor={isAuthor}
                                       numReactions={numReactions}
-                                      body={MarkdownRenderer({ text })}
+                                      body={MarkdownRenderer({
+                                        text,
+                                      })}
                                       replies={replies}
                                     />
                                     {data.findCommentsById.hasMore &&
@@ -413,14 +437,20 @@ Posting.getInitialProps = async ({
   apolloClient,
   ...ctx
 }: NextContextWithApollo) => {
-  const response: any = await apolloClient.query({
+  type ResponseType = {
+    data: {
+      getPostingById: Maybe<GetPostingByIdGetPostingById>;
+    };
+  };
+
+  const response: ResponseType = await apolloClient.query({
     query: getPostingByIdQuery,
     variables: {
       id,
     },
   });
 
-  const { getPostingById } = response.data;
+  const { getPostingById } = response?.data;
 
   if (!getPostingById) {
     redirect(ctx, "/posts");

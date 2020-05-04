@@ -4,16 +4,19 @@ import { TagInfoFragment } from "../../tag/fragments/TagInfo";
 
 export const PostingInfoFragment = gql`
   fragment PostingInfo on Posting {
-    id
     previewTitle
     previewSubtitle
     previewImage
     title
     body
-    isBookmark
     createdAt
-    numComments
     readingTime
+    allowResponses
+    isAuthor
+    isBookmark
+    hasReacted
+    numComments
+    numReactions
     creator {
       ...UserInfo
     }

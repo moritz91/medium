@@ -8,7 +8,7 @@ import { PostingInfoFragment } from "../components/apollo-components";
 import { Caption } from "../components/heading";
 
 interface ReadingListProps {
-  postings: [PostingInfoFragment];
+  postings: [{ id: string } & PostingInfoFragment];
   hasMore: boolean;
 }
 
@@ -17,8 +17,8 @@ export default class ReadingList extends React.Component<ReadingListProps> {
     const response: any = await apolloClient.query({
       query: meQuery,
       variables: {
-        withBookmarks: true
-      }
+        withBookmarks: true,
+      },
     });
 
     const postings = response.data.me.bookmarks;
@@ -34,7 +34,7 @@ export default class ReadingList extends React.Component<ReadingListProps> {
           <>
             {postings ? (
               <>
-                {postings.map((post: any) => (
+                {postings.map((post) => (
                   <StreamItem
                     key={post.id}
                     id={post.id}
@@ -45,6 +45,7 @@ export default class ReadingList extends React.Component<ReadingListProps> {
                     previewImage={post.previewImage}
                     title={post.title}
                     body={post.body}
+                    readingTime={post.readingTime}
                     isBookmark={post.isBookmark}
                     numComments={post.numComments}
                     Link={Link}
@@ -52,8 +53,8 @@ export default class ReadingList extends React.Component<ReadingListProps> {
                     getLinkProps={() => ({
                       route: "post",
                       params: {
-                        id: post.id
-                      }
+                        id: post.id,
+                      },
                     })}
                   />
                 ))}

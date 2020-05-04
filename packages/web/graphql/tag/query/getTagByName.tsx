@@ -1,5 +1,4 @@
 import gql from "graphql-tag";
-import { PostingInfoFragment } from "../../post/fragments/PostingInfo";
 
 export const getTagByNameQuery = gql`
   query GetTagByName($name: String!) {
@@ -7,5 +6,4 @@ export const getTagByNameQuery = gql`
       name
     }
   }
-  ${PostingInfoFragment}
 `;

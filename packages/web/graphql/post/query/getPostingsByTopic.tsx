@@ -5,6 +5,7 @@ export const getPostingsByTopicQuery = gql`
   query GetPostingsByTopic($cursor: String!, $topicIds: [String!]!) {
     getPostingsByTopic(cursor: $cursor, topicIds: $topicIds) {
       posts {
+        id
         ...PostingInfo
       }
       hasMore

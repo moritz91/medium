@@ -5,6 +5,7 @@ export const getPostingsQuery = gql`
   query getPostings($input: FindPostingsInput!) {
     findPostings(input: $input) {
       posts {
+        id
         ...PostingInfo
       }
       hasMore
