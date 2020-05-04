@@ -54,7 +54,7 @@ export class Footer extends React.PureComponent<Props> {
       <footer style={style}>
         <Container>
           <List>
-            {linksLeft.map((l: any, k: any) => (
+            {linksLeft?.map((l: any, k: any) => (
               <ListItem key={k}>{l}</ListItem>
             ))}
           </List>
@@ -66,7 +66,7 @@ export class Footer extends React.PureComponent<Props> {
             />
           )}
           <List>
-            {linksRight.map((l: any, k: any) => (
+            {linksRight?.map((l: any, k: any) => (
               <ListItem key={k}>{l}</ListItem>
             ))}
           </List>

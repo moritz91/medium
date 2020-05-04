@@ -30,10 +30,9 @@ export default class Topics extends React.PureComponent<Props, State> {
           {({ data }) => {
             return (
               <>
-                {data && data.findTopics && (
+                {data?.findTopics && (
                   <>
-                    <div
-                      style={{
+                    <div style={{
                         flex: "1 1 auto",
                         display: "flex",
                         flexWrap: "wrap"

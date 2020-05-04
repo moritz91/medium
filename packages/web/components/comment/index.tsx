@@ -248,8 +248,7 @@ export const Comment: React.FC<CommentProps> = ({
             </div>
           </Content>
         </TopRow>
-        {replies &&
-          replies.map(
+        {replies?.map(
             (
               {
                 id,

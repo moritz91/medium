@@ -39,7 +39,7 @@ const NavLinks = (): JSX.Element => {
       {({ data }) => {
         return (
           <Wrapper>
-            {data && data.findTopics && (
+            {data?.findTopics && (
               <>
                 {data.findTopics.topics.map(({ id, name }) => (
                   <React.Fragment key={id}>

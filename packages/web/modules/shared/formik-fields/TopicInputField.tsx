@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { GetTopicsByLettersComponent } from "../../../components/apollo-components";
+import { GetTopicsByLettersComponent, GetTopicsByLettersGetTopicsByLetters } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
 import { useState } from "react";
@@ -81,6 +81,7 @@ const MatchingTopicsItemText = styled.strong`
   margin-left: 5px;
   font-weight: 700;
 `;
+
 export const TopicInputField = (): JSX.Element => {
   const input = React.createRef<any>();
   const itemToString = (item: any) => (item ? item : "");
@@ -103,7 +104,6 @@ export const TopicInputField = (): JSX.Element => {
         {({
           getInputProps,
           getMenuProps,
-
           getRemoveButtonProps,
           removeItem,
           isOpen,
@@ -219,14 +219,12 @@ export const Suggestions = (
             if (loading) {
               return null;
             }
-            const { getTopicsByLetters } = data!;
-            const matchingTopics = getTopicsByLetters!.topics.map(
-              topic => topic.name
-            );
+            const getTopicsByLetters: GetTopicsByLettersGetTopicsByLetters | null | undefined = data?.getTopicsByLetters;
+            const matchingTopics = getTopicsByLetters?.topics.map(topic => topic.name);
             return (
               <PopoverInner>
                 <MatchingTopics>
-                  {matchingTopics.map((item: any, idx: any) => (
+                  {matchingTopics?.map((item: any, idx: any) => (
                     <MatchingTopicsItem
                       {...getItemProps({
                         item,

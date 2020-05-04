@@ -101,7 +101,7 @@ export const ProfilePostItem: React.FC<Props> = ({
                 : `${numComments}` + " responses"}
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
-              {tags.map((t: any, idx: number) => (
+              {tags?.map((t: any, idx: number) => (
                 <Button variant="tag" key={idx}>
                   {t.name}
                 </Button>

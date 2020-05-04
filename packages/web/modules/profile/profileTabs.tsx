@@ -6,6 +6,7 @@ import { Box } from "rebass";
 import { MarkdownRenderer } from "../post/shared/markdownEditor/markdownRenderer";
 import { ProfilePostItem } from "../../components/profilePostItem";
 import { PostsContext } from "../../context/PostContext";
+import { CommentInfoFragment } from "../../components/apollo-components";
 
 export function ProfileTabs() {
   const { postings, comments } = useContext(PostsContext);
@@ -17,7 +18,7 @@ export function ProfileTabs() {
           <Tab name="responses">Responses</Tab>
         </TabList>
         <TabPanel name="posts">
-          {postings.map((p: any) => (
+          {postings?.map((p: any) => (
             <ProfilePostItem
               key={p.id}
               id={p.id}
@@ -31,15 +32,27 @@ export function ProfileTabs() {
               getLinkProps={() => ({
                 route: "post",
                 params: {
-                  id: p.id
-                }
+                  id: p.id,
+                },
               })}
             />
           ))}
         </TabPanel>
         <TabPanel name="responses">
-          {comments.map(
-            ({ id, createdAt, creator, isAuthor, text }: any, key: any) => (
+          {comments?.map(
+            (
+              {
+                id,
+                createdAt,
+                creator,
+                isAuthor,
+                text,
+                numReactions,
+                hasReacted,
+                replies,
+              }: CommentInfoFragment,
+              key: number,
+            ) => (
               <Box
                 key={key}
                 style={{ display: "flex", flexDirection: "column" }}
@@ -50,10 +63,12 @@ export function ProfileTabs() {
                   creator={creator}
                   isAuthor={isAuthor}
                   body={MarkdownRenderer({ text })}
-                  Link={Link}
+                  numReactions={numReactions}
+                  hasReacted={hasReacted}
+                  replies={replies}
                 />
               </Box>
-            )
+            ),
           )}
         </TabPanel>
       </Tabs>

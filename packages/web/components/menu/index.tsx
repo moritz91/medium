@@ -156,7 +156,7 @@ export const Menu: React.FC<MenuProps> = ({
                 </UserDataFlex>
               </UserDataContainer>
             )}
-            {options.map((o, i) => {
+            {options?.map((o, i) => {
               if (o[0] === "divider") {
                 return <Divider key={i} />;
               }

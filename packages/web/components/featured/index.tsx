@@ -122,7 +122,7 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
               </span>
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
-              {tags.map((t: any, idx: number) => (
+              {tags?.map((t: any, idx: number) => (
                 <Button variant="tag" key={idx}>
                   {t.name}
                 </Button>

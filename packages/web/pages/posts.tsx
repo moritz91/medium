@@ -55,9 +55,9 @@ export default class Posts extends React.Component<PostsProps> {
       <Layout title={tag ? tag : "Postings"}>
         <Stream>
           <>
-            {postings && (
+            {(
               <>
-                {postings.map((post: any) => (
+                {postings?.map((post: any) => (
                   <StreamItem
                     key={post.id}
                     id={post.id}

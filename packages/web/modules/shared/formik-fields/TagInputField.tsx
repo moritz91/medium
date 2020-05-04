@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { GetTagsByLettersComponent } from "../../../components/apollo-components";
+import { GetTagsByLettersComponent, GetTagsByLettersGetTagsByLetters } from "../../../components/apollo-components";
 import { MultiDownshift } from "../../../utils/multiDownshift";
 import { includes } from "lodash";
 import { useState } from "react";
@@ -220,12 +220,12 @@ export const Suggestions = (
             if (loading) {
               return null;
             }
-            const { getTagsByLetters } = data!;
-            const matchingTags = getTagsByLetters!.tags.map(tag => tag.name);
+            const getTagsByLetters: GetTagsByLettersGetTagsByLetters | null | undefined = data?.getTagsByLetters;
+            const matchingTags = getTagsByLetters?.tags.map(tag => tag.name);
             return (
               <PopoverInner>
                 <MatchingTags>
-                  {matchingTags.map((item: any, idx: any) => (
+                  {matchingTags?.map((item: any, idx: any) => (
                     <MatchingTagsItem
                       {...getItemProps({
                         item,
