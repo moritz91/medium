@@ -49,9 +49,11 @@ export interface CreatePostingInput {
 
   previewImage?: Maybe<string>;
 
-  title: string;
+  title?: Maybe<string>;
 
   body?: Maybe<string>;
+
+  allowResponses?: boolean;
 }
 
 export interface CreateReplyInput {
@@ -320,7 +322,7 @@ export type CreatePostingCreator = {
 
   id: string;
 
-  username: Maybe<string>;
+  username: string;
 
   pictureUrl: string;
 };
@@ -361,37 +363,7 @@ export type GetPostingByIdQuery = {
   getPostingById: Maybe<GetPostingByIdGetPostingById>;
 };
 
-export type GetPostingByIdGetPostingById = {
-  __typename?: "Posting";
-
-  title: string;
-
-  body: string;
-
-  createdAt: DateTime;
-
-  readingTime: number;
-
-  allowResponses: Maybe<boolean>;
-
-  isAuthor: Maybe<boolean>;
-
-  isBookmark: Maybe<boolean>;
-
-  hasReacted: Maybe<boolean>;
-
-  numComments: number;
-
-  numReactions: number;
-
-  creator: GetPostingByIdCreator;
-
-  tags: Maybe<GetPostingByIdTags[]>;
-};
-
-export type GetPostingByIdCreator = UserInfoFragment;
-
-export type GetPostingByIdTags = TagInfoFragment;
+export type GetPostingByIdGetPostingById = PostingInfoFragment;
 
 export type GetPostingsVariables = {
   input: FindPostingsInput;
@@ -411,7 +383,11 @@ export type GetPostingsFindPostings = {
   hasMore: boolean;
 };
 
-export type GetPostingsPosts = PostingInfoFragment;
+export type GetPostingsPosts = {
+  __typename?: "Posting";
+
+  id: string;
+} & PostingInfoFragment;
 
 export type GetPostingsByTopicVariables = {
   cursor: string;
@@ -432,7 +408,11 @@ export type GetPostingsByTopicGetPostingsByTopic = {
   hasMore: boolean;
 };
 
-export type GetPostingsByTopicPosts = PostingInfoFragment;
+export type GetPostingsByTopicPosts = {
+  __typename?: "Posting";
+
+  id: string;
+} & PostingInfoFragment;
 
 export type GetUserPostingsVariables = {
   input: FindUserPostingsInput;
@@ -452,7 +432,11 @@ export type GetUserPostingsFindUserPostings = {
   hasMore: boolean;
 };
 
-export type GetUserPostingsPosts = PostingInfoFragment;
+export type GetUserPostingsPosts = {
+  __typename?: "Posting";
+
+  id: string;
+} & PostingInfoFragment;
 
 export type AddReactionVariables = {
   postingId?: Maybe<string>;
@@ -630,7 +614,11 @@ export type MeMe = {
   bookmarks: Maybe<MeBookmarks[]>;
 } & UserInfoFragment;
 
-export type MeBookmarks = PostingInfoFragment;
+export type MeBookmarks = {
+  __typename?: "Posting";
+
+  id: string;
+} & PostingInfoFragment;
 
 export type FindUserByNameVariables = {
   username: string;
@@ -775,8 +763,6 @@ export type ReplyInfoCreator = UserInfoFragment;
 export type PostingInfoFragment = {
   __typename?: "Posting";
 
-  id: string;
-
   previewTitle: Maybe<string>;
 
   previewSubtitle: Maybe<string>;
@@ -787,13 +773,21 @@ export type PostingInfoFragment = {
 
   body: string;
 
+  createdAt: DateTime;
+
+  readingTime: number;
+
+  allowResponses: Maybe<boolean>;
+
+  isAuthor: Maybe<boolean>;
+
   isBookmark: Maybe<boolean>;
 
-  createdAt: DateTime;
+  hasReacted: Maybe<boolean>;
 
   numComments: number;
 
-  readingTime: number;
+  numReactions: number;
 
   creator: PostingInfoCreator;
 
@@ -817,7 +811,7 @@ export type UserInfoFragment = {
 
   id: string;
 
-  username: Maybe<string>;
+  username: string;
 
   pictureUrl: string;
 
@@ -894,16 +888,19 @@ export const TagInfoFragmentDoc = gql`
 
 export const PostingInfoFragmentDoc = gql`
   fragment PostingInfo on Posting {
-    id
     previewTitle
     previewSubtitle
     previewImage
     title
     body
-    isBookmark
     createdAt
-    numComments
     readingTime
+    allowResponses
+    isAuthor
+    isBookmark
+    hasReacted
+    numComments
+    numReactions
     creator {
       ...UserInfo
     }
@@ -1419,27 +1416,11 @@ export function RemoveBookmarkHOC<TProps, TChildProps = any>(
 export const GetPostingByIdDocument = gql`
   query GetPostingById($id: String!) {
     getPostingById(id: $id) {
-      title
-      body
-      createdAt
-      readingTime
-      allowResponses
-      isAuthor
-      isBookmark
-      hasReacted
-      numComments
-      numReactions
-      creator {
-        ...UserInfo
-      }
-      tags {
-        ...TagInfo
-      }
+      ...PostingInfo
     }
   }
 
-  ${UserInfoFragmentDoc}
-  ${TagInfoFragmentDoc}
+  ${PostingInfoFragmentDoc}
 `;
 export class GetPostingByIdComponent extends React.Component<
   Partial<ReactApollo.QueryProps<GetPostingByIdQuery, GetPostingByIdVariables>>
@@ -1478,6 +1459,7 @@ export const GetPostingsDocument = gql`
   query getPostings($input: FindPostingsInput!) {
     findPostings(input: $input) {
       posts {
+        id
         ...PostingInfo
       }
       hasMore
@@ -1523,6 +1505,7 @@ export const GetPostingsByTopicDocument = gql`
   query GetPostingsByTopic($cursor: String!, $topicIds: [String!]!) {
     getPostingsByTopic(cursor: $cursor, topicIds: $topicIds) {
       posts {
+        id
         ...PostingInfo
       }
       hasMore
@@ -1570,6 +1553,7 @@ export const GetUserPostingsDocument = gql`
   query getUserPostings($input: FindUserPostingsInput!) {
     findUserPostings(input: $input) {
       posts {
+        id
         ...PostingInfo
       }
       hasMore
@@ -2007,6 +1991,7 @@ export const MeDocument = gql`
     me {
       ...UserInfo
       bookmarks @include(if: $withBookmarks) {
+        id
         ...PostingInfo
       }
     }

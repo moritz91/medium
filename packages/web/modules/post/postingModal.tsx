@@ -18,7 +18,7 @@ import { TagInputField } from "../shared/formik-fields/TagInputField";
 import { TopicInputField } from "../shared/formik-fields/TopicInputField";
 import {
   CreatePostContextProps,
-  CreatePostContext
+  CreatePostContext,
 } from "../../context/PostContext";
 import { FlyoutContextProps } from "../../context/FlyoutContext";
 import { TagContext } from "../../context/TagContext";
@@ -44,7 +44,7 @@ const customStyles = {
     overflow: "hidden",
     margin: "auto",
     padding: "100px 0px",
-    width: 1040
+    width: 1040,
   },
   overlay: {
     display: "flex",
@@ -53,8 +53,8 @@ const customStyles = {
     left: 0,
     right: 0,
     backgroundColor: "#fff",
-    zIndex: 1000
-  }
+    zIndex: 1000,
+  },
 };
 
 export const PostingModal = () => {
@@ -75,7 +75,7 @@ export const PostingModal = () => {
 
   const TagCtx: FlyoutContextProps = {
     dispatch,
-    state
+    state,
   };
 
   return (
@@ -86,13 +86,13 @@ export const PostingModal = () => {
           variables: {
             input: {
               limit: 6,
-              offset: 0
-            }
-          }
-        }
+              offset: 0,
+            },
+          },
+        },
       ]}
     >
-      {mutate => (
+      {(mutate) => (
         <>
           <Modal
             isOpen={open}
@@ -112,7 +112,7 @@ export const PostingModal = () => {
                     name="x"
                     fill="#0d0d0d"
                     style={{
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                     onClick={() => changeOpen(false)}
                   />
@@ -125,7 +125,7 @@ export const PostingModal = () => {
                       marginBottom: "10px",
                       background: "#fafafa",
                       width: "100%",
-                      fontSize: "14px"
+                      fontSize: "14px",
                     }}
                   >
                     <div
@@ -133,7 +133,7 @@ export const PostingModal = () => {
                         display: "flex",
                         height: 200,
                         justifyContent: "center",
-                        alignItems: "center"
+                        alignItems: "center",
                       }}
                     >
                       <span
@@ -141,7 +141,7 @@ export const PostingModal = () => {
                           marginLeft: 80,
                           marginRight: 80,
                           lineHeight: "20px",
-                          textAlign: "center"
+                          textAlign: "center",
                         }}
                       >
                         Include a high-quality image in your story to make it
@@ -152,7 +152,7 @@ export const PostingModal = () => {
                   <Formik
                     initialValues={{
                       previewTitle: "",
-                      previewSubtitle: ""
+                      previewSubtitle: "",
                     }}
                     onSubmit={async ({ previewTitle }, { setErrors }) => {
                       if (!previewTitle) {
@@ -160,7 +160,7 @@ export const PostingModal = () => {
                       }
                     }}
                     validationSchema={yup.object().shape({
-                      previewTitle: yup.string().required("required")
+                      previewTitle: yup.string().required("required"),
                     })}
                     validateOnBlur={false}
                     validateOnChange={false}
@@ -197,7 +197,7 @@ export const PostingModal = () => {
                       marginTop: 10,
                       marginBottom: 20,
                       fontWeight: 400,
-                      color: "rgba(0, 0, 0, 0.68)"
+                      color: "rgba(0, 0, 0, 0.68)",
                     }}
                   >
                     <strong style={{ fontWeight: 700 }}>Note:</strong> Changes
@@ -222,7 +222,7 @@ export const PostingModal = () => {
                     style={{
                       marginLeft: "auto",
                       marginTop: "2rem",
-                      marginRight: 0
+                      marginRight: 0,
                     }}
                     disabled={isSubmitting}
                     onClick={async () => {
@@ -232,15 +232,15 @@ export const PostingModal = () => {
                             title,
                             previewTitle,
                             previewSubtitle,
-                            body
+                            body,
                           },
-                          tagNames: tags.map(t => t.name),
-                          topicIds: [topicId]
-                        }
+                          tagNames: tags.map((t) => t.name),
+                          topicIds: [topicId],
+                        },
                       });
                       if (response && response.data) {
                         Router.pushRoute("post", {
-                          id: response.data.createPosting.posting.id
+                          id: response.data.createPosting.posting.id,
                         });
                       }
                     }}

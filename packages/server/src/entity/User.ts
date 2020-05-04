@@ -5,7 +5,7 @@ import {
   BaseEntity,
   OneToMany,
   JoinTable,
-  CreateDateColumn
+  CreateDateColumn,
 } from "typeorm";
 import { ObjectType, Field, ID, Ctx } from "type-graphql";
 import { Posting } from "./Posting";
@@ -23,9 +23,9 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Field({ nullable: true })
-  @Column({ type: "text", unique: true, nullable: true })
-  username?: string;
+  @Field()
+  @Column({ type: "text", unique: true })
+  username: string;
 
   @Column({ type: "text", unique: true })
   githubId: string;
@@ -43,11 +43,11 @@ export class User extends BaseEntity {
   bio: string;
 
   @Field(() => [Posting])
-  @OneToMany(() => Posting, post => post.creator)
+  @OneToMany(() => Posting, (post) => post.creator)
   postings: Promise<Posting[]>;
 
   @Field(() => [Comment])
-  @OneToMany(() => Comment, pr => pr.creatorConnection)
+  @OneToMany(() => Comment, (pr) => pr.creatorConnection)
   comments: Promise<Comment[]>;
 
   @Field(() => [Topic], { nullable: true })
@@ -60,19 +60,19 @@ export class User extends BaseEntity {
     return userPostingLoader.load(this.id);
   }
 
-  @OneToMany(() => UserTopic, up => up.user)
+  @OneToMany(() => UserTopic, (up) => up.user)
   @JoinTable({ name: "UserTopic" })
   postingUserTopicConnection: Promise<UserTopic[]>;
 
-  @OneToMany(() => Bookmark, up => up.user)
+  @OneToMany(() => Bookmark, (up) => up.user)
   @JoinTable({ name: "PostingBookmark" })
   postingBookmarkConnection: Promise<Bookmark[]>;
 
-  @OneToMany(() => Reaction, r => r.user)
+  @OneToMany(() => Reaction, (r) => r.user)
   @JoinTable({ name: "PostingReaction" })
   postingReactionConnection: Promise<Reaction[]>;
 
-  @OneToMany(() => Reaction, r => r.user)
+  @OneToMany(() => Reaction, (r) => r.user)
   @JoinTable({ name: "CommentReaction" })
   commentReactionConnection: Promise<Reaction[]>;
 }

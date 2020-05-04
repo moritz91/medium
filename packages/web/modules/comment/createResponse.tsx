@@ -7,7 +7,7 @@ import { Flex } from "rebass";
 import {
   CommentInfoFragment,
   GetCommentsByIdQuery,
-  GetCommentsByIdVariables
+  GetCommentsByIdVariables,
 } from "../../components/apollo-components";
 import { Avatar } from "../../components/common/Avatar";
 import { useAuth } from "../../context/AuthContext";
@@ -53,14 +53,14 @@ export const CreateResponse = ({
         >({
           query: getCommentsByIdQuery,
           variables: {
-            input: { postingId }
-          }
+            input: { postingId },
+          },
         });
 
         cache.writeQuery<GetCommentsByIdQuery, GetCommentsByIdVariables>({
           query: getCommentsByIdQuery,
           variables: {
-            input: { postingId }
+            input: { postingId },
           },
           data: {
             __typename: "Query",
@@ -68,14 +68,14 @@ export const CreateResponse = ({
               __typename: "FindCommentResponse",
               comments: [
                 data.createComment.comment,
-                ...x!.findCommentsById.comments
+                ...x!.findCommentsById.comments,
               ],
-              hasMore: false
-            }
-          }
+              hasMore: false,
+            },
+          },
         });
-      }
-    }
+      },
+    },
   );
 
   const [createReply, { data: replyData }] = useMutation(createReplyMutation, {
@@ -94,7 +94,7 @@ export const CreateResponse = ({
               text
             }
           }
-        `
+        `,
       });
 
       if (x.replies) {
@@ -111,8 +111,8 @@ export const CreateResponse = ({
           `,
           data: {
             __typename: "Comment",
-            replies: [...x!.replies, data.createReply.reply]
-          }
+            replies: [...x!.replies, data.createReply.reply],
+          },
         });
       } else {
         cache.writeFragment({
@@ -128,11 +128,11 @@ export const CreateResponse = ({
           `,
           data: {
             __typename: "Comment",
-            replies: [data.createReply.reply]
-          }
+            replies: [data.createReply.reply],
+          },
         });
       }
-    }
+    },
   });
 
   if (meData) {
