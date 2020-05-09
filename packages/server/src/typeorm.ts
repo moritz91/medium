@@ -19,6 +19,5 @@ export const createTypeormConn = async () => {
 };
 
 export const resetDatabase = async (conn: Connection): Promise<void> => {
-  await conn.dropDatabase();
-  await conn.synchronize();
+  await conn.synchronize(true);
 };

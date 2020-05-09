@@ -26,7 +26,7 @@
     "username": "postgres",
     "password": "postgres",
     "database": "stackflow",
-    "synchronize": false,
+    "synchronize": true,
     "logging": false,
     "entities": ["dist/entity/**/*.*"],
     "migrations": ["dist/migration/**/*.*"],
