@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsnd --respawn --ignore-watch .next --project tsconfig.server.json server/index.ts",
-    "build": "next build",
+    "build": "rm -rf /.next && next build",
     "start": "next start",
     "next-start": "next start",
     "type-check": "tsc",

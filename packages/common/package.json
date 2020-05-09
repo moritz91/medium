@@ -12,6 +12,6 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "rm -rf tsconfig.tsbuildinfo && rm -rf ./dist && tsc"
   }
 }
