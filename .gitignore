@@ -10,6 +10,11 @@ dist
 storybook-static/
 cypress/
 
+scripts/determineChanges.sh
+scripts/drone_build_backend.sh
+scripts/shouldBuild.sh
+scripts/compose.sh
+
 .env
 .env.prod
 .DS_Store
