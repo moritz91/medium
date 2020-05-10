@@ -14,8 +14,7 @@ COPY ./packages/server/.env.prod .env
 WORKDIR /medium
 COPY ["package.json", "yarn.lock", "./"] 
 
-RUN yarn config set cache-folder /yarn && \
-  yarn install --production
+RUN yarn install --production --cache-folder /yarn
 
 # and then copy over node_modules, etc from that stage into smaller base image
 FROM mhart/alpine-node:base-10
