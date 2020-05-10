@@ -1,7 +1,7 @@
+import * as React from "react";
 import { format as formatDate } from "date-fns";
 import { includes } from "lodash";
 import Router from "next/router";
-import * as React from "react";
 import { useEffect, useReducer, useState } from "react";
 import { Waypoint } from "react-waypoint";
 import { Box, Flex, Text } from "rebass";
@@ -47,7 +47,7 @@ import { NextContextWithApollo } from "../../types/NextContextWithApollo";
 import { UserPopover } from "../user/shared/userPopover";
 import { DeletePosting } from "./DeletePosting";
 import { ActionsDropdown } from "./shared/ActionsDropdown";
-import { MarkdownRenderer } from "./shared/markdownEditor/markdownRenderer";
+import { MarkdownRenderer } from "./shared/markdownEditor";
 import { BookmarkPosting } from "./bookmarkPosting";
 import { useMutation } from "@apollo/react-hooks";
 import { addReactionMutation } from "../../graphql/shared/addReaction";
@@ -356,9 +356,7 @@ export const Posting = ({
                                       hasReacted={hasReacted}
                                       isAuthor={isAuthor}
                                       numReactions={numReactions}
-                                      body={MarkdownRenderer({
-                                        text,
-                                      })}
+                                      body={MarkdownRenderer({ text })}
                                       replies={replies}
                                     />
                                     {data.findCommentsById.hasMore &&

@@ -13,7 +13,7 @@ import { CopyLink } from "../../modules/comment/copyLink";
 import { CreateResponse } from "../../modules/comment/createResponse";
 import { DeleteComment } from "../../modules/comment/deleteComment";
 import { ActionsDropdown } from "../../modules/post/shared/ActionsDropdown";
-import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor/markdownRenderer";
+import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor";
 import { UserPopover } from "../../modules/user/shared/userPopover";
 import { Link } from "../../server/routes";
 import { Maybe, ReplyInfoFragment } from "../apollo-components";

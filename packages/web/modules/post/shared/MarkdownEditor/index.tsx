@@ -1,16 +1,20 @@
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import { Field } from "formik";
-import React, {
-  useCallback,
-  useEffect,
-  // useLayoutEffect,
-  useRef,
-  useState
-} from "react";
+import schema from "hast-util-sanitize/lib/github.json";
+import remark from "remark";
+import remarkPing from "remark-ping";
+import remark2react from "remark-react";
+import { Node } from "unist";
+import visit from "unist-util-visit";
+
 import { CommentInputField } from "../../../shared/formik-fields/CommentInputField";
 import { commandsHandler, EditCommand, keyBoardCommands } from "./commands";
 import { EditorContainer } from "./components";
-import { MarkdownRenderer } from "./markdownRenderer";
+import { LineNumberStyle } from "../../../../components/codeCard";
+import { getHighlightedCode } from "../../../../utils/highlightCode";
 import { Tab, Toolbar } from "./toolbar";
+import "../../../../github-markdown.css";
 
 interface EditorProps {
   isReply: boolean;
@@ -95,7 +99,7 @@ export const MarkdownEditor: React.FC<EditorProps> = React.memo(
             className="preview-content selected"
             style={{
               minHeight:
-                (writeRef.current && writeRef.current.style.height) || "100px"
+                (writeRef.current && writeRef.current.style.height) || "100px",
             }}
           >
             <MarkdownRenderer text={text.trim() || "Nothing to preview."} />
@@ -103,5 +107,71 @@ export const MarkdownEditor: React.FC<EditorProps> = React.memo(
         )}
       </EditorContainer>
     );
+  },
+);
+
+const HighlightCode = ({ children }: { children: string }): JSX.Element => {
+  try {
+    const { value, lang, meta } = JSON.parse(children);
+    return <code>{getHighlightedCode(value, lang, parseInt(meta))}</code>;
+  } catch (ex) {
+    return <code>{children}</code>;
   }
+};
+
+const sanitize = {
+  ...schema,
+  attributes: {
+    ...schema.attributes,
+    a: [...schema.attributes.a, ["class", "ping ping-link"]],
+  },
+};
+
+const setCodeProps = (): ((ast: Node[]) => void) => {
+  return (ast: Node[]): void =>
+    visit(
+      ast,
+      "code",
+      (node: Node): void => {
+        const { lang, meta, value } = node;
+        node.value = JSON.stringify({ value, lang, meta });
+      },
+    );
+};
+
+const MarkdownContainer = styled("div")`
+  & .ping-link {
+    border-radius: 4px;
+    padding: 0px 4px 1px;
+    font-weight: 600;
+  }
+  & .token.line-number {
+    ${LineNumberStyle}
+  }
+`;
+
+interface MarkdownRendererProps {
+  text: string;
+}
+
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
+  text,
+}): JSX.Element => (
+  <MarkdownContainer className="markdown-body">
+    {
+      remark()
+        .use(remarkPing, {
+          pingUsername: () => true,
+          userURL: (username: string) => `http://localhost:3000/@${username}`,
+        })
+        .use(setCodeProps)
+        .use(remark2react, {
+          sanitize,
+          remarkReactComponents: {
+            code: HighlightCode,
+          },
+        })
+        .processSync(text).contents
+    }
+  </MarkdownContainer>
 );

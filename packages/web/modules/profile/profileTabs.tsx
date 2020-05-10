@@ -3,7 +3,7 @@ import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs";
 import { Comment } from "../../components/comment";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
-import { MarkdownRenderer } from "../post/shared/markdownEditor/markdownRenderer";
+import { MarkdownRenderer } from "../post/shared/markdownEditor";
 import { ProfilePostItem } from "../../components/profilePostItem";
 import { PostsContext } from "../../context/PostContext";
 import { CommentInfoFragment } from "../../components/apollo-components";
