@@ -15,7 +15,7 @@ import * as middlewares from "@medium/common";
 import { createTypeormConn } from "./typeorm";
 import { seedData } from "./helpers/seedData";
 import { User } from "./entity/User";
-import { userLoader } from "./loaders/UserLoader";
+import { userLoader } from "./loaders/userLoader";
 import { postingTagLoader } from "./loaders/postingTagLoader";
 import { tagPostingLoader } from "./loaders/tagPostingLoader";
 import { topicPostingLoader } from "./loaders/topicPostingLoader";
