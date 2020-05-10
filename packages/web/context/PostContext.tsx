@@ -3,7 +3,7 @@ import {
   UserInfoFragment,
   TagInfoFragment,
   PostingInfoFragment,
-  CommentInfoFragment
+  CommentInfoFragment,
 } from "../components/apollo-components";
 
 export interface PostContextProps {
@@ -31,7 +31,7 @@ export interface PostsContextProps {
 export const PostContext = createContext<PostContextProps>({
   title: "",
   creator: { id: "", username: "", pictureUrl: "", bio: "", createdAt: "" },
-  postingId: ""
+  postingId: "",
 });
 
 export const CreatePostContext = createContext<CreatePostContextProps>({
@@ -39,13 +39,12 @@ export const CreatePostContext = createContext<CreatePostContextProps>({
   body: "",
   tags: [{ id: "", name: "" }],
   isSubmitting: false,
-  isUpdate: false
+  isUpdate: false,
 });
 
 export const PostsContext = createContext<PostsContextProps>({
   postings: [
     {
-      id: "",
       title: "",
       body: "",
       createdAt: "",
@@ -56,8 +55,12 @@ export const PostsContext = createContext<PostsContextProps>({
       previewSubtitle: "",
       previewImage: "",
       isBookmark: false,
-      readingTime: 0
-    }
+      readingTime: 0,
+      allowResponses: false,
+      isAuthor: false,
+      hasReacted: false,
+      numReactions: 0,
+    },
   ],
   username: "",
   pictureUrl: "",
@@ -73,7 +76,7 @@ export const PostsContext = createContext<PostsContextProps>({
       postingId: "",
       numReactions: 0,
       hasReacted: false,
-      replies: []
-    }
-  ]
+      replies: [],
+    },
+  ],
 });
