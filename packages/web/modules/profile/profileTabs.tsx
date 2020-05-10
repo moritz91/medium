@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs/tabs";
+import { TabList, Tabs, Tab, TabPanel } from "../../components/tabs";
 import { Comment } from "../../components/comment";
 import { Link } from "../../server/routes";
 import { Box } from "rebass";
