@@ -1,17 +1,41 @@
 stages:
   - build
+  - deploy
+
+.default-cache: &default-cache
+  cache:
+    key: "$CI_PROJECT_ID"
+    untracked: true
+    paths:
+      - .yarn-cache
+      - packages/*/dist
+      - packages/web/.next
+
+compile_packages:
+  <<: *default-cache # Merge the contents of the 'default-cache' alias
+  stage: build
+  image:
+    name: node:latest
+    entrypoint: [""]
+  before_script:
+    - npm install -g typescript
+    - yarn install --production --frozen-lockfile --cache-folder .yarn-cache
+  script:
+    - tsc -b packages/common packages/server
+    - yarn --cwd packages/web next build
+  artifacts:
+    paths:
+      - packages/common/dist
+      - packages/server/dist
+      - packages/web/.next
+    untracked: false
+    expire_in: 5 mins
 
 build_image:
-  stage: build
+  stage: deploy
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
-  before_script:
-    - yum install nodejs10
-    - npm install -g typescript
-    - yarn install --production
-    - tsc -b packages/common packages/server
-    - yarn --cwd packages/web next build
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/packages/server/Dockerfile --destination $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_TAG
