@@ -1,5 +1,5 @@
-import lighten from "polished/lib/color/lighten";
 import darken from "polished/lib/color/darken";
+import lighten from "polished/lib/color/lighten";
 import shade from "polished/lib/color/shade";
 
 export const paleGrey = "#efefef";

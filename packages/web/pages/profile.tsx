@@ -1,14 +1,16 @@
-import * as React from "react";
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import { Layout } from "../components/layout";
-import { findUserByNameQuery } from "../graphql/user/query/user";
+import { ApolloQueryResult } from "apollo-client/core/types";
 import {
+  CommentInfoFragment,
+  FindUserByNameQuery,
   PostingInfoFragment,
-  CommentInfoFragment
-} from "../components/apollo-components";
-import { ProfileTabs } from "../modules/profile/profileTabs";
-import { ProfileHero } from "../modules/user/profile/ProfileHero";
-import { PostsContextProps, PostsContext } from "../context/PostContext";
+} from "components/apollo-components";
+import { Layout } from "components/layout";
+import { PostsContext, PostsContextProps } from "context/post-context";
+import { findUserByNameQuery } from "graphql/user/query/user";
+import { ProfileTabs } from "modules/profile/profile-tabs";
+import { ProfileHero } from "modules/user/profile/profile-hero";
+import React from "react";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 
 interface ProfileProps {
   postings: [PostingInfoFragment];
@@ -21,13 +23,15 @@ interface ProfileProps {
 export default class Profile extends React.PureComponent<ProfileProps> {
   static async getInitialProps({
     query: { username },
-    apolloClient
+    apolloClient,
   }: NextContextWithApollo) {
-    const response: any = await apolloClient.query({
+    const response: ApolloQueryResult<
+      FindUserByNameQuery
+    > = await apolloClient.query({
       query: findUserByNameQuery,
       variables: {
-        username
-      }
+        username,
+      },
     });
 
     const { findUserByName } = response.data;
@@ -37,7 +41,7 @@ export default class Profile extends React.PureComponent<ProfileProps> {
       pictureUrl: findUserByName!.pictureUrl,
       createdAt: findUserByName!.createdAt,
       postings: findUserByName!.postings,
-      comments: findUserByName!.comments
+      comments: findUserByName!.comments,
     };
   }
 
@@ -49,7 +53,7 @@ export default class Profile extends React.PureComponent<ProfileProps> {
       pictureUrl: pictureUrl,
       createdAt: createdAt,
       postings: postings,
-      comments: comments
+      comments: comments,
     };
     return (
       <Layout title={`${username}`}>

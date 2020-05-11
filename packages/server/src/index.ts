@@ -1,48 +1,47 @@
-import "reflect-metadata";
-require("dotenv-safe").config({
-  allowEmptyValues: true,
-});
+import * as middlewares from "@medium/common";
 import { ApolloServer } from "apollo-server-express";
 import * as express from "express";
+import * as passport from "passport";
+import { Strategy as GitHubStrategy } from "passport-github";
+import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import * as typeorm from "typeorm";
-import * as passport from "passport";
-import { Strategy as GitHubStrategy } from "passport-github";
-
-import * as middlewares from "@medium/common";
-
-import { createTypeormConn } from "./typeorm";
-import { seedData } from "./helpers/seedData";
 import { User } from "./entity/User";
-import { userLoader } from "./loaders/userLoader";
+import { seedData } from "./helpers/seedData";
+import { backendURI, frontendURI } from "./helpers/uris";
 import { postingTagLoader } from "./loaders/postingTagLoader";
+import { postingTopicLoader } from "./loaders/postingTopicLoader";
 import { tagPostingLoader } from "./loaders/tagPostingLoader";
 import { topicPostingLoader } from "./loaders/topicPostingLoader";
-import { postingTopicLoader } from "./loaders/postingTopicLoader";
+import { userLoader } from "./loaders/userLoader";
 import { userPostingLoader } from "./loaders/userPostingLoader";
 import { userTopicLoader } from "./loaders/userTopicLoader";
-import { backendURI, frontendURI } from "./helpers/uris";
+import { createTypeormConn } from "./typeorm";
+require("dotenv-safe").config({
+  allowEmptyValues: true,
+});
+
+interface ExpressRequestResponse {
+  req: express.Request;
+  res: express.Response;
+}
 
 typeorm.useContainer(Container);
 
 process.env.GITHUB_CLIENT_ID;
 
+
 const startServer = async () => {
   const conn = await createTypeormConn();
-
+  
   // pre-populate the db with some data
   if (conn?.isConnected && process.env.NODE_ENV === "production") {
     await seedData();
   }
-
+  
   const app = express();
-
-  interface ExpressRequestResponse {
-    req: express.Request;
-    res: express.Response;
-  }
-
+  
   const server = new ApolloServer({
     schema: await buildSchema({
       // resolvers: [UserResolver, LogoutResolver]

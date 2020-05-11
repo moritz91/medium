@@ -1,14 +1,14 @@
+import { Button } from "components/button";
+import { Actions, Content, UserAvatar } from "components/comment/styles";
+import { Avatar } from "components/common";
 import { formatDistanceToNow } from "date-fns";
-import { Box, Flex, Text } from "rebass";
-import { CopyLink } from "../../modules/comment/copyLink";
-import { ActionsDropdown } from "../../modules/post/shared/ActionsDropdown";
-import { Button } from "../button";
-import { Actions, Content, UserAvatar } from "../comment";
-import { Avatar } from "../common/Avatar";
+import { CopyLink } from "modules/comment/copy-link";
+import { DeleteReply } from "modules/comment/delete-reply";
+import { ActionsDropdown } from "modules/post/shared/actions-dropdown";
 import { useState } from "react";
-import { Link } from "../../server/routes";
+import { Box, Flex, Text } from "rebass";
+import { Link } from "server/routes";
 import styled from "styled-components";
-import { DeleteReply } from "../../modules/comment/deleteReply";
 
 export const ReplyTopRow = styled.div`
   display: grid;
@@ -80,32 +80,19 @@ export const Reply: React.FC<ReplyProps> = ({
           {text}
         </Text>
         <div style={{ display: "flex" }}>
-          {reacted ? (
-            <Button
-              variant="tag"
-              style={{
-                cursor: "pointer",
-                color: "#5C6AC4",
-                width: "100px",
-              }}
-            >
-              {numReactions == 1
-                ? `${numReactions}` + " like"
-                : `${numReactions}` + " likes"}
-            </Button>
-          ) : (
-            <Button
-              variant="tag"
-              style={{
-                cursor: "pointer",
-                width: "100px",
-              }}
-            >
-              {numReactions == 1
-                ? `${numReactions}` + " like"
-                : `${numReactions}` + " likes"}
-            </Button>
-          )}
+          <Button
+            variant="tag"
+            onClick={() => setReacted(!reacted)}
+            style={{
+              cursor: "pointer",
+              color: reacted ? "#5C6AC4" : "inherit",
+              width: "100px",
+            }}
+          >
+            {numReactions == 1
+              ? `${numReactions}` + " like"
+              : `${numReactions}` + " likes"}
+          </Button>
         </div>
       </Content>
     </ReplyTopRow>

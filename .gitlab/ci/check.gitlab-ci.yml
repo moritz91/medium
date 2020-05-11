@@ -1,0 +1,10 @@
+check image existence in container registry:
+  image: cfmanteiga/alpine-bash-curl-jq
+  stage: check
+  script:
+    - bash scripts/container-image-tag.sh dev
+    - bash scripts/container-image-tag.sh prod
+  artifacts:
+    paths:
+      - variables
+    expire_in: 45 min

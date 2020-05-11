@@ -1,3 +1,1 @@
-export { useClickOutside } from "./useClickOutside";
-export { useHotkeys } from "./useHotkeys";
-export { usePopper } from "./usePopper";
+export { useHotkeys } from "components/hooks/use-hotkeys";

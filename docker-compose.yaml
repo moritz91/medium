@@ -21,10 +21,10 @@ services:
     build:
       context: .
       dockerfile: ./packages/web/Dockerfile
-    environment:
-      - BACKEND_URI_DOCKER=backend:4000
-      - BACKEND_URI=localhost:8080/api
-      - NODE_ENV=production
+    # environment:
+    #   - BACKEND_URI_DOCKER=backend:4000
+    #   - BACKEND_URI=localhost:8080/api
+    #   - NODE_ENV=production
     expose:
       - 3000
     volumes:

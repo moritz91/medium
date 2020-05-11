@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { buttonStyle } from "styled-system";
 
@@ -22,6 +22,6 @@ const StyledButton = styled.button<ButtonProps>`
   `}
 `;
 
-export const Button: React.FC<ButtonProps> = props => (
+export const Button: React.FC<ButtonProps> = (props) => (
   <StyledButton {...props} />
 );

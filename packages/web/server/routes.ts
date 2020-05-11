@@ -1,4 +1,4 @@
-import * as nextRoutes from "next-routes";
+import nextRoutes from "next-routes";
 
 // @ts-ignore
 export const routes = nextRoutes() as Routes;

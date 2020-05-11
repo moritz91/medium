@@ -1,0 +1,17 @@
+.global:base:default-cache:
+  cache:
+    key:
+      files:
+        - yarn.lock
+      prefix: "v1"
+    paths:
+      - .yarn-cache/
+      - .next/cache/
+
+.global:base:kaniko:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - echo "$DOCKER_CONF" > /kaniko/.docker/config.json

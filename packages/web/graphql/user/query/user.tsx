@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { UserInfoFragment } from "../fragments/UserInfo";
+import { UserInfoFragment } from "graphql/user/fragments/user-info";
 
 export const findUserByNameQuery = gql`
   query FindUserByName($username: String!) {

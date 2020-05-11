@@ -1,84 +1,38 @@
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import { Maybe, ReplyInfoFragment } from "components/apollo-components";
+import { Button } from "components/button";
+import { Actions, CommentContainer, Content, TopRow, UserAvatar } from "components/comment/styles";
+import { Avatar } from "components/common";
+import { Reply } from "components/reply";
+import { FlyoutContext, FlyoutContextProps } from "context/flyout-context";
+import { PostContext, PostContextProps } from "context/post-context";
 import { formatDistanceToNow } from "date-fns";
 import gql from "graphql-tag";
-import * as React from "react";
-import { useContext, useEffect, useRef, useState } from "react";
+import { addReactionMutation } from "graphql/shared/add-reaction";
+import { removeReactionMutation } from "graphql/shared/remove-reaction";
+import { CopyLink } from "modules/comment/copy-link";
+import { CreateResponse } from "modules/comment/create-response";
+import { DeleteComment } from "modules/comment/delete-comment";
+import { ActionsDropdown } from "modules/post/shared/actions-dropdown";
+import { MarkdownRenderer } from "modules/post/shared/markdown-editor/renderer";
+import { UserPopover } from "modules/user/shared/user-popover";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Box, Flex, Text } from "rebass";
-import styled, { css } from "styled-components";
-import { FlyoutContext, FlyoutContextProps } from "../../context/FlyoutContext";
-import { PostContext, PostContextProps } from "../../context/PostContext";
-import { addReactionMutation } from "../../graphql/shared/addReaction";
-import { removeReactionMutation } from "../../graphql/shared/removeReaction";
-import { CopyLink } from "../../modules/comment/copyLink";
-import { CreateResponse } from "../../modules/comment/createResponse";
-import { DeleteComment } from "../../modules/comment/deleteComment";
-import { ActionsDropdown } from "../../modules/post/shared/ActionsDropdown";
-import { MarkdownRenderer } from "../../modules/post/shared/markdownEditor";
-import { UserPopover } from "../../modules/user/shared/userPopover";
-import { Link } from "../../server/routes";
-import { Maybe, ReplyInfoFragment } from "../apollo-components";
-import { Button } from "../button";
-import { Avatar } from "../common/Avatar";
-import { Reply } from "../reply";
+import { Link } from "server/routes";
 
 interface CommentProps {
   id: string;
   body: any;
   createdAt: string;
   creator: any;
-  isAuthor: boolean | null;
+  isAuthor: Maybe<boolean>;
   numReactions: number;
-  hasReacted: boolean | null;
+  hasReacted: Maybe<boolean>;
   replies: Maybe<ReplyInfoFragment[]>;
 }
 
-interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
-  targetState: boolean | undefined;
-  targetId: string | undefined;
-  id: string;
-}
 
-export const CommentContainer = styled.div<ContainerProps>`
-  width: 100%;
-  padding: 11px;
-  margin: 1.6rem 0px 1rem 0px;
-  border-radius: 3px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-
-  ${({ targetState, targetId, id }) =>
-    targetId === id &&
-    targetState &&
-    css`
-      border-color: #2188ff;
-      box-shadow: 0 0px 5px #5c6ac4;
-    `}
-`;
-
-export const TopRow = styled.div`
-  display: grid;
-  grid-template-areas: "avatar content";
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
-  gap: 8px 8px;
-  flex: 1 1 0%;
-`;
-
-export const UserAvatar = styled.div`
-  display: grid;
-  grid-area: avatar / avatar / avatar / avatar;
-`;
-
-export const Actions = styled.div`
-  display: grid;
-  grid-area: actions / actions / actions / actions;
-`;
-
-export const Content = styled.div`
-  display: grid;
-  grid-area: content / content / content / content;
-`;
-
-export const Comment: React.FC<CommentProps> = ({
+const Comment: React.FC<CommentProps> = ({
   id,
   creator: { username, pictureUrl },
   isAuthor,
@@ -287,3 +241,5 @@ export const Comment: React.FC<CommentProps> = ({
     </div>
   );
 };
+
+export default Comment;

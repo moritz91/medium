@@ -3,15 +3,10 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "apollo-boost";
-import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
+import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
-import { isBrowser } from "./isBrowser";
-import getConfig from "next/config";
-
-const {
-  publicRuntimeConfig: { BACKEND_URI_DOCKER, BACKEND_URI },
-} = getConfig();
+import { isBrowser } from "lib/is-browser";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
@@ -23,8 +18,8 @@ if (!isBrowser) {
 function create(initialState: any, { getToken }: { getToken: () => string }) {
   const adjustedUri =
     !isBrowser && process.env.NODE_ENV === "production"
-      ? BACKEND_URI_DOCKER
-      : BACKEND_URI;
+      ? process.env.BACKEND_URI_DOCKER
+      : process.env.NEXT_PUBLIC_BACKEND_URI;
 
   const httpLink = createHttpLink({
     uri: `http://${adjustedUri}/graphql`,
@@ -47,7 +42,7 @@ function create(initialState: any, { getToken }: { getToken: () => string }) {
   });
 }
 
-export default function initApollo(
+export default function initApolloClient(
   initialState: any,
   options: { getToken: () => string },
 ) {
@@ -57,7 +52,7 @@ export default function initApollo(
     return create(initialState, options);
   }
 
-  // Reuse client on the client-side
+  // Reuse client on the client-side (i.e. after page transitions)
   if (!apolloClient) {
     apolloClient = create(initialState, options);
   }

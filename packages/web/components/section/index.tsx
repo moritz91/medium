@@ -1,12 +1,12 @@
-import { Box, Text } from "rebass";
-import { useContext } from "react";
-import { Heading, TopicTitle, H4 } from "../heading";
-import { GetPostingsByTopicComponent } from "../apollo-components";
+import { GetPostingsByTopicComponent } from "components/apollo-components";
+import { Button } from "components/button";
+import Heading, { H4, TopicTitle } from "components/heading";
+import { TopicContext, TopicContextProps } from "context/topic-context";
 import { truncate } from "lodash";
-import { Link } from "../../server/routes";
+import { useContext } from "react";
+import { Box, Text } from "rebass";
+import { Link } from "server/routes";
 import styled from "styled-components";
-import { Button } from "../button";
-import { TopicContextProps, TopicContext } from "../../context/TopicContext";
 
 export const Sections = styled.section`
   justify-content: space-between;
@@ -36,9 +36,9 @@ interface SidebarSectionProps {
   variant: "main" | "topic";
 }
 
-export const SidebarSection: React.FC<SidebarSectionProps> = props => {
+export const SidebarSection: React.FC<SidebarSectionProps> = (props) => {
   const { topicId, name, shortCaption } = useContext<TopicContextProps>(
-    TopicContext
+    TopicContext,
   );
 
   if (props.variant === "topic")
@@ -47,7 +47,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
         <div style={{ marginLeft: 56, display: "block" }}>
           <div
             style={{
-              display: "block"
+              display: "block",
             }}
           >
             <Box mb={2} mt={0} mr={0} ml={"0rem"}>
@@ -108,7 +108,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
                               style={{
                                 marginBottom: 16,
                                 marginTop: 16,
-                                display: "flex"
+                                display: "flex",
                               }}
                             >
                               <div
@@ -116,7 +116,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
                                   flex: "1 1 0%",
                                   marginRight: 12,
                                   flexDirection: "column",
-                                  display: "flex"
+                                  display: "flex",
                                 }}
                               >
                                 <div
@@ -127,13 +127,13 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
                                       <div
                                         style={{
                                           marginBottom: 4,
-                                          display: "block"
+                                          display: "block",
                                         }}
                                       >
                                         <H4>
                                           {truncate(p.previewTitle, {
                                             length: 80,
-                                            separator: " "
+                                            separator: " ",
                                           })}
                                         </H4>
                                       </div>
@@ -150,7 +150,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
                                       fontSize: "12.8px",
                                       lineHeight: "20px",
                                       display: "block",
-                                      fontWeight: 400
+                                      fontWeight: 400,
                                     }}
                                   >
                                     15 min read
@@ -171,7 +171,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = props => {
                               </div>
                             </article>
                           </div>
-                        )
+                        ),
                       )}
                     </>
                   );

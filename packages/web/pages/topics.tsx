@@ -1,9 +1,9 @@
+import { GetTopicsComponent } from "components/apollo-components";
+import { Layout } from "components/layout";
+import { TopicTile } from "components/topic-tile";
 import React from "react";
+import { Link } from "server/routes";
 
-import { Layout } from "../components/layout";
-import { Link } from "../server/routes";
-import { GetTopicsComponent } from "../components/apollo-components";
-import { TopicTile } from "../components/topicTile";
 
 interface Props {
   id: string;

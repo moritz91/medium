@@ -1,7 +1,7 @@
-import * as React from "react";
+import { Icon } from "components/icon";
+import { icons } from "components/icon/icons";
+import React from "react";
 import styled from "styled-components";
-import { Icon } from "../icon";
-import { icons } from "../icon/icons";
 
 const Row = styled.div`
   width: 100%;

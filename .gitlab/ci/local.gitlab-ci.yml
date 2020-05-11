@@ -1,0 +1,17 @@
+compile packages locally:
+  extends: .global:base:default-cache
+  stage: build
+  before_script:
+    - npm install -g typescript
+  script:
+    - yarn install --frozen-lockfile --cache-folder .yarn-cache
+    - tsc -b packages/common packages/server
+    - yarn --cwd packages/web next build
+  artifacts:
+    paths:
+      - packages/*/dist
+      - packages/web/.next
+    untracked: false
+    expire_in: 5 mins
+  rules:
+    - if: '$ENVIRONMENT == "local"'

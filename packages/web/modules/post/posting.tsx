@@ -1,58 +1,38 @@
-import * as React from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { ApolloQueryResult } from "apollo-client/core/types";
+import { GetCommentsByIdComponent, GetPostingByIdQuery, PostingInfoFragment } from "components/apollo-components";
+import { Button } from "components/button";
+import Comment from "components/comment";
+import { Actions, Content, TopRow, UserAvatar } from "components/comment/styles";
+import { Avatar } from "components/common";
+import { Caption, StoryFooterUsername, StoryHeading } from "components/heading";
+import { Icon } from "components/icon";
+import { Layout } from "components/layout";
+import { StoryContainer, StoryFooter, StoryMetaOptions, StoryPerformance, StoryTags } from "components/story";
+import { FlyoutContext, FlyoutContextProps } from "context/flyout-context";
+import { PostContext, PostContextProps } from "context/post-context";
 import { format as formatDate } from "date-fns";
+import { getCommentsByIdQuery } from "graphql/comment/query/get-comments-by-id";
+import { getPostingByIdQuery } from "graphql/post/query/get-posting-by-id";
+import { addReactionMutation } from "graphql/shared/add-reaction";
+import { removeReactionMutation } from "graphql/shared/remove-reaction";
+import redirect from "lib/redirect";
 import { includes } from "lodash";
+import { CreateResponse } from "modules/comment/create-response";
+import { BookmarkPosting } from "modules/post/bookmark-posting";
+import { DeletePosting } from "modules/post/delete-posting";
+import { ActionsDropdown } from "modules/post/shared/actions-dropdown";
+import { MarkdownRenderer } from "modules/post/shared/markdown-editor/renderer";
+import { UserPopover } from "modules/user/shared/user-popover";
 import Router from "next/router";
-import { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Waypoint } from "react-waypoint";
 import { Box, Flex, Text } from "rebass";
+import { postingReducer } from "reducers/posting-reducer";
+import { Link } from "server/routes";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 import { format } from "url";
 import { useClickOutside } from "use-events";
-import {
-  GetCommentsByIdComponent,
-  PostingInfoFragment,
-  GetPostingByIdGetPostingById,
-  Maybe,
-} from "../../components/apollo-components";
-import { Button } from "../../components/button";
-import {
-  Actions,
-  Comment,
-  Content,
-  TopRow,
-  UserAvatar,
-} from "../../components/comment/";
-import { Avatar } from "../../components/common/Avatar";
-import {
-  Caption,
-  StoryFooterUsername,
-  StoryHeading,
-} from "../../components/heading";
-import { Icon } from "../../components/icon";
-import { Layout } from "../../components/layout";
-import {
-  StoryContainer,
-  StoryFooter,
-  StoryMetaOptions,
-  StoryPerformance,
-  StoryTags,
-} from "../../components/story";
-import { FlyoutContext, FlyoutContextProps } from "../../context/FlyoutContext";
-import { PostContext, PostContextProps } from "../../context/PostContext";
-import { getCommentsByIdQuery } from "../../graphql/comment/query/getCommentsById";
-import { getPostingByIdQuery } from "../../graphql/post/query/getPostingById";
-import redirect from "../../lib/redirect";
-import { postingReducer } from "../../reducers/postingReducer";
-import { Link } from "../../server/routes";
-import { NextContextWithApollo } from "../../types/NextContextWithApollo";
-import { UserPopover } from "../user/shared/userPopover";
-import { DeletePosting } from "./DeletePosting";
-import { ActionsDropdown } from "./shared/ActionsDropdown";
-import { MarkdownRenderer } from "./shared/markdownEditor";
-import { BookmarkPosting } from "./bookmarkPosting";
-import { useMutation } from "@apollo/react-hooks";
-import { addReactionMutation } from "../../graphql/shared/addReaction";
-import { removeReactionMutation } from "../../graphql/shared/removeReaction";
-import { CreateResponse } from "../comment/createResponse";
 
 export const Posting = ({
   previewTitle,
@@ -435,13 +415,7 @@ Posting.getInitialProps = async ({
   apolloClient,
   ...ctx
 }: NextContextWithApollo) => {
-  type ResponseType = {
-    data: {
-      getPostingById: Maybe<GetPostingByIdGetPostingById>;
-    };
-  };
-
-  const response: ResponseType = await apolloClient.query({
+  const response: ApolloQueryResult<GetPostingByIdQuery> = await apolloClient.query({
     query: getPostingByIdQuery,
     variables: {
       id,

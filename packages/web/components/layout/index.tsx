@@ -1,10 +1,9 @@
-import React from "react";
+import { Footer } from "components/common";
+import { Navbar } from "components/navigation";
 import Head from "next/head";
-import { Navbar } from "../navigation";
-import { Link } from "../../server/routes";
-import { Footer } from "../common/Footer";
+import React from "react";
+import { Link } from "server/routes";
 import styled from "styled-components";
-import { NextFunctionComponent } from "next";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,19 +21,15 @@ const InnerWrapper = styled.div`
 
 type LayoutProps = ReturnType<any> & { title: string };
 
-export const Layout: NextFunctionComponent<LayoutProps> = ({
-  children,
-  title
-}) => {
+export const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   return (
     <div>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="icon" href="/static/favicon.ico" />
-        {/* Import CSS for nprogress */}
-        <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+        <link rel="icon" href="static/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="static/nprogress.css" />
       </Head>
       <Navbar />
       <Wrapper data-cy="home-page">
@@ -57,7 +52,7 @@ export const Layout: NextFunctionComponent<LayoutProps> = ({
           </Link>,
           <Link href={"test5"}>
             <a>Help</a>
-          </Link>
+          </Link>,
         ]}
         linksRight={[
           <Link href={"test4"}>
@@ -77,7 +72,7 @@ export const Layout: NextFunctionComponent<LayoutProps> = ({
           </Link>,
           <Link href={"test6"}>
             <a>About</a>
-          </Link>
+          </Link>,
         ]}
         icon="github"
       />

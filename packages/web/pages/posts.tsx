@@ -1,10 +1,11 @@
-import * as React from "react";
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import { getPostingsQuery } from "../graphql/post/query/getPostings";
-import { Layout } from "../components/layout";
-import { Link } from "../server/routes";
-import { getTagByNameQuery } from "../graphql/tag/query/getTagByName";
-import { StreamItem, Stream } from "../components/streamItem";
+import { ApolloQueryResult } from "apollo-client/core/types";
+import { Layout } from "components/layout";
+import { Stream, StreamItem } from "components/stream-item";
+import { getPostingsQuery } from "graphql/post/query/get-postings";
+import { getTagByNameQuery } from "graphql/tag/query/get-tag-by-name";
+import React from "react";
+import { Link } from "server/routes";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 
 interface PostsProps {
   postings: string[];
@@ -13,12 +14,9 @@ interface PostsProps {
 }
 
 export default class Posts extends React.Component<PostsProps> {
-  static async getInitialProps({
-    query: { tag },
-    apolloClient
-  }: NextContextWithApollo) {
+  static async getInitialProps({ query: { tag }, apolloClient }: NextContextWithApollo) {
     if (tag) {
-      const response: any = await apolloClient.query({
+      const response: ApolloQueryResult<any> = await apolloClient.query({
         query: getTagByNameQuery,
         variables: {
           name: tag

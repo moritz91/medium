@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 node_modules/
-build/
 tmp/
 temp/
 charts
@@ -9,6 +8,8 @@ dist
 .next
 storybook-static/
 cypress/
+.verdaccio/
+.ssg/
 
 scripts/determineChanges.sh
 scripts/drone_build_backend.sh
@@ -17,7 +18,10 @@ scripts/compose.sh
 
 .env
 .env.prod
+.env.development
+.env.production
 .DS_Store
+.yarnrc
 .yarnclean
 .prettierrc
 .eslintcache
@@ -26,3 +30,6 @@ scripts/compose.sh
 .prettierignore
 tsconfig.tsbuildinfo
 cypress.json
+scripts/run-pipeline.sh
+docker-compose.env
+build.env

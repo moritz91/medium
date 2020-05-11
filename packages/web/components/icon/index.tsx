@@ -1,5 +1,5 @@
-import * as React from "react";
-import { icons } from "./icons";
+import { icons } from "components/icon/icons";
+import React from "react";
 
 export interface IconProps {
   name: keyof typeof icons;
@@ -14,7 +14,7 @@ export const Icon: React.FC<IconProps> = ({
   size = 16,
   fill = "currentColor",
   style,
-  onClick
+  onClick,
 }): JSX.Element => {
   //@ts-ignore
   const { viewBox, d } = icons[name];

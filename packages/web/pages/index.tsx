@@ -1,6 +1,6 @@
-import * as React from "react";
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
 import gql from "graphql-tag";
+import React from "react";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 
 export default class Index extends React.PureComponent {
   static async getInitialProps({ apolloClient }: NextContextWithApollo) {
@@ -14,7 +14,7 @@ export default class Index extends React.PureComponent {
             bio
           }
         }
-      `
+      `,
     });
 
     return response.data.me ? response.data.me : {};

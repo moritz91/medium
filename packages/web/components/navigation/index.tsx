@@ -1,11 +1,11 @@
+import NavLinks from "components/navigation/navigation-links";
+import Social from "components/social";
+import { SubMenu } from "components/sub-menu";
 import React from "react";
 import styled, { css } from "styled-components";
-import { headerFont } from "../../utils/fonts";
-import Social from "../social";
-import { mobile } from "../../utils/media";
-import NavLinks from "./navigationLinks";
-import { SubMenu } from "../subMenu";
-import { useScrollPosition } from "../../utils/domScrollUtils";
+import { useScrollPosition } from "utils/dom-scroll-utils";
+import { headerFont } from "utils/fonts";
+import { mobile } from "utils/media";
 
 const Wrapper: any = styled.nav`
   visibility: ${(p: any) => (p.show > 50 ? "hidden" : "visible")};

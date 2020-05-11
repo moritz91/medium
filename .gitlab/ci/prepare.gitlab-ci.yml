@@ -1,0 +1,34 @@
+.prepare:base:build-image:
+  extends:
+    - .global:base:kaniko
+    - .global:base:default-cache
+  stage: prepare
+  cache:
+    policy: pull
+  script:
+    - chmod +x ./variables
+    - . ./variables
+    - if [[ "$ENV" == "prod" ]]; then
+      cat $KANIKO_PATH/dev.Dockerfile |
+      sed 's/yarn install/yarn install --production/' >
+      $KANIKO_PATH/prod.Dockerfile;
+      fi
+    - chmod +x scripts/skip-or-run-kaniko.sh
+    - . scripts/skip-or-run-kaniko.sh
+  needs:
+    - job: check image existence in container registry
+      artifacts: true
+
+dev-dependency-image:
+  extends:
+    - .prepare:base:build-image
+    - .prepare:rules:run-on-changes-or-dev-dependency-image-inexistent
+  variables:
+    ENV: "dev"
+
+dependency-image:
+  extends:
+    - .prepare:base:build-image
+    - .prepare:rules:run-on-changes-or-dependency-image-inexistent
+  variables:
+    ENV: "prod"

@@ -1,11 +1,11 @@
-import * as React from "react";
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import { Layout } from "../components/layout";
-import { Link } from "../server/routes";
-import { StreamItem, Stream } from "../components/streamItem";
-import { meQuery } from "../graphql/user/query/me";
-import { PostingInfoFragment } from "../components/apollo-components";
-import { Caption } from "../components/heading";
+import { PostingInfoFragment } from "components/apollo-components";
+import { Caption } from "components/heading";
+import { Layout } from "components/layout";
+import { Stream, StreamItem } from "components/stream-item";
+import { meQuery } from "graphql/user/query/me";
+import React from "react";
+import { Link } from "server/routes";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 
 interface ReadingListProps {
   postings: [{ id: string } & PostingInfoFragment];

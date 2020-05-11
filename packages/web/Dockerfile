@@ -7,8 +7,7 @@ COPY ./packages/common/package.json ./packages/common/
 COPY ./packages/web/package.json ./packages/web/
 COPY ["package.json", "yarn.lock", "./"] 
 
-RUN yarn config set cache-folder /yarn && \
-  yarn install --production
+RUN yarn install --production --cache-folder /yarn
 
 # and then copy over node_modules, etc from that stage into smaller base image
 FROM mhart/alpine-node:base-10
@@ -25,8 +24,8 @@ WORKDIR /medium/packages/web
 COPY --from=build-stage /medium/packages/web/node_modules ./node_modules
 COPY ./packages/web/.next ./.next
 COPY ./packages/web/next.config.js .
-COPY ./packages/web/.env.prod .env
-COPY ./packages/web/.env.example .
+COPY ./packages/web/public ./public
+COPY ./packages/web/.env.production .env.production
 
 EXPOSE 3000
 CMD ["../../node_modules/.bin/next", "start"]

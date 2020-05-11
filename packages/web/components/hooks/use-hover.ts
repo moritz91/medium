@@ -1,10 +1,9 @@
 import { RefObject, useEffect, useRef, useState } from "react";
-
-import { findNode } from "../../utils/helpers";
+import { findNode } from "utils/helpers";
 
 export function useHover(
   ref: RefObject<Element | any> | null,
-  callback?: (isHovered: boolean) => void
+  callback?: (isHovered: boolean) => void,
 ) {
   const cacheRef = useRef(false);
   const [isHovered, setIsHovered] = useState(false);

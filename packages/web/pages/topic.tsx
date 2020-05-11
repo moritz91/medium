@@ -1,14 +1,14 @@
+import { GetPostingsByTopicComponent } from "components/apollo-components";
+import { FeaturedStory } from "components/featured";
+import Heading, { Caption } from "components/heading";
+import { Layout } from "components/layout";
+import { MainSection, Sections, SidebarSection } from "components/section";
+import { Stream, StreamItem } from "components/stream-item";
+import { TopicContext, TopicContextProps } from "context/topic-context";
+import { getTopicByNameQuery } from "graphql/topic/query/get-topic-by-name";
 import React from "react";
-import { GetPostingsByTopicComponent } from "../components/apollo-components";
-import { Layout } from "../components/layout";
-import { MainSection, Sections, SidebarSection } from "../components/section";
-import { getTopicByNameQuery } from "../graphql/topic/query/getTopicByName";
-import { Link } from "../server/routes";
-import { NextContextWithApollo } from "../types/NextContextWithApollo";
-import { StreamItem, Stream } from "../components/streamItem";
-import { Heading, Caption } from "../components/heading";
-import { FeaturedStory } from "../components/featured";
-import { TopicContextProps, TopicContext } from "../context/TopicContext";
+import { Link } from "server/routes";
+import { NextContextWithApollo } from "types/next-context-with-apollo";
 
 interface TopicProps {
   id: string;
@@ -20,20 +20,20 @@ interface TopicProps {
 export default class Topic extends React.PureComponent<TopicProps> {
   static async getInitialProps({
     query: { name },
-    apolloClient
+    apolloClient,
   }: NextContextWithApollo) {
     const response: any = await apolloClient.query({
       query: getTopicByNameQuery,
       variables: {
-        name
-      }
+        name,
+      },
     });
 
     const { getTopicByName } = response.data;
     return {
       name,
       id: getTopicByName!.id,
-      shortCaption: getTopicByName!.shortCaption
+      shortCaption: getTopicByName!.shortCaption,
     };
   }
 
@@ -42,7 +42,7 @@ export default class Topic extends React.PureComponent<TopicProps> {
     const context: TopicContextProps = {
       name,
       shortCaption,
-      topicId: id
+      topicId: id,
     };
 
     return (
@@ -77,8 +77,8 @@ export default class Topic extends React.PureComponent<TopicProps> {
                           getLinkProps={() => ({
                             route: "post",
                             params: {
-                              id: featured.id
-                            }
+                              id: featured.id,
+                            },
                           })}
                         />
                         <Heading>Latest</Heading>
@@ -86,7 +86,7 @@ export default class Topic extends React.PureComponent<TopicProps> {
                           <>
                             {data && data.getPostingsByTopic && (
                               <>
-                                {data.getPostingsByTopic.posts.map(post => (
+                                {data.getPostingsByTopic.posts.map((post) => (
                                   <StreamItem
                                     key={post.id}
                                     id={post.id}
@@ -105,8 +105,8 @@ export default class Topic extends React.PureComponent<TopicProps> {
                                     getLinkProps={() => ({
                                       route: "post",
                                       params: {
-                                        id: post.id
-                                      }
+                                        id: post.id,
+                                      },
                                     })}
                                   />
                                 ))}

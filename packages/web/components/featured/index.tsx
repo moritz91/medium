@@ -1,8 +1,8 @@
+import { Button } from "components/button";
 import { formatDistanceToNow } from "date-fns";
-import * as React from "react";
-import { Text, Heading } from "rebass";
+import React from "react";
+import { Heading, Text } from "rebass";
 import styled from "styled-components";
-import { Button } from "../button";
 
 interface FeaturedStoryProps {
   id: string;

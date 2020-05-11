@@ -1,11 +1,6 @@
-require("dotenv-safe").config({
-  allowEmptyValues: true,
-});
-
 import { createServer } from "http";
+import next from "next";
 import { parse } from "url";
-import * as next from "next";
-
 import { routes } from "./routes";
 
 const port = parseInt(process.env.PORT!, 10) || 3000;

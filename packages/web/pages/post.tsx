@@ -1,3 +1,3 @@
-import { Posting } from "../modules/post/posting";
+import { Posting } from "modules/post/posting";
 
 export default Posting;

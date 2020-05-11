@@ -1,0 +1,44 @@
+.if-master-or-tag: &if-master-or-tag
+  if: '$CI_COMMIT_REF_NAME == "master" || $CI_COMMIT_TAG'
+
+.if-auto-deploy-branches: &if-auto-deploy-branches
+  if: '$CI_COMMIT_BRANCH =~ /^\d+-\d+-auto-deploy-\d+$/'
+
+.if-skip-job-dev: &if-skip-job-dev
+  if: '$CI_JOB_SKIP_DEV == "true"'
+
+.if-skip-job-prod: &if-skip-job-prod
+  if: '$CI_JOB_SKIP_PROD == "true"'
+
+# Sync-Stage rules
+.sync:rules:dont-interrupt-me:
+  rules:
+    - <<: *if-master-or-tag
+      allow_failure: true
+    - <<: *if-auto-deploy-branches
+      allow_failure: true
+    - when: manual
+      allow_failure: true
+
+# Prepare-Stage rules TODO: remove existent dev-image on changes
+.prepare:rules:run-on-changes-or-dev-dependency-image-inexistent:
+  rules:
+    - changes:
+        - package.json
+        - packages/*/package.json
+        - yarn.lock
+    - <<: *if-skip-job-dev
+      when: never
+
+# Prepare-Stage rules TODO: remove existent prod-image on changes
+.prepare:rules:run-on-changes-or-dependency-image-inexistent:
+  rules:
+    - changes:
+        - package.json
+        - packages/*/package.json
+        - yarn.lock
+    - <<: *if-skip-job-prod
+      when: never
+# Build-Stage rules
+# .build:rules:run-on-image-existent:
+#   rules:

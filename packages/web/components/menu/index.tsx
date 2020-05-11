@@ -1,9 +1,8 @@
-import * as React from "react";
-import { useState, createRef } from "react";
+import { Avatar } from "components/common";
+import { Icon } from "components/icon";
+import React, { createRef, useState } from "react";
+import { Router } from "server/routes";
 import styled from "styled-components";
-import { Avatar } from "../common/Avatar";
-import { Icon } from "../../components/icon";
-import { Router } from "../../server/routes";
 import { useClickOutside } from "use-events";
 
 interface MenuProps {

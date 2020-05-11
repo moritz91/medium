@@ -1,0 +1,17 @@
+compose packages and dependencies:
+  stage: compose
+  image: $CI_REGISTRY_IMAGE/deps:prod
+  before_script:
+    - apk --update add bash parallel && rm -rf /var/cache/apk/*
+  script:
+    - find /medium -type d -name node_modules -prune -maxdepth 3 |
+      parallel -q /bin/bash -c 'tar=$(echo "$CI_PROJECT_DIR/{}" > >(sed -e "s/\/medium\///"));mv -v {} $tar'
+  needs:
+    - job: compile packages
+      artifacts: false
+  artifacts:
+    paths:
+      - node_modules
+      - packages/*/node_modules
+    untracked: false
+    expire_in: 60 mins

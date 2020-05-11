@@ -1,0 +1,26 @@
+# Typescript does currently not allow symlinked node_modules and will error
+# out during compilation. Therefore fetching repository contents and copying
+# contents to previously created work-directory of docker image.
+
+compile packages:
+  stage: build
+  image: $CI_REGISTRY_IMAGE/deps:dev
+  before_script:
+    - npm install -g typescript
+    - apk --update add bash parallel rsync=3.1.3-r2 && rm -rf /var/cache/apk/*
+    # - export BUILD_DIR=$CI_BUILDS_DIR/$CI_CONCURRENT_PROJECT_ID
+  script:
+    # - rsync -r -f="merge .gitlab/rsync-filter" $CI_PROJECT_DIR/ /medium
+    - find /medium -type d \( -name node_modules -o -name dist \) -prune -maxdepth 3 |
+      parallel -q /bin/bash -c 'tar=$(echo "$CI_PROJECT_DIR/{}" > >(sed -e "s/\/medium\///"));mv -v {} $tar'
+    - tsc -b packages/common packages/server
+    - yarn --cwd packages/web next build
+  needs:
+    - job: dev-dependency-image
+      artifacts: false
+  artifacts:
+    paths:
+      - packages/*/dist
+      - packages/web/.next
+    untracked: false
+    expire_in: 60 mins

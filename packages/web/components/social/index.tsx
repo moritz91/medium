@@ -1,9 +1,9 @@
+import { Github, MediumM } from "@styled-icons/fa-brands";
+import { Link } from "components/common";
 import React from "react";
 import styled from "styled-components";
-import { Github, MediumM } from "styled-icons/fa-brands";
-import rem from "../../utils/rem";
-import { navbarHeight } from "../../utils/sizes";
-import Link from "../common/Link";
+import rem from "utils/rem";
+import { navbarHeight } from "utils/sizes";
 
 const Wrapper = styled.nav`
   display: flex;
@@ -13,7 +13,7 @@ const Wrapper = styled.nav`
 `;
 
 const SocialLink = styled(Link).attrs({
-  unstyled: true
+  unstyled: true,
 })`
   display: flex;
   margin-right: ${rem(20)};
@@ -39,8 +39,8 @@ const SocialLink = styled(Link).attrs({
 `;
 
 const Svg = styled.svg`
-  width: ${p => rem(Number(p.width))};
-  height: ${p => rem(Number(p.height))};
+  width: ${(p) => rem(Number(p.width))};
+  height: ${(p) => rem(Number(p.height))};
 `;
 
 const StyledIcon = styled.div`

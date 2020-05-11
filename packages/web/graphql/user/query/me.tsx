@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { PostingInfoFragment } from "../../post/fragments/PostingInfo";
+import { PostingInfoFragment } from "graphql/post/fragments/posting-info";
 
 export const meQuery = gql`
   query Me($withBookmarks: Boolean!) {

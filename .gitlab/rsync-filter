@@ -1,0 +1,4 @@
++ "/"
+- "scripts"
+- "*.md"
+- "**/node_modules"

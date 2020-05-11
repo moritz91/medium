@@ -365,30 +365,6 @@ export type GetPostingByIdQuery = {
 
 export type GetPostingByIdGetPostingById = PostingInfoFragment;
 
-export type GetPostingsVariables = {
-  input: FindPostingsInput;
-};
-
-export type GetPostingsQuery = {
-  __typename?: "Query";
-
-  findPostings: GetPostingsFindPostings;
-};
-
-export type GetPostingsFindPostings = {
-  __typename?: "FindPostingResponse";
-
-  posts: GetPostingsPosts[];
-
-  hasMore: boolean;
-};
-
-export type GetPostingsPosts = {
-  __typename?: "Posting";
-
-  id: string;
-} & PostingInfoFragment;
-
 export type GetPostingsByTopicVariables = {
   cursor: string;
   topicIds: string[];
@@ -409,6 +385,30 @@ export type GetPostingsByTopicGetPostingsByTopic = {
 };
 
 export type GetPostingsByTopicPosts = {
+  __typename?: "Posting";
+
+  id: string;
+} & PostingInfoFragment;
+
+export type GetPostingsVariables = {
+  input: FindPostingsInput;
+};
+
+export type GetPostingsQuery = {
+  __typename?: "Query";
+
+  findPostings: GetPostingsFindPostings;
+};
+
+export type GetPostingsFindPostings = {
+  __typename?: "FindPostingResponse";
+
+  posts: GetPostingsPosts[];
+
+  hasMore: boolean;
+};
+
+export type GetPostingsPosts = {
   __typename?: "Posting";
 
   id: string;
@@ -538,6 +538,30 @@ export type GetTopicByNameGetTopicByName = {
   shortCaption: Maybe<string>;
 };
 
+export type GetTopicsByLettersVariables = {
+  letters: string;
+};
+
+export type GetTopicsByLettersQuery = {
+  __typename?: "Query";
+
+  getTopicsByLetters: Maybe<GetTopicsByLettersGetTopicsByLetters>;
+};
+
+export type GetTopicsByLettersGetTopicsByLetters = {
+  __typename?: "FindTopicResponse";
+
+  topics: GetTopicsByLettersTopics[];
+};
+
+export type GetTopicsByLettersTopics = {
+  __typename?: "Topic";
+
+  id: string;
+
+  name: string;
+};
+
 export type GetTopicsVariables = {
   input: FindTopicsInput;
 };
@@ -564,30 +588,6 @@ export type GetTopicsTopics = {
   name: string;
 
   pictureUrl: Maybe<string>;
-};
-
-export type GetTopicsByLettersVariables = {
-  letters: string;
-};
-
-export type GetTopicsByLettersQuery = {
-  __typename?: "Query";
-
-  getTopicsByLetters: Maybe<GetTopicsByLettersGetTopicsByLetters>;
-};
-
-export type GetTopicsByLettersGetTopicsByLetters = {
-  __typename?: "FindTopicResponse";
-
-  topics: GetTopicsByLettersTopics[];
-};
-
-export type GetTopicsByLettersTopics = {
-  __typename?: "Topic";
-
-  id: string;
-
-  name: string;
 };
 
 export type LogoutVariables = {};
@@ -619,6 +619,34 @@ export type MeBookmarks = {
 
   id: string;
 } & PostingInfoFragment;
+
+export type FindUserCommentsVariables = {
+  username: string;
+};
+
+export type FindUserCommentsQuery = {
+  __typename?: "Query";
+
+  findUserByName: Maybe<FindUserCommentsFindUserByName>;
+};
+
+export type FindUserCommentsFindUserByName = {
+  __typename?: "User";
+
+  id: string;
+
+  comments: FindUserCommentsComments[];
+};
+
+export type FindUserCommentsComments = {
+  __typename?: "Comment";
+
+  id: string;
+
+  text: string;
+
+  createdAt: DateTime;
+};
 
 export type FindUserByNameVariables = {
   username: string;
@@ -679,34 +707,6 @@ export type FindUserByNameComments = {
 };
 
 export type FindUserByName_Creator = UserInfoFragment;
-
-export type FindUserCommentsVariables = {
-  username: string;
-};
-
-export type FindUserCommentsQuery = {
-  __typename?: "Query";
-
-  findUserByName: Maybe<FindUserCommentsFindUserByName>;
-};
-
-export type FindUserCommentsFindUserByName = {
-  __typename?: "User";
-
-  id: string;
-
-  comments: FindUserCommentsComments[];
-};
-
-export type FindUserCommentsComments = {
-  __typename?: "Comment";
-
-  id: string;
-
-  text: string;
-
-  createdAt: DateTime;
-};
 
 export type CommentInfoFragment = {
   __typename?: "Comment";
@@ -1455,52 +1455,6 @@ export function GetPostingByIdHOC<TProps, TChildProps = any>(
     GetPostingByIdProps<TChildProps>
   >(GetPostingByIdDocument, operationOptions);
 }
-export const GetPostingsDocument = gql`
-  query getPostings($input: FindPostingsInput!) {
-    findPostings(input: $input) {
-      posts {
-        id
-        ...PostingInfo
-      }
-      hasMore
-    }
-  }
-
-  ${PostingInfoFragmentDoc}
-`;
-export class GetPostingsComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<GetPostingsQuery, GetPostingsVariables>>
-> {
-  render() {
-    return (
-      <ReactApollo.Query<GetPostingsQuery, GetPostingsVariables>
-        query={GetPostingsDocument}
-        {...(this as any)["props"] as any}
-      />
-    );
-  }
-}
-export type GetPostingsProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<GetPostingsQuery, GetPostingsVariables>
-> &
-  TChildProps;
-export function GetPostingsHOC<TProps, TChildProps = any>(
-  operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetPostingsQuery,
-        GetPostingsVariables,
-        GetPostingsProps<TChildProps>
-      >
-    | undefined,
-) {
-  return ReactApollo.graphql<
-    TProps,
-    GetPostingsQuery,
-    GetPostingsVariables,
-    GetPostingsProps<TChildProps>
-  >(GetPostingsDocument, operationOptions);
-}
 export const GetPostingsByTopicDocument = gql`
   query GetPostingsByTopic($cursor: String!, $topicIds: [String!]!) {
     getPostingsByTopic(cursor: $cursor, topicIds: $topicIds) {
@@ -1548,6 +1502,52 @@ export function GetPostingsByTopicHOC<TProps, TChildProps = any>(
     GetPostingsByTopicVariables,
     GetPostingsByTopicProps<TChildProps>
   >(GetPostingsByTopicDocument, operationOptions);
+}
+export const GetPostingsDocument = gql`
+  query getPostings($input: FindPostingsInput!) {
+    findPostings(input: $input) {
+      posts {
+        id
+        ...PostingInfo
+      }
+      hasMore
+    }
+  }
+
+  ${PostingInfoFragmentDoc}
+`;
+export class GetPostingsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetPostingsQuery, GetPostingsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetPostingsQuery, GetPostingsVariables>
+        query={GetPostingsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetPostingsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetPostingsQuery, GetPostingsVariables>
+> &
+  TChildProps;
+export function GetPostingsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetPostingsQuery,
+        GetPostingsVariables,
+        GetPostingsProps<TChildProps>
+      >
+    | undefined,
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetPostingsQuery,
+    GetPostingsVariables,
+    GetPostingsProps<TChildProps>
+  >(GetPostingsDocument, operationOptions);
 }
 export const GetUserPostingsDocument = gql`
   query getUserPostings($input: FindUserPostingsInput!) {
@@ -1854,51 +1854,6 @@ export function GetTopicByNameHOC<TProps, TChildProps = any>(
     GetTopicByNameProps<TChildProps>
   >(GetTopicByNameDocument, operationOptions);
 }
-export const GetTopicsDocument = gql`
-  query GetTopics($input: FindTopicsInput!) {
-    findTopics(input: $input) {
-      topics {
-        id
-        name
-        pictureUrl
-      }
-      hasMore
-    }
-  }
-`;
-export class GetTopicsComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<GetTopicsQuery, GetTopicsVariables>>
-> {
-  render() {
-    return (
-      <ReactApollo.Query<GetTopicsQuery, GetTopicsVariables>
-        query={GetTopicsDocument}
-        {...(this as any)["props"] as any}
-      />
-    );
-  }
-}
-export type GetTopicsProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<GetTopicsQuery, GetTopicsVariables>
-> &
-  TChildProps;
-export function GetTopicsHOC<TProps, TChildProps = any>(
-  operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetTopicsQuery,
-        GetTopicsVariables,
-        GetTopicsProps<TChildProps>
-      >
-    | undefined,
-) {
-  return ReactApollo.graphql<
-    TProps,
-    GetTopicsQuery,
-    GetTopicsVariables,
-    GetTopicsProps<TChildProps>
-  >(GetTopicsDocument, operationOptions);
-}
 export const GetTopicsByLettersDocument = gql`
   query GetTopicsByLetters($letters: String!) {
     getTopicsByLetters(letters: $letters) {
@@ -1943,6 +1898,51 @@ export function GetTopicsByLettersHOC<TProps, TChildProps = any>(
     GetTopicsByLettersVariables,
     GetTopicsByLettersProps<TChildProps>
   >(GetTopicsByLettersDocument, operationOptions);
+}
+export const GetTopicsDocument = gql`
+  query GetTopics($input: FindTopicsInput!) {
+    findTopics(input: $input) {
+      topics {
+        id
+        name
+        pictureUrl
+      }
+      hasMore
+    }
+  }
+`;
+export class GetTopicsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<GetTopicsQuery, GetTopicsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<GetTopicsQuery, GetTopicsVariables>
+        query={GetTopicsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type GetTopicsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<GetTopicsQuery, GetTopicsVariables>
+> &
+  TChildProps;
+export function GetTopicsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetTopicsQuery,
+        GetTopicsVariables,
+        GetTopicsProps<TChildProps>
+      >
+    | undefined,
+) {
+  return ReactApollo.graphql<
+    TProps,
+    GetTopicsQuery,
+    GetTopicsVariables,
+    GetTopicsProps<TChildProps>
+  >(GetTopicsDocument, operationOptions);
 }
 export const LogoutDocument = gql`
   mutation Logout {
@@ -2033,6 +2033,53 @@ export function MeHOC<TProps, TChildProps = any>(
     MeProps<TChildProps>
   >(MeDocument, operationOptions);
 }
+export const FindUserCommentsDocument = gql`
+  query FindUserComments($username: String!) {
+    findUserByName(username: $username) {
+      id
+      comments {
+        id
+        text
+        createdAt
+      }
+    }
+  }
+`;
+export class FindUserCommentsComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<FindUserCommentsQuery, FindUserCommentsVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindUserCommentsQuery, FindUserCommentsVariables>
+        query={FindUserCommentsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindUserCommentsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUserCommentsQuery, FindUserCommentsVariables>
+> &
+  TChildProps;
+export function FindUserCommentsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindUserCommentsQuery,
+        FindUserCommentsVariables,
+        FindUserCommentsProps<TChildProps>
+      >
+    | undefined,
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindUserCommentsQuery,
+    FindUserCommentsVariables,
+    FindUserCommentsProps<TChildProps>
+  >(FindUserCommentsDocument, operationOptions);
+}
 export const FindUserByNameDocument = gql`
   query FindUserByName($username: String!) {
     findUserByName(username: $username) {
@@ -2096,51 +2143,4 @@ export function FindUserByNameHOC<TProps, TChildProps = any>(
     FindUserByNameVariables,
     FindUserByNameProps<TChildProps>
   >(FindUserByNameDocument, operationOptions);
-}
-export const FindUserCommentsDocument = gql`
-  query FindUserComments($username: String!) {
-    findUserByName(username: $username) {
-      id
-      comments {
-        id
-        text
-        createdAt
-      }
-    }
-  }
-`;
-export class FindUserCommentsComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<FindUserCommentsQuery, FindUserCommentsVariables>
-  >
-> {
-  render() {
-    return (
-      <ReactApollo.Query<FindUserCommentsQuery, FindUserCommentsVariables>
-        query={FindUserCommentsDocument}
-        {...(this as any)["props"] as any}
-      />
-    );
-  }
-}
-export type FindUserCommentsProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<FindUserCommentsQuery, FindUserCommentsVariables>
-> &
-  TChildProps;
-export function FindUserCommentsHOC<TProps, TChildProps = any>(
-  operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        FindUserCommentsQuery,
-        FindUserCommentsVariables,
-        FindUserCommentsProps<TChildProps>
-      >
-    | undefined,
-) {
-  return ReactApollo.graphql<
-    TProps,
-    FindUserCommentsQuery,
-    FindUserCommentsVariables,
-    FindUserCommentsProps<TChildProps>
-  >(FindUserCommentsDocument, operationOptions);
 }
