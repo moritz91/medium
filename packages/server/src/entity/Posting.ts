@@ -85,13 +85,13 @@ export class Posting extends BaseEntity {
   body: string;
 
   @Field(() => [Tag], { nullable: true })
-  async tags(@Ctx() { tagPostingLoader }: MyContext): Promise<Tag[]> {
-    return tagPostingLoader.load(this.id);
+  async tags(@Ctx() ctx: MyContext): Promise<Tag[]> {
+    return ctx.loaders.tagPostings.load(this.id);
   }
 
   @Field(() => [Topic], { nullable: true })
-  async topics(@Ctx() { topicPostingLoader }: MyContext): Promise<Topic[]> {
-    return topicPostingLoader.load(this.id);
+  async topics(@Ctx() ctx: MyContext): Promise<Topic[]> {
+    return ctx.loaders.topicPostings.load(this.id);
   }
 
   @OneToMany(() => PostingTag, (pt) => pt.posting)

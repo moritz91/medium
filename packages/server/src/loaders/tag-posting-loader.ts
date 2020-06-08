@@ -1,4 +1,4 @@
-import DataLoader from "dataloader";
+import * as DataLoader from "dataloader";
 import { PostingTag } from "src/entity/PostingTag";
 import { Tag } from "src/entity/Tag";
 import { DataLoaderOptions } from "src/types/data-loader";
@@ -39,5 +39,5 @@ const batchTags = async (postingIds: string[]) => {
   return postingIds.map((postingId) => postingIdToTags[postingId]);
 };
 
-export const tagPostingLoader = (options?: DataLoaderOptions) =>
+export default (options?: DataLoaderOptions) =>
   new DataLoader(batchTags, options);

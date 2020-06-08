@@ -35,7 +35,7 @@ const startServer = async () => {
   }
   
   const app = express();
-  
+
   const server = new ApolloServer({
     schema: await buildSchema({
       // resolvers: [UserResolver, LogoutResolver]
@@ -46,11 +46,7 @@ const startServer = async () => {
       validate: false,
       container: Container,
     }),
-    context: ({ req, res }: ExpressRequestResponse) => ({
-      req,
-      res,
-      ...loaders
-    }),
+    context: ({ req, res }: ExpressRequestResponse) => ({ req, res, loaders: loaders() }),
     engine: {
       apiKey: process.env.ENGINE_API_KEY,
     },

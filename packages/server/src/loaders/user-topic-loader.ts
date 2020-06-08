@@ -1,4 +1,4 @@
-import DataLoader from "dataloader";
+import * as DataLoader from "dataloader";
 import { Topic } from "src/entity/Topic";
 import { UserTopic } from "src/entity/UserTopic";
 import { DataLoaderOptions } from "src/types/data-loader";
@@ -31,5 +31,5 @@ const batchTopics = async (userIds: string[]) => {
   return userIds.map((userId) => userIdToTopics[userId]);
 };
 
-export const userTopicLoader = (options?: DataLoaderOptions) =>
+export default (options?: DataLoaderOptions) =>
   new DataLoader(batchTopics, options);

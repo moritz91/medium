@@ -32,8 +32,8 @@ export class Topic extends BaseEntity {
   pictureUrl: string;
 
   @Field(() => [Posting], { nullable: true })
-  async postings(@Ctx() { postingTopicLoader }: MyContext): Promise<Posting[]> {
-    return postingTopicLoader.load(this.id);
+  async postings(@Ctx() ctx: MyContext): Promise<Posting[]> {
+    return ctx.loaders.postingTopics.load(this.id);
   }
 
   @OneToMany(() => PostingTopic, (tp) => tp.topic)

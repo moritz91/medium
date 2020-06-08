@@ -39,7 +39,7 @@ export function createResolver<ArgType extends Object, T extends Object>(
 
     @FieldResolver(() => User)
     creator(@Root() root: any, @Ctx() ctx: MyContext) {
-      return ctx.userLoader.load(root.creatorId);
+      return ctx.loaders.users.load(root.creatorId);
     }
   }
 

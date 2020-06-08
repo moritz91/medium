@@ -1,4 +1,4 @@
-import DataLoader from "dataloader";
+import * as DataLoader from "dataloader";
 import { Posting } from "src/entity/Posting";
 import { PostingTopic } from "src/entity/PostingTopic";
 import { DataLoaderOptions } from "src/types/data-loader";
@@ -39,5 +39,5 @@ const batchPostings = async (topicIds: string[]) => {
   return topicIds.map((topicId) => topicIdToPostings[topicId]);
 };
 
-export const postingTopicLoader = (options?: DataLoaderOptions) =>
+export default (options?: DataLoaderOptions) =>
   new DataLoader(batchPostings, options);

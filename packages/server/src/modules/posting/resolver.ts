@@ -48,7 +48,7 @@ export class PostingResolver {
 
   @FieldResolver(() => User)
   creator(@Root() root: Posting, @Ctx() ctx: MyContext) {
-    return ctx.userLoader.load(root.creatorId);
+    return ctx.loaders.users.load(root.creatorId);
   }
 
   @FieldResolver()

@@ -51,13 +51,13 @@ export class User extends BaseEntity {
   comments: Promise<Comment[]>;
 
   @Field(() => [Topic], { nullable: true })
-  async subscriptions(@Ctx() { userTopicLoader }: MyContext): Promise<Topic[]> {
-    return userTopicLoader.load(this.id);
+  async subscriptions(@Ctx() ctx: MyContext): Promise<Topic[]> {
+    return ctx.loaders.userTopics.load(this.id);
   }
 
   @Field(() => [Posting], { nullable: true })
-  async bookmarks(@Ctx() { userPostingLoader }: MyContext): Promise<Posting[]> {
-    return userPostingLoader.load(this.id);
+  async bookmarks(@Ctx() ctx: MyContext): Promise<Posting[]> {
+    return ctx.loaders.userPostings.load(this.id);
   }
 
   @OneToMany(() => UserTopic, (up) => up.user)

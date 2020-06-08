@@ -1,8 +1,8 @@
-import DataLoader from "dataloader";
+import * as DataLoader from "dataloader";
 import { User } from "src/entity/User";
 import { DataLoaderOptions } from "src/types/data-loader";
 
-export const userLoader = (options?: DataLoaderOptions) =>
+export default (options?: DataLoaderOptions) =>
   new DataLoader(async (keys: string[]) => {
     const users = await User.findByIds(keys);
 

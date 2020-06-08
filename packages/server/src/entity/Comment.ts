@@ -36,8 +36,8 @@ class Response {
   hasReacted: boolean;
 
   @Field(() => User)
-  creator(@Ctx() { userLoader }: MyContext): Promise<User> {
-    return userLoader.load(this.creatorId);
+  creator(@Ctx() ctx: MyContext): Promise<User> {
+    return ctx.loaders.users.load(this.creatorId);
   }
 
   @Field(() => Boolean, { nullable: true })

@@ -1,4 +1,4 @@
-import DataLoader from "dataloader";
+import * as DataLoader from "dataloader";
 import { Bookmark } from "src/entity/Bookmark";
 import { Posting } from "src/entity/Posting";
 import { DataLoaderOptions } from "src/types/data-loader";
@@ -31,5 +31,5 @@ const batchPostings = async (userIds: string[]) => {
   return userIds.map((userId) => userIdToPostings[userId]);
 };
 
-export const userPostingLoader = (options?: DataLoaderOptions) =>
+export default (options?: DataLoaderOptions) =>
   new DataLoader(batchPostings, options);

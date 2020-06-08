@@ -7,7 +7,7 @@ export function loadCreatorResolver(entity: any) {
   abstract class BaseResolver {
     @FieldResolver(() => User)
     creator(@Root() root: any, @Ctx() ctx: MyContext) {
-      return ctx.userLoader.load(root.creatorId);
+      return ctx.loaders.users.load(root.creatorId);
     }
   }
 
