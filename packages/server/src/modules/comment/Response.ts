@@ -1,5 +1,5 @@
+import { Comment } from "src/entity/Comment";
 import { Field, ObjectType } from "type-graphql";
-import { Comment } from "../../entity/Comment";
 
 @ObjectType()
 export class CommentResponse {

@@ -1,19 +1,19 @@
+import { MyContext } from "src/types/Context";
+import { Ctx, Field, ID, ObjectType } from "type-graphql";
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BaseEntity,
-  OneToMany,
-  JoinTable,
+  Column,
   CreateDateColumn,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-import { ObjectType, Field, ID, Ctx } from "type-graphql";
-import { Posting } from "./Posting";
-import { Comment } from "./Comment";
 import { Bookmark } from "./Bookmark";
-import { MyContext } from "../types/Context";
-import { Topic } from "./Topic";
+import { Comment } from "./Comment";
+import { Posting } from "./Posting";
 import { Reaction } from "./Reaction";
+import { Topic } from "./Topic";
 import { UserTopic } from "./UserTopic";
 
 @Entity()

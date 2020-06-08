@@ -1,5 +1,5 @@
-import { InputType, Field, Int } from "type-graphql";
-import { Topic } from "../../entity/Topic";
+import { Topic } from "src/entity/Topic";
+import { Field, InputType, Int } from "type-graphql";
 
 @InputType({ description: "New topic data" })
 export class CreateTopicInput implements Partial<Topic> {

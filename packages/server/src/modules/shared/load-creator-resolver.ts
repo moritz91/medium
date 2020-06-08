@@ -1,6 +1,6 @@
-import { Resolver, Ctx, FieldResolver, Root } from "type-graphql";
-import { MyContext } from "../../types/Context";
-import { User } from "../../entity/User";
+import { User } from "src/entity/User";
+import { MyContext } from "src/types/Context";
+import { Ctx, FieldResolver, Resolver, Root } from "type-graphql";
 
 export function loadCreatorResolver(entity: any) {
   @Resolver(entity, { isAbstract: true })

@@ -1,12 +1,12 @@
-import { Resolver, Authorized, Mutation, Arg, Ctx } from "type-graphql";
-import { MyContext } from "../../types/Context";
+import { MyContext } from "src/types/Context";
+import { Arg, Authorized, Ctx, Mutation, Resolver } from "type-graphql";
 
 export function findOrCreateResolver<ArgType extends Object, T extends Object>(
   suffix: string,
   argType: ArgType,
   entity: any,
   graphqlReturnType: T,
-  fields: Array<keyof ArgType>
+  fields: Array<keyof ArgType>,
 ) {
   const argAndReturnKeyName = suffix[0].toLowerCase() + suffix.slice(1);
   @Resolver(entity)
@@ -15,27 +15,27 @@ export function findOrCreateResolver<ArgType extends Object, T extends Object>(
     @Mutation(() => graphqlReturnType, { name: `findOrCreate${suffix}` })
     async findOrCreate(
       @Arg(argAndReturnKeyName, () => argType) input: ArgType,
-      @Ctx() { req }: MyContext
+      @Ctx() { req }: MyContext,
     ) {
       let where: any = {};
-      fields.forEach(field => {
+      fields.forEach((field) => {
         where[field] = input[field];
       });
       let value = await entity.findOne({
-        where
+        where,
       });
 
       if (!value) {
         value = await entity
           .create({
             ...(input as any),
-            creatorId: req.session!.userId
+            creatorId: req.session!.userId,
           })
           .save();
       }
 
       return {
-        [argAndReturnKeyName]: value
+        [argAndReturnKeyName]: value,
       };
     }
   }

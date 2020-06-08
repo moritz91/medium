@@ -1,5 +1,5 @@
-import { ObjectType, Field } from "type-graphql";
-import { Tag } from "../../entity/Tag";
+import { Tag } from "src/entity/Tag";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class TagResponse {

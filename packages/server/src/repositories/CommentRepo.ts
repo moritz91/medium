@@ -1,5 +1,5 @@
+import { Comment } from "src/entity/Comment";
 import { EntityRepository, Repository } from "typeorm";
-import { Comment } from "../entity/Comment";
 
 interface FindByPostingIdOptions {
   postingId: string;
@@ -23,7 +23,7 @@ export class CommentRepository extends Repository<Comment> {
 
     return {
       hasMore: comments.length === limit + 1,
-      comments: comments.slice(0, limit)
+      comments: comments.slice(0, limit),
     };
   }
 }

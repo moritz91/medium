@@ -1,13 +1,11 @@
-import { getRepository, Column, ColumnOptions, DeepPartial } from "typeorm";
-
-import { User } from "../entity/User";
-import { Posting } from "../entity/Posting";
-import { Comment } from "../entity/Comment";
-import { Topic } from "../entity/Topic";
-import { PostingTopic } from "../entity/PostingTopic";
-import { Tag } from "../entity/Tag";
-
 import * as faker from "faker";
+import { Comment } from "src/entity/Comment";
+import { Posting } from "src/entity/Posting";
+import { PostingTopic } from "src/entity/PostingTopic";
+import { Tag } from "src/entity/Tag";
+import { Topic } from "src/entity/Topic";
+import { User } from "src/entity/User";
+import { Column, ColumnOptions, DeepPartial, getRepository } from "typeorm";
 
 export async function seedData() {
   const userRepository = getRepository(User);

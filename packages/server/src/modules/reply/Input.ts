@@ -1,5 +1,5 @@
+import { Reply } from "src/entity/Comment";
 import { Field, InputType } from "type-graphql";
-import { Reply } from "../../entity/Comment";
 
 @InputType()
 export class CreateReplyInput implements Partial<Reply> {

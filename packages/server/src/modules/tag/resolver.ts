@@ -1,9 +1,9 @@
 import { ApolloError } from "apollo-server-core";
+import { Tag } from "src/entity/Tag";
+import { TagRepository } from "src/repositories/TagRepo";
 import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Tag } from "../../entity/Tag";
-import { TagRepository } from "../../repositories/TagRepo";
 import { FindTagsInput } from "./Input";
 import { DeleteTagResponse, FindTagResponse } from "./Response";
 
@@ -16,7 +16,7 @@ export class TagResolver {
   async findTags(@Arg("input")
   {
     offset,
-    limit
+    limit,
   }: FindTagsInput): Promise<FindTagResponse> {
     if (limit > 20) {
       throw new ApolloError("max limit of 20");
@@ -31,37 +31,37 @@ export class TagResolver {
 
     return {
       hasMore: tags.length === limit + 1,
-      tags: tags.slice(0, limit)
+      tags: tags.slice(0, limit),
     };
   }
 
   @Query(() => Tag, {
-    nullable: true
+    nullable: true,
   })
   async getTagById(@Arg("id") id: string) {
     return this.tagRepo.findOne(id);
   }
 
   @Query(() => Tag, {
-    nullable: true
+    nullable: true,
   })
   async getTagByName(@Arg("name") name: string) {
     return this.tagRepo.findOne({
       where: {
-        name
-      }
+        name,
+      },
     });
   }
 
   @Query(() => FindTagResponse, {
-    nullable: true
+    nullable: true,
   })
   async getTagsByLetters(@Arg("letters") letters: string) {
     return this.tagRepo.nameContains({ letters, limit: 5 });
   }
 
   @Mutation(() => DeleteTagResponse, {
-    nullable: true
+    nullable: true,
   })
   @Authorized()
   async deleteTagById(@Arg("id") id: string): Promise<DeleteTagResponse> {

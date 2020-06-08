@@ -1,15 +1,15 @@
-import { ObjectType, Field, ID, Ctx } from "type-graphql";
+import { MyContext } from "src/types/Context";
+import { Ctx, Field, ID, ObjectType } from "type-graphql";
 import {
   BaseEntity,
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
+  Entity,
+  JoinTable,
   OneToMany,
-  JoinTable
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Posting } from "./Posting";
 import { PostingTopic } from "./PostingTopic";
-import { MyContext } from "../types/Context";
 import { UserTopic } from "./UserTopic";
 
 @Entity()
@@ -36,11 +36,11 @@ export class Topic extends BaseEntity {
     return postingTopicLoader.load(this.id);
   }
 
-  @OneToMany(() => PostingTopic, tp => tp.topic)
+  @OneToMany(() => PostingTopic, (tp) => tp.topic)
   @JoinTable({ name: "PostingTopic" })
   postingConnection: Promise<PostingTopic[]>;
 
-  @OneToMany(() => UserTopic, ut => ut.topic)
+  @OneToMany(() => UserTopic, (ut) => ut.topic)
   @JoinTable({ name: "UserTopic" })
   userConnection: Promise<UserTopic[]>;
 }

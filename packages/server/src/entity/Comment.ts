@@ -1,18 +1,18 @@
-import { Ctx, Field, ID, ObjectType, Root, Int } from "type-graphql";
+import { MyContext } from "src/types/Context";
+import { Ctx, Field, ID, Int, ObjectType, Root } from "type-graphql";
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToMany,
 } from "typeorm";
-import { MyContext } from "../types/Context";
 import { Posting } from "./Posting";
-import { User } from "./User";
 import { Reaction } from "./Reaction";
+import { User } from "./User";
 
 @Entity()
 @ObjectType()

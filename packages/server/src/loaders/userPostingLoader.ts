@@ -1,25 +1,25 @@
 import * as DataLoader from "dataloader";
+import { Bookmark } from "src/entity/Bookmark";
+import { Posting } from "src/entity/Posting";
 import { In } from "typeorm";
-import { Posting } from "../entity/Posting";
-import { Bookmark } from "../entity/Bookmark";
 
 const batchPostings = async (userIds: string[]) => {
   const userPostings = await Bookmark.find({
     join: {
       alias: "userPosting",
       innerJoinAndSelect: {
-        posting: "userPosting.posting"
-      }
+        posting: "userPosting.posting",
+      },
     },
     where: {
-      userId: In(userIds)
+      userId: In(userIds),
     },
-    order: { posting: "DESC" }
+    order: { posting: "DESC" },
   });
 
   const userIdToPostings: { [key: string]: Posting[] } = {};
 
-  userPostings.forEach(pt => {
+  userPostings.forEach((pt) => {
     if (pt.userId in userIdToPostings) {
       userIdToPostings[pt.userId].push((pt as any).__posting__);
     } else {
@@ -27,7 +27,7 @@ const batchPostings = async (userIds: string[]) => {
     }
   });
 
-  return userIds.map(userId => userIdToPostings[userId]);
+  return userIds.map((userId) => userIdToPostings[userId]);
 };
 
 export const userPostingLoader = () => new DataLoader(batchPostings);

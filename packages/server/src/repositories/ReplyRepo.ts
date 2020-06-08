@@ -1,5 +1,5 @@
+import { Reply } from "src/entity/Comment";
 import { EntityRepository, Repository } from "typeorm";
-import { Reply } from "../entity/Comment";
 
 interface FindByCommentIdOptions {
   commentId: string;
@@ -23,7 +23,7 @@ export class ReplyRepository extends Repository<Reply> {
 
     return {
       hasMore: replies.length === limit + 1,
-      replies: replies.slice(0, limit)
+      replies: replies.slice(0, limit),
     };
   }
 }

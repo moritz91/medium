@@ -1,5 +1,5 @@
+import { Tag } from "src/entity/Tag";
 import { EntityRepository, Repository } from "typeorm";
-import { Tag } from "../entity/Tag";
 
 interface FindByNameContains {
   letters: string;
@@ -19,7 +19,7 @@ export class TagRepository extends Repository<Tag> {
 
     return {
       hasMore: tags.length === limit + 1,
-      tags: tags.slice(0, limit)
+      tags: tags.slice(0, limit),
     };
   }
 }

@@ -1,26 +1,26 @@
+import { Comment } from "src/entity/Comment";
+import { Reaction } from "src/entity/Reaction";
+import { isAuth } from "src/modules/middleware/isAuth";
+import { CommentRepository } from "src/repositories/CommentRepo";
+import { MyContext } from "src/types/Context";
 import {
   Arg,
-  Ctx,
-  Mutation,
-  Resolver,
-  UseMiddleware,
   Authorized,
-  Query,
+  Ctx,
   FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
   Root,
+  UseMiddleware,
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Comment } from "../../entity/Comment";
-import { MyContext } from "../../types/Context";
-import { isAuth } from "../middleware/isAuth";
 import { CreateCommentInput, FindCommentsByIdInput } from "./Input";
 import {
   CommentResponse,
-  FindCommentResponse,
   DeleteCommentResponse,
+  FindCommentResponse,
 } from "./Response";
-import { CommentRepository } from "../../repositories/CommentRepo";
-import { Reaction } from "../../entity/Reaction";
 
 const COMMENT_LIMIT = 5;
 

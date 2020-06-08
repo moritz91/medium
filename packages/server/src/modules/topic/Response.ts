@@ -1,5 +1,5 @@
-import { ObjectType, Field } from "type-graphql";
-import { Topic } from "../../entity/Topic";
+import { Topic } from "src/entity/Topic";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class TopicResponse {

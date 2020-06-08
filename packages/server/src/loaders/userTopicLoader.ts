@@ -1,20 +1,20 @@
 import * as DataLoader from "dataloader";
-import { In } from "typeorm";
-import { UserTopic } from "../entity/UserTopic";
 import { Topic } from "src/entity/Topic";
+import { UserTopic } from "src/entity/UserTopic";
+import { In } from "typeorm";
 
 const batchTopics = async (userIds: string[]) => {
   const userTopics = await UserTopic.find({
     join: {
       alias: "userTopic",
       innerJoinAndSelect: {
-        topic: "userTopic.topic"
-      }
+        topic: "userTopic.topic",
+      },
     },
     where: {
-      userId: In(userIds)
+      userId: In(userIds),
     },
-    order: { topic: "DESC" }
+    order: { topic: "DESC" },
   });
 
   const userIdToTopics: { [key: string]: Topic[] } = {};
@@ -27,7 +27,7 @@ const batchTopics = async (userIds: string[]) => {
     }
   });
 
-  return userIds.map(userId => userIdToTopics[userId]);
+  return userIds.map((userId) => userIdToTopics[userId]);
 };
 
 export const userTopicLoader = () => new DataLoader(batchTopics);

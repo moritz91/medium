@@ -1,22 +1,22 @@
+import { MyContext } from "src/types/Context";
+import { Ctx, Field, Float, ID, Int, ObjectType } from "type-graphql";
 import {
   BaseEntity,
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
-  OneToMany
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-import { ObjectType, Field, ID, Int, Ctx, Float } from "type-graphql";
-import { User } from "./User";
-import { Comment } from "./Comment";
-import { Topic } from "./Topic";
-import { PostingTag } from "./PostingTag";
-import { MyContext } from "../types/Context";
-import { Tag } from "./Tag";
-import { PostingTopic } from "./PostingTopic";
 import { Bookmark } from "./Bookmark";
+import { Comment } from "./Comment";
+import { PostingTag } from "./PostingTag";
+import { PostingTopic } from "./PostingTopic";
 import { Reaction } from "./Reaction";
+import { Tag } from "./Tag";
+import { Topic } from "./Topic";
+import { User } from "./User";
 
 @Entity()
 @ObjectType()
@@ -30,7 +30,7 @@ export class Posting extends BaseEntity {
   creatorId: string;
 
   @Field(() => [Comment])
-  @OneToMany(() => Comment, c => c.posting)
+  @OneToMany(() => Comment, (c) => c.posting)
   comments: Promise<Comment[]>;
 
   @Field(() => Int)
@@ -46,11 +46,11 @@ export class Posting extends BaseEntity {
   @Field(() => Float)
   readingTime: number;
 
-  @ManyToOne(() => Topic, p => p.postings, { onDelete: "CASCADE" })
+  @ManyToOne(() => Topic, (p) => p.postings, { onDelete: "CASCADE" })
   topic: Promise<Topic>;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.postings)
+  @ManyToOne(() => User, (user) => user.postings)
   creator: Promise<User>;
 
   @Field(() => Boolean, { nullable: true })
@@ -94,16 +94,16 @@ export class Posting extends BaseEntity {
     return topicPostingLoader.load(this.id);
   }
 
-  @OneToMany(() => PostingTag, pt => pt.posting)
+  @OneToMany(() => PostingTag, (pt) => pt.posting)
   tagConnection: Promise<PostingTag[]>;
 
-  @OneToMany(() => PostingTopic, pt => pt.posting)
+  @OneToMany(() => PostingTopic, (pt) => pt.posting)
   topicConnection: Promise<PostingTopic[]>;
 
-  @OneToMany(() => Bookmark, b => b.posting)
+  @OneToMany(() => Bookmark, (b) => b.posting)
   userBookmarkConnection: Promise<Bookmark[]>;
 
-  @OneToMany(() => Reaction, r => r.posting)
+  @OneToMany(() => Reaction, (r) => r.posting)
   userReactionConnection: Promise<Reaction[]>;
 
   @Field()

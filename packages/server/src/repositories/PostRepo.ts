@@ -1,6 +1,6 @@
+import { Posting } from "src/entity/Posting";
+import { PostingTopic } from "src/entity/PostingTopic";
 import { EntityRepository, Repository } from "typeorm";
-import { Posting } from "../entity/Posting";
-import { PostingTopic } from "../entity/PostingTopic";
 
 interface FindByCreatorIdOptions {
   creatorId: string;
@@ -33,7 +33,7 @@ export class PostingRepository extends Repository<Posting> {
 
     return {
       hasMore: posts.length === limit + 1,
-      posts: posts.slice(0, limit)
+      posts: posts.slice(0, limit),
     };
   }
 
@@ -48,8 +48,8 @@ export class PostingRepository extends Repository<Posting> {
         "pt",
         "p.id = pt.postingId AND pt.topicId IN (:...topicIds)",
         {
-          topicIds: topicIds
-        }
+          topicIds: topicIds,
+        },
       );
     }
 
@@ -61,7 +61,7 @@ export class PostingRepository extends Repository<Posting> {
 
     return {
       hasMore: posts.length === limit + 1,
-      posts: posts.slice(0, limit)
+      posts: posts.slice(0, limit),
     };
   }
 }

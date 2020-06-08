@@ -1,19 +1,19 @@
 import * as DataLoader from "dataloader";
-import { PostingTag } from "../entity/PostingTag";
+import { PostingTag } from "src/entity/PostingTag";
+import { Tag } from "src/entity/Tag";
 import { In } from "typeorm";
-import { Tag } from "../entity/Tag";
 
 const batchTags = async (postingIds: string[]) => {
   const postingTags = await PostingTag.find({
     join: {
       alias: "postingTag",
       innerJoinAndSelect: {
-        tag: "postingTag.tag"
-      }
+        tag: "postingTag.tag",
+      },
     },
     where: {
-      postingId: In(postingIds)
-    }
+      postingId: In(postingIds),
+    },
   });
 
   const postingIdToTags: { [key: string]: Tag[] } = {};
@@ -27,7 +27,7 @@ const batchTags = async (postingIds: string[]) => {
   }
 */
 
-  postingTags.forEach(pt => {
+  postingTags.forEach((pt) => {
     if (pt.postingId in postingIdToTags) {
       postingIdToTags[pt.postingId].push((pt as any).__tag__);
     } else {
@@ -35,7 +35,7 @@ const batchTags = async (postingIds: string[]) => {
     }
   });
 
-  return postingIds.map(postingId => postingIdToTags[postingId]);
+  return postingIds.map((postingId) => postingIdToTags[postingId]);
 };
 
 export const tagPostingLoader = () => new DataLoader(batchTags);

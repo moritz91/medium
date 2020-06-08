@@ -1,5 +1,5 @@
+import { Topic } from "src/entity/Topic";
 import { EntityRepository, Repository } from "typeorm";
-import { Topic } from "../entity/Topic";
 
 interface FindByTopicIdOptions {
   postingId: string;
@@ -31,7 +31,7 @@ export class TopicRepository extends Repository<Topic> {
 
     return {
       hasMore: comments.length === limit + 1,
-      comments: comments.slice(0, limit)
+      comments: comments.slice(0, limit),
     };
   }
   async nameContains({ letters, limit }: FindByNameContains) {
@@ -45,7 +45,7 @@ export class TopicRepository extends Repository<Topic> {
 
     return {
       hasMore: topics.length === limit + 1,
-      topics: topics.slice(0, limit)
+      topics: topics.slice(0, limit),
     };
   }
 }

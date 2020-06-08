@@ -1,20 +1,20 @@
+import { User } from "src/entity/User";
+import { MyContext } from "src/types/Context";
 import {
-  Resolver,
-  Authorized,
   Arg,
-  Mutation,
+  Authorized,
   Ctx,
   FieldResolver,
-  Root
+  Mutation,
+  Resolver,
+  Root,
 } from "type-graphql";
-import { MyContext } from "../../types/Context";
-import { User } from "../../entity/User";
 
 export function createResolver<ArgType extends Object, T extends Object>(
   suffix: string,
   argType: ArgType,
   entity: any,
-  graphqlReturnType: T
+  graphqlReturnType: T,
 ) {
   const argAndReturnKeyName = suffix[0].toLowerCase() + suffix.slice(1);
   @Resolver(entity)
@@ -24,16 +24,16 @@ export function createResolver<ArgType extends Object, T extends Object>(
     async create(
       @Arg(argAndReturnKeyName, () => argType) input: ArgType,
       @Ctx()
-      ctx: MyContext
+      ctx: MyContext,
     ) {
       const value = await (entity as any)
         .create({
           ...(input as any),
-          creatorId: ctx.req.session!.userId
+          creatorId: ctx.req.session!.userId,
         })
         .save();
       return {
-        [argAndReturnKeyName]: value
+        [argAndReturnKeyName]: value,
       };
     }
 

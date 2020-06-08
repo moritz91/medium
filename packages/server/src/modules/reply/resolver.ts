@@ -1,26 +1,26 @@
+import { Reply } from "src/entity/Comment";
+import { Reaction } from "src/entity/Reaction";
+import { isAuth } from "src/modules/middleware/isAuth";
+import { ReplyRepository } from "src/repositories/ReplyRepo";
+import { MyContext } from "src/types/Context";
 import {
   Arg,
-  Ctx,
-  Mutation,
-  Resolver,
-  UseMiddleware,
   Authorized,
-  Query,
+  Ctx,
   FieldResolver,
-  Root
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+  UseMiddleware,
 } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Reply } from "../../entity/Comment";
-import { MyContext } from "../../types/Context";
-import { isAuth } from "../middleware/isAuth";
-import {
-  ReplyResponse,
-  DeleteReplyResponse,
-  FindReplyResponse
-} from "./Response";
 import { CreateReplyInput, FindRepliesByIdInput } from "./Input";
-import { Reaction } from "../../entity/Reaction";
-import { ReplyRepository } from "../../repositories/ReplyRepo";
+import {
+  DeleteReplyResponse,
+  FindReplyResponse,
+  ReplyResponse,
+} from "./Response";
 
 const COMMENT_LIMIT = 5;
 
@@ -28,27 +28,27 @@ const COMMENT_LIMIT = 5;
 export class ReplyResolver {
   constructor(
     @InjectRepository(Reply)
-    private readonly replyRepo: ReplyRepository
+    private readonly replyRepo: ReplyRepository,
   ) {}
 
   @Mutation(() => ReplyResponse)
   @UseMiddleware(isAuth)
   async createReply(
     @Arg("reply") input: CreateReplyInput,
-    @Ctx() { req }: MyContext
+    @Ctx() { req }: MyContext,
   ): Promise<ReplyResponse> {
     const reply = await this.replyRepo.save({
       ...input,
-      creatorId: req.session!.userId
+      creatorId: req.session!.userId,
     });
 
     return {
-      reply
+      reply,
     };
   }
 
   @Mutation(() => DeleteReplyResponse, {
-    nullable: true
+    nullable: true,
   })
   @Authorized()
   async deleteReplyById(@Arg("id") id: string): Promise<DeleteReplyResponse> {
@@ -64,29 +64,29 @@ export class ReplyResolver {
   async findRepliesById(@Arg("input")
   {
     commentId,
-    cursor
+    cursor,
   }: FindRepliesByIdInput): Promise<FindReplyResponse> {
     return this.replyRepo.findByCommentId({
       commentId,
       cursor,
-      limit: COMMENT_LIMIT
+      limit: COMMENT_LIMIT,
     });
   }
 
   @FieldResolver(() => Number)
   numReactions(@Root() root: Reply): Promise<number> {
     return Reaction.count({
-      where: { replyId: root.id, commentId: root.commentId }
+      where: { replyId: root.id, commentId: root.commentId },
     });
   }
 
   @FieldResolver(() => Boolean)
   async hasReacted(
     @Ctx() ctx: MyContext,
-    @Root() root: Reply
+    @Root() root: Reply,
   ): Promise<Boolean> {
     const response = await Reaction.findOne({
-      where: { replyId: root.id, userId: ctx.req.session!.userId }
+      where: { replyId: root.id, userId: ctx.req.session!.userId },
     });
 
     if (response) {

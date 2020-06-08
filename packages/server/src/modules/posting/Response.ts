@@ -1,5 +1,5 @@
-import { ObjectType, Field } from "type-graphql";
-import { Posting } from "../../entity/Posting";
+import { Posting } from "src/entity/Posting";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class PostingResponse {
