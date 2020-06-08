@@ -8,15 +8,9 @@ import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import * as typeorm from "typeorm";
 import { User } from "./entity/User";
-import { seedData } from "./helpers/seedData";
+import { seedData } from "./helpers/seed-data";
 import { backendURI, frontendURI } from "./helpers/uris";
-import { postingTagLoader } from "./loaders/postingTagLoader";
-import { postingTopicLoader } from "./loaders/postingTopicLoader";
-import { tagPostingLoader } from "./loaders/tagPostingLoader";
-import { topicPostingLoader } from "./loaders/topicPostingLoader";
-import { userLoader } from "./loaders/userLoader";
-import { userPostingLoader } from "./loaders/userPostingLoader";
-import { userTopicLoader } from "./loaders/userTopicLoader";
+import loaders from "./loaders";
 import { createTypeormConn } from "./typeorm";
 require("dotenv-safe").config({
   allowEmptyValues: true,
@@ -55,13 +49,7 @@ const startServer = async () => {
     context: ({ req, res }: ExpressRequestResponse) => ({
       req,
       res,
-      userLoader: userLoader(),
-      postingTagLoader: postingTagLoader(),
-      tagPostingLoader: tagPostingLoader(),
-      postingTopicLoader: postingTopicLoader(),
-      topicPostingLoader: topicPostingLoader(),
-      userPostingLoader: userPostingLoader(),
-      userTopicLoader: userTopicLoader(),
+      ...loaders
     }),
     engine: {
       apiKey: process.env.ENGINE_API_KEY,

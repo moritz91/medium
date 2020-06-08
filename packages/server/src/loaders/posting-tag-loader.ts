@@ -1,6 +1,7 @@
-import * as DataLoader from "dataloader";
+import DataLoader from "dataloader";
 import { Posting } from "src/entity/Posting";
 import { PostingTag } from "src/entity/PostingTag";
+import { DataLoaderOptions } from "src/types/data-loader";
 import { In } from "typeorm";
 
 const batchPostings = async (tagIds: string[]) => {
@@ -38,4 +39,5 @@ const batchPostings = async (tagIds: string[]) => {
   return tagIds.map((tagId) => tagIdToPostings[tagId]);
 };
 
-export const postingTagLoader = () => new DataLoader(batchPostings);
+export const postingTagLoader = (options?: DataLoaderOptions) =>
+  new DataLoader(batchPostings, options);

@@ -1,6 +1,7 @@
-import * as DataLoader from "dataloader";
+import DataLoader from "dataloader";
 import { Topic } from "src/entity/Topic";
 import { UserTopic } from "src/entity/UserTopic";
+import { DataLoaderOptions } from "src/types/data-loader";
 import { In } from "typeorm";
 
 const batchTopics = async (userIds: string[]) => {
@@ -30,4 +31,5 @@ const batchTopics = async (userIds: string[]) => {
   return userIds.map((userId) => userIdToTopics[userId]);
 };
 
-export const userTopicLoader = () => new DataLoader(batchTopics);
+export const userTopicLoader = (options?: DataLoaderOptions) =>
+  new DataLoader(batchTopics, options);

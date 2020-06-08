@@ -1,7 +1,8 @@
-import * as DataLoader from "dataloader";
+import DataLoader from "dataloader";
 import { User } from "src/entity/User";
+import { DataLoaderOptions } from "src/types/data-loader";
 
-export const userLoader = () =>
+export const userLoader = (options?: DataLoaderOptions) =>
   new DataLoader(async (keys: string[]) => {
     const users = await User.findByIds(keys);
 
@@ -13,4 +14,4 @@ export const userLoader = () =>
 
     // O(n) * O(1)
     return keys.map((k) => userMap[k]);
-  });
+  }, options);

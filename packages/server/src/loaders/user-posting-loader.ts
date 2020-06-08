@@ -1,6 +1,7 @@
-import * as DataLoader from "dataloader";
+import DataLoader from "dataloader";
 import { Bookmark } from "src/entity/Bookmark";
 import { Posting } from "src/entity/Posting";
+import { DataLoaderOptions } from "src/types/data-loader";
 import { In } from "typeorm";
 
 const batchPostings = async (userIds: string[]) => {
@@ -30,4 +31,5 @@ const batchPostings = async (userIds: string[]) => {
   return userIds.map((userId) => userIdToPostings[userId]);
 };
 
-export const userPostingLoader = () => new DataLoader(batchPostings);
+export const userPostingLoader = (options?: DataLoaderOptions) =>
+  new DataLoader(batchPostings, options);
