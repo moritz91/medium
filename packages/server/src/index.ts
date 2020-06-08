@@ -48,7 +48,7 @@ const startServer = async () => {
     }),
     context: ({ req, res }: ExpressRequestResponse) => ({ req, res, loaders: loaders() }),
     engine: {
-      apiKey: process.env.ENGINE_API_KEY,
+      apiKey: process.env.APOLLO_KEY,
     },
   });
 

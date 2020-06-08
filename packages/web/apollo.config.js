@@ -1,3 +1,5 @@
 module.exports = {
-  client: {},
+  client: {
+    service: "medium-4935",
+  },
 };
