@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@medium/common": "1.0.0",
-    "apollo-server-express": "2.9.3",
+    "apollo-server-express": "2.14.2",
     "cors": "2.8.5",
     "cross-env": "^7.0.2",
     "dataloader": "1.4.0",
