@@ -1,4 +1,4 @@
-import * as DataLoader from "dataloader";
+import DataLoader from "dataloader";
 import { Request, Response } from "express";
 import { Posting } from "src/entity/Posting";
 import { Tag } from "src/entity/Tag";
