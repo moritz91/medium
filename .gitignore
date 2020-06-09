@@ -1,35 +1,44 @@
+# editor-confs
 .idea/
 .vscode/
-node_modules/
 tmp/
 temp/
-charts
-dist
-.next
-storybook-static/
-cypress/
+
+# dependencies, 
+node_modules/
+charts/
 .verdaccio/
-.ssg/
 
-scripts/determineChanges.sh
-scripts/drone_build_backend.sh
-scripts/shouldBuild.sh
+# build output
+dist/
+.next/
+
+# testing
+cypress/
+cypress.json
+
+# bash scripts
 scripts/compose.sh
+scripts/run-pipeline.sh
 
+# environment-variable files
 .env
 .env.prod
 .env.development
 .env.production
-.DS_Store
+
+
+# docker
+.dockerignore
+
+# yarn, prettier, eslint-confs
 .yarnrc
 .yarnclean
 .prettierrc
 .eslintcache
 .eslintrc.js
-.dockerignore
 .prettierignore
-tsconfig.tsbuildinfo
-cypress.json
-scripts/run-pipeline.sh
-docker-compose.env
-build.env
+
+# misc
+.DS_Store
+.ssg/
