@@ -27,7 +27,6 @@ scripts/run-pipeline.sh
 .env.development
 .env.production
 
-
 # docker
 .dockerignore
 
