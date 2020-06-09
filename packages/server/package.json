@@ -1,6 +1,6 @@
 {
   "name": "@medium/server",
-  "version": "1.0.0",
+  "version": "1.0.1-canary.0",
   "private": true,
   "description": "Awesome project developed with TypeORM.",
   "devDependencies": {
@@ -17,7 +17,7 @@
     "typescript": "3.7.5"
   },
   "dependencies": {
-    "@medium/common": "1.0.0",
+    "@medium/common": "^1.0.1-canary.0",
     "apollo-server-express": "2.9.3",
     "cors": "2.8.5",
     "cross-env": "^7.0.2",

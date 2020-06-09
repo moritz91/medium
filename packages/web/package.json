@@ -1,6 +1,6 @@
 {
   "name": "@medium/web",
-  "version": "1.0.0",
+  "version": "1.0.1-canary.0",
   "private": true,
   "scripts": {
     "dev": "tsnd --respawn --ignore-watch .next --project tsconfig.server.json server/index.ts",
@@ -17,7 +17,7 @@
     "@apollo/react-common": "3.1.4",
     "@apollo/react-hooks": "3.1.5",
     "@mdx-js/loader": "1.6.5",
-    "@medium/common": "1.0.0",
+    "@medium/common": "^1.0.1-canary.0",
     "@popperjs/core": "2.4.0",
     "@styled-icons/fa-brands": "10.0.0",
     "@typescript-eslint/parser": "2.1.0",
