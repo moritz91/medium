@@ -1,16 +1,14 @@
 {
-  "lerna": "2.11.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "packages": [
     "packages/*"
   ],
-  "npmClient": "yarn",
-  "useWorkspaces": true,
-  "version": "1.0.1-canary.0",
   "command": {
     "version": {
-      "conventionalCommits": true,
-      "yes": true,
-      "message": "chore(release): publish %s [skip ci]"
+      "exact": true,
+      "allowBranch": ["master", "canary"]
     }
-  }
+  },
+  "version": "1.0.1-canary.0"
 }
