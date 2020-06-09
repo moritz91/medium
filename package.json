@@ -6,7 +6,6 @@
     "cypress:open": "cypress open",
     "ci:deploy": "lerna run ci:deploy --since $TAG",
     "new-version": "lerna version --conventional-commits --yes",
-    "sr:bump": "lerna exec --concurrency 1 -- npx --no-install --no-ci semantic-release -e semantic-release-monorepo",
     "lint": "eslint -c .eslintrc.js --ignore-path .gitignore --cache --ignore-pattern packages/web/generated/** --ext .js,.ts,.tsx .",
     "lint-check": "eslint --print-config ./pages/index.tsx | eslint-config-prettier-check"
   },
@@ -17,8 +16,6 @@
   },
   "devDependencies": {
     "cypress": "4.5.0",
-    "lerna": "3.21.0",
-    "semantic-release": "17.0.8",
-    "semantic-release-monorepo": "7.0.2"
+    "lerna": "3.21.0"
   }
 }
