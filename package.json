@@ -21,6 +21,6 @@
     "lerna": "3.21.0"
   },
   "dependencies": {
-    "release": "^6.1.0"
+    "release": "6.1.0"
   }
 }
