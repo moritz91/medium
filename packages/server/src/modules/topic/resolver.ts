@@ -1,6 +1,8 @@
 import { ApolloError } from "apollo-server-core";
 import { Topic } from "src/entity/Topic";
 import { User } from "src/entity/User";
+import { loadCreatorResolver } from "src/modules/shared/load-creator-resolver";
+import { SuccessResponse } from "src/modules/shared/Response";
 import { TopicRepository } from "src/repositories/TopicRepo";
 import { MyContext } from "src/types/Context";
 import {
@@ -15,9 +17,6 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { loadCreatorResolver } from "../shared/load-creator-resolver";
-import { SuccessResponse } from "../shared/Response";
-// import { createResolver } from "../shared/create-resolver";
 import { CreateTopicInput, FindTopicsInput, UpdateTopicInput } from "./Input";
 import { FindTopicResponse, TopicResponse } from "./Response";
 
@@ -72,11 +71,7 @@ export class TopicResolver {
   async createTopic(
     @Arg("topic") input: CreateTopicInput,
   ): Promise<TopicResponse> {
-    const value = await this.topicRepo
-      .create({
-        ...input,
-      })
-      .save();
+    const value = await this.topicRepo.create({ ...input }).save();
 
     return {
       topic: value,

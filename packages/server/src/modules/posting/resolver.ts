@@ -7,6 +7,8 @@ import { Reaction } from "src/entity/Reaction";
 import { User } from "src/entity/User";
 import { UserTopic } from "src/entity/UserTopic";
 import { isAuth } from "src/modules/middleware/isAuth";
+import { loadCreatorResolver } from "src/modules/shared/load-creator-resolver";
+import { SuccessResponse } from "src/modules/shared/Response";
 import { CommentRepository } from "src/repositories/CommentRepo";
 import { PostingRepository } from "src/repositories/PostRepo";
 import { TagRepository } from "src/repositories/TagRepo";
@@ -24,8 +26,6 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { loadCreatorResolver } from "../shared/load-creator-resolver";
-import { SuccessResponse } from "../shared/Response";
 import {
   CreatePostingInput,
   FindPostingsInput,
