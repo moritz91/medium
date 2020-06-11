@@ -21,6 +21,7 @@
     "lerna": "3.21.0"
   },
   "dependencies": {
+    "prettier": "^2.0.5",
     "release": "6.1.0"
   }
 }
