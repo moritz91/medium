@@ -42,9 +42,7 @@ export class CommentResolver {
       creatorId: req.session!.userId,
     });
 
-    return {
-      comment,
-    };
+    return { comment };
   }
 
   @Mutation(() => DeleteCommentResponse, {
