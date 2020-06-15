@@ -5,10 +5,7 @@ import * as Redis from "ioredis";
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
 
-const redis =
-  process.env.NODE_ENV === "production"
-    ? new Redis(process.env.REDIS_URL)
-    : new Redis();
+const redis = process.env.NODE_ENV === "production" ? new Redis(process.env.REDIS_URL) : new Redis();
 
 export default session({
   store: new RedisStore({

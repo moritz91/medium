@@ -101,20 +101,14 @@ const executeCommand = (
     after = "\n```";
   }
 
-  const newLineBefore =
-    startIndex === 0
-      ? ""
-      : newLine + (first[first.length - 1] === newLine ? "" : newLine);
+  const newLineBefore = startIndex === 0 ? "" : newLine + (first[first.length - 1] === newLine ? "" : newLine);
 
-  const newLineAfter =
-    endIndex === length ? "" : newLine + (last[0] === newLine ? "" : newLine);
+  const newLineAfter = endIndex === length ? "" : newLine + (last[0] === newLine ? "" : newLine);
 
   const offset = (newLineBefore + before).length;
 
   const middle = multiple
-    ? rows
-        .map((row, index) => before.replace(/%/, `${index + 1}`) + row)
-        .join("\n")
+    ? rows.map((row, index) => before.replace(/%/, `${index + 1}`) + row).join("\n")
     : before + selection;
 
   const startText = first + newLineBefore + middle;
@@ -131,9 +125,7 @@ const executeCommand = (
   };
 };
 
-export const keyBoardCommands = (
-  e: React.KeyboardEvent,
-): IconProps["name"] | "" => {
+export const keyBoardCommands = (e: React.KeyboardEvent): IconProps["name"] | "" => {
   const control = !e.altKey && (e.ctrlKey || e.metaKey);
   if (control) {
     switch (e.keyCode) {
@@ -163,12 +155,7 @@ export const commandsHandler = (
   textChange: (c: EditCommand) => void,
 ): void => {
   const { value: text, selectionStart, selectionEnd } = textarea;
-  const { newText, start, end } = executeCommand(
-    name,
-    text,
-    selectionStart,
-    selectionEnd,
-  );
+  const { newText, start, end } = executeCommand(name, text, selectionStart, selectionEnd);
 
   textChange({ target: { name: "text", value: newText } });
   textarea.selectionStart = start;

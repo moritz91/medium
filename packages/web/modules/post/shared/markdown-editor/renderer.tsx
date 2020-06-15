@@ -27,14 +27,10 @@ const sanitize = {
 
 const setCodeProps = (): ((ast: Node[]) => void) => {
   return (ast: Node[]): void =>
-    visit(
-      ast,
-      "code",
-      (node: Node): void => {
-        const { lang, meta, value } = node;
-        node.value = JSON.stringify({ value, lang, meta });
-      },
-    );
+    visit(ast, "code", (node: Node): void => {
+      const { lang, meta, value } = node;
+      node.value = JSON.stringify({ value, lang, meta });
+    });
 };
 
 const MarkdownContainer = styled("div")`
@@ -52,9 +48,7 @@ interface MarkdownRendererProps {
   text: string;
 }
 
-export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({
-  text,
-}): JSX.Element => (
+export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ text }): JSX.Element => (
   <MarkdownContainer className="markdown-body">
     {
       remark()

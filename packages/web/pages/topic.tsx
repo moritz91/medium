@@ -18,10 +18,7 @@ interface TopicProps {
 }
 
 export default class Topic extends React.PureComponent<TopicProps> {
-  static async getInitialProps({
-    query: { name },
-    apolloClient,
-  }: NextContextWithApollo) {
+  static async getInitialProps({ query: { name }, apolloClient }: NextContextWithApollo) {
     const response: any = await apolloClient.query({
       query: getTopicByNameQuery,
       variables: {
@@ -51,9 +48,7 @@ export default class Topic extends React.PureComponent<TopicProps> {
         <Sections>
           <TopicContext.Provider value={context}>
             <MainSection>
-              <GetPostingsByTopicComponent
-                variables={{ cursor: "", topicIds: [id] }}
-              >
+              <GetPostingsByTopicComponent variables={{ cursor: "", topicIds: [id] }}>
                 {({ data, loading }) => {
                   if (loading) {
                     return null;
@@ -117,11 +112,7 @@ export default class Topic extends React.PureComponent<TopicProps> {
                       </>
                     );
                   }
-                  return (
-                    <Caption>
-                      This topic has no stories yet, be the first to contribute!
-                    </Caption>
-                  );
+                  return <Caption>This topic has no stories yet, be the first to contribute!</Caption>;
                 }}
               </GetPostingsByTopicComponent>
             </MainSection>

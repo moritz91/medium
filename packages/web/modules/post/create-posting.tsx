@@ -10,9 +10,7 @@ import * as yup from "yup";
 
 export const CreatePosting = (props: any): JSX.Element => {
   const { getPostingById } = props;
-  const [title, setTitle] = useState(
-    getPostingById ? getPostingById.title : "",
-  );
+  const [title, setTitle] = useState(getPostingById ? getPostingById.title : "");
   const [body, setBody] = useState(getPostingById ? getPostingById.body : "");
   const tags = getPostingById ? getPostingById.tags : [];
   const isUpdate = getPostingById ? true : false;
@@ -56,9 +54,7 @@ export const CreatePosting = (props: any): JSX.Element => {
                   value={body}
                 />
               </form>
-              <CreatePostContext.Provider
-                value={{ title, body, tags, isSubmitting, isUpdate }}
-              >
+              <CreatePostContext.Provider value={{ title, body, tags, isSubmitting, isUpdate }}>
                 <PostingModal />
               </CreatePostContext.Provider>
             </div>
@@ -69,10 +65,7 @@ export const CreatePosting = (props: any): JSX.Element => {
   );
 };
 
-CreatePosting.getInitialProps = async ({
-  query: { id },
-  apolloClient,
-}: NextContextWithApollo) => {
+CreatePosting.getInitialProps = async ({ query: { id }, apolloClient }: NextContextWithApollo) => {
   if (id) {
     const response: any = await apolloClient.query({
       query: getPostingByIdQuery,

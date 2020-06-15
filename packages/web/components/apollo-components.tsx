@@ -933,15 +933,13 @@ export const CreateCommentDocument = gql`
   ${UserInfoFragmentDoc}
 `;
 export class CreateCommentComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<CreateCommentMutation, CreateCommentVariables>
-  >
+  Partial<ReactApollo.MutationProps<CreateCommentMutation, CreateCommentVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<CreateCommentMutation, CreateCommentVariables>
         mutation={CreateCommentDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -950,10 +948,7 @@ export type CreateCommentProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<CreateCommentMutation, CreateCommentVariables>
 > &
   TChildProps;
-export type CreateCommentMutationFn = ReactApollo.MutationFn<
-  CreateCommentMutation,
-  CreateCommentVariables
->;
+export type CreateCommentMutationFn = ReactApollo.MutationFn<CreateCommentMutation, CreateCommentVariables>;
 export function CreateCommentHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -964,12 +959,10 @@ export function CreateCommentHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    CreateCommentMutation,
-    CreateCommentVariables,
-    CreateCommentProps<TChildProps>
-  >(CreateCommentDocument, operationOptions);
+  return ReactApollo.graphql<TProps, CreateCommentMutation, CreateCommentVariables, CreateCommentProps<TChildProps>>(
+    CreateCommentDocument,
+    operationOptions,
+  );
 }
 export const CreateReplyDocument = gql`
   mutation createReply($reply: CreateReplyInput!) {
@@ -993,7 +986,7 @@ export class CreateReplyComponent extends React.Component<
     return (
       <ReactApollo.Mutation<CreateReplyMutation, CreateReplyVariables>
         mutation={CreateReplyDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1002,26 +995,16 @@ export type CreateReplyProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<CreateReplyMutation, CreateReplyVariables>
 > &
   TChildProps;
-export type CreateReplyMutationFn = ReactApollo.MutationFn<
-  CreateReplyMutation,
-  CreateReplyVariables
->;
+export type CreateReplyMutationFn = ReactApollo.MutationFn<CreateReplyMutation, CreateReplyVariables>;
 export function CreateReplyHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        CreateReplyMutation,
-        CreateReplyVariables,
-        CreateReplyProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, CreateReplyMutation, CreateReplyVariables, CreateReplyProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    CreateReplyMutation,
-    CreateReplyVariables,
-    CreateReplyProps<TChildProps>
-  >(CreateReplyDocument, operationOptions);
+  return ReactApollo.graphql<TProps, CreateReplyMutation, CreateReplyVariables, CreateReplyProps<TChildProps>>(
+    CreateReplyDocument,
+    operationOptions,
+  );
 }
 export const DeleteCommentDocument = gql`
   mutation deleteComment($id: String!) {
@@ -1031,15 +1014,13 @@ export const DeleteCommentDocument = gql`
   }
 `;
 export class DeleteCommentComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<DeleteCommentMutation, DeleteCommentVariables>
-  >
+  Partial<ReactApollo.MutationProps<DeleteCommentMutation, DeleteCommentVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<DeleteCommentMutation, DeleteCommentVariables>
         mutation={DeleteCommentDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1048,10 +1029,7 @@ export type DeleteCommentProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<DeleteCommentMutation, DeleteCommentVariables>
 > &
   TChildProps;
-export type DeleteCommentMutationFn = ReactApollo.MutationFn<
-  DeleteCommentMutation,
-  DeleteCommentVariables
->;
+export type DeleteCommentMutationFn = ReactApollo.MutationFn<DeleteCommentMutation, DeleteCommentVariables>;
 export function DeleteCommentHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -1062,12 +1040,10 @@ export function DeleteCommentHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    DeleteCommentMutation,
-    DeleteCommentVariables,
-    DeleteCommentProps<TChildProps>
-  >(DeleteCommentDocument, operationOptions);
+  return ReactApollo.graphql<TProps, DeleteCommentMutation, DeleteCommentVariables, DeleteCommentProps<TChildProps>>(
+    DeleteCommentDocument,
+    operationOptions,
+  );
 }
 export const DeleteReplyDocument = gql`
   mutation deleteReply($id: String!) {
@@ -1083,7 +1059,7 @@ export class DeleteReplyComponent extends React.Component<
     return (
       <ReactApollo.Mutation<DeleteReplyMutation, DeleteReplyVariables>
         mutation={DeleteReplyDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1092,26 +1068,16 @@ export type DeleteReplyProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<DeleteReplyMutation, DeleteReplyVariables>
 > &
   TChildProps;
-export type DeleteReplyMutationFn = ReactApollo.MutationFn<
-  DeleteReplyMutation,
-  DeleteReplyVariables
->;
+export type DeleteReplyMutationFn = ReactApollo.MutationFn<DeleteReplyMutation, DeleteReplyVariables>;
 export function DeleteReplyHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        DeleteReplyMutation,
-        DeleteReplyVariables,
-        DeleteReplyProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, DeleteReplyMutation, DeleteReplyVariables, DeleteReplyProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    DeleteReplyMutation,
-    DeleteReplyVariables,
-    DeleteReplyProps<TChildProps>
-  >(DeleteReplyDocument, operationOptions);
+  return ReactApollo.graphql<TProps, DeleteReplyMutation, DeleteReplyVariables, DeleteReplyProps<TChildProps>>(
+    DeleteReplyDocument,
+    operationOptions,
+  );
 }
 export const GetCommentsByIdDocument = gql`
   query getCommentsById($input: FindCommentsByIdInput!) {
@@ -1139,15 +1105,13 @@ export const GetCommentsByIdDocument = gql`
   ${UserInfoFragmentDoc}
 `;
 export class GetCommentsByIdComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<GetCommentsByIdQuery, GetCommentsByIdVariables>
-  >
+  Partial<ReactApollo.QueryProps<GetCommentsByIdQuery, GetCommentsByIdVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<GetCommentsByIdQuery, GetCommentsByIdVariables>
         query={GetCommentsByIdDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1166,12 +1130,10 @@ export function GetCommentsByIdHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetCommentsByIdQuery,
-    GetCommentsByIdVariables,
-    GetCommentsByIdProps<TChildProps>
-  >(GetCommentsByIdDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetCommentsByIdQuery, GetCommentsByIdVariables, GetCommentsByIdProps<TChildProps>>(
+    GetCommentsByIdDocument,
+    operationOptions,
+  );
 }
 export const GetRepliesByIdDocument = gql`
   query getRepliesById($input: FindRepliesByIdInput!) {
@@ -1196,7 +1158,7 @@ export class GetRepliesByIdComponent extends React.Component<
     return (
       <ReactApollo.Query<GetRepliesByIdQuery, GetRepliesByIdVariables>
         query={GetRepliesByIdDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1215,12 +1177,10 @@ export function GetRepliesByIdHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetRepliesByIdQuery,
-    GetRepliesByIdVariables,
-    GetRepliesByIdProps<TChildProps>
-  >(GetRepliesByIdDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetRepliesByIdQuery, GetRepliesByIdVariables, GetRepliesByIdProps<TChildProps>>(
+    GetRepliesByIdDocument,
+    operationOptions,
+  );
 }
 export const AddBookmarkDocument = gql`
   mutation addBookmark($postingId: String!) {
@@ -1234,7 +1194,7 @@ export class AddBookmarkComponent extends React.Component<
     return (
       <ReactApollo.Mutation<AddBookmarkMutation, AddBookmarkVariables>
         mutation={AddBookmarkDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1243,33 +1203,19 @@ export type AddBookmarkProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<AddBookmarkMutation, AddBookmarkVariables>
 > &
   TChildProps;
-export type AddBookmarkMutationFn = ReactApollo.MutationFn<
-  AddBookmarkMutation,
-  AddBookmarkVariables
->;
+export type AddBookmarkMutationFn = ReactApollo.MutationFn<AddBookmarkMutation, AddBookmarkVariables>;
 export function AddBookmarkHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        AddBookmarkMutation,
-        AddBookmarkVariables,
-        AddBookmarkProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, AddBookmarkMutation, AddBookmarkVariables, AddBookmarkProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    AddBookmarkMutation,
-    AddBookmarkVariables,
-    AddBookmarkProps<TChildProps>
-  >(AddBookmarkDocument, operationOptions);
+  return ReactApollo.graphql<TProps, AddBookmarkMutation, AddBookmarkVariables, AddBookmarkProps<TChildProps>>(
+    AddBookmarkDocument,
+    operationOptions,
+  );
 }
 export const CreatePostingDocument = gql`
-  mutation createPosting(
-    $posting: CreatePostingInput!
-    $topicIds: [String!]!
-    $tagNames: [String!]!
-  ) {
+  mutation createPosting($posting: CreatePostingInput!, $topicIds: [String!]!, $tagNames: [String!]!) {
     createPosting(posting: $posting, topicIds: $topicIds, tagNames: $tagNames) {
       posting {
         id
@@ -1285,15 +1231,13 @@ export const CreatePostingDocument = gql`
   }
 `;
 export class CreatePostingComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<CreatePostingMutation, CreatePostingVariables>
-  >
+  Partial<ReactApollo.MutationProps<CreatePostingMutation, CreatePostingVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<CreatePostingMutation, CreatePostingVariables>
         mutation={CreatePostingDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1302,10 +1246,7 @@ export type CreatePostingProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<CreatePostingMutation, CreatePostingVariables>
 > &
   TChildProps;
-export type CreatePostingMutationFn = ReactApollo.MutationFn<
-  CreatePostingMutation,
-  CreatePostingVariables
->;
+export type CreatePostingMutationFn = ReactApollo.MutationFn<CreatePostingMutation, CreatePostingVariables>;
 export function CreatePostingHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -1316,12 +1257,10 @@ export function CreatePostingHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    CreatePostingMutation,
-    CreatePostingVariables,
-    CreatePostingProps<TChildProps>
-  >(CreatePostingDocument, operationOptions);
+  return ReactApollo.graphql<TProps, CreatePostingMutation, CreatePostingVariables, CreatePostingProps<TChildProps>>(
+    CreatePostingDocument,
+    operationOptions,
+  );
 }
 export const DeletePostingDocument = gql`
   mutation deletePosting($id: String!) {
@@ -1331,15 +1270,13 @@ export const DeletePostingDocument = gql`
   }
 `;
 export class DeletePostingComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<DeletePostingMutation, DeletePostingVariables>
-  >
+  Partial<ReactApollo.MutationProps<DeletePostingMutation, DeletePostingVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<DeletePostingMutation, DeletePostingVariables>
         mutation={DeletePostingDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1348,10 +1285,7 @@ export type DeletePostingProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<DeletePostingMutation, DeletePostingVariables>
 > &
   TChildProps;
-export type DeletePostingMutationFn = ReactApollo.MutationFn<
-  DeletePostingMutation,
-  DeletePostingVariables
->;
+export type DeletePostingMutationFn = ReactApollo.MutationFn<DeletePostingMutation, DeletePostingVariables>;
 export function DeletePostingHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -1362,12 +1296,10 @@ export function DeletePostingHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    DeletePostingMutation,
-    DeletePostingVariables,
-    DeletePostingProps<TChildProps>
-  >(DeletePostingDocument, operationOptions);
+  return ReactApollo.graphql<TProps, DeletePostingMutation, DeletePostingVariables, DeletePostingProps<TChildProps>>(
+    DeletePostingDocument,
+    operationOptions,
+  );
 }
 export const RemoveBookmarkDocument = gql`
   mutation removeBookmark($postingId: String!) {
@@ -1375,15 +1307,13 @@ export const RemoveBookmarkDocument = gql`
   }
 `;
 export class RemoveBookmarkComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<RemoveBookmarkMutation, RemoveBookmarkVariables>
-  >
+  Partial<ReactApollo.MutationProps<RemoveBookmarkMutation, RemoveBookmarkVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<RemoveBookmarkMutation, RemoveBookmarkVariables>
         mutation={RemoveBookmarkDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1392,10 +1322,7 @@ export type RemoveBookmarkProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<RemoveBookmarkMutation, RemoveBookmarkVariables>
 > &
   TChildProps;
-export type RemoveBookmarkMutationFn = ReactApollo.MutationFn<
-  RemoveBookmarkMutation,
-  RemoveBookmarkVariables
->;
+export type RemoveBookmarkMutationFn = ReactApollo.MutationFn<RemoveBookmarkMutation, RemoveBookmarkVariables>;
 export function RemoveBookmarkHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -1406,12 +1333,10 @@ export function RemoveBookmarkHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    RemoveBookmarkMutation,
-    RemoveBookmarkVariables,
-    RemoveBookmarkProps<TChildProps>
-  >(RemoveBookmarkDocument, operationOptions);
+  return ReactApollo.graphql<TProps, RemoveBookmarkMutation, RemoveBookmarkVariables, RemoveBookmarkProps<TChildProps>>(
+    RemoveBookmarkDocument,
+    operationOptions,
+  );
 }
 export const GetPostingByIdDocument = gql`
   query GetPostingById($id: String!) {
@@ -1429,7 +1354,7 @@ export class GetPostingByIdComponent extends React.Component<
     return (
       <ReactApollo.Query<GetPostingByIdQuery, GetPostingByIdVariables>
         query={GetPostingByIdDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1448,12 +1373,10 @@ export function GetPostingByIdHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetPostingByIdQuery,
-    GetPostingByIdVariables,
-    GetPostingByIdProps<TChildProps>
-  >(GetPostingByIdDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetPostingByIdQuery, GetPostingByIdVariables, GetPostingByIdProps<TChildProps>>(
+    GetPostingByIdDocument,
+    operationOptions,
+  );
 }
 export const GetPostingsByTopicDocument = gql`
   query GetPostingsByTopic($cursor: String!, $topicIds: [String!]!) {
@@ -1469,15 +1392,13 @@ export const GetPostingsByTopicDocument = gql`
   ${PostingInfoFragmentDoc}
 `;
 export class GetPostingsByTopicComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<GetPostingsByTopicQuery, GetPostingsByTopicVariables>
-  >
+  Partial<ReactApollo.QueryProps<GetPostingsByTopicQuery, GetPostingsByTopicVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<GetPostingsByTopicQuery, GetPostingsByTopicVariables>
         query={GetPostingsByTopicDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1523,7 +1444,7 @@ export class GetPostingsComponent extends React.Component<
     return (
       <ReactApollo.Query<GetPostingsQuery, GetPostingsVariables>
         query={GetPostingsDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1534,20 +1455,13 @@ export type GetPostingsProps<TChildProps = any> = Partial<
   TChildProps;
 export function GetPostingsHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetPostingsQuery,
-        GetPostingsVariables,
-        GetPostingsProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, GetPostingsQuery, GetPostingsVariables, GetPostingsProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetPostingsQuery,
-    GetPostingsVariables,
-    GetPostingsProps<TChildProps>
-  >(GetPostingsDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetPostingsQuery, GetPostingsVariables, GetPostingsProps<TChildProps>>(
+    GetPostingsDocument,
+    operationOptions,
+  );
 }
 export const GetUserPostingsDocument = gql`
   query getUserPostings($input: FindUserPostingsInput!) {
@@ -1563,15 +1477,13 @@ export const GetUserPostingsDocument = gql`
   ${PostingInfoFragmentDoc}
 `;
 export class GetUserPostingsComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<GetUserPostingsQuery, GetUserPostingsVariables>
-  >
+  Partial<ReactApollo.QueryProps<GetUserPostingsQuery, GetUserPostingsVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<GetUserPostingsQuery, GetUserPostingsVariables>
         query={GetUserPostingsDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1590,12 +1502,10 @@ export function GetUserPostingsHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetUserPostingsQuery,
-    GetUserPostingsVariables,
-    GetUserPostingsProps<TChildProps>
-  >(GetUserPostingsDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetUserPostingsQuery, GetUserPostingsVariables, GetUserPostingsProps<TChildProps>>(
+    GetUserPostingsDocument,
+    operationOptions,
+  );
 }
 export const AddReactionDocument = gql`
   mutation addReaction($postingId: String, $commentId: String) {
@@ -1609,7 +1519,7 @@ export class AddReactionComponent extends React.Component<
     return (
       <ReactApollo.Mutation<AddReactionMutation, AddReactionVariables>
         mutation={AddReactionDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1618,26 +1528,16 @@ export type AddReactionProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<AddReactionMutation, AddReactionVariables>
 > &
   TChildProps;
-export type AddReactionMutationFn = ReactApollo.MutationFn<
-  AddReactionMutation,
-  AddReactionVariables
->;
+export type AddReactionMutationFn = ReactApollo.MutationFn<AddReactionMutation, AddReactionVariables>;
 export function AddReactionHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        AddReactionMutation,
-        AddReactionVariables,
-        AddReactionProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, AddReactionMutation, AddReactionVariables, AddReactionProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    AddReactionMutation,
-    AddReactionVariables,
-    AddReactionProps<TChildProps>
-  >(AddReactionDocument, operationOptions);
+  return ReactApollo.graphql<TProps, AddReactionMutation, AddReactionVariables, AddReactionProps<TChildProps>>(
+    AddReactionDocument,
+    operationOptions,
+  );
 }
 export const RemoveReactionDocument = gql`
   mutation removeReaction($postingId: String, $commentId: String) {
@@ -1645,15 +1545,13 @@ export const RemoveReactionDocument = gql`
   }
 `;
 export class RemoveReactionComponent extends React.Component<
-  Partial<
-    ReactApollo.MutationProps<RemoveReactionMutation, RemoveReactionVariables>
-  >
+  Partial<ReactApollo.MutationProps<RemoveReactionMutation, RemoveReactionVariables>>
 > {
   render() {
     return (
       <ReactApollo.Mutation<RemoveReactionMutation, RemoveReactionVariables>
         mutation={RemoveReactionDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1662,10 +1560,7 @@ export type RemoveReactionProps<TChildProps = any> = Partial<
   ReactApollo.MutateProps<RemoveReactionMutation, RemoveReactionVariables>
 > &
   TChildProps;
-export type RemoveReactionMutationFn = ReactApollo.MutationFn<
-  RemoveReactionMutation,
-  RemoveReactionVariables
->;
+export type RemoveReactionMutationFn = ReactApollo.MutationFn<RemoveReactionMutation, RemoveReactionVariables>;
 export function RemoveReactionHOC<TProps, TChildProps = any>(
   operationOptions:
     | ReactApollo.OperationOption<
@@ -1676,12 +1571,10 @@ export function RemoveReactionHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    RemoveReactionMutation,
-    RemoveReactionVariables,
-    RemoveReactionProps<TChildProps>
-  >(RemoveReactionDocument, operationOptions);
+  return ReactApollo.graphql<TProps, RemoveReactionMutation, RemoveReactionVariables, RemoveReactionProps<TChildProps>>(
+    RemoveReactionDocument,
+    operationOptions,
+  );
 }
 export const GetTagsByLettersDocument = gql`
   query GetTagsByLetters($letters: String!) {
@@ -1693,15 +1586,13 @@ export const GetTagsByLettersDocument = gql`
   }
 `;
 export class GetTagsByLettersComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<GetTagsByLettersQuery, GetTagsByLettersVariables>
-  >
+  Partial<ReactApollo.QueryProps<GetTagsByLettersQuery, GetTagsByLettersVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<GetTagsByLettersQuery, GetTagsByLettersVariables>
         query={GetTagsByLettersDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1741,7 +1632,7 @@ export class GetTagByNameComponent extends React.Component<
     return (
       <ReactApollo.Query<GetTagByNameQuery, GetTagByNameVariables>
         query={GetTagByNameDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1752,20 +1643,13 @@ export type GetTagByNameProps<TChildProps = any> = Partial<
   TChildProps;
 export function GetTagByNameHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetTagByNameQuery,
-        GetTagByNameVariables,
-        GetTagByNameProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, GetTagByNameQuery, GetTagByNameVariables, GetTagByNameProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetTagByNameQuery,
-    GetTagByNameVariables,
-    GetTagByNameProps<TChildProps>
-  >(GetTagByNameDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetTagByNameQuery, GetTagByNameVariables, GetTagByNameProps<TChildProps>>(
+    GetTagByNameDocument,
+    operationOptions,
+  );
 }
 export const GetTagsDocument = gql`
   query GetTags($input: FindTagsInput!) {
@@ -1779,38 +1663,24 @@ export const GetTagsDocument = gql`
 
   ${TagInfoFragmentDoc}
 `;
-export class GetTagsComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<GetTagsQuery, GetTagsVariables>>
-> {
+export class GetTagsComponent extends React.Component<Partial<ReactApollo.QueryProps<GetTagsQuery, GetTagsVariables>>> {
   render() {
     return (
-      <ReactApollo.Query<GetTagsQuery, GetTagsVariables>
-        query={GetTagsDocument}
-        {...(this as any)["props"] as any}
-      />
+      <ReactApollo.Query<GetTagsQuery, GetTagsVariables> query={GetTagsDocument} {...((this as any)["props"] as any)} />
     );
   }
 }
-export type GetTagsProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<GetTagsQuery, GetTagsVariables>
-> &
+export type GetTagsProps<TChildProps = any> = Partial<ReactApollo.DataProps<GetTagsQuery, GetTagsVariables>> &
   TChildProps;
 export function GetTagsHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetTagsQuery,
-        GetTagsVariables,
-        GetTagsProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, GetTagsQuery, GetTagsVariables, GetTagsProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetTagsQuery,
-    GetTagsVariables,
-    GetTagsProps<TChildProps>
-  >(GetTagsDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetTagsQuery, GetTagsVariables, GetTagsProps<TChildProps>>(
+    GetTagsDocument,
+    operationOptions,
+  );
 }
 export const GetTopicByNameDocument = gql`
   query GetTopicByName($name: String!) {
@@ -1828,7 +1698,7 @@ export class GetTopicByNameComponent extends React.Component<
     return (
       <ReactApollo.Query<GetTopicByNameQuery, GetTopicByNameVariables>
         query={GetTopicByNameDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1847,12 +1717,10 @@ export function GetTopicByNameHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetTopicByNameQuery,
-    GetTopicByNameVariables,
-    GetTopicByNameProps<TChildProps>
-  >(GetTopicByNameDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetTopicByNameQuery, GetTopicByNameVariables, GetTopicByNameProps<TChildProps>>(
+    GetTopicByNameDocument,
+    operationOptions,
+  );
 }
 export const GetTopicsByLettersDocument = gql`
   query GetTopicsByLetters($letters: String!) {
@@ -1865,15 +1733,13 @@ export const GetTopicsByLettersDocument = gql`
   }
 `;
 export class GetTopicsByLettersComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<GetTopicsByLettersQuery, GetTopicsByLettersVariables>
-  >
+  Partial<ReactApollo.QueryProps<GetTopicsByLettersQuery, GetTopicsByLettersVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<GetTopicsByLettersQuery, GetTopicsByLettersVariables>
         query={GetTopicsByLettersDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -1918,31 +1784,22 @@ export class GetTopicsComponent extends React.Component<
     return (
       <ReactApollo.Query<GetTopicsQuery, GetTopicsVariables>
         query={GetTopicsDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
 }
-export type GetTopicsProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<GetTopicsQuery, GetTopicsVariables>
-> &
+export type GetTopicsProps<TChildProps = any> = Partial<ReactApollo.DataProps<GetTopicsQuery, GetTopicsVariables>> &
   TChildProps;
 export function GetTopicsHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        GetTopicsQuery,
-        GetTopicsVariables,
-        GetTopicsProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, GetTopicsQuery, GetTopicsVariables, GetTopicsProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    GetTopicsQuery,
-    GetTopicsVariables,
-    GetTopicsProps<TChildProps>
-  >(GetTopicsDocument, operationOptions);
+  return ReactApollo.graphql<TProps, GetTopicsQuery, GetTopicsVariables, GetTopicsProps<TChildProps>>(
+    GetTopicsDocument,
+    operationOptions,
+  );
 }
 export const LogoutDocument = gql`
   mutation Logout {
@@ -1956,35 +1813,23 @@ export class LogoutComponent extends React.Component<
     return (
       <ReactApollo.Mutation<LogoutMutation, LogoutVariables>
         mutation={LogoutDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
 }
-export type LogoutProps<TChildProps = any> = Partial<
-  ReactApollo.MutateProps<LogoutMutation, LogoutVariables>
-> &
+export type LogoutProps<TChildProps = any> = Partial<ReactApollo.MutateProps<LogoutMutation, LogoutVariables>> &
   TChildProps;
-export type LogoutMutationFn = ReactApollo.MutationFn<
-  LogoutMutation,
-  LogoutVariables
->;
+export type LogoutMutationFn = ReactApollo.MutationFn<LogoutMutation, LogoutVariables>;
 export function LogoutHOC<TProps, TChildProps = any>(
   operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        LogoutMutation,
-        LogoutVariables,
-        LogoutProps<TChildProps>
-      >
+    | ReactApollo.OperationOption<TProps, LogoutMutation, LogoutVariables, LogoutProps<TChildProps>>
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    LogoutMutation,
-    LogoutVariables,
-    LogoutProps<TChildProps>
-  >(LogoutDocument, operationOptions);
+  return ReactApollo.graphql<TProps, LogoutMutation, LogoutVariables, LogoutProps<TChildProps>>(
+    LogoutDocument,
+    operationOptions,
+  );
 }
 export const MeDocument = gql`
   query Me($withBookmarks: Boolean!) {
@@ -2000,38 +1845,16 @@ export const MeDocument = gql`
   ${UserInfoFragmentDoc}
   ${PostingInfoFragmentDoc}
 `;
-export class MeComponent extends React.Component<
-  Partial<ReactApollo.QueryProps<MeQuery, MeVariables>>
-> {
+export class MeComponent extends React.Component<Partial<ReactApollo.QueryProps<MeQuery, MeVariables>>> {
   render() {
-    return (
-      <ReactApollo.Query<MeQuery, MeVariables>
-        query={MeDocument}
-        {...(this as any)["props"] as any}
-      />
-    );
+    return <ReactApollo.Query<MeQuery, MeVariables> query={MeDocument} {...((this as any)["props"] as any)} />;
   }
 }
-export type MeProps<TChildProps = any> = Partial<
-  ReactApollo.DataProps<MeQuery, MeVariables>
-> &
-  TChildProps;
+export type MeProps<TChildProps = any> = Partial<ReactApollo.DataProps<MeQuery, MeVariables>> & TChildProps;
 export function MeHOC<TProps, TChildProps = any>(
-  operationOptions:
-    | ReactApollo.OperationOption<
-        TProps,
-        MeQuery,
-        MeVariables,
-        MeProps<TChildProps>
-      >
-    | undefined,
+  operationOptions: ReactApollo.OperationOption<TProps, MeQuery, MeVariables, MeProps<TChildProps>> | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    MeQuery,
-    MeVariables,
-    MeProps<TChildProps>
-  >(MeDocument, operationOptions);
+  return ReactApollo.graphql<TProps, MeQuery, MeVariables, MeProps<TChildProps>>(MeDocument, operationOptions);
 }
 export const FindUserCommentsDocument = gql`
   query FindUserComments($username: String!) {
@@ -2046,15 +1869,13 @@ export const FindUserCommentsDocument = gql`
   }
 `;
 export class FindUserCommentsComponent extends React.Component<
-  Partial<
-    ReactApollo.QueryProps<FindUserCommentsQuery, FindUserCommentsVariables>
-  >
+  Partial<ReactApollo.QueryProps<FindUserCommentsQuery, FindUserCommentsVariables>>
 > {
   render() {
     return (
       <ReactApollo.Query<FindUserCommentsQuery, FindUserCommentsVariables>
         query={FindUserCommentsDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -2118,7 +1939,7 @@ export class FindUserByNameComponent extends React.Component<
     return (
       <ReactApollo.Query<FindUserByNameQuery, FindUserByNameVariables>
         query={FindUserByNameDocument}
-        {...(this as any)["props"] as any}
+        {...((this as any)["props"] as any)}
       />
     );
   }
@@ -2137,10 +1958,8 @@ export function FindUserByNameHOC<TProps, TChildProps = any>(
       >
     | undefined,
 ) {
-  return ReactApollo.graphql<
-    TProps,
-    FindUserByNameQuery,
-    FindUserByNameVariables,
-    FindUserByNameProps<TChildProps>
-  >(FindUserByNameDocument, operationOptions);
+  return ReactApollo.graphql<TProps, FindUserByNameQuery, FindUserByNameVariables, FindUserByNameProps<TChildProps>>(
+    FindUserByNameDocument,
+    operationOptions,
+  );
 }

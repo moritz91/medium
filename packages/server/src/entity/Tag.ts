@@ -1,12 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import {
-  BaseEntity,
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  JoinTable,
-  OneToMany
-} from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany } from "typeorm";
 import { PostingTag } from "./PostingTag";
 
 @Entity()
@@ -20,7 +13,7 @@ export class Tag extends BaseEntity {
   @Column({ type: "text" })
   name: string;
 
-  @OneToMany(() => PostingTag, tp => tp.tag)
+  @OneToMany(() => PostingTag, (tp) => tp.tag)
   @JoinTable({ name: "PostingTag" })
   postingConnection: Promise<PostingTag[]>;
 }

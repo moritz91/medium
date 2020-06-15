@@ -1,15 +1,7 @@
 import { User } from "src/entity/User";
 import { isAuth } from "src/modules/middleware/isAuth";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  Mutation,
-  Query,
-  Resolver,
-  UseMiddleware,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 
 @Resolver(User)
 export class UserResolver {

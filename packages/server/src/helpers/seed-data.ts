@@ -47,40 +47,39 @@ export async function seedData() {
   const topic = topicRepository.create(topics);
   const posting = postingRepository.create(postings);
 
-  await Promise.all([
-    topicRepository.save(topic),
-    postingRepository.save(posting),
-  ]).then((result: [Topic[], Posting[]]) => {
-    result[1].forEach(async (posting: Posting) => {
-      const comments: DeepPartial<Comment>[] = generateEntities(
-        {
-          creatorId: defaultUser.id,
-          postingId: posting.id,
-          text: faker.fake("{{lorem.paragraph}}"),
-        },
-        50,
-      );
-      let tags: DeepPartial<Tag>[] = generateEntities(
-        {
-          name: "{{lorem.word}}",
-          postingId: posting.id,
-        },
-        20,
-      );
+  await Promise.all([topicRepository.save(topic), postingRepository.save(posting)]).then(
+    (result: [Topic[], Posting[]]) => {
+      result[1].forEach(async (posting: Posting) => {
+        const comments: DeepPartial<Comment>[] = generateEntities(
+          {
+            creatorId: defaultUser.id,
+            postingId: posting.id,
+            text: faker.fake("{{lorem.paragraph}}"),
+          },
+          50,
+        );
+        let tags: DeepPartial<Tag>[] = generateEntities(
+          {
+            name: "{{lorem.word}}",
+            postingId: posting.id,
+          },
+          20,
+        );
 
-      tagRepository.save(tagRepository.create(tags));
-      commentRepository.save(commentRepository.create(comments));
-    });
+        tagRepository.save(tagRepository.create(tags));
+        commentRepository.save(commentRepository.create(comments));
+      });
 
-    result[0].forEach((topic: Topic) =>
-      result[1].forEach((posting: Posting) => {
-        PostingTopic.create({
-          postingId: posting.id,
-          topicId: topic.id,
-        }).save();
-      }),
-    );
-  });
+      result[0].forEach((topic: Topic) =>
+        result[1].forEach((posting: Posting) => {
+          PostingTopic.create({
+            postingId: posting.id,
+            topicId: topic.id,
+          }).save();
+        }),
+      );
+    },
+  );
 
   return { defaultUser };
 
@@ -93,8 +92,7 @@ export async function seedData() {
 
     entities.forEach((entity) => {
       Object.keys(entity).forEach((key: string) => {
-        if (typeof entity[key] === "string")
-          entity[key] = faker.fake(entity[key]);
+        if (typeof entity[key] === "string") entity[key] = faker.fake(entity[key]);
       });
     });
 

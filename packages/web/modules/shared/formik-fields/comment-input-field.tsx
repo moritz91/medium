@@ -21,8 +21,7 @@ export const FormInput = styled(InputEl)`
   width: ${(p: FormInputProps) => p.width || "100%"};
   &:focus {
     border: 1px solid #2188ff;
-    box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075),
-      0 0 0 0.2em rgba(3, 102, 214, 0.3);
+    box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075), 0 0 0 0.2em rgba(3, 102, 214, 0.3);
   }
   /* hide spinners on number input field
   &[type="number"]::-webkit-inner-spin-button,

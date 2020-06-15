@@ -10,10 +10,7 @@ interface ActionsDropdownProps {
   id?: string;
 }
 
-export const ActionsDropdown: React.FC<ActionsDropdownProps> = ({
-  children,
-  id,
-}) => {
+export const ActionsDropdown: React.FC<ActionsDropdownProps> = ({ children, id }) => {
   const { dispatch, state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   const ref1 = useRef<HTMLDivElement>(null);
@@ -39,10 +36,7 @@ export const ActionsDropdown: React.FC<ActionsDropdownProps> = ({
                     }
                   }}
                 >
-                  <Icon
-                    name="showActions"
-                    data-cy="thread-actions-dropdown-trigger"
-                  />
+                  <Icon name="showActions" data-cy="thread-actions-dropdown-trigger" />
                 </Button>
               </span>
             </div>

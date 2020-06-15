@@ -6,7 +6,6 @@ import "github-markdown.css";
 import withApolloClient from "lib/with-apollo-client";
 import App from "next/app";
 import NProgress from "nprogress";
-// css-sheets
 import "prismjs/themes/prism-coy.css";
 import "public/static/linkfix.css";
 import React from "react";

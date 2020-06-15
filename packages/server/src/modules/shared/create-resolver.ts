@@ -1,14 +1,6 @@
 import { User } from "src/entity/User";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  FieldResolver,
-  Mutation,
-  Resolver,
-  Root,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
 
 export function createResolver<ArgType extends Object, T extends Object>(
   suffix: string,

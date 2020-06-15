@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryColumn,
-  JoinColumn,
-  ManyToOne,
-  BaseEntity
-} from "typeorm";
+import { Entity, PrimaryColumn, JoinColumn, ManyToOne, BaseEntity } from "typeorm";
 import { Posting } from "./Posting";
 import { Topic } from "./Topic";
 
@@ -19,16 +13,16 @@ export class PostingTopic extends BaseEntity {
   @PrimaryColumn()
   postingId: string;
 
-  @ManyToOne(() => Posting, p => p.topicConnection, {
+  @ManyToOne(() => Posting, (p) => p.topicConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "postingId" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => Topic, t => t.postingConnection, {
+  @ManyToOne(() => Topic, (t) => t.postingConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "topicId" })
   topic: Promise<Topic>;

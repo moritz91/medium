@@ -14,10 +14,7 @@ declare module "refractor/core.js" {
     value?: string;
   }
 
-  export function highlight(
-    value: string,
-    name: string | PrismLib.LanguageDefinition,
-  ): HastNode[];
+  export function highlight(value: string, name: string | PrismLib.LanguageDefinition): HastNode[];
 
   export function register(grammar: PrismLib.LanguageDefinition): void;
 

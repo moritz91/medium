@@ -6,10 +6,7 @@ const Logout = (): null => {
   return null;
 };
 
-Logout.getInitialProps = async ({
-  apolloClient,
-  ...ctx
-}: NextContextWithApollo) => {
+Logout.getInitialProps = async ({ apolloClient, ...ctx }: NextContextWithApollo) => {
   await apolloClient.mutate({ mutation: logoutMutation });
   await apolloClient.resetStore();
   redirect(ctx, "/");

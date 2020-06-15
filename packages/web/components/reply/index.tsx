@@ -89,9 +89,7 @@ export const Reply: React.FC<ReplyProps> = ({
               width: "100px",
             }}
           >
-            {numReactions == 1
-              ? `${numReactions}` + " like"
-              : `${numReactions}` + " likes"}
+            {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
           </Button>
         </div>
       </Content>

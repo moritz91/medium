@@ -5,7 +5,6 @@ import styled from "styled-components";
 import rem from "utils/rem";
 import { navbarHeight } from "utils/sizes";
 
-
 const Wrapper = styled.nav`
   display: flex;
   align-items: center;
@@ -14,7 +13,7 @@ const Wrapper = styled.nav`
 `;
 
 const NavLink = styled(Link).attrs({
-  unstyled: true
+  unstyled: true,
 })`
   margin: inherit;
   line-height: ${rem(navbarHeight)};

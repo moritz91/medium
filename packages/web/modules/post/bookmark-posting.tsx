@@ -12,10 +12,7 @@ interface BookmarkPostingProps {
   postingId: string;
 }
 
-export const BookmarkPosting = ({
-  postingId,
-  isBookmark,
-}: BookmarkPostingProps) => {
+export const BookmarkPosting = ({ postingId, isBookmark }: BookmarkPostingProps) => {
   const [addBookmark] = useMutation(addBookmarkMutation);
   const [removeBookmark] = useMutation(removeBookmarkMutation);
   const [bookmarked, setBookmark] = useState(isBookmark);
@@ -29,20 +26,14 @@ export const BookmarkPosting = ({
         <Button variant="action" style={{ paddingRight: 8 }}>
           {bookmarked ? (
             <Icon
-              onClick={() => (
-                removeBookmark({ variables: { postingId } }),
-                setBookmark(!bookmarked)
-              )}
+              onClick={() => (removeBookmark({ variables: { postingId } }), setBookmark(!bookmarked))}
               name="saveStory"
               fill="#000"
               size={26}
             />
           ) : (
             <Icon
-              onClick={() => (
-                addBookmark({ variables: { postingId } }),
-                setBookmark(!bookmarked)
-              )}
+              onClick={() => (addBookmark({ variables: { postingId } }), setBookmark(!bookmarked))}
               name="saveStory"
               fill="rgb(238, 238, 238)"
               size={26}

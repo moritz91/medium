@@ -39,5 +39,4 @@ const batchPostings = async (tagIds: string[]) => {
   return tagIds.map((tagId) => tagIdToPostings[tagId]);
 };
 
-export default (options?: DataLoaderOptions) =>
-  new DataLoader(batchPostings, options);
+export default (options?: DataLoaderOptions) => new DataLoader(batchPostings, options);

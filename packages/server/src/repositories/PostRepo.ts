@@ -43,14 +43,9 @@ export class PostingRepository extends Repository<Posting> {
       .take(limit + 1);
 
     if (topicIds) {
-      qb.innerJoin(
-        PostingTopic,
-        "pt",
-        "p.id = pt.postingId AND pt.topicId IN (:...topicIds)",
-        {
-          topicIds: topicIds,
-        },
-      );
+      qb.innerJoin(PostingTopic, "pt", "p.id = pt.postingId AND pt.topicId IN (:...topicIds)", {
+        topicIds: topicIds,
+      });
     }
 
     if (cursor) {

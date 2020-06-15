@@ -9,13 +9,7 @@ export interface IconProps {
   onClick?: () => void;
 }
 
-export const Icon: React.FC<IconProps> = ({
-  name,
-  size = 16,
-  fill = "currentColor",
-  style,
-  onClick,
-}): JSX.Element => {
+export const Icon: React.FC<IconProps> = ({ name, size = 16, fill = "currentColor", style, onClick }): JSX.Element => {
   //@ts-ignore
   const { viewBox, d } = icons[name];
   return (

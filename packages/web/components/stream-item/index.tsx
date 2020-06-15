@@ -68,16 +68,11 @@ export const StreamItem: React.FC<StreamItemProps> = ({
             paddingRight: "24px",
           }}
         >
-          <div
-            style={{ marginRight: 25, display: "block", cursor: "pointer" }}
-            className="posting-header"
-          >
+          <div style={{ marginRight: 25, display: "block", cursor: "pointer" }} className="posting-header">
             <Flex className="posting-header">
               <Link {...linkProps}>
                 <a>
-                  <StoryPreviewTitle>
-                    {previewTitle ? previewTitle : title}
-                  </StoryPreviewTitle>
+                  <StoryPreviewTitle>{previewTitle ? previewTitle : title}</StoryPreviewTitle>
                 </a>
               </Link>
             </Flex>
@@ -125,11 +120,8 @@ export const StreamItem: React.FC<StreamItemProps> = ({
                     color: "rgba(0, 0, 0, 0.54)",
                   }}
                 >
-                  {dtString} •
-                  {numComments == 1
-                    ? ` ${numComments}` + " response"
-                    : ` ${numComments}` + " responses"}{" "}
-                  • {readingTime < 1 ? "1" : Math.round(readingTime)} min read
+                  {dtString} •{numComments == 1 ? ` ${numComments}` + " response" : ` ${numComments}` + " responses"} •{" "}
+                  {readingTime < 1 ? "1" : Math.round(readingTime)} min read
                 </span>
               </div>
               <div style={{ display: "flex", marginLeft: "auto" }}>
@@ -145,10 +137,7 @@ export const StreamItem: React.FC<StreamItemProps> = ({
           <div style={{ display: "block", flex: "0 0 auto", width: "152px" }}>
             <Link {...linkProps}>
               <a>
-                <img
-                  style={{ height: "100%", width: "100%", objectFit: "cover" }}
-                  src={previewImage}
-                />
+                <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={previewImage} />
               </a>
             </Link>
           </div>

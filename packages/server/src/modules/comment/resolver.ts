@@ -3,24 +3,10 @@ import { Reaction } from "src/entity/Reaction";
 import { isAuth } from "src/modules/middleware/isAuth";
 import { CommentRepository } from "src/repositories/CommentRepo";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  FieldResolver,
-  Mutation,
-  Query,
-  Resolver,
-  Root,
-  UseMiddleware,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root, UseMiddleware } from "type-graphql";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { CreateCommentInput, FindCommentsByIdInput } from "./Input";
-import {
-  CommentResponse,
-  DeleteCommentResponse,
-  FindCommentResponse,
-} from "./Response";
+import { CommentResponse, DeleteCommentResponse, FindCommentResponse } from "./Response";
 
 const COMMENT_LIMIT = 5;
 
@@ -33,10 +19,7 @@ export class CommentResolver {
 
   @Mutation(() => CommentResponse)
   @UseMiddleware(isAuth)
-  async createComment(
-    @Arg("comment") input: CreateCommentInput,
-    @Ctx() { req }: MyContext,
-  ): Promise<CommentResponse> {
+  async createComment(@Arg("comment") input: CreateCommentInput, @Ctx() { req }: MyContext): Promise<CommentResponse> {
     const comment = await this.commentRepo.save({
       ...input,
       creatorId: req.session!.userId,
@@ -49,9 +32,7 @@ export class CommentResolver {
     nullable: true,
   })
   @Authorized()
-  async deleteCommentById(
-    @Arg("id") id: string,
-  ): Promise<DeleteCommentResponse> {
+  async deleteCommentById(@Arg("id") id: string): Promise<DeleteCommentResponse> {
     const value = this.commentRepo.findOne(id);
     if (value) {
       this.commentRepo.delete(id);
@@ -61,11 +42,10 @@ export class CommentResolver {
   }
 
   @Query(() => FindCommentResponse)
-  async findCommentsById(@Arg("input")
-  {
-    postingId,
-    cursor,
-  }: FindCommentsByIdInput): Promise<FindCommentResponse> {
+  async findCommentsById(
+    @Arg("input")
+    { postingId, cursor }: FindCommentsByIdInput,
+  ): Promise<FindCommentResponse> {
     return this.commentRepo.findByPostingId({
       postingId,
       cursor,
@@ -79,10 +59,7 @@ export class CommentResolver {
   }
 
   @FieldResolver(() => Boolean)
-  async hasReacted(
-    @Ctx() ctx: MyContext,
-    @Root() root: Comment,
-  ): Promise<Boolean> {
+  async hasReacted(@Ctx() ctx: MyContext, @Root() root: Comment): Promise<Boolean> {
     const response = await Reaction.findOne({
       where: { commentId: root.id, userId: ctx.req.session!.userId },
     });

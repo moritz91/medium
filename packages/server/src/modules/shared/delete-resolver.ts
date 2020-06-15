@@ -4,7 +4,7 @@ export function deleteResolver<ArgType extends Object, T extends Object>(
   suffix: string,
   argType: ArgType,
   entity: any,
-  graphqlReturnType: T
+  graphqlReturnType: T,
 ) {
   const argAndReturnKeyName = suffix[0].toLowerCase() + suffix.slice(1);
   @Resolver(entity)
@@ -19,7 +19,7 @@ export function deleteResolver<ArgType extends Object, T extends Object>(
         return { ok: true };
       }
       return {
-        ok: false
+        ok: false,
       };
     }
   }

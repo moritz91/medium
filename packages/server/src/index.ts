@@ -25,15 +25,14 @@ typeorm.useContainer(Container);
 
 process.env.GITHUB_CLIENT_ID;
 
-
 const startServer = async () => {
   const conn = await createTypeormConn();
-  
+
   // pre-populate the db with some data
   if (conn?.isConnected && process.env.NODE_ENV === "production") {
     await seedData();
   }
-  
+
   const app = express();
 
   const server = new ApolloServer({
@@ -131,11 +130,7 @@ const startServer = async () => {
     cors: false,
   });
 
-  app.listen({ port: 4000 }, () =>
-    console.log(
-      `🚀 Server ready at http://localhost:4000${server.graphqlPath}`,
-    ),
-  );
+  app.listen({ port: 4000 }, () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));
 };
 
 startServer();

@@ -20,9 +20,7 @@ export const CopyLink = ({ commentId }: Props) => {
       style={{ display: "flex" }}
       key={commentId}
       onClick={async () => {
-        navigator.clipboard
-          .writeText(route)
-          .then(() => dispatch({ type: "closeFlyout" }));
+        navigator.clipboard.writeText(route).then(() => dispatch({ type: "closeFlyout" }));
       }}
     >
       <Icon size={16} fill="#5C6AC4" name={"link"} />

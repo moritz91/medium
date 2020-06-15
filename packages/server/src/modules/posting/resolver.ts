@@ -13,24 +13,10 @@ import { CommentRepository } from "src/repositories/CommentRepo";
 import { PostingRepository } from "src/repositories/PostRepo";
 import { TagRepository } from "src/repositories/TagRepo";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  FieldResolver,
-  Mutation,
-  Query,
-  Resolver,
-  Root,
-  UseMiddleware,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root, UseMiddleware } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import {
-  CreatePostingInput,
-  FindPostingsInput,
-  FindUserPostingsInput,
-} from "./Input";
+import { CreatePostingInput, FindPostingsInput, FindUserPostingsInput } from "./Input";
 import { FindPostingResponse, PostingResponse } from "./Response";
 
 const POST_LIMIT = 16;
@@ -52,10 +38,7 @@ export class PostingResolver {
   }
 
   @FieldResolver()
-  async isBookmark(
-    @Ctx() ctx: MyContext,
-    @Root() root: Posting,
-  ): Promise<Boolean> {
+  async isBookmark(@Ctx() ctx: MyContext, @Root() root: Posting): Promise<Boolean> {
     const response = await Bookmark.findOne({
       where: { postingId: root.id, userId: ctx.req.session!.userId },
     });
@@ -84,9 +67,7 @@ export class PostingResolver {
     @Arg("tagNames", () => [String]) tagNames: string[],
     @Ctx() { req }: MyContext,
   ): Promise<PostingResponse> {
-    const posting = await this.postRepo
-      .create({ ...input, creatorId: req.session!.userId })
-      .save();
+    const posting = await this.postRepo.create({ ...input, creatorId: req.session!.userId }).save();
 
     tagNames.map(async (tagName) => {
       let tag = await this.tagRepo.findOne({ where: { name: tagName } });
@@ -118,10 +99,7 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async addPostingTag(
-    @Arg("postingId", () => String) postingId: string,
-    @Arg("tagId", () => String) tagId: string,
-  ) {
+  async addPostingTag(@Arg("postingId", () => String) postingId: string, @Arg("tagId", () => String) tagId: string) {
     await PostingTag.create({ postingId, tagId }).save();
     return true;
   }
@@ -182,10 +160,7 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async addUserTopic(
-    @Arg("topicId", () => String) topicId: string,
-    @Ctx() { req }: MyContext,
-  ) {
+  async addUserTopic(@Arg("topicId", () => String) topicId: string, @Ctx() { req }: MyContext) {
     const userId = req.session!.userId;
     const value = await UserTopic.findOne({ where: { userId, topicId } });
     if (!value) {
@@ -197,10 +172,7 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async removeUserTopic(
-    @Arg("topicId", () => String) topicId: string,
-    @Ctx() { req }: MyContext,
-  ) {
+  async removeUserTopic(@Arg("topicId", () => String) topicId: string, @Ctx() { req }: MyContext) {
     const userId = req.session!.userId;
     const value = await UserTopic.findOne({ where: { userId, topicId } });
     if (value) {
@@ -212,10 +184,7 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async addBookmark(
-    @Arg("postingId", () => String) postingId: string,
-    @Ctx() { req }: MyContext,
-  ) {
+  async addBookmark(@Arg("postingId", () => String) postingId: string, @Ctx() { req }: MyContext) {
     const userId = req.session!.userId;
     const value = await Bookmark.findOne({ where: { userId, postingId } });
     if (!value) {
@@ -227,10 +196,7 @@ export class PostingResolver {
 
   @Mutation(() => Boolean)
   @Authorized()
-  async removeBookmark(
-    @Arg("postingId", () => String) postingId: string,
-    @Ctx() { req }: MyContext,
-  ) {
+  async removeBookmark(@Arg("postingId", () => String) postingId: string, @Ctx() { req }: MyContext) {
     const userId = req.session!.userId;
     const value = await Bookmark.findOne({ where: { userId, postingId } });
     if (value) {
@@ -293,11 +259,10 @@ export class PostingResolver {
   }
 
   @Query(() => FindPostingResponse)
-  async findPostings(@Arg("input")
-  {
-    offset,
-    limit,
-  }: FindPostingsInput): Promise<FindPostingResponse> {
+  async findPostings(
+    @Arg("input")
+    { offset, limit }: FindPostingsInput,
+  ): Promise<FindPostingResponse> {
     if (limit > 6) {
       throw new ApolloError("max limit of 6");
     }
@@ -326,11 +291,10 @@ export class PostingResolver {
 
   @Query(() => FindPostingResponse)
   @Authorized()
-  async findUserPostings(@Arg("input")
-  {
-    cursor,
-    creatorId,
-  }: FindUserPostingsInput): Promise<FindPostingResponse> {
+  async findUserPostings(
+    @Arg("input")
+    { cursor, creatorId }: FindUserPostingsInput,
+  ): Promise<FindPostingResponse> {
     return this.postRepo.findByCreatorId({
       cursor,
       limit: POST_LIMIT,
@@ -339,10 +303,7 @@ export class PostingResolver {
   }
 
   @FieldResolver()
-  async hasReacted(
-    @Ctx() ctx: MyContext,
-    @Root() root: Posting,
-  ): Promise<Boolean> {
+  async hasReacted(@Ctx() ctx: MyContext, @Root() root: Posting): Promise<Boolean> {
     const response = await Reaction.findOne({
       where: { postingId: root.id, userId: ctx.req.session!.userId },
     });

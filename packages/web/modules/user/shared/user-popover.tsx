@@ -29,11 +29,7 @@ const MetaDataTwo = styled.div`
   text-align: top;
 `;
 
-export const UserPopover: React.FC<UserPopoverProps> = ({
-  children,
-  username,
-  id,
-}) => {
+export const UserPopover: React.FC<UserPopoverProps> = ({ children, username, id }) => {
   const { state } = useContext<FlyoutContextProps>(FlyoutContext);
 
   return (
@@ -78,16 +74,10 @@ export const UserPopover: React.FC<UserPopoverProps> = ({
                             <PopoverInner>
                               <MetaDataOne>
                                 <Heading>{username}</Heading>
-                                <Text pl={0}>
-                                  Witty, extensive user description.
-                                </Text>
+                                <Text pl={0}>Witty, extensive user description.</Text>
                               </MetaDataOne>
                               <MetaDataTwo>
-                                <Avatar
-                                  size={65}
-                                  src={data!.findUserByName!.pictureUrl}
-                                  borderRadius={0}
-                                />
+                                <Avatar size={65} src={data!.findUserByName!.pictureUrl} borderRadius={0} />
                               </MetaDataTwo>
                             </PopoverInner>
                           </FlexRow>

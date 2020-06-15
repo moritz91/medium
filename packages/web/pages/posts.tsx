@@ -19,8 +19,8 @@ export default class Posts extends React.Component<PostsProps> {
       const response: ApolloQueryResult<any> = await apolloClient.query({
         query: getTagByNameQuery,
         variables: {
-          name: tag
-        }
+          name: tag,
+        },
       });
 
       const { getTagByName } = response.data;
@@ -28,21 +28,21 @@ export default class Posts extends React.Component<PostsProps> {
       return {
         postings: getTagByName!.postings,
         hasMore: getTagByName!.hasMore,
-        tag
+        tag,
       };
     } else {
       const response: any = await apolloClient.query({
         query: getPostingsQuery,
         variables: {
-          input: { limit: 6, offset: 0 }
-        }
+          input: { limit: 6, offset: 0 },
+        },
       });
 
       const { findPostings } = response.data;
 
       return {
         postings: findPostings!.posts,
-        hasMore: findPostings!.hasMore
+        hasMore: findPostings!.hasMore,
       };
     }
   }
@@ -53,7 +53,7 @@ export default class Posts extends React.Component<PostsProps> {
       <Layout title={tag ? tag : "Postings"}>
         <Stream>
           <>
-            {(
+            {
               <>
                 {postings?.map((post: any) => (
                   <StreamItem
@@ -74,13 +74,13 @@ export default class Posts extends React.Component<PostsProps> {
                     getLinkProps={() => ({
                       route: "post",
                       params: {
-                        id: post.id
-                      }
+                        id: post.id,
+                      },
                     })}
                   />
                 ))}
               </>
-            )}
+            }
             {hasMore && <div>load more</div>}
           </>
         </Stream>

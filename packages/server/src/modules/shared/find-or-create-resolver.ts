@@ -13,10 +13,7 @@ export function findOrCreateResolver<ArgType extends Object, T extends Object>(
   class BaseResolver {
     @Authorized()
     @Mutation(() => graphqlReturnType, { name: `findOrCreate${suffix}` })
-    async findOrCreate(
-      @Arg(argAndReturnKeyName, () => argType) input: ArgType,
-      @Ctx() { req }: MyContext,
-    ) {
+    async findOrCreate(@Arg(argAndReturnKeyName, () => argType) input: ArgType, @Ctx() { req }: MyContext) {
       let where: any = {};
       fields.forEach((field) => {
         where[field] = input[field];

@@ -5,16 +5,7 @@ import { loadCreatorResolver } from "src/modules/shared/load-creator-resolver";
 import { SuccessResponse } from "src/modules/shared/Response";
 import { TopicRepository } from "src/repositories/TopicRepo";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  FieldResolver,
-  Mutation,
-  Query,
-  Resolver,
-  Root,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Query, Resolver, Root } from "type-graphql";
 import { getConnection } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { CreateTopicInput, FindTopicsInput, UpdateTopicInput } from "./Input";
@@ -43,11 +34,10 @@ export class TopicResolver {
   }
 
   @Query(() => FindTopicResponse)
-  async findTopics(@Arg("input")
-  {
-    offset,
-    limit,
-  }: FindTopicsInput): Promise<FindTopicResponse> {
+  async findTopics(
+    @Arg("input")
+    { offset, limit }: FindTopicsInput,
+  ): Promise<FindTopicResponse> {
     if (limit > 12) {
       throw new ApolloError("max limit of 12");
     }
@@ -68,9 +58,7 @@ export class TopicResolver {
 
   @Mutation(() => TopicResponse, { name: `createTopic` })
   @Authorized()
-  async createTopic(
-    @Arg("topic") input: CreateTopicInput,
-  ): Promise<TopicResponse> {
+  async createTopic(@Arg("topic") input: CreateTopicInput): Promise<TopicResponse> {
     const value = await this.topicRepo.create({ ...input }).save();
 
     return {
@@ -80,10 +68,7 @@ export class TopicResolver {
 
   @Mutation(() => SuccessResponse, { name: `updateTopic` })
   @Authorized()
-  async updateTopic(
-    @Arg("topicId") id: string,
-    @Arg("topic") input: UpdateTopicInput,
-  ): Promise<SuccessResponse> {
+  async updateTopic(@Arg("topicId") id: string, @Arg("topic") input: UpdateTopicInput): Promise<SuccessResponse> {
     await this.topicRepo.update(
       { id },
       {

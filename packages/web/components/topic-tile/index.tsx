@@ -20,12 +20,7 @@ interface TopicTileProps {
   getLinkProps: () => any;
 }
 
-export const TopicTile: React.FC<TopicTileProps> = ({
-  name,
-  pictureUrl,
-  getLinkProps,
-  Link,
-}) => {
+export const TopicTile: React.FC<TopicTileProps> = ({ name, pictureUrl, getLinkProps, Link }) => {
   const linkProps = getLinkProps();
 
   return (

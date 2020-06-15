@@ -1,49 +1,49 @@
 export const postingReducer = (state: any, action: any) => {
   switch (action.type) {
-    case 'openFlyout':
+    case "openFlyout":
       return {
         ...state,
         flyoutId: action.id,
         flyoutState: true,
         ref1: action.ref1,
         ref2: action.ref2,
-      }
-    case 'openPopover':
+      };
+    case "openPopover":
       return {
         ...state,
         popoverId: action.id,
         popoverState: true,
-      }
-    case 'targetComment':
+      };
+    case "targetComment":
       return {
         ...state,
         targetId: action.id,
         targetState: true,
         ref3: action.ref3,
-      }
-    case 'closePopover':
+      };
+    case "closePopover":
       return {
         ...state,
-        popoverId: '',
+        popoverId: "",
         popoverState: false,
-      }
-    case 'closeFlyout':
+      };
+    case "closeFlyout":
       return {
         ...state,
-        flyoutId: '',
+        flyoutId: "",
         flyoutState: false,
         ref1: { current: null },
         ref2: { current: null },
-      }
-    case 'untargetComment':
+      };
+    case "untargetComment":
       return {
         ...state,
-        targetId: '',
+        targetId: "",
         targetState: false,
         ref3: { current: null },
-      }
+      };
     default: {
-      return state
+      return state;
     }
   }
-}
+};

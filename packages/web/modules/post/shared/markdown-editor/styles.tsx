@@ -51,9 +51,8 @@ export const CommandContainer = styled.div`
       color: #fff;
       content: attr(aria-label);
       display: none;
-      font: normal normal 11px/1.5 -apple-system, BlinkMacSystemFont, Segoe UI,
-        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-        Segoe UI Symbol;
+      font: normal normal 11px/1.5 -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+        Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
       letter-spacing: normal;
       opacity: 0;
       padding: 0.5em 0.75em;

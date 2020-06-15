@@ -31,5 +31,4 @@ const batchTopics = async (userIds: string[]) => {
   return userIds.map((userId) => userIdToTopics[userId]);
 };
 
-export default (options?: DataLoaderOptions) =>
-  new DataLoader(batchTopics, options);
+export default (options?: DataLoaderOptions) => new DataLoader(batchTopics, options);

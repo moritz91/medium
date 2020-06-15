@@ -1,8 +1,5 @@
 import React from "react";
-import styled, {
-  FlattenSimpleInterpolation,
-  SimpleInterpolation,
-} from "styled-components";
+import styled, { FlattenSimpleInterpolation, SimpleInterpolation } from "styled-components";
 
 interface Props extends React.HTMLAttributes<HTMLPreElement> {
   fontSize?: number;
@@ -46,11 +43,7 @@ const Pre = styled.pre`
     flex-direction: column;
     &[class*="is-selected"] {
       background: hsla(24, 20%, 50%, 0.08);
-      background: linear-gradient(
-        to right,
-        hsla(24, 20%, 50%, 0.1) 70%,
-        hsla(24, 20%, 50%, 0)
-      );
+      background: linear-gradient(to right, hsla(24, 20%, 50%, 0.1) 70%, hsla(24, 20%, 50%, 0));
     }
     & .token-html {
       padding-left: 0.9rem;
@@ -145,11 +138,7 @@ const Pre = styled.pre`
   ${(p: StyleProps) => p.selectedLines}
 `;
 
-export const CodeCard: React.FC<Props> = ({
-  lang,
-  children,
-  ...props
-}): JSX.Element => (
+export const CodeCard: React.FC<Props> = ({ lang, children, ...props }): JSX.Element => (
   <Pre className={`code-content language-${lang}`} {...props}>
     <code className={`language-${lang}`}>{children}</code>
   </Pre>

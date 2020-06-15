@@ -1,13 +1,6 @@
 import { MyContext } from "src/types/Context";
 import { Ctx, Field, ID, ObjectType } from "type-graphql";
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinTable,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Posting } from "./Posting";
 import { PostingTopic } from "./PostingTopic";
 import { UserTopic } from "./UserTopic";

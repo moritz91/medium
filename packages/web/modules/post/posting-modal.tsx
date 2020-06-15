@@ -4,10 +4,7 @@ import { Checkbox } from "components/common";
 import { Caption, StoryPreviewTitle } from "components/heading";
 import { Icon } from "components/icon";
 import { FlyoutContextProps } from "context/flyout-context";
-import {
-  CreatePostContext,
-  CreatePostContextProps,
-} from "context/post-context";
+import { CreatePostContext, CreatePostContextProps } from "context/post-context";
 import { TagContext } from "context/tag-context";
 import { Field, Formik } from "formik";
 import { getPostingsQuery } from "graphql/post/query/get-postings";
@@ -63,9 +60,7 @@ export const PostingModal = () => {
   const [previewTitle, setPreviewTitle] = useState("");
   const [previewSubtitle, setPreviewSubtitle] = useState("");
 
-  const { title, body, tags, isSubmitting, isUpdate } = useContext<
-    CreatePostContextProps
-  >(CreatePostContext);
+  const { title, body, tags, isSubmitting, isUpdate } = useContext<CreatePostContextProps>(CreatePostContext);
   const initialState = tags ? tags : ([] as any);
   const [state, dispatch] = useReducer(tagReducer, initialState);
   useEffect(() => {
@@ -102,10 +97,7 @@ export const PostingModal = () => {
           >
             <TagContext.Provider value={TagCtx}>
               <div style={{ display: "flex" }}>
-                <Button
-                  variant="action"
-                  style={{ position: "absolute", top: 0, right: 0 }}
-                >
+                <Button variant="action" style={{ position: "absolute", top: 0, right: 0 }}>
                   <Icon
                     size={24}
                     name="x"
@@ -143,8 +135,7 @@ export const PostingModal = () => {
                           textAlign: "center",
                         }}
                       >
-                        Include a high-quality image in your story to make it
-                        more inviting to readers.
+                        Include a high-quality image in your story to make it more inviting to readers.
                       </span>
                     </div>
                   </div>
@@ -172,9 +163,7 @@ export const PostingModal = () => {
                             name="previewTitle"
                             component={InputField}
                             placeholder="Write a preview title"
-                            onChange={(e: any) =>
-                              setPreviewTitle(e.target.value)
-                            }
+                            onChange={(e: any) => setPreviewTitle(e.target.value)}
                             value={previewTitle}
                           />
                           <Field
@@ -182,9 +171,7 @@ export const PostingModal = () => {
                             name="previewSubtitle"
                             component={InputField}
                             placeholder="Write a preview subtitle..."
-                            onChange={(e: any) =>
-                              setPreviewSubtitle(e.target.value)
-                            }
+                            onChange={(e: any) => setPreviewSubtitle(e.target.value)}
                             value={previewSubtitle}
                           />
                         </form>
@@ -199,18 +186,14 @@ export const PostingModal = () => {
                       color: "rgba(0, 0, 0, 0.68)",
                     }}
                   >
-                    <strong style={{ fontWeight: 700 }}>Note:</strong> Changes
-                    here will affect how your story appears in public places
-                    like Medium’s homepage — not the story itself.
+                    <strong style={{ fontWeight: 700 }}>Note:</strong> Changes here will affect how your story appears
+                    in public places like Medium’s homepage — not the story itself.
                   </Caption>
                 </ModalPanel>
                 <ModalPanel>
                   <TopicInputField />
                   <TagInputField />
-                  <Checkbox
-                    checked={checked}
-                    onClick={() => setChecked(!checked)}
-                  >
+                  <Checkbox checked={checked} onClick={() => setChecked(!checked)}>
                     Allow curators to recommend my story to interested readers.{" "}
                     <strong style={{ fontWeight: 700 }}>
                       Recommended stories are part of Medium’s metered paywall.

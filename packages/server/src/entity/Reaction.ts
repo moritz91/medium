@@ -1,12 +1,4 @@
-import {
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  BaseEntity,
-  CreateDateColumn,
-  Column,
-  PrimaryGeneratedColumn
-} from "typeorm";
+import { Entity, JoinColumn, ManyToOne, BaseEntity, CreateDateColumn, Column, PrimaryGeneratedColumn } from "typeorm";
 import { Posting } from "./Posting";
 import { User } from "./User";
 import { Field } from "type-graphql";
@@ -35,34 +27,34 @@ export class Reaction extends BaseEntity {
   @CreateDateColumn({ type: "timestamp with time zone" })
   timestamp: Date;
 
-  @ManyToOne(() => Posting, p => p.userReactionConnection, {
+  @ManyToOne(() => Posting, (p) => p.userReactionConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "postingId" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => Comment, c => c.userReactionConnection, {
+  @ManyToOne(() => Comment, (c) => c.userReactionConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "commentId" })
   comment: Promise<Comment>;
 
-  @ManyToOne(() => User, u => u.postingReactionConnection, {
+  @ManyToOne(() => User, (u) => u.postingReactionConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
-  @ManyToOne(() => User, u => u.commentReactionConnection, {
+  @ManyToOne(() => User, (u) => u.commentReactionConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "userId" })
   user: Promise<User>;
 
-  @ManyToOne(() => Reply, r => r.userReactionConnection, {
+  @ManyToOne(() => Reply, (r) => r.userReactionConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "replyId" })
   reply: Promise<Reply>;

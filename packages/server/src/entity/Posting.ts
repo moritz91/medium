@@ -1,14 +1,6 @@
 import { MyContext } from "src/types/Context";
 import { Ctx, Field, Float, ID, Int, ObjectType } from "type-graphql";
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Bookmark } from "./Bookmark";
 import { Comment } from "./Comment";
 import { PostingTag } from "./PostingTag";

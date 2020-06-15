@@ -58,13 +58,7 @@ export class Footer extends React.PureComponent<Props> {
               <ListItem key={k}>{l}</ListItem>
             ))}
           </List>
-          {icon && (
-            <Icon
-              name={icon}
-              fill="#c6cbd1"
-              style={{ marginRight: "24px", marginLeft: "24px" }}
-            />
-          )}
+          {icon && <Icon name={icon} fill="#c6cbd1" style={{ marginRight: "24px", marginLeft: "24px" }} />}
           <List>
             {linksRight?.map((l: any, k: any) => (
               <ListItem key={k}>{l}</ListItem>

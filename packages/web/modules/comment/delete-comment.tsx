@@ -1,8 +1,4 @@
-import {
-  DeleteCommentComponent,
-  GetCommentsByIdQuery,
-  GetCommentsByIdVariables,
-} from "components/apollo-components";
+import { DeleteCommentComponent, GetCommentsByIdQuery, GetCommentsByIdVariables } from "components/apollo-components";
 import { Button } from "components/button";
 import { Icon } from "components/icon";
 import { useAuth } from "context/auth-context";
@@ -43,20 +39,14 @@ export const DeleteComment = ({ commentId }: DeleteCommentProps) => {
                       return;
                     }
 
-                    const x = cache.readQuery<
-                      GetCommentsByIdQuery,
-                      GetCommentsByIdVariables
-                    >({
+                    const x = cache.readQuery<GetCommentsByIdQuery, GetCommentsByIdVariables>({
                       query: getCommentsByIdQuery,
                       variables: {
                         input: { postingId },
                       },
                     });
 
-                    cache.writeQuery<
-                      GetCommentsByIdQuery,
-                      GetCommentsByIdVariables
-                    >({
+                    cache.writeQuery<GetCommentsByIdQuery, GetCommentsByIdVariables>({
                       query: getCommentsByIdQuery,
                       variables: {
                         input: { postingId },
@@ -65,11 +55,7 @@ export const DeleteComment = ({ commentId }: DeleteCommentProps) => {
                         __typename: "Query",
                         findCommentsById: {
                           __typename: "FindCommentResponse",
-                          comments: [
-                            ...x!.findCommentsById.comments.filter(
-                              (c) => c.id !== commentId,
-                            ),
-                          ],
+                          comments: [...x!.findCommentsById.comments.filter((c) => c.id !== commentId)],
                           hasMore: false,
                         },
                       },

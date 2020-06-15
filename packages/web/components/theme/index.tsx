@@ -44,38 +44,15 @@ export interface ITheme {
 const theme: ITheme = {
   fonts: {
     sans: '"Rubik", sans-serif',
-    mono: '"Roboto Mono", sans-serif'
+    mono: '"Roboto Mono", sans-serif',
   },
-  fontSizes: [
-    ".8rem",
-    "1rem",
-    "1.2rem",
-    "1.3rem",
-    "1.4rem",
-    "1.6rem",
-    "1.8rem"
-  ],
+  fontSizes: [".8rem", "1rem", "1.2rem", "1.3rem", "1.4rem", "1.6rem", "1.8rem"],
   colors: {
-    primary: [
-      "#3E4155;",
-      "#184F76",
-      "#3290D4",
-      "#6DC1FD",
-      "#A7DAFF",
-      "#E2F3FF",
-      "#F3FAFF"
-    ],
-    neutrals: [
-      "#263238",
-      "#78909C",
-      "#B7C1C6",
-      "#E6EAEF",
-      "#F9FBFD",
-      "#FFFFFF"
-    ],
+    primary: ["#3E4155;", "#184F76", "#3290D4", "#6DC1FD", "#A7DAFF", "#E2F3FF", "#F3FAFF"],
+    neutrals: ["#263238", "#78909C", "#B7C1C6", "#E6EAEF", "#F9FBFD", "#FFFFFF"],
     errors: ["#7A1414", "#BE0A0A", "#FF4F4F", "#FFC6C6", "#FFF3F3"],
     warnings: ["#684B00", "#CC9C23", "#FFCB44", "#FFE6A6", "#FFF8E7"],
-    success: ["#07822A", "#49B267", "#67D987", "#AEF1C1", "#E1FFE9"]
+    success: ["#07822A", "#49B267", "#67D987", "#AEF1C1", "#E1FFE9"],
   },
   radii: ["3px", ".4rem", ".5rem", ".6rem"],
   space: [".4rem", ".6rem", ".8rem", "1rem", "1.4rem"],
@@ -88,15 +65,15 @@ const theme: ITheme = {
       padding: ".8rem 1rem",
       borderRadius: ".4rem",
       "&.disabled": {
-        cursor: "not-allowed"
+        cursor: "not-allowed",
       },
       "&.primary.disabled": {
         backgroundColor: "#105b99",
         backgroundImage: "none",
         borderColor: "rgba(27, 31, 35, 0.2)",
         boxShadow: "none",
-        color: "hsla(0, 0%, 100%, 0.75)"
-      }
+        color: "hsla(0, 0%, 100%, 0.75)",
+      },
     },
     topic: {
       backgroundColor: "#E2F3FF",
@@ -110,11 +87,11 @@ const theme: ITheme = {
       fontWeight: "normal",
       cursor: "pointer",
       "&:hover": {
-        backgroundColor: "#F3FAFF"
+        backgroundColor: "#F3FAFF",
       },
       "&:not(:last-child)": {
-        marginRight: "1rem"
-      }
+        marginRight: "1rem",
+      },
     },
     github: {
       display: "flex",
@@ -123,7 +100,7 @@ const theme: ITheme = {
       alignItems: "center",
       fontSize: "1.2rem",
       cursor: "pointer",
-      fontWeight: "normal"
+      fontWeight: "normal",
     },
     form: {
       border: "1px solid rgba(27, 31, 35, 0.2)",
@@ -133,32 +110,32 @@ const theme: ITheme = {
       padding: "0.375em 0.75em",
       cursor: "pointer",
       "&.disabled": {
-        cursor: "not-allowed"
+        cursor: "not-allowed",
       },
       "&:hover": {
         backgroundColor: "#e6ebf1",
         backgroundImage: "linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%)",
         backgroundPosition: "-0.5em",
-        borderColor: "rgba(27, 31, 35, 0.35)"
+        borderColor: "rgba(27, 31, 35, 0.35)",
       },
       "&.primary": {
         backgroundColor: "#28a745",
         backgroundImage: "linear-gradient(-180deg, #34d058, #28a745 90%)",
-        color: "#fff"
+        color: "#fff",
       },
       "&.primary:hover": {
         backgroundColor: "#269f42",
         backgroundImage: "linear-gradient(-180deg, #2fcb53, #269f42 90%)",
         backgroundPosition: "-0.5em",
-        borderColor: "rgba(27, 31, 35, 0.5)"
+        borderColor: "rgba(27, 31, 35, 0.5)",
       },
       "&.primary.disabled": {
         backgroundColor: "#94d3a2",
         backgroundImage: "none",
         borderColor: "rgba(27, 31, 35, 0.2)",
         boxShadow: "none",
-        color: "hsla(0, 0%, 100%, 0.75)"
-      }
+        color: "hsla(0, 0%, 100%, 0.75)",
+      },
     },
     borderRadius: "3px",
     tag: {
@@ -170,16 +147,16 @@ const theme: ITheme = {
       backgroundColor: "rgba(0,0,0,.05)",
       "&:hover": {
         color: "rgba(0,0,0,.68)",
-        backgroundColor: "rgba(0,0,0,.1)"
-      }
+        backgroundColor: "rgba(0,0,0,.1)",
+      },
     },
     action: {
       padding: "5px",
       "&:hover": {
-        color: "#202E78"
-      }
-    }
-  }
+        color: "#202E78",
+      },
+    },
+  },
 };
 
 export default theme;

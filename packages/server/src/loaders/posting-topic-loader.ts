@@ -39,5 +39,4 @@ const batchPostings = async (topicIds: string[]) => {
   return topicIds.map((topicId) => topicIdToPostings[topicId]);
 };
 
-export default (options?: DataLoaderOptions) =>
-  new DataLoader(batchPostings, options);
+export default (options?: DataLoaderOptions) => new DataLoader(batchPostings, options);

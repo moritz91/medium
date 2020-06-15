@@ -7,9 +7,7 @@ import { useContext, useState } from "react";
 export const MultiDownshift = (props: DownshiftProps<any>): any => {
   const { dispatch } = useContext(TagContext);
   const { tags } = useContext(CreatePostContext);
-  const [selectedItems, setSelectedItems] = useState<string[]>(
-    tags ? tags.map((t) => t.name) : [],
-  );
+  const [selectedItems, setSelectedItems] = useState<string[]>(tags ? tags.map((t) => t.name) : []);
 
   const stateReducer = (state: any, changes: any) => {
     switch (changes.type) {
@@ -56,11 +54,7 @@ export const MultiDownshift = (props: DownshiftProps<any>): any => {
   };
 
   const removeItem = (idx: any, cb?: any) => {
-    return (
-      dispatch({ type: "remove", idx }),
-      setSelectedItems(selectedItems.filter((_, i: number) => i !== idx)),
-      cb
-    );
+    return dispatch({ type: "remove", idx }), setSelectedItems(selectedItems.filter((_, i: number) => i !== idx)), cb;
   };
 
   const addSelectedItem = (item: any, cb: any) => {

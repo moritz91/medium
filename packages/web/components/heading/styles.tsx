@@ -98,12 +98,4 @@ const Caption = styled.p`
   font-size: 14px;
 `;
 
-export {
-  Header,
-  TopicTitle,
-  StoryHeading,
-  StoryPreviewTitle,
-  StoryFooterUsername,
-  H4,
-  Caption,
-};
+export { Header, TopicTitle, StoryHeading, StoryPreviewTitle, StoryFooterUsername, H4, Caption };

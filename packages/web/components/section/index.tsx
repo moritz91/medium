@@ -37,9 +37,7 @@ interface SidebarSectionProps {
 }
 
 export const SidebarSection: React.FC<SidebarSectionProps> = (props) => {
-  const { topicId, name, shortCaption } = useContext<TopicContextProps>(
-    TopicContext,
-  );
+  const { topicId, name, shortCaption } = useContext<TopicContextProps>(TopicContext);
 
   if (props.variant === "topic")
     return (
@@ -60,28 +58,18 @@ export const SidebarSection: React.FC<SidebarSectionProps> = (props) => {
               <Button variant="tag">Follow</Button>
             </Box>
           </div>
-          <Text
-            lineHeight={1.58}
-            mt="23px"
-            fontSize={4}
-            color="rgba(0, 0, 0, 0.54)"
-          >
-            Follow to get great stories about {name} in your inbox and on your
-            homepage
+          <Text lineHeight={1.58} mt="23px" fontSize={4} color="rgba(0, 0, 0, 0.54)">
+            Follow to get great stories about {name} in your inbox and on your homepage
           </Text>
           <Heading style={{ marginTop: 48 }}>Related Topics</Heading>
           <Box mt={"24px"} fontSize={12}>
-            <span style={{ textTransform: "uppercase" }}>
-              Software Engineering
-            </span>
+            <span style={{ textTransform: "uppercase" }}>Software Engineering</span>
           </Box>
           <Box mt={"8px"} fontSize={12}>
             <span style={{ textTransform: "uppercase" }}>Programming</span>
           </Box>
           <Box mt={"8px"} fontSize={12}>
-            <span style={{ textTransform: "uppercase" }}>
-              Artificial Intelligence
-            </span>
+            <span style={{ textTransform: "uppercase" }}>Artificial Intelligence</span>
           </Box>
           <Box mt={"8px"} fontSize={12}>
             <span style={{ textTransform: "uppercase" }}>Blockchain</span>
@@ -91,9 +79,7 @@ export const SidebarSection: React.FC<SidebarSectionProps> = (props) => {
           </Box>
           <div>
             <Heading style={{ marginTop: 48 }}>Popular in {name}</Heading>
-            <GetPostingsByTopicComponent
-              variables={{ topicIds: [topicId], cursor: "" }}
-            >
+            <GetPostingsByTopicComponent variables={{ topicIds: [topicId], cursor: "" }}>
               {({ data, loading }) => {
                 if (loading) {
                   return null;
@@ -101,78 +87,67 @@ export const SidebarSection: React.FC<SidebarSectionProps> = (props) => {
                 if (data) {
                   return (
                     <>
-                      {data!.getPostingsByTopic.posts.map(
-                        (p: any, i: number) => (
-                          <div style={{ height: "100%" }} key={i}>
-                            <article
+                      {data!.getPostingsByTopic.posts.map((p: any, i: number) => (
+                        <div style={{ height: "100%" }} key={i}>
+                          <article
+                            style={{
+                              marginBottom: 16,
+                              marginTop: 16,
+                              display: "flex",
+                            }}
+                          >
+                            <div
                               style={{
-                                marginBottom: 16,
-                                marginTop: 16,
+                                flex: "1 1 0%",
+                                marginRight: 12,
+                                flexDirection: "column",
                                 display: "flex",
                               }}
                             >
-                              <div
-                                style={{
-                                  flex: "1 1 0%",
-                                  marginRight: 12,
-                                  flexDirection: "column",
-                                  display: "flex",
-                                }}
-                              >
-                                <div
-                                  style={{ flex: "0 0 auto", display: "block" }}
-                                >
-                                  <Link route="post" params={{ id: p.id }}>
-                                    <a>
-                                      <div
-                                        style={{
-                                          marginBottom: 4,
-                                          display: "block",
-                                        }}
-                                      >
-                                        <H4>
-                                          {truncate(p.previewTitle, {
-                                            length: 80,
-                                            separator: " ",
-                                          })}
-                                        </H4>
-                                      </div>
-                                    </a>
-                                  </Link>
-                                </div>
-                                <div
-                                  style={{ display: "block", fontWeight: 400 }}
-                                >
-                                  <span
-                                    style={{
-                                      color: "rgba(0, 0, 0, 0.54)",
-                                      letterSpacing: "0px",
-                                      fontSize: "12.8px",
-                                      lineHeight: "20px",
-                                      display: "block",
-                                      fontWeight: 400,
-                                    }}
-                                  >
-                                    15 min read
-                                  </span>
-                                </div>
-                              </div>
-                              <div
-                                style={{ flex: "0 0 auto", display: "block" }}
-                              >
+                              <div style={{ flex: "0 0 auto", display: "block" }}>
                                 <Link route="post" params={{ id: p.id }}>
                                   <a>
-                                    <img
-                                      style={{ width: "55px", height: "55px" }}
-                                      src={p.previewImage}
-                                    />
+                                    <div
+                                      style={{
+                                        marginBottom: 4,
+                                        display: "block",
+                                      }}
+                                    >
+                                      <H4>
+                                        {truncate(p.previewTitle, {
+                                          length: 80,
+                                          separator: " ",
+                                        })}
+                                      </H4>
+                                    </div>
                                   </a>
                                 </Link>
                               </div>
-                            </article>
-                          </div>
-                        ),
-                      )}
+                              <div style={{ display: "block", fontWeight: 400 }}>
+                                <span
+                                  style={{
+                                    color: "rgba(0, 0, 0, 0.54)",
+                                    letterSpacing: "0px",
+                                    fontSize: "12.8px",
+                                    lineHeight: "20px",
+                                    display: "block",
+                                    fontWeight: 400,
+                                  }}
+                                >
+                                  15 min read
+                                </span>
+                              </div>
+                            </div>
+                            <div style={{ flex: "0 0 auto", display: "block" }}>
+                              <Link route="post" params={{ id: p.id }}>
+                                <a>
+                                  <img style={{ width: "55px", height: "55px" }} src={p.previewImage} />
+                                </a>
+                              </Link>
+                            </div>
+                          </article>
+                        </div>
+                      ))}
                     </>
                   );
                 }

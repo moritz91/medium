@@ -9,7 +9,9 @@
     "publish-canary": "lerna version prerelease --preid canary --force-publish --sign-git-commit --sign-git-tag && release --pre",
     "publish-stable": "lerna version --force-publish",
     "lint": "eslint -c .eslintrc.js --ignore-path .gitignore --cache --ignore-pattern packages/web/generated/** --ext .js,.ts,.tsx .",
-    "lint-check": "eslint --print-config ./pages/index.tsx | eslint-config-prettier-check"
+    "lint-check": "eslint --print-config ./pages/index.tsx | eslint-config-prettier-check",
+    "fmt": "prettier --write './**/*.{ts,tsx}'",
+    "fmt-check": "prettier --check './**/*.{ts,tsx}'"
   },
   "workspaces": {
     "packages": [

@@ -60,13 +60,7 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
         <div style={{ marginTop: "13px", display: "block" }}>
           <Link {...linkProps}>
             <a>
-              <Heading
-                ml="0rem"
-                mb="1rem"
-                fontSize={44}
-                lineHeight="48px"
-                letterSpacing={-1.25}
-              >
+              <Heading ml="0rem" mb="1rem" fontSize={44} lineHeight="48px" letterSpacing={-1.25}>
                 {previewTitle ? previewTitle : title}
               </Heading>
             </a>
@@ -75,12 +69,7 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
         <div style={{ cursor: "pointer" }}>
           <Link {...linkProps}>
             <a>
-              <Text
-                lineHeight={1.58}
-                mb="1rem"
-                color="rgba(0, 0, 0, 0.54)"
-                fontSize={18}
-              >
+              <Text lineHeight={1.58} mb="1rem" color="rgba(0, 0, 0, 0.54)" fontSize={18}>
                 {previewSubtitle ? previewSubtitle : body}
               </Text>
             </a>
@@ -115,10 +104,7 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
                   color: "rgba(0, 0, 0, 0.54)",
                 }}
               >
-                {dtString} •
-                {numComments == 1
-                  ? ` ${numComments}` + " response"
-                  : ` ${numComments}` + " responses"}
+                {dtString} •{numComments == 1 ? ` ${numComments}` + " response" : ` ${numComments}` + " responses"}
               </span>
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>

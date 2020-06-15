@@ -54,12 +54,7 @@ export const ProfilePostItem: React.FC<Props> = ({
         <span style={{ minWidth: "45px" }}>
           <Link route={"profile"} params={{ username }}>
             <a style={{ cursor: "pointer" }}>
-              <Avatar
-                borderRadius={3}
-                size={34}
-                src={pictureUrl}
-                alt="avatar"
-              />
+              <Avatar borderRadius={3} size={34} src={pictureUrl} alt="avatar" />
             </a>
           </Link>
         </span>
@@ -95,10 +90,7 @@ export const ProfilePostItem: React.FC<Props> = ({
           )}
           <div style={{ display: "flex", fontSize: "12px" }}>
             <div>
-              {dtString} •
-              {numComments == 1
-                ? `${numComments}` + " response"
-                : `${numComments}` + " responses"}
+              {dtString} •{numComments == 1 ? `${numComments}` + " response" : `${numComments}` + " responses"}
             </div>
             <div style={{ display: "flex", marginLeft: "auto" }}>
               {tags?.map((t: any, idx: number) => (

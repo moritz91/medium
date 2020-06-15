@@ -1,9 +1,5 @@
 import { ApolloQueryResult } from "apollo-client/core/types";
-import {
-  CommentInfoFragment,
-  FindUserByNameQuery,
-  PostingInfoFragment,
-} from "components/apollo-components";
+import { CommentInfoFragment, FindUserByNameQuery, PostingInfoFragment } from "components/apollo-components";
 import { Layout } from "components/layout";
 import { PostsContext, PostsContextProps } from "context/post-context";
 import { findUserByNameQuery } from "graphql/user/query/user";
@@ -21,13 +17,8 @@ interface ProfileProps {
 }
 
 export default class Profile extends React.PureComponent<ProfileProps> {
-  static async getInitialProps({
-    query: { username },
-    apolloClient,
-  }: NextContextWithApollo) {
-    const response: ApolloQueryResult<
-      FindUserByNameQuery
-    > = await apolloClient.query({
+  static async getInitialProps({ query: { username }, apolloClient }: NextContextWithApollo) {
+    const response: ApolloQueryResult<FindUserByNameQuery> = await apolloClient.query({
       query: findUserByNameQuery,
       variables: {
         username,

@@ -137,9 +137,7 @@ const Username = styled.h1`
 `;
 
 export function ProfileHero() {
-  const { pictureUrl, username, createdAt } = useContext<PostsContextProps>(
-    PostsContext,
-  );
+  const { pictureUrl, username, createdAt } = useContext<PostsContextProps>(PostsContext);
 
   const dtString = formatDistanceToNow(Date.parse(createdAt), {
     addSuffix: false,

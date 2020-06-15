@@ -35,16 +35,9 @@ export interface SubmitProps {
   commentData: any;
 }
 
-const highlightSelectedLines = (
-  lineNum: number,
-  parentElm = document.querySelector(".code-content"),
-): void => {
-  let numberElm: HTMLElement | null =
-    parentElm && parentElm.querySelector(`[data-line-number="${lineNum}"]`);
-  numberElm &&
-    (numberElm.parentNode as HTMLElement).classList.add(
-      `is-selected-${lineNum}`,
-    );
+const highlightSelectedLines = (lineNum: number, parentElm = document.querySelector(".code-content")): void => {
+  let numberElm: HTMLElement | null = parentElm && parentElm.querySelector(`[data-line-number="${lineNum}"]`);
+  numberElm && (numberElm.parentNode as HTMLElement).classList.add(`is-selected-${lineNum}`);
 };
 
 const replySchema = yup.object().shape({
@@ -72,9 +65,7 @@ function onSubmit({
   onEditorSubmit({
     submitted: true,
     response: postingId
-      ? commentData &&
-        commentData.data &&
-        commentData.data.createComment.comment
+      ? commentData && commentData.data && commentData.data.createComment.comment
       : replyData && replyData.data && replyData.data.createReply.reply,
   });
 }
@@ -134,11 +125,7 @@ export const CommentForm = ({
         return (
           <FormContainer onSubmit={handleSubmit} ref={formRef} className={""}>
             <div className="editor-outer-box">
-              <MarkdownEditor
-                isReply={isReply}
-                text={values.text}
-                textChange={handleChange}
-              />
+              <MarkdownEditor isReply={isReply} text={values.text} textChange={handleChange} />
               <div className="editor-footer">
                 <a
                   href="https://guides.github.com/features/mastering-markdown"

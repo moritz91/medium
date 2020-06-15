@@ -137,9 +137,7 @@ export const Posting = ({
             <Flex justifyContent="center">
               <div>
                 <Flex className="posting-header">
-                  <StoryHeading>
-                    {previewTitle ? previewTitle : title}
-                  </StoryHeading>
+                  <StoryHeading>{previewTitle ? previewTitle : title}</StoryHeading>
                   {isAuthor && (
                     <div
                       style={{
@@ -153,12 +151,7 @@ export const Posting = ({
                             variant="action"
                             style={{ display: "flex" }}
                             key={postingId}
-                            onClick={() =>
-                              Router.push(
-                                `/p?id=${postingId}/edit`,
-                                `/p/${postingId}/edit`,
-                              )
-                            }
+                            onClick={() => Router.push(`/p?id=${postingId}/edit`, `/p/${postingId}/edit`)}
                           >
                             <Icon size={16} fill="#5C6AC4" name={"x"} />
                             <Text ml={2}>Edit Posting</Text>
@@ -171,10 +164,8 @@ export const Posting = ({
                 </Flex>
                 <div style={{ fontSize: 14, padding: "8px 0" }}>
                   {dtString} • {username} •
-                  {numComments == 1
-                    ? ` ${numComments}` + " response"
-                    : ` ${numComments}` + " responses"}{" "}
-                  • {readingTime < 1 ? "1" : Math.round(readingTime)} min read
+                  {numComments == 1 ? ` ${numComments}` + " response" : ` ${numComments}` + " responses"} •{" "}
+                  {readingTime < 1 ? "1" : Math.round(readingTime)} min read
                 </div>
                 <Text lineHeight={1.58} mb="2rem" fontSize={16}>
                   {previewSubtitle ? previewSubtitle : body}
@@ -209,9 +200,7 @@ export const Posting = ({
                     }}
                     onClick={() => removeReaction()}
                   >
-                    {numReactions == 1
-                      ? `${numReactions}` + " like"
-                      : `${numReactions}` + " likes"}
+                    {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                   </Button>
                 ) : (
                   <Button
@@ -223,22 +212,13 @@ export const Posting = ({
                     }}
                     onClick={() => addReaction()}
                   >
-                    {numReactions == 1
-                      ? `${numReactions}` + " like"
-                      : `${numReactions}` + " likes"}
+                    {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                   </Button>
                 )}
               </StoryPerformance>
               <StoryPerformance>
-                <BookmarkPosting
-                  postingId={postingId}
-                  isBookmark={isBookmark}
-                />
-                <Button
-                  variant="action"
-                  hoverEffect
-                  style={{ paddingRight: 8 }}
-                >
+                <BookmarkPosting postingId={postingId} isBookmark={isBookmark} />
+                <Button variant="action" hoverEffect style={{ paddingRight: 8 }}>
                   <Icon name="showActions" fill="#000" />
                 </Button>
               </StoryPerformance>
@@ -275,8 +255,7 @@ export const Posting = ({
                     </Link>
                   </StoryFooterUsername>
                   <Caption>
-                    Financial Consultant. Analyst. Writer. Over a decade of
-                    experience in the financial industry.
+                    Financial Consultant. Analyst. Writer. Over a decade of experience in the financial industry.
                   </Caption>
                 </Content>
                 <Actions>
@@ -289,12 +268,7 @@ export const Posting = ({
             </Box>
             {allowResponses ? (
               <div>
-                <CreateResponse
-                  onEditorSubmit={() => {}}
-                  postingId={postingId}
-                  commentId=""
-                  isReply={false}
-                />
+                <CreateResponse onEditorSubmit={() => {}} postingId={postingId} commentId="" isReply={false} />
                 <Box
                   mt={20}
                   style={{
@@ -302,9 +276,7 @@ export const Posting = ({
                     flexDirection: "column",
                   }}
                 >
-                  <GetCommentsByIdComponent
-                    variables={{ input: { postingId } }}
-                  >
+                  <GetCommentsByIdComponent variables={{ input: { postingId } }}>
                     {({ data, loading, fetchMore }) => {
                       if (loading) {
                         <div>Loading...</div>;
@@ -315,16 +287,7 @@ export const Posting = ({
                             <>
                               {data.findCommentsById.comments.map(
                                 (
-                                  {
-                                    id,
-                                    createdAt,
-                                    creator,
-                                    text,
-                                    isAuthor,
-                                    numReactions,
-                                    hasReacted,
-                                    replies,
-                                  },
+                                  { id, createdAt, creator, text, isAuthor, numReactions, hasReacted, replies },
                                   key: any,
                                 ) => (
                                   <React.Fragment key={id}>
@@ -340,9 +303,7 @@ export const Posting = ({
                                       replies={replies}
                                     />
                                     {data.findCommentsById.hasMore &&
-                                      key ===
-                                        data.findCommentsById.comments.length -
-                                          4 && (
+                                      key === data.findCommentsById.comments.length - 4 && (
                                         <Waypoint
                                           onEnter={async () =>
                                             await fetchMore({
@@ -351,35 +312,23 @@ export const Posting = ({
                                                 input: {
                                                   postingId,
                                                   cursor:
-                                                    data.findCommentsById
-                                                      .comments[
-                                                      data.findCommentsById
-                                                        .comments.length - 1
+                                                    data.findCommentsById.comments[
+                                                      data.findCommentsById.comments.length - 1
                                                     ].createdAt,
                                                 },
                                               },
-                                              updateQuery: (
-                                                prev: any,
-                                                { fetchMoreResult }: any,
-                                              ) => {
+                                              updateQuery: (prev: any, { fetchMoreResult }: any) => {
                                                 if (!fetchMoreResult) {
                                                   return prev;
                                                 }
                                                 return {
                                                   findCommentsById: {
-                                                    __typename:
-                                                      "FindCommentResponse",
+                                                    __typename: "FindCommentResponse",
                                                     comments: [
-                                                      ...prev.findCommentsById
-                                                        .comments,
-                                                      ...fetchMoreResult
-                                                        .findCommentsById
-                                                        .comments,
+                                                      ...prev.findCommentsById.comments,
+                                                      ...fetchMoreResult.findCommentsById.comments,
                                                     ],
-                                                    hasMore:
-                                                      fetchMoreResult
-                                                        .findCommentsById
-                                                        .hasMore,
+                                                    hasMore: fetchMoreResult.findCommentsById.hasMore,
                                                   },
                                                 };
                                               },
@@ -399,9 +348,7 @@ export const Posting = ({
                 </Box>
               </div>
             ) : (
-              <Caption>
-                Responding to this post has been disabled by the author.
-              </Caption>
+              <Caption>Responding to this post has been disabled by the author.</Caption>
             )}
           </Box>
         </FlyoutContext.Provider>
@@ -410,11 +357,7 @@ export const Posting = ({
   );
 };
 
-Posting.getInitialProps = async ({
-  query: { id },
-  apolloClient,
-  ...ctx
-}: NextContextWithApollo) => {
+Posting.getInitialProps = async ({ query: { id }, apolloClient, ...ctx }: NextContextWithApollo) => {
   const response: ApolloQueryResult<GetPostingByIdQuery> = await apolloClient.query({
     query: getPostingByIdQuery,
     variables: {

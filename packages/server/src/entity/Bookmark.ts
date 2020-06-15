@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryColumn,
-  JoinColumn,
-  ManyToOne,
-  BaseEntity
-} from "typeorm";
+import { Entity, PrimaryColumn, JoinColumn, ManyToOne, BaseEntity } from "typeorm";
 import { Posting } from "./Posting";
 import { User } from "./User";
 
@@ -18,16 +12,16 @@ export class Bookmark extends BaseEntity {
   @PrimaryColumn()
   postingId: string;
 
-  @ManyToOne(() => Posting, p => p.userBookmarkConnection, {
+  @ManyToOne(() => Posting, (p) => p.userBookmarkConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "postingId" })
   posting: Promise<Posting>;
 
-  @ManyToOne(() => User, u => u.postingBookmarkConnection, {
+  @ManyToOne(() => User, (u) => u.postingBookmarkConnection, {
     primary: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE",
   })
   @JoinColumn({ name: "userId" })
   user: Promise<User>;

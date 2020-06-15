@@ -29,14 +29,7 @@ export const InlineLink = styled.a.attrs({
   }
 `;
 
-export const Link = ({
-  children,
-  className,
-  inline,
-  unstyled,
-  white,
-  ...rest
-}: any) => {
+export const Link = ({ children, className, inline, unstyled, white, ...rest }: any) => {
   let Child: any = StyledLink;
   if (inline) {
     Child = InlineLink;
@@ -49,19 +42,8 @@ export const Link = ({
     dataAttrs = { "data-white": white };
   }
 
-  const childComponent = ({
-    Child,
-    className,
-    dataAttrs,
-    children,
-    ...rest
-  }: any): JSX.Element => (
-    <Child
-      href={rest.href}
-      className={className}
-      aria-label={rest["aria-label"]}
-      {...dataAttrs}
-    >
+  const childComponent = ({ Child, className, dataAttrs, children, ...rest }: any): JSX.Element => (
+    <Child href={rest.href} className={className} aria-label={rest["aria-label"]} {...dataAttrs}>
       {children}
     </Child>
   );

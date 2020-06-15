@@ -31,7 +31,6 @@ interface CommentProps {
   replies: Maybe<ReplyInfoFragment[]>;
 }
 
-
 const Comment: React.FC<CommentProps> = ({
   id,
   creator: { username, pictureUrl },
@@ -103,12 +102,7 @@ const Comment: React.FC<CommentProps> = ({
 
   return (
     <div>
-      <CommentContainer
-        id={id}
-        ref={ref3}
-        targetId={state.targetId}
-        targetState={state.targetState}
-      >
+      <CommentContainer id={id} ref={ref3} targetId={state.targetId} targetState={state.targetState}>
         <TopRow>
           <UserAvatar>
             <UserPopover id={id} username={username}>
@@ -169,9 +163,7 @@ const Comment: React.FC<CommentProps> = ({
                     removeReaction();
                   }}
                 >
-                  {numReactions == 1
-                    ? `${numReactions}` + " like"
-                    : `${numReactions}` + " likes"}
+                  {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                 </Button>
               ) : (
                 <Button
@@ -182,9 +174,7 @@ const Comment: React.FC<CommentProps> = ({
                   }}
                   onClick={() => addReaction()}
                 >
-                  {numReactions == 1
-                    ? `${numReactions}` + " like"
-                    : `${numReactions}` + " likes"}
+                  {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                 </Button>
               )}
               <Button
@@ -202,31 +192,18 @@ const Comment: React.FC<CommentProps> = ({
             </div>
           </Content>
         </TopRow>
-        {replies?.map(
-            (
-              {
-                id,
-                creator,
-                isAuthor,
-                text,
-                numReactions,
-                createdAt,
-                hasReacted,
-              },
-              key,
-            ) => (
-              <Reply
-                id={id}
-                key={key}
-                creator={creator}
-                isAuthor={isAuthor}
-                text={MarkdownRenderer({ text })}
-                numReactions={numReactions}
-                createdAt={createdAt}
-                hasReacted={hasReacted}
-              />
-            ),
-          )}
+        {replies?.map(({ id, creator, isAuthor, text, numReactions, createdAt, hasReacted }, key) => (
+          <Reply
+            id={id}
+            key={key}
+            creator={creator}
+            isAuthor={isAuthor}
+            text={MarkdownRenderer({ text })}
+            numReactions={numReactions}
+            createdAt={createdAt}
+            hasReacted={hasReacted}
+          />
+        ))}
       </CommentContainer>
       {replyInput && (
         <CreateResponse

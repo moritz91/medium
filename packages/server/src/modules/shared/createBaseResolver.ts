@@ -1,19 +1,13 @@
 import { User } from "src/entity/User";
 import { MyContext } from "src/types/Context";
-import {
-  Arg,
-  Authorized,
-  Ctx,
-  FieldResolver,
-  Mutation,
-  Resolver,
-  Root,
-} from "type-graphql";
+import { Arg, Authorized, Ctx, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
 
-export function createBaseResolver<
-  T extends Function,
-  ArgType extends Function
->(suffix: string, argType: ArgType, entity: any, graphqlReturnType: T) {
+export function createBaseResolver<T extends Function, ArgType extends Function>(
+  suffix: string,
+  argType: ArgType,
+  entity: any,
+  graphqlReturnType: T,
+) {
   const argAndReturnKeyName = suffix[0].toLowerCase() + suffix.slice(1);
   @Resolver(entity, { isAbstract: true })
   abstract class BaseResolver {

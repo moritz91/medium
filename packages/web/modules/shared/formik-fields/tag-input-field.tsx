@@ -86,8 +86,7 @@ export const TagInputField = (): JSX.Element => {
   const [errorText, setErrorText] = useState("");
 
   const handleError = (error?: string) => {
-    if (error)
-      setErrorText("You have already added this tag."), input.current.blur();
+    if (error) setErrorText("You have already added this tag."), input.current.blur();
     else setErrorText("");
   };
 
@@ -95,7 +94,7 @@ export const TagInputField = (): JSX.Element => {
     <div
       style={{
         marginTop: 30,
-        fontSize: "12px"
+        fontSize: "12px",
       }}
     >
       <MultiDownshift itemToString={itemToString}>
@@ -109,13 +108,12 @@ export const TagInputField = (): JSX.Element => {
           selectedItems,
           getItemProps,
           highlightedIndex,
-          addSelectedItem
+          addSelectedItem,
         }: any) => (
           <div style={{ width: 500, margin: "auto", position: "relative" }}>
             <p style={{ fontWeight: 400 }}>
               <span style={{ fontWeight: "inherit", color: "rgba(0,0,0,.9)" }}>
-                Add or change tags (up to 5) so readers know what your story is
-                about
+                Add or change tags (up to 5) so readers know what your story is about
               </span>
             </p>
             <div
@@ -123,13 +121,13 @@ export const TagInputField = (): JSX.Element => {
                 position: "relative",
                 paddingTop: 10,
                 paddingBottom: 5,
-                paddingRight: 50
+                paddingRight: 50,
               }}
-              onClick={() => (!isOpen && input.current.focus())}
+              onClick={() => !isOpen && input.current.focus()}
             >
               <div
                 style={{
-                  display: "block"
+                  display: "block",
                 }}
               >
                 {selectedItems.length > 0 &&
@@ -142,7 +140,7 @@ export const TagInputField = (): JSX.Element => {
                           style={{
                             margin: "1px",
                             paddingLeft: "6px",
-                            color: "rgba(0,0,0,.54)"
+                            color: "rgba(0,0,0,.54)",
                           }}
                         >
                           𝘅
@@ -154,22 +152,11 @@ export const TagInputField = (): JSX.Element => {
                   {...getInputProps({
                     ref: input,
                     onKeyDown(e: any) {
-                      if (
-                        e.key === "Backspace" &&
-                        !inputValue &&
-                        selectedItems.length
-                      ) {
+                      if (e.key === "Backspace" && !inputValue && selectedItems.length) {
                         removeItem(selectedItems.length - 1);
                       }
-                      if (
-                        e.key === "Enter" &&
-                        inputValue &&
-                        highlightedIndex == null
-                      ) {
-                        if (
-                          !includes(selectedItems, inputValue) &&
-                          selectedItems.length < 5
-                        ) {
+                      if (e.key === "Enter" && inputValue && highlightedIndex == null) {
+                        if (!includes(selectedItems, inputValue) && selectedItems.length < 5) {
                           addSelectedItem(inputValue);
                         } else {
                           handleError(inputValue),
@@ -179,20 +166,13 @@ export const TagInputField = (): JSX.Element => {
                         }
                       }
                     },
-                    placeholder: "Add a tag..."
+                    placeholder: "Add a tag...",
                   })}
                 />
                 <div>{errorText && errorText}</div>
               </div>
             </div>
-            {Suggestions(
-              getMenuProps,
-              isOpen,
-              inputValue,
-              getItemProps,
-              highlightedIndex,
-              selectedItems
-            )}
+            {Suggestions(getMenuProps, isOpen, inputValue, getItemProps, highlightedIndex, selectedItems)}
           </div>
         )}
       </MultiDownshift>
@@ -206,7 +186,7 @@ export const Suggestions = (
   inputValue: any,
   getItemProps: any,
   highlightedIndex: any,
-  selectedItems: any
+  selectedItems: any,
 ) => {
   return (
     <Popover {...getMenuProps({ isOpen })}>
@@ -217,7 +197,7 @@ export const Suggestions = (
               return null;
             }
             const getTagsByLetters: GetTagsByLettersGetTagsByLetters | null | undefined = data?.getTagsByLetters;
-            const matchingTags = getTagsByLetters?.tags.map(tag => tag.name);
+            const matchingTags = getTagsByLetters?.tags.map((tag) => tag.name);
             return (
               <PopoverInner>
                 <MatchingTags>
@@ -227,7 +207,7 @@ export const Suggestions = (
                         item,
                         idx,
                         active: highlightedIndex === idx,
-                        selected: includes(selectedItems, item)
+                        selected: includes(selectedItems, item),
                       })}
                       key={idx}
                     >

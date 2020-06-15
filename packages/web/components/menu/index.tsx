@@ -90,12 +90,7 @@ const Divider = styled.div`
   margin: 8px 1px;
 `;
 
-export const Menu: React.FC<MenuProps> = ({
-  children,
-  options,
-  renderOption,
-  renderUserData
-}): JSX.Element => {
+export const Menu: React.FC<MenuProps> = ({ children, options, renderOption, renderUserData }): JSX.Element => {
   const [open, changeOpen] = useState(false);
   const ref1 = createRef<HTMLDivElement>();
   const ref2 = createRef<HTMLDivElement>();
@@ -103,11 +98,7 @@ export const Menu: React.FC<MenuProps> = ({
 
   return (
     <div style={{ position: "relative" }}>
-      <div
-        style={{ cursor: "pointer" }}
-        ref={ref1}
-        onClick={() => changeOpen(!open)}
-      >
+      <div style={{ cursor: "pointer" }} ref={ref1} onClick={() => changeOpen(!open)}>
         {children}
       </div>
       {open ? (
@@ -116,39 +107,20 @@ export const Menu: React.FC<MenuProps> = ({
             style={{
               padding: "0",
               listStyle: "none",
-              listStyleImage: "none"
+              listStyleImage: "none",
             }}
           >
             {renderUserData && (
               <UserDataContainer>
                 <UserDataFlex>
-                  <UserDataAvatar
-                    onClick={() => Router.push(`/@${renderUserData.username}`)}
-                  >
-                    <Avatar
-                      src={renderUserData.pictureUrl}
-                      size={45}
-                      borderRadius={"3rem"}
-                      margin="3.5px"
-                    />
+                  <UserDataAvatar onClick={() => Router.push(`/@${renderUserData.username}`)}>
+                    <Avatar src={renderUserData.pictureUrl} size={45} borderRadius={"3rem"} margin="3.5px" />
                     <UserDataAvatarHalo>
-                      <Icon
-                        name="haloTop"
-                        fill="#5C6AC4"
-                        size={50}
-                        style={{ position: "absolute" }}
-                      />
-                      <Icon
-                        name="haloBottom"
-                        fill="#5C6AC4"
-                        size={50}
-                        style={{ position: "absolute" }}
-                      />
+                      <Icon name="haloTop" fill="#5C6AC4" size={50} style={{ position: "absolute" }} />
+                      <Icon name="haloBottom" fill="#5C6AC4" size={50} style={{ position: "absolute" }} />
                     </UserDataAvatarHalo>
                   </UserDataAvatar>
-                  <UserDataMeta
-                    onClick={() => Router.push(`/@${renderUserData.username}`)}
-                  >
+                  <UserDataMeta onClick={() => Router.push(`/@${renderUserData.username}`)}>
                     <div style={{ color: "#5C6AC4" }}>Member</div>
                     <div>{renderUserData.username}</div>
                   </UserDataMeta>
@@ -164,7 +136,7 @@ export const Menu: React.FC<MenuProps> = ({
                 Anchor,
                 option: o[0],
                 optionLink: o[1],
-                key: i
+                key: i,
               });
             })}
           </ul>

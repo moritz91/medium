@@ -39,5 +39,4 @@ const batchTags = async (postingIds: string[]) => {
   return postingIds.map((postingId) => postingIdToTags[postingId]);
 };
 
-export default (options?: DataLoaderOptions) =>
-  new DataLoader(batchTags, options);
+export default (options?: DataLoaderOptions) => new DataLoader(batchTags, options);

@@ -1,8 +1,4 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from "apollo-boost";
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "apollo-boost";
 import { setContext } from "apollo-link-context";
 import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
@@ -42,10 +38,7 @@ function create(initialState: any, { getToken }: { getToken: () => string }) {
   });
 }
 
-export default function initApolloClient(
-  initialState: any,
-  options: { getToken: () => string },
-) {
+export default function initApolloClient(initialState: any, options: { getToken: () => string }) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!isBrowser) {

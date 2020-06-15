@@ -13,11 +13,10 @@ export class TagResolver {
   private readonly tagRepo: TagRepository;
 
   @Query(() => FindTagResponse)
-  async findTags(@Arg("input")
-  {
-    offset,
-    limit,
-  }: FindTagsInput): Promise<FindTagResponse> {
+  async findTags(
+    @Arg("input")
+    { offset, limit }: FindTagsInput,
+  ): Promise<FindTagResponse> {
     if (limit > 20) {
       throw new ApolloError("max limit of 20");
     }

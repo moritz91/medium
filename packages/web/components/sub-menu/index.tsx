@@ -79,18 +79,8 @@ export const SubMenu = (): JSX.Element => {
                 margin="3.5px"
               />
               <UserDataAvatarHalo>
-                <Icon
-                  name="haloTop"
-                  fill="#5C6AC4"
-                  size={37}
-                  style={{ position: "absolute" }}
-                />
-                <Icon
-                  name="haloBottom"
-                  fill="#5C6AC4"
-                  size={37}
-                  style={{ position: "absolute" }}
-                />
+                <Icon name="haloTop" fill="#5C6AC4" size={37} style={{ position: "absolute" }} />
+                <Icon name="haloBottom" fill="#5C6AC4" size={37} style={{ position: "absolute" }} />
               </UserDataAvatarHalo>
               <Button variant="action">
                 <Icon fill="#000" name="downArrow" />
@@ -104,9 +94,7 @@ export const SubMenu = (): JSX.Element => {
 
   return (
     <div>
-      <a
-        href={"http://" + process.env.NEXT_PUBLIC_BACKEND_URI + "/auth/github"}
-      >
+      <a href={"http://" + process.env.NEXT_PUBLIC_BACKEND_URI + "/auth/github"}>
         <Button variant="primary">Login</Button>
       </a>
     </div>

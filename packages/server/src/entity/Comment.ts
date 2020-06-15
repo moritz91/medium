@@ -41,10 +41,7 @@ class Response {
   }
 
   @Field(() => Boolean, { nullable: true })
-  async isAuthor(
-    @Root() root: Response,
-    @Ctx() ctx: MyContext,
-  ): Promise<Boolean> {
+  async isAuthor(@Root() root: Response, @Ctx() ctx: MyContext): Promise<Boolean> {
     return ctx.req.session!.userId === root.creatorId;
   }
 

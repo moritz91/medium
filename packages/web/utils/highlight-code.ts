@@ -55,11 +55,7 @@ const getHast = (code: string, lang: string): HastNode[] | null => {
   return null;
 };
 
-export const getHighlightedCode = (
-  code: string,
-  lang: string,
-  firstLineNum: number,
-): React.ReactNode[] | string => {
+export const getHighlightedCode = (code: string, lang: string, firstLineNum: number): React.ReactNode[] | string => {
   let ast = getHast(code, lang);
   if (ast) {
     if (!isNaN(firstLineNum)) {
@@ -74,9 +70,7 @@ export const getHighlightedCode = (
 export const getHighlightedHTML = (code: string, lang: string): string => {
   const ast = getHast(code, lang);
   if (ast) {
-    return rehype()
-      .stringify({ type: "root", children: ast })
-      .toString();
+    return rehype().stringify({ type: "root", children: ast }).toString();
   }
   return code;
 };

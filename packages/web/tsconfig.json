@@ -22,6 +22,9 @@
     "noImplicitAny": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "paths": {
+      "test-utils": ["./utils/test-utils"]
+    },
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "isolatedModules": true,

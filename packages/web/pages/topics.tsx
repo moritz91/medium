@@ -4,7 +4,6 @@ import { TopicTile } from "components/topic-tile";
 import React from "react";
 import { Link } from "server/routes";
 
-
 interface Props {
   id: string;
   name: string;
@@ -19,7 +18,7 @@ interface State {
 export default class Topics extends React.PureComponent<Props, State> {
   state: State = {
     offset: 0,
-    limit: 6
+    limit: 6,
   };
 
   render() {
@@ -32,13 +31,14 @@ export default class Topics extends React.PureComponent<Props, State> {
               <>
                 {data?.findTopics && (
                   <>
-                    <div style={{
+                    <div
+                      style={{
                         flex: "1 1 auto",
                         display: "flex",
-                        flexWrap: "wrap"
+                        flexWrap: "wrap",
                       }}
                     >
-                      {data.findTopics.topics.map(topic => (
+                      {data.findTopics.topics.map((topic) => (
                         <TopicTile
                           key={topic.id}
                           id={topic.id}
@@ -48,8 +48,8 @@ export default class Topics extends React.PureComponent<Props, State> {
                           getLinkProps={() => ({
                             route: "topic",
                             params: {
-                              name: topic.name
-                            }
+                              name: topic.name,
+                            },
                           })}
                         />
                       ))}

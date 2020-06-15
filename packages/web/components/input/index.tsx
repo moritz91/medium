@@ -39,14 +39,10 @@ export class Input extends React.PureComponent<Props> {
     return (
       <div style={style}>
         <Row>
-          {icon && (
-            <Icon name={icon} fill="#b7c1c6" style={{ marginRight: ".8rem" }} />
-          )}
+          {icon && <Icon name={icon} fill="#b7c1c6" style={{ marginRight: ".8rem" }} />}
           <InputEl style={{ fontSize: big ? "2rem" : "16px" }} {...props} />
         </Row>
-        {errorText && (
-          <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>
-        )}
+        {errorText && <div style={{ color: "red", marginTop: ".5rem" }}>{errorText}</div>}
       </div>
     );
   }

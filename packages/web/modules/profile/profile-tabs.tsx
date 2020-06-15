@@ -41,22 +41,10 @@ export function ProfileTabs() {
         <TabPanel name="responses">
           {comments?.map(
             (
-              {
-                id,
-                createdAt,
-                creator,
-                isAuthor,
-                text,
-                numReactions,
-                hasReacted,
-                replies,
-              }: CommentInfoFragment,
+              { id, createdAt, creator, isAuthor, text, numReactions, hasReacted, replies }: CommentInfoFragment,
               key: number,
             ) => (
-              <Box
-                key={key}
-                style={{ display: "flex", flexDirection: "column" }}
-              >
+              <Box key={key} style={{ display: "flex", flexDirection: "column" }}>
                 <Comment
                   id={id}
                   createdAt={createdAt}
