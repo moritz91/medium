@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button } from "components/button";
 import { Actions, Content, UserAvatar } from "components/comment/styles";
 import { Avatar } from "components/common";

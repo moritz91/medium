@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetPostingsByTopicComponent } from "components/apollo-components";
 import { Button } from "components/button";
 import Heading, { H4, TopicTitle } from "components/heading";
