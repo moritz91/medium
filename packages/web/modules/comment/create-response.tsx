@@ -120,7 +120,7 @@ export const CreateResponse = ({
   if (meData) {
     let isLoggedIn = !!get(meData, "me", false);
 
-    if (meData && meData.me && isLoggedIn) {
+    if (meData.me && isLoggedIn) {
       const { pictureUrl, username } = meData!.me!;
 
       return (

@@ -1,4 +1,3 @@
-import { LineNumberStyle } from "components/code-card";
 import schema from "hast-util-sanitize/lib/github.json";
 import remark from "remark";
 import remarkPing from "remark-ping";
@@ -38,9 +37,6 @@ const MarkdownContainer = styled("div")`
     border-radius: 4px;
     padding: 0px 4px 1px;
     font-weight: 600;
-  }
-  & .token.line-number {
-    ${LineNumberStyle}
   }
 `;
 

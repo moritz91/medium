@@ -66,12 +66,7 @@ export const SubMenu = (): JSX.Element => {
             )}
             renderUserData={data!.me}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+            <div style={{ display: "flex", alignItems: "center" }}>
               <Avatar
                 src={data && data.me ? data.me.pictureUrl : undefined}
                 size={32}

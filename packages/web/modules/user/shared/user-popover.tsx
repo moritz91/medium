@@ -61,14 +61,7 @@ export const UserPopover: React.FC<UserPopoverProps> = ({ children, username, id
                 >
                   {({ ref }) => {
                     return (
-                      <div
-                        ref={ref}
-                        style={{
-                          position: "relative",
-                          top: "-200px",
-                          left: "0",
-                        }}
-                      >
+                      <div ref={ref} style={{ position: "relative", top: "-200px", left: "0" }}>
                         <Flyout data-cy="thread-actions-dropdown">
                           <FlexRow>
                             <PopoverInner>

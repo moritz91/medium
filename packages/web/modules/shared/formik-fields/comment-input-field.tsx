@@ -36,11 +36,7 @@ export const FormInput = styled(InputEl)`
 `;
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const CommentInputField = ({
-  inputRef,
-  field, // { name, value, onChange, onBlur }
-  form: _,
-  ...props
-}: CommentInputFieldProps): JSX.Element => {
+export const CommentInputField = ({ inputRef, field, form: _, ...props }: CommentInputFieldProps): JSX.Element => {
+  // field : { name, value, onChange, onBlur }
   return <FormInput ref={inputRef} {...field} {...props} />;
 };

@@ -78,48 +78,21 @@ export const StreamItem: React.FC<StreamItemProps> = ({
             </Flex>
             <Link {...linkProps}>
               <a>
-                <div
-                  style={{
-                    marginTop: 4,
-                    fontSize: 14,
-                    lineHeight: "20px",
-                    color: "rgba(0, 0, 0, 0.54)",
-                  }}
-                >
+                <div style={{ marginTop: 4, fontSize: 14, lineHeight: "20px", color: "rgba(0, 0, 0, 0.54)" }}>
                   {previewSubtitle ? previewSubtitle : body}
                 </div>
               </a>
             </Link>
           </div>
           <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              <div
-                style={{
-                  display: "block",
-                  flex: "1 1 auto",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                  }}
-                >
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+              <div style={{ display: "block", flex: "1 1 auto" }}>
+                <div style={{ display: "flex" }}>
                   <Link route={"profile"} params={{ username }}>
                     <a>{username}</a>
                   </Link>
                 </div>
-                <span
-                  style={{
-                    display: "block",
-                    color: "rgba(0, 0, 0, 0.54)",
-                  }}
-                >
+                <span style={{ display: "block", color: "rgba(0, 0, 0, 0.54)" }}>
                   {dtString} •{numComments == 1 ? ` ${numComments}` + " response" : ` ${numComments}` + " responses"} •{" "}
                   {readingTime < 1 ? "1" : Math.round(readingTime)} min read
                 </span>

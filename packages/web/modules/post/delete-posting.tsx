@@ -39,16 +39,9 @@ export const DeletePosting = () => {
               style={{ display: "flex" }}
               key={postingId}
               onClick={async () => {
-                const response = await mutate({
-                  variables: {
-                    id: postingId,
-                  },
-                });
-
+                const response = await mutate({ variables: { id: postingId } });
                 if (response) {
-                  dispatch({
-                    type: "closeFlyout",
-                  });
+                  dispatch({ type: "closeFlyout" });
                 }
 
                 Router.replace("/posts");

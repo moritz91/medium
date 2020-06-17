@@ -37,15 +37,7 @@ export const TopicTile: React.FC<TopicTileProps> = ({ name, pictureUrl, getLinkP
         display: "flex",
       }}
     >
-      <div
-        style={{
-          paddingLeft: 20,
-          paddingRight: 20,
-          alignItems: "center",
-          display: "flex",
-          flex: "1 1 auto",
-        }}
-      >
+      <div style={{ paddingLeft: 20, paddingRight: 20, alignItems: "center", display: "flex", flex: "1 1 auto" }}>
         <Link route={"topic"} params={{ name }}>
           <LinkRebass>{name}</LinkRebass>
         </Link>

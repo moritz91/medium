@@ -76,34 +76,14 @@ export const FeaturedStory: React.FC<FeaturedStoryProps> = ({
           </Link>
         </div>
         <div style={{ display: "block", marginTop: 12, fontSize: 13 }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                display: "block",
-                flex: "1 1 auto",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                }}
-              >
+          <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+            <div style={{ display: "block", flex: "1 1 auto" }}>
+              <div style={{ display: "flex" }}>
                 <Link route={"profile"} params={{ username }}>
                   <a>{username}</a>
                 </Link>
               </div>
-              <span
-                style={{
-                  display: "block",
-                  color: "rgba(0, 0, 0, 0.54)",
-                }}
-              >
+              <span style={{ display: "block", color: "rgba(0, 0, 0, 0.54)" }}>
                 {dtString} •{numComments == 1 ? ` ${numComments}` + " response" : ` ${numComments}` + " responses"}
               </span>
             </div>

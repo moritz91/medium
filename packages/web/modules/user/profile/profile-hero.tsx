@@ -102,14 +102,6 @@ const UserInfoSection = styled.section`
   }
 `;
 
-// const AvatarImage = styled(Avatar)`
-//   height: 100%;
-//   left: 0;
-//   position: absolute;
-//   top: 0;
-//   width: 100%;
-// `;
-
 const UserInfo = styled.div`
   @media (min-width: 736px) {
     margin-bottom: 20px;

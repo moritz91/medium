@@ -102,9 +102,7 @@ export const PostingModal = () => {
                     size={24}
                     name="x"
                     fill="#0d0d0d"
-                    style={{
-                      cursor: "pointer",
-                    }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => changeOpen(false)}
                   />
                 </Button>
@@ -119,22 +117,8 @@ export const PostingModal = () => {
                       fontSize: "14px",
                     }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        height: 200,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <span
-                        style={{
-                          marginLeft: 80,
-                          marginRight: 80,
-                          lineHeight: "20px",
-                          textAlign: "center",
-                        }}
-                      >
+                    <div style={{ display: "flex", height: 200, justifyContent: "center", alignItems: "center" }}>
+                      <span style={{ marginLeft: 80, marginRight: 80, lineHeight: "20px", textAlign: "center" }}>
                         Include a high-quality image in your story to make it more inviting to readers.
                       </span>
                     </div>
@@ -178,14 +162,7 @@ export const PostingModal = () => {
                       );
                     }}
                   </Formik>
-                  <Caption
-                    style={{
-                      marginTop: 10,
-                      marginBottom: 20,
-                      fontWeight: 400,
-                      color: "rgba(0, 0, 0, 0.68)",
-                    }}
-                  >
+                  <Caption style={{ marginTop: 10, marginBottom: 20, fontWeight: 400, color: "rgba(0, 0, 0, 0.68)" }}>
                     <strong style={{ fontWeight: 700 }}>Note:</strong> Changes here will affect how your story appears
                     in public places like Medium’s homepage — not the story itself.
                   </Caption>
@@ -201,11 +178,7 @@ export const PostingModal = () => {
                   </Checkbox>
                   <Button
                     variant="primary"
-                    style={{
-                      marginLeft: "auto",
-                      marginTop: "2rem",
-                      marginRight: 0,
-                    }}
+                    style={{ marginLeft: "auto", marginTop: "2rem", marginRight: 0 }}
                     disabled={isSubmitting}
                     onClick={async () => {
                       const response = await mutate({
@@ -221,9 +194,7 @@ export const PostingModal = () => {
                         },
                       });
                       if (response && response.data) {
-                        Router.pushRoute("post", {
-                          id: response.data.createPosting.posting.id,
-                        });
+                        Router.pushRoute("post", { id: response.data.createPosting.posting.id });
                       }
                     }}
                   >

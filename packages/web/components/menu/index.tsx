@@ -103,13 +103,7 @@ export const Menu: React.FC<MenuProps> = ({ children, options, renderOption, ren
       </div>
       {open ? (
         <MenuContainer ref={ref2}>
-          <ul
-            style={{
-              padding: "0",
-              listStyle: "none",
-              listStyleImage: "none",
-            }}
-          >
+          <ul style={{ padding: "0", listStyle: "none", listStyleImage: "none" }}>
             {renderUserData && (
               <UserDataContainer>
                 <UserDataFlex>

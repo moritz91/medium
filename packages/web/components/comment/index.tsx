@@ -154,11 +154,7 @@ const Comment: React.FC<CommentProps> = ({
               {reacted ? (
                 <Button
                   variant="tag"
-                  style={{
-                    cursor: "pointer",
-                    color: "#5C6AC4",
-                    width: "100px",
-                  }}
+                  style={{ cursor: "pointer", color: "#5C6AC4", width: "100px" }}
                   onClick={async () => {
                     removeReaction();
                   }}
@@ -166,26 +162,14 @@ const Comment: React.FC<CommentProps> = ({
                   {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                 </Button>
               ) : (
-                <Button
-                  variant="tag"
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                  }}
-                  onClick={() => addReaction()}
-                >
+                <Button variant="tag" style={{ cursor: "pointer", width: "100px" }} onClick={() => addReaction()}>
                   {numReactions == 1 ? `${numReactions}` + " like" : `${numReactions}` + " likes"}
                 </Button>
               )}
               <Button
                 variant="tag"
                 onClick={() => setReplyInput(!replyInput)}
-                style={{
-                  cursor: "pointer",
-                  color: "#5C6AC4",
-                  width: "100px",
-                  marginLeft: "auto",
-                }}
+                style={{ cursor: "pointer", color: "#5C6AC4", width: "100px", marginLeft: "auto" }}
               >
                 + Reply
               </Button>

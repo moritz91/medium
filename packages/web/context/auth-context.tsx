@@ -17,23 +17,17 @@ const AuthProvider = (props: any) => {
   });
 
   React.useEffect(() => {
-    if (!loading) {
-      setFirstAttemptFinished(true);
-    }
+    if (!loading) setFirstAttemptFinished(true);
   }, [loading]);
 
-  if (!firstAttemptFinished) {
-    if (loading) {
-      return null;
-    }
-    if (error) {
-      return (
-        <div style={{ color: "red" }}>
-          <p>Uh oh... There's a problem. Try refreshing the app.</p>
-          <pre>{error.message}</pre>
-        </div>
-      );
-    }
+  if (!firstAttemptFinished && loading) return null;
+  if (!firstAttemptFinished && error) {
+    return (
+      <div style={{ color: "red" }}>
+        <p>Uh oh... There's a problem. Try refreshing the app.</p>
+        <pre>{error.message}</pre>
+      </div>
+    );
   }
 
   const logout = async (ctx: any) => {
