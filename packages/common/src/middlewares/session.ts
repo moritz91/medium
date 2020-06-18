@@ -1,15 +1,18 @@
 import * as connectRedis from "connect-redis";
 import * as session from "express-session";
-import * as Redis from "ioredis";
+import * as Redis from "redis";
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
-const RedisStore = connectRedis(session as any);
+const RedisStore = connectRedis(session);
 
-const redis = process.env.NODE_ENV === "production" ? new Redis(process.env.REDIS_URL) : new Redis();
+const redis =
+  process.env.NODE_ENV === "production"
+    ? new Redis.RedisClient({ url: process.env.REDIS_URL })
+    : new Redis.RedisClient({ host: "localhost", port: 6379 });
 
 export default session({
   store: new RedisStore({
-    client: redis as any,
+    client: redis,
   }),
   name: "qid",
   secret: SESSION_SECRET,
@@ -20,4 +23,4 @@ export default session({
     secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
   },
-} as any);
+});

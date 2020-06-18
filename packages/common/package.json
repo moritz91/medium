@@ -7,6 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/ioredis": "4.16.6",
+    "@types/redis": "^2.8.22",
     "@types/yup": "0.26.6",
     "typescript": "3.8.2"
   },
@@ -14,6 +15,7 @@
     "@types/connect-redis": "0.0.11",
     "connect-redis": "4.0.2",
     "ioredis": "4.17.3",
+    "redis": "^3.0.2",
     "yup": "^0.26.6"
   },
   "scripts": {
