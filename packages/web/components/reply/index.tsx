@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from "components/button";
 import { Actions, Content, UserAvatar } from "components/comment/styles";
 import { Avatar } from "components/common";
@@ -6,11 +5,10 @@ import { formatDistanceToNow } from "date-fns";
 import { CopyLink } from "modules/comment/copy-link";
 import { DeleteReply } from "modules/comment/delete-reply";
 import { ActionsDropdown } from "modules/post/shared/actions-dropdown";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Box, Flex, Text } from "rebass";
 import { Link } from "server/routes";
 import styled from "styled-components";
-
 export const ReplyTopRow = styled.div`
   display: grid;
   grid-template-areas: "avatar content";

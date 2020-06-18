@@ -1,14 +1,12 @@
-import React from 'react';
 import { GetPostingsByTopicComponent } from "components/apollo-components";
 import { Button } from "components/button";
 import Heading, { H4, TopicTitle } from "components/heading";
 import { TopicContext, TopicContextProps } from "context/topic-context";
 import { truncate } from "lodash";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Box, Text } from "rebass";
 import { Link } from "server/routes";
 import styled from "styled-components";
-
 export const Sections = styled.section`
   justify-content: space-between;
   display: flex;
