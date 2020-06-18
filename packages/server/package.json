@@ -37,7 +37,7 @@
     "typeorm-typedi-extensions": "0.2.3"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --respawn --transpileOnly -- src/index.ts",
+    "start": "cross-env NODE_ENV=development tsnd -r dotenv-safe/config -r tsconfig-paths/register --respawn --transpileOnly -- src/index.ts",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "build": "rm -rf tsconfig.tsbuildinfo && rm -rf ./dist && tsc",
     "generate": "gql-gen"

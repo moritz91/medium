@@ -12,9 +12,9 @@ import { seedData } from "./helpers/seed-data";
 import { backendURI, frontendURI } from "./helpers/uris";
 import loaders from "./loaders";
 import { createTypeormConn } from "./typeorm";
-require("dotenv-safe").config({
-  allowEmptyValues: true,
-});
+// require("dotenv-safe").config({
+//   allowEmptyValues: true,
+// });
 
 interface ExpressRequestResponse {
   req: express.Request;
@@ -78,11 +78,7 @@ const startServer = async () => {
         callbackURL: backendURI + "/oauth/github",
       },
       async (accessToken, refreshToken, profile: any, cb) => {
-        let user = await User.findOne({
-          where: {
-            githubId: profile.id,
-          },
-        });
+        let user = await User.findOne({ where: { githubId: profile.id } });
         if (!user) {
           user = await User.create({
             username: profile.username,
@@ -103,32 +99,18 @@ const startServer = async () => {
 
   app.use(passport.initialize());
 
-  app.get(
-    "/auth/github",
-    passport.authenticate("github", {
-      session: false,
-    }),
-  );
+  app.get("/auth/github", passport.authenticate("github", { session: false }));
 
-  app.get(
-    "/oauth/github",
-    passport.authenticate("github", {
-      session: false,
-    }),
-    (req: any, res) => {
-      if (req.user.user.id) {
-        req.session.userId = req.user.user.id;
-        req.session.accessToken = req.user.accessToken;
-        req.session.refreshToken = req.user.refreshToken;
-      }
-      res.redirect(frontendURI + "/posts");
-    },
-  );
-
-  server.applyMiddleware({
-    app,
-    cors: false,
+  app.get("/oauth/github", passport.authenticate("github", { session: false }), (req: any, res) => {
+    if (req.user.user.id) {
+      req.session.userId = req.user.user.id;
+      req.session.accessToken = req.user.accessToken;
+      req.session.refreshToken = req.user.refreshToken;
+    }
+    res.redirect(frontendURI + "/posts");
   });
+
+  server.applyMiddleware({ app, cors: false });
 
   app.listen({ port: 4000 }, () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));
 };
